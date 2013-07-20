@@ -5,7 +5,7 @@ public class SQL3 {
 	private String query="";
 	
 	public SQL3(int salesOrProduction, int countryId, int productId, int curYear, String incExCountries,
-			String incExProducts, String incExCompanies) {
+			String incExProducts, String incExCompanies, String dateParm) {
 		
 	      query = " select a.year, a.quantity, b.name as company, d.name as product, c.country from Facts a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +
@@ -15,6 +15,7 @@ public class SQL3 {
 	    		  incExCountries +
 	    		  incExProducts+
 	    		  incExCompanies+
+	    		  dateParm+
 	    		   " and b.name != 'ALL COMPANIES' " +
 	    		  " and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
 	    		  " and d.id = a.productId " +

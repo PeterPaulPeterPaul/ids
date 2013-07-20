@@ -5,7 +5,7 @@ public class SQL4 {
 	private String query="";
 	
 	public SQL4(int salesOrProduction, int countryId, int companyId, int curYear,int swap, String incExCountries,
-			 String incExProducts, String incExCompanies) {
+			 String incExProducts, String incExCompanies, String dateParm) {
 		
 		String product = "d.shortname";
 		String orderby = " order by a.year, "+product+"  asc";
@@ -22,6 +22,7 @@ public class SQL4 {
 	    		  incExCountries +
 	    		  incExProducts+
 	    		  incExCompanies+
+	    		  dateParm+
 	    		   " and b.name != 'ALL COMPANIES' " +
 	    		  " and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
 	    		  " and d.id = a.productId " +

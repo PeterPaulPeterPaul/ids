@@ -16,6 +16,7 @@ public class StoreRequestParameters {
 	private String incExCountries="";
 	private String incExProducts="";
 	private String incExCompanies="";
+	private String dateParm="";
 	private int summary=0;
 	private int swap=0;
 	
@@ -78,6 +79,9 @@ public class StoreRequestParameters {
 				incExCompanies= " AND b.id NOT IN ("+incExCompanies.replace("|", ",")+") ";
 			}
 		}
+		
+		dateParm = request.getParameter("dateParm");
+		
 
 		if (justClicked.equals("myrad2")) {
 			justClicked="heading1";
@@ -146,6 +150,13 @@ public class StoreRequestParameters {
 			incExCompanies="";
 		}
 		return incExCompanies;
+	}
+	
+	public String getDateParm(){
+		if (dateParm==null){
+			dateParm="";
+		}
+		return dateParm;
 	}
 	
 	public int getSalesOrProduct(){

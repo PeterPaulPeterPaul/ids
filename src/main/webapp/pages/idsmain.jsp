@@ -175,7 +175,7 @@ International Database Service
              <div style="width:800px;float:left">
           <br><span style="margin-left:200px;float:left;font-family:Arial, Helvetica, sans-serif;font-size:small;"> Include only dates within selected range</span><br>   
        <div style="margin-left:250px;width:150px;float:left;font-family:Arial, Helvetica, sans-serif;font-size:small;">   
-From <select  >
+From <select  id="fromdate" name="fromdate" >
 <option value="-1">All</option>
 <option value="1980">1980</option>
 <option value="1981">1981</option>
@@ -207,20 +207,21 @@ From <select  >
 <option value="2008">2008</option>
 <option value="2009">2009</option>
 <option value="2010">2010</option>
-<option value="2003">2011</option>
-<option value="2004">2012</option>
-<option value="2005">2013</option>
-<option value="2006">2014</option>
-<option value="2007">2015</option>
-<option value="2008">2016</option>
-<option value="2009">2017</option>
-<option value="2010">2018</option>
+<option value="2011">2011</option>
+<option value="2012">2012</option>
+<option value="2013">2013</option>
+<option value="2014">2014</option>
+<option value="2015">2015</option>
+<option value="2016">2016</option>
+<option value="2017">2017</option>
+<option value="2018">2018</option>
+
 
 </select>
 </div>
 
        <div style="font-family:Arial, Helvetica, sans-serif;font-size:small;" >      
-To <select >
+To <select id="todate" name="todate" >
 <option value="-1">All</option>
 <option value="1980">1980</option>
 <option value="1981">1981</option>
@@ -252,14 +253,14 @@ To <select >
 <option value="2008">2008</option>
 <option value="2009">2009</option>
 <option value="2010">2010</option>
-<option value="2003">2011</option>
-<option value="2004">2012</option>
-<option value="2005">2013</option>
-<option value="2006">2014</option>
-<option value="2007">2015</option>
-<option value="2008">2016</option>
-<option value="2009">2017</option>
-<option value="2010">2018</option>
+<option value="2011">2011</option>
+<option value="2012">2012</option>
+<option value="2013">2013</option>
+<option value="2014">2014</option>
+<option value="2015">2015</option>
+<option value="2016">2016</option>
+<option value="2017">2017</option>
+<option value="2018">2018</option>
 
 </select>
 </div>
@@ -903,15 +904,17 @@ $("#titleBar").fadeOut();
 			                   }
 
 			         var dateParm=       validateDates() ;
-			         if (dateParm=="local test for dates") {
+			         if (dateParm=="todate must be greater or equal to fromdate") {
 			        	 alert(dateParm);
+			        	 return;
 			         }
 			               
 					  $.ajax({
 						  url: '/ids/main?list=2&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
 				  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
 								  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue
-								  +countriesParm+countriesList+productsParm+productsList+companiesParm+companiesList,
+								  +countriesParm+countriesList+productsParm+productsList+
+								  companiesParm+companiesList+dateParm,
 				         type: 'GET',
 				       contentType: 'application/html',
 				       processData: false,
@@ -1228,16 +1231,39 @@ $("#titleBar").fadeOut();
 				});
 
 
+		     	 function validateDates() {
+		     		 var testing ="";
+		     		 if ($("#fromdate").val()=="-1" && $("#todate").val()=="-1"){
+		     			 return "";
+		     		 }
+		     		 if ($("#fromdate").val()=="-1" ||$("#todate").val()=="-1" ){
+		     			 if ($("#fromdate").val()=="-1"){
+		     				testing ="&dateParm= and a.year <="+$("#todate").val() + " "; 
+		     			 } else {
+		     				testing ="&dateParm= and a.year >="+$("#fromdate").val() + " ";  
+		     			 }
+		     		 }else{
+		     			 if (parseInt($("#fromdate").val())> parseInt($("#todate").val())){
+		     				 testing="todate must be greater or equal to fromdate";
+		     			 }
+		     			 if ($("#fromdate").val()== $("#todate").val()){
+		     				 testing ="&dateParm= and a.year ="+$("#todate").val() + " ";
+		     			 }
+		     			 if (parseInt($("#fromdate").val())< parseInt($("#todate").val())){
+		     				testing = "&dateParm= and a.year between  "+$("#fromdate").val() + " and "+ $("#todate").val() + " ";
+		     			}
+		     		 }
+
+			   
+		    		 return testing;
+		    	}
+		     	 
+		     	 
 			
   });
   
 
-     	 function validateDates() {
-     		
-    		 var testing="local test for dates";			   
-    		 return testing;
-    	}
-     	 
+
 		
 	</script>
 	

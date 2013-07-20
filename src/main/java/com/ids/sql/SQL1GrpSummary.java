@@ -10,7 +10,7 @@ public class SQL1GrpSummary implements DropdownInterface {
 	private int topHeadingLine;
 	
 	public SQL1GrpSummary(int salesOrProduction, int heading1, int heading2,  int dropdown2, int curYear, int summary,
-			String incExCountries, String incExProducts, String incExCompanies) {
+			String incExCountries, String incExProducts, String incExCompanies, String dateParm) {
 		
 		String andClause = "";
 		String selectClause ="";
@@ -115,6 +115,7 @@ public class SQL1GrpSummary implements DropdownInterface {
 	    		  incExCountries +
 	    		  incExProducts+
 	    		  incExCompanies+
+	    		  dateParm+
 	    		  " and b.name != 'ALL COMPANIES' " +
 	    		  " and a.countryId = c.id" +
 	    		  " group by "+groupAndOrderByClause+

@@ -11,7 +11,7 @@ public class SQL1Summary implements DropdownInterface {
 
 	
 	public SQL1Summary(int salesOrProduction, int heading1, int heading2,  int dropdown2, int curYear, int summary,
-			String incExCountries, String incExProducts, String incExCompanies) {
+			String incExCountries, String incExProducts, String incExCompanies, String dateParm) {
 		
 		String andClause = "";
 		String selectClause ="";
@@ -119,6 +119,7 @@ public class SQL1Summary implements DropdownInterface {
 	    		  incExCountries +
 	    		  incExProducts+
 	    		  incExCompanies+
+	    		  dateParm+
 	    		  " and a.countryId = c.id" +
 	    		  " group by "+groupAndOrderByClause+
 	    		  " order by "+groupAndOrderByClause+" asc";

@@ -225,7 +225,8 @@ public class MainController implements DropdownInterface {
 		    		  System.out.println("Dropdown2 here is: "+srp.getDropdown2() );
 		    		  SQL1Summary sql1 =  new SQL1Summary(srp.getSalesOrProduct(),
 				    			srp.getHeading1(), srp.getHeading2(), srp.getDropdown2(), myYear, srp.getSummary(),
-				    			srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies());
+				    			srp.getIncExCountries(), srp.getIncExProducts(),
+				    			srp.getIncExCompanies(),srp.getDateParm());
 		    		  
 		    		  
 	    			  cna = new ColumnSummaryNameArray(statement,sql1.getONE(), sql1.topHeadingLine(),
@@ -286,7 +287,8 @@ public class MainController implements DropdownInterface {
 		    			  }
 		    		       SQL1GrpSummary sql1 =  new SQL1GrpSummary(srp.getSalesOrProduct(),
 				    			   srp.getHeading1(), srp.getHeading2(), dropdown, myYear,srp.getSummary(),
-				    			   srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies());
+				    			   srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
+				    			   ,srp.getDateParm());
 	
 		    		  
 	    			  cna = new ColumnSummaryNameArray(statement,sql1.getONE(), sql1.topHeadingLine(),
@@ -330,7 +332,8 @@ public class MainController implements DropdownInterface {
 		    		  SQL1 sql1 =  new SQL1(srp.getSalesOrProduct(),
 		    			(srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), 
 		    		    (srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), myYear,
-		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies());
+		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
+		    		    ,srp.getDateParm());
 
 
 			    		    logger.debug(sql1.getQuery());
@@ -380,7 +383,8 @@ public class MainController implements DropdownInterface {
 		    		  SQL4 sql4 =  new SQL4(srp.getSalesOrProduct(),
 		    			(srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
 		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), myYear,srp.getSwap(),
-		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies());
+		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
+		    		    ,srp.getDateParm());
 
 
 			    		    logger.debug(sql4.getQuery());
@@ -432,7 +436,8 @@ public class MainController implements DropdownInterface {
 		    		  SQL5 sql5 =  new SQL5(srp.getSalesOrProduct(),
 		    			(srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), 
 		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), myYear,srp.getSwap(),
-		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies());
+		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
+		    		    ,srp.getDateParm());
 
 
 			    		    logger.debug(sql5.getQuery());
@@ -479,7 +484,8 @@ public class MainController implements DropdownInterface {
 		    		  SQL6 sql6 =  new SQL6(srp.getSalesOrProduct(),
 		    			(srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), 
 		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), myYear, srp.getSwap(),
-		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies());
+		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
+		    		    ,srp.getDateParm());
 
 
 			    		    logger.debug(sql6.getQuery());
@@ -517,7 +523,8 @@ public class MainController implements DropdownInterface {
 		    		  SQL2 sql2 =  new SQL2(srp.getSalesOrProduct(),
 		    				  (srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
 				    		    (srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), myYear,
-				    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies());
+				    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
+				    		    ,srp.getDateParm());
 
 
 			    		    logger.debug(sql2.getQuery());
@@ -554,7 +561,8 @@ public class MainController implements DropdownInterface {
 		    		  SQL3 sql3 =  new SQL3(srp.getSalesOrProduct(),
 		    				  (srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
 		    				  (srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), myYear,
-		    				  srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies());		    		 
+		    				  srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
+		    				  ,srp.getDateParm());		    		 
 
 		    		    logger.debug(sql3.getQuery());
 		    		    resultSet = statement.executeQuery(sql3.getQuery());
