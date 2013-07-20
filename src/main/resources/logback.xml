@@ -1,0 +1,12 @@
+<configuration> 
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender"> 
+        <!-- "application-name" is a variable --> 
+        <File>C:\tomcatSMALL\apache-tomcat-6.0.35\logs\quota.log</File> 
+        <layout class="ch.qos.logback.classic.PatternLayout"> 
+            <Pattern>%d{dd MMM yyyy HH:mm:ss} %p %c line:%L - %m%n</Pattern>
+        </layout>
+     </appender> 
+     <root level="debug"> 
+         <appender-ref ref="FILE"/> 
+     </root>
+</configuration> 

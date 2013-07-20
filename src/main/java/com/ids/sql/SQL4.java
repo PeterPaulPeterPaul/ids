@@ -1,0 +1,36 @@
+package com.ids.sql;
+
+public class SQL4 {
+
+	private String query="";
+	
+	public SQL4(int salesOrProduction, int countryId, int companyId, int curYear,int swap, String incExCountries,
+			 String incExProducts, String incExCompanies) {
+		
+		String product = "d.shortname";
+		String orderby = " order by a.year, "+product+"  asc";
+		if (swap==1) {
+			product="d.name ";
+			orderby = " order by "+product+", a.year  asc";
+		}
+	      query = " select a.year, a.quantity, b.name as company, "+product+" as product, c.country " +
+	      		" from Facts a, Company b, Country c, Product d " +
+	    		  " where a.companyid=b.id " +
+	    		  " and a.sales_production=" +salesOrProduction +
+	    		  " and a.countryId = " + countryId+
+	    		  " and a.companyId = " +companyId+
+	    		  incExCountries +
+	    		  incExProducts+
+	    		  incExCompanies+
+	    		   " and b.name != 'ALL COMPANIES' " +
+	    		  " and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
+	    		  " and d.id = a.productId " +
+	    		  " and a.countryId = c.id" +
+	    		  orderby;
+		
+	}
+	
+	public String getQuery() {
+		return query;
+	}
+}
