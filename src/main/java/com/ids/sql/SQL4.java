@@ -4,8 +4,8 @@ public class SQL4 {
 
 	private String query="";
 	
-	public SQL4(int salesOrProduction, int countryId, int companyId, int curYear,int swap, String incExCountries,
-			 String incExProducts, String incExCompanies, String dateParm) {
+	public SQL4(int salesOrProduction, int countryId, int companyId, int fromYear, int toYear,int swap, String incExCountries,
+			 String incExProducts, String incExCompanies, String dateParm, String access) {
 		
 		String product = "d.shortname";
 		String orderby = " order by a.year, "+product+"  asc";
@@ -19,12 +19,13 @@ public class SQL4 {
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  " and a.countryId = " + countryId+
 	    		  " and a.companyId = " +companyId+
+	    		   " and a.access = '" + access + "' " +
 	    		  incExCountries +
 	    		  incExProducts+
 	    		  incExCompanies+
 	    		  dateParm+
 	    		   " and b.name != 'ALL COMPANIES' " +
-	    		  " and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
+	    		  " and a.year between "+fromYear+" and "+toYear+" " +
 	    		  " and d.id = a.productId " +
 	    		  " and a.countryId = c.id" +
 	    		  orderby;

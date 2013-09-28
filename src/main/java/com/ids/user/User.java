@@ -9,13 +9,15 @@ public class User  implements UserInterface, java.io.Serializable {
 	private String userName;
 	private String userStatus;
 	private String password;
+	private String access;
 
 	
 	
 	
-	public User(String userName,    String password ) {
+	public User(String userName,    String password, String access ) {
 		this.userName = userName;
 		this.password = password;
+		this.access = access;
 	}
 	
 	public String getUserName() {
@@ -33,6 +35,10 @@ public class User  implements UserInterface, java.io.Serializable {
 		return userStatus;
 	}
 
+	public String getAccess() {
+		return access;
+	}
+	
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
@@ -43,6 +49,10 @@ public class User  implements UserInterface, java.io.Serializable {
 
 	public void setUserStatus(String userStatus) {
 		this.userStatus = userStatus;
+	}
+	
+	public void setAccess(String access) {
+		this.access = access;
 	}
 	
 	

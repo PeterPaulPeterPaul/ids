@@ -84,6 +84,9 @@ margin-top:3px;
 margin-left:3px;
 margin-right:20px;
 }
+.noOverlayDialog{
+opacity:0.2;
+}
 .rightLogo{
 float:right;
 margin-top:3px;
@@ -137,7 +140,7 @@ International Database Service
 </div>
 
                 <div id="dropa44" style="width:90px; float:left" >
-<input type="button" style="font-size:small;"  name="submit1" id="submit1"  value="Submit"/>
+<input type="button" style="font-size:small;"  name="submit1" id="submit1"  value="Hide"/>
     </div>
           
 <div id="dropa1"  style="width:230px; float:left; z-index:1500" >
@@ -176,92 +179,11 @@ International Database Service
           <br><span style="margin-left:200px;float:left;font-family:Arial, Helvetica, sans-serif;font-size:small;"> Include only dates within selected range</span><br>   
        <div style="margin-left:250px;width:150px;float:left;font-family:Arial, Helvetica, sans-serif;font-size:small;">   
 From <select  id="fromdate" name="fromdate" >
-<option value="-1">All</option>
-<option value="1980">1980</option>
-<option value="1981">1981</option>
-<option value="1982">1982</option>
-<option value="1983">1983</option>
-<option value="1984">1984</option>
-<option value="1985">1985</option>
-<option value="1986">1986</option>
-<option value="1987">1987</option>
-<option value="1988">1988</option>
-<option value="1989">1989</option>
-<option value="1990">1990</option>
-<option value="1991">1991</option>
-<option value="1992">1992</option>
-<option value="1993">1993</option>
-<option value="1994">1994</option>
-<option value="1995">1995</option>
-<option value="1996">1996</option>
-<option value="1997">1997</option>
-<option value="1998">1998</option>
-<option value="1999">1999</option>
-<option value="2001">2001</option>
-<option value="2002">2002</option>
-<option value="2003">2003</option>
-<option value="2004">2004</option>
-<option value="2005">2005</option>
-<option value="2006">2006</option>
-<option value="2007">2007</option>
-<option value="2008">2008</option>
-<option value="2009">2009</option>
-<option value="2010">2010</option>
-<option value="2011">2011</option>
-<option value="2012">2012</option>
-<option value="2013">2013</option>
-<option value="2014">2014</option>
-<option value="2015">2015</option>
-<option value="2016">2016</option>
-<option value="2017">2017</option>
-<option value="2018">2018</option>
-
-
 </select>
 </div>
 
        <div style="font-family:Arial, Helvetica, sans-serif;font-size:small;" >      
 To <select id="todate" name="todate" >
-<option value="-1">All</option>
-<option value="1980">1980</option>
-<option value="1981">1981</option>
-<option value="1982">1982</option>
-<option value="1983">1983</option>
-<option value="1984">1984</option>
-<option value="1985">1985</option>
-<option value="1986">1986</option>
-<option value="1987">1987</option>
-<option value="1988">1988</option>
-<option value="1989">1989</option>
-<option value="1990">1990</option>
-<option value="1991">1991</option>
-<option value="1992">1992</option>
-<option value="1993">1993</option>
-<option value="1994">1994</option>
-<option value="1995">1995</option>
-<option value="1996">1996</option>
-<option value="1997">1997</option>
-<option value="1998">1998</option>
-<option value="1999">1999</option>
-<option value="2001">2001</option>
-<option value="2002">2002</option>
-<option value="2003">2003</option>
-<option value="2004">2004</option>
-<option value="2005">2005</option>
-<option value="2006">2006</option>
-<option value="2007">2007</option>
-<option value="2008">2008</option>
-<option value="2009">2009</option>
-<option value="2010">2010</option>
-<option value="2011">2011</option>
-<option value="2012">2012</option>
-<option value="2013">2013</option>
-<option value="2014">2014</option>
-<option value="2015">2015</option>
-<option value="2016">2016</option>
-<option value="2017">2017</option>
-<option value="2018">2018</option>
-
 </select>
 </div>
 
@@ -281,7 +203,7 @@ To <select id="todate" name="todate" >
 
 <div style="margin-left:15px;text-align:center"><br><br>
   <input type="image" name="filter" class="filter" id="filter"   src="images/filter.png" />
-  
+   <input type="button" style="font-size:x-small;display:none"  id="clearfilter"  value="Clear Filter"/>
   <input type="button" style="font-size:x-small;display:none" class="swap" name="swap1" id="swap1"  value="Swap cols/rows"/>
 </div>
 <div style="float:left;width:90%;margin-right:5%;margin-top:5%;">
@@ -319,7 +241,24 @@ To <select id="todate" name="todate" >
 
 <div id="titleBar" style="float:left;width:82%;height:40%;padding-top:1%;">
 <div style="float:left;">
-<input type="image" onClick="window.print()" name="printer"  src="images/printer.jpg" />
+
+
+<form  id="testUp1" action="/cron/down" method="post" name="factsForm"   > 
+ <input id="dataJson"  type="hidden" name="jsonStuff" value="" />
+  <input id="totalsJson"  type="hidden" name="jsonTotals" value="" />
+          <input id="one" class="k-button" type="submit" name="submitBtn" value="Download Excel" />
+
+</form>
+
+<form  id="printer" action="/print" method="post" name="factsForm"   > 
+ <input id="printDataJson"  type="hidden" name="jsonStuff" value="" />
+  <input id="printTotalJson"  type="hidden" name="jsonTotals" value="" />
+          <input id="two" class="k-button" type="submit" name="submitBtn" value="Print Preview" />
+
+</form>
+
+
+
 <input type="image" name="close" id="closeit"  src="images/exit.bmp" />
 
 
@@ -529,7 +468,11 @@ To <select id="todate" name="todate" >
         	        modal: true,
         	        width: 800,
         	        height: 106,
-        	        position: 'top'
+        	        position: 'top',
+        	        dialogClass: "noOverDialog",
+        	        open: function(event,ui){
+        	        	$(".noOverDialog").next("div").css({opacity:0.2});
+        	        }
         	   };
 
         	    $("#dialogFilter").dialog(dialogOpts);
@@ -538,11 +481,53 @@ To <select id="todate" name="todate" >
         	});
           
           $(document).ready(function(){
+
+        	  var lastSel;
+        	  
+        	  var j = new Date().getFullYear();
+        	  j=j+20;
+        	  var stringList="<option value='-1'>All</option>";
+        	   for(var i = 1980; i <= j; i++) {
+        		   stringList = stringList + "<option value='"+i+"'>"+i+"</option>";
+
+        	     }
+    		   $("#fromdate").append(stringList);
+    		   $("#todate").append(stringList);
+        	  
+    		   
+    		   
+    		   
+        	  var downloadExcel="no";
+        	  
+        	  $("#toExcel").on("click",function(){ 
+        		  downloadExcel="yes";
+        		  getGrid();
+        	  });
+
+        	  $("#drop11as").dropdownchecklist({ firstItemChecksAll: true, emptyText: "Filter Countries...",  width:200, zIndex:100,maxDropHeight:400
+         		 , onItemClick: function(checkbox, selector){ 
+         			downloadExcel="no";
+        			 getGrid();
+        		 }
+        	  });
+        	  
+        	  $("#drop12as").dropdownchecklist({ firstItemChecksAll: true, emptyText: "Filter Products ...",  width:200, zIndex:100,maxDropHeight:400 
+         		 , onItemClick: function(checkbox, selector){ 
+         			downloadExcel="no";
+        			 getGrid();
+        		 }
+        	  });
+        	  $("#drop14as").dropdownchecklist({ firstItemChecksAll: true, emptyText: "Filter Companies ...",  width:200, zIndex:100,maxDropHeight:400
+        		 , onItemClick: function(checkbox, selector){ 
+        			 downloadExcel="no";
+        			 getGrid();
+        		 }
+        	  
+        	  });
+        	
         	  
         	  
-        	  $("#drop11as").dropdownchecklist({ firstItemChecksAll: true, emptyText: "Filter Countries...",  width:200, zIndex:100,maxDropHeight:400});
-        	  $("#drop12as").dropdownchecklist({ firstItemChecksAll: true, emptyText: "Filter Products ...",  width:200, zIndex:100,maxDropHeight:400 });
-        	  $("#drop14as").dropdownchecklist({ firstItemChecksAll: true, emptyText: "Filter Companies ...",  width:200, zIndex:100,maxDropHeight:400 });
+        	 
         	  
         	  $("#dialogFilter").dialog("close");
         	  
@@ -550,18 +535,18 @@ To <select id="todate" name="todate" >
         	  
         	  $("#closeit").on("click",function(){
         		  $.ajax({
-					  url: '/ids/main?exit=yes',
+					  url: '/main?exit=yes',
 			         type: 'GET',
 			       contentType: 'application/html',
 			       processData: false,
 			       dataType: 'html',
 			       success: function(data) {  
-			    	   window.location = '/ids/login';
+			    	   window.location = '/login';
 			       },
 				    error: function (xhr, ajaxOptions, thrownError) {
 				        alert(xhr.status);
 				        alert(thrownError);
-				        window.location = '/ids/login';
+				        window.location = '/login';
 				      }
 
 				  });
@@ -592,6 +577,7 @@ To <select id="todate" name="todate" >
 		    $(".swap").val("Clear swap");
 			$(".swap").addClass("noswap");
 		}
+		downloadExcel="no";
 		 getGrid();
 	});
 	
@@ -622,7 +608,7 @@ To <select id="todate" name="todate" >
 		  $("#grpsum").removeClass("sum");
 		  $("#grpsum").addClass("nosum");
 		  
-
+		  downloadExcel="no";
 		  getGrid();
 	  });
 	  
@@ -653,12 +639,50 @@ To <select id="todate" name="todate" >
 		  $("#summary").removeClass("sum");
 		  $("#summary").removeClass("nosum");
 		  $("#summary").addClass("nosum");
+		  downloadExcel="no";
 		  getGrid();
 	  });
 	  
 
+	  $("#clearfilter").on("click",function(){
+          $("#fromdate").val("-1");
+          $("#todate").val("-1");
+			$('input[id^="ddcl-drop12as-i"]').each(function( index ) {
+				if($(this).prop("checked")){
+				   $(this).prop("checked",false); 
+			     }
+			});
+            $('input[id^="ddcl-drop14as-i"]').each(function( index ) {
+					if($(this).prop("checked")){
+						$(this).prop("checked",false);  
+				     }
+				});
+             $('input[id^="ddcl-drop11as-i"]').each(function( index ) {
+					if($(this).prop("checked")){
+						$(this).prop("checked",false); 
+						$(this).children("span").text();
+				     }
+				});
+				
+             $(".ui-dropdownchecklist-text:first").prop("title","Filter Countries...");
+             $(".ui-dropdownchecklist-text:first").children("span").remove();
+             $(".ui-dropdownchecklist-text:first").text("Filter Countries...");
+             $("#ddcl-drop12as").children("span").children(".ui-dropdownchecklist-text").prop("title","Filter Products ...");
+             $("#ddcl-drop12as").children("span").children(".ui-dropdownchecklist-text").children("span").remove();
+             $("#ddcl-drop12as").children("span").children(".ui-dropdownchecklist-text").text("Filter Products ...");
+             
+             $("#ddcl-drop14as").children("span").children(".ui-dropdownchecklist-text").prop("title","Filter Companies...");
+             $("#ddcl-drop14as").children("span").children(".ui-dropdownchecklist-text").children("span").remove();
+             $("#ddcl-drop14as").children("span").children(".ui-dropdownchecklist-text").text("Filter Companies...");
+             downloadExcel="no";
+             getGrid();
+             
+          alert("filters cleared");
+          $("#clearfilter").fadeOut();
+	  });
+	  
 	  $("#submit1").on("click",function(){
-		  getGrid();
+		  $("#dialogFilter").dialog("close");
 	  });
 	  
 	  $("#grpsum2").on("click",function(){
@@ -685,24 +709,41 @@ To <select id="todate" name="todate" >
 			      $(this).val("Group Sum");
 				  $(this).removeClass("sum");
 			  }
-
+		  downloadExcel="no";
 		  getGrid();
 	  });
 
+	  $(".dropdown33").on("change",function(){
+		  downloadExcel="no";
+		  getGrid();
+	  });
+	  
+	  $("#fromdate").on("change",function(){
+		  downloadExcel="no";
+		  getGrid();
+	  });
+	  
+	  $("#todate").on("change",function(){
+		  downloadExcel="no";
+		  getGrid();
+	  });
 	  
 	  $(".dropdown1").on("change",function(){
 		  clickType= $(this).attr('id');
+		  downloadExcel="no";
 		  getGrid();
 	  });
 	  
 	  $(".dropdown2").on("change",function(){
 		  clickType=$(this).attr('id');
+		  downloadExcel="no";
 		  getGrid();
 	  });
 	  
 	  
 	  $(".dropdown3").on("change",function(){
 		  clickType="myrad";
+		  downloadExcel="no";
 		  getGrid(); 
 	  });
 	  
@@ -723,7 +764,7 @@ To <select id="todate" name="todate" >
 	    	     $(".swap").hide();  
 	    	  }
 	      }
-		  
+		  downloadExcel="no";
 		  getGrid(); 
 	  });
 	  
@@ -743,12 +784,15 @@ To <select id="todate" name="todate" >
 	    	  $(".swap").hide();  
 	    	  $(".nosum").show();
 	      }
+		  downloadExcel="no";
 		  getGrid(); 
 	  });
 	  
 	  function getGrid()
 	  {
 
+
+          
 		  
 var myId2= $(".viewable2").attr("id");
 var mydropdown2 = $("#"+myId2+"s").val();
@@ -809,6 +853,21 @@ var my_SorP = $('#drop31s').val();
 			 
 $("#wholescreen").fadeOut();
 $("#titleBar").fadeOut();
+
+
+var dateParm=       validateDates() ;
+if (dateParm=="todate must be greater or equal to fromdate") {
+	 alert(dateParm);
+	 $("#titleBar").fadeIn();
+	 $("#wholescreen").fadeIn();
+	 
+	 $("#clearfilter").fadeIn();
+	  
+
+	  
+	 return;
+}
+   
 
 			 $('#gbox_list47').fadeOut().promise().done(function() {  
 	
@@ -902,30 +961,45 @@ $("#titleBar").fadeOut();
 			   					companiesParm="&includedCompanies=";
 			   				}
 			                   }
-
-			         var dateParm=       validateDates() ;
-			         if (dateParm=="todate must be greater or equal to fromdate") {
-			        	 alert(dateParm);
-			        	 return;
-			         }
+   
+			               var fromDate = "";
+			               if ($("#fromdate").val() != "-1") {
+			            	   fromDate = "&fromDate="+$("#fromdate").val();
+			               }
+			               var toDate = "";
+			               if ($("#todate").val() != "-1") {
+			            	   toDate = "&toDate="+$("#todate").val();
+			               }
+			               
+			       		if ($("#fromdate").val() != "-1" ||
+			       				$("#todate").val() != "-1"	||
+			       				companiesList!="" ||
+			       				productsList!="" ||
+			       				countriesList!=""){
+			       	              $("#clearfilter").fadeIn();
+			       		}
+			       		
+			       		
 			               
 					  $.ajax({
-						  url: '/ids/main?list=2&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
+						  url: '/main?list=2&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
 				  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
 								  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue
 								  +countriesParm+countriesList+productsParm+productsList+
-								  companiesParm+companiesList+dateParm,
+								  companiesParm+companiesList+fromDate+toDate+"&excelDownload="+downloadExcel+dateParm,
 				         type: 'GET',
 				       contentType: 'application/html',
 				       processData: false,
 				       dataType: 'html',
 				       success: function(data) {  
-				    	   
+
 				    	  
-				    	   
-				    	   
 				    	   $("#tempStore").html(data);
 				    	   var data2 = JSON.parse($("#tempStore #myJson").html());
+				    	   
+				    	   $("#printDataJson").val($("#tempStore #myJson").html());
+				    	   $("#dataJson").val($("#tempStore #myJson").html());
+				    	   
 				    	   $("#tempOldHeadings").text($("#tempStore #myOldHeadings").html() );
 				    	   
    						
@@ -1023,7 +1097,6 @@ $("#titleBar").fadeOut();
 
 		var colModels2 = JSON.stringify(colModels);
 		  colModels2 = colModels2.replace(/\"formatter\":\"number\"/g,"\"formatter\":\"number\",\"formatoptions\":{\"decimalPlaces\":0,\"defaultValue\":\"0\"}");
-
 		 var  colModels3 = JSON.parse(colModels2);
 		  //formatter: 'number', formatoptions: { decimalPlaces: 2 }
 		  
@@ -1042,15 +1115,25 @@ $("#titleBar").fadeOut();
 				    			           	caption: mylocalTitle,
 				    			         	footerrow: true, 
 				    			         	 ignoreCase:true,
-				    			         	userDataOnFooter: true
+				    			         	userDataOnFooter: true,
+				    			        	   onSelectRow: function(id){
+					    			        	     if(id && id!==lastSel){ 
+					    			        	        jQuery('#list47').restoreRow(lastSel); 
+					    			        	        lastSel=id; 
+					    			        	     }
+					    			        	     jQuery('#list47').editRow(id, true); 
+					    			        	   },
 				    			        });
 				    			        
 
+
+				    			        
+				    			        
 				    			        
 				    			        
 			    						  $("#wholescreen").fadeIn();
 			    						  
-				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false});
+				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:true,add:false,del:false});
 
 				    	
 				    			 	   $('#gbox_list47').fadeIn();
@@ -1058,6 +1141,11 @@ $("#titleBar").fadeOut();
 
 
 				    					 var totals = JSON.parse($("#tempStore #myJsonTotals").html());
+				    					 $("#totalsJson").val($("#tempStore #myJsonTotals").html());
+				    					 $("#printDataJson").val($("#tempStore #myJsonTotals").html());
+								    	   
+								    	   
+				    					 
 				    						$("#list47").jqGrid('footerData', 'set', 
 				    								totals.myTotals[0]); 
 				    						
@@ -1112,6 +1200,15 @@ $("#titleBar").fadeOut();
 
   
   var data = ${firstTimeFromServer};
+  
+  $("#dataJson").val(JSON.stringify(data));
+  $("#printDataJson").val(JSON.stringify(data));
+  
+  $("#totalsJson").val(JSON.stringify(totals));
+  
+	 $("#printTotalJson").val(JSON.stringify(totals));
+  
+  
 	   var myTabData = data.tabData;
 		var cols= myTabData[1].columns;
 	    var colModels=myTabData[0].columnModels;
@@ -1125,7 +1222,6 @@ $("#titleBar").fadeOut();
 	
 	var colModels2 = JSON.stringify(colModels);
 	  colModels2 = colModels2.replace(/\"formatter\":\"number\"/g,"\"formatter\":\"number\",\"formatoptions\":{\"decimalPlaces\":0,\"defaultValue\":\"0\"}");
-
 	 var  colModels3 = JSON.parse(colModels2);
 	// $("#wholescreen").fadeIn();
 
@@ -1143,10 +1239,17 @@ $("#titleBar").fadeOut();
          	hidegrid:false,
          	footerrow: true, 
          	 ignoreCase:true,
-         	userDataOnFooter: true
+         	userDataOnFooter: true,
+     	   onSelectRow: function(id){
+      	     if(id && id!==lastSel){ 
+      	        jQuery('#list47').restoreRow(lastSel); 
+      	        lastSel=id; 
+      	     }
+      	     jQuery('#list47').editRow(id, true); 
+      	   },
       });
       
-      jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false});
+      jQuery("#list47").jqGrid('navGrid','#plist47',{edit:true,add:false,del:false});
       
       $("#filter").on("click",function(){
     	  

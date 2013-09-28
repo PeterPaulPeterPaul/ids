@@ -10,8 +10,8 @@ public class SQL1Summary implements DropdownInterface {
 	private int topHeadingLine;
 
 	
-	public SQL1Summary(int salesOrProduction, int heading1, int heading2,  int dropdown2, int curYear, int summary,
-			String incExCountries, String incExProducts, String incExCompanies, String dateParm) {
+	public SQL1Summary(int salesOrProduction, int heading1, int heading2,  int dropdown2, int fromYear, int toYear, int summary,
+			String incExCountries, String incExProducts, String incExCompanies, String dateParm, String access) {
 		
 		String andClause = "";
 		String selectClause ="";
@@ -113,8 +113,9 @@ public class SQL1Summary implements DropdownInterface {
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  andClause +
-	    		  " and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
+	    		  " and a.year between "+fromYear+" and "+toYear+" " +
 	    		  " and d.id = a.productId " +
+	    		  " and a.access = '" + access + "' " +
 	    		  " and b.name != 'ALL COMPANIES' " +
 	    		  incExCountries +
 	    		  incExProducts+

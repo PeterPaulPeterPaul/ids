@@ -8,5 +8,8 @@
 
     <system-properties>
         <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
+         <property name="user.name" value="voicestreams"/>
     </system-properties>
+    
+    
 </appengine-web-app>

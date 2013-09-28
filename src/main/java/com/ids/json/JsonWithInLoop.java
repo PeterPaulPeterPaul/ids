@@ -8,7 +8,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.ids.controllers.MainController;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class JsonWithInLoop {
+   	private final static Logger logger = Logger.getLogger(JsonWithInLoop.class.getName()); 
+   	
     private  HashMap<String,Integer> totalLine2 = null;
   //  private HashMap<String,Integer> otherLine2 = null;
     private String titleTHREE="";
@@ -31,7 +38,8 @@ public class JsonWithInLoop {
 		array7 = array7In;
 		obj2a = obj2aIn;
 		colHeading = colHeadingIn;
-		
+
+
 		titleTHREE = THREE;
 		titleFOUR = FOUR;
 		

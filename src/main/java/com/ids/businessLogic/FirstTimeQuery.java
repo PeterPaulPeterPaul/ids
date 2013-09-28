@@ -34,7 +34,7 @@ public class FirstTimeQuery {
     private HashMap<String,Integer> otherLine2 = null;
     static final Logger logger = LoggerFactory.getLogger(FirstTimeQuery.class);
     
-	public FirstTimeQuery(ModelMap model,Connection con,HttpServletRequest request, int curYear){
+	public FirstTimeQuery(ModelMap model,Connection con,HttpServletRequest request, int curYear, String access){
 
 		try {
 			
@@ -78,6 +78,7 @@ public class FirstTimeQuery {
 	    		  " and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
 	    		  " and a.sales_production= 1" + 
 	    		  " and a.productid=1 " + 
+	    		  " and a.access = '" + access + "' " +
 	    		  " and b.name!='ALL COMPANIES' " +
 	    		  " order by b.name , a.year asc";
 
@@ -166,7 +167,7 @@ public class FirstTimeQuery {
  		
 
 			    	  
-				      query = "select id, country from Country where id != 0 order by country asc " ;
+				      query = "select id, country from Country where id != 0 and access = '"+access+"' order by country asc " ;
 				      
 				         List<Country> countries = new ArrayList<Country>();
 
@@ -183,7 +184,7 @@ public class FirstTimeQuery {
 					      model.addAttribute("dropdown1a",countries);
 					      model.addAttribute("dropdown2a",countries);
 
-					      query = "select id, name from Product where id != 0 order by name asc " ;
+					      query = "select id, name from Product where id != 0 and access = '"+access+"' order by name asc " ;
 					      
 					         List<Product> products = new ArrayList<Product>();
 

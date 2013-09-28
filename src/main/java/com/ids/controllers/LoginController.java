@@ -154,9 +154,9 @@ public class LoginController {
 	   //     Connection c = null;
 	       // try {
 	        
-			 GetBeansFromContext gcfc = new GetBeansFromContext();
-	         gcfc = new GetBeansFromContext();
-		 con = gcfc.myConnection();
+
+	        DriverManager.registerDriver(new AppEngineDriver());
+	       con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","123smiggles321","Wednesday");
 		 
 	  //        DriverManager.registerDriver(new AppEngineDriver());
 	   //       con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","123smiggles321","Wednesday");
@@ -175,22 +175,32 @@ public class LoginController {
 		      ResultSet resultSet = null;
 		      
 		     
-		String      query = " select 'found' as found from ids_users where userId = '"+request.getParameter("userId")
+		String      query = " select 'found' as found, access from ids_users where userId = '"+request.getParameter("userId")
 				  +"' and passwordId = '"+request.getParameter("password")+"'";
 
+		 String access="";
 		 resultSet = statement.executeQuery(query);
 
            boolean found = false;
 		   while (resultSet.next()) {
 			   if (resultSet.getString("found").equals("found")) {
 				   found = true;
+				   access= resultSet.getString("access");
 			   }
 		   }
 
   
-	        if (found) {
+	        if (found ) {
+	        	try{
+	            Statement statement2 = con.createStatement();
+	        	String view = " drop view Facts ";
+	        	statement2.executeUpdate(view);
+	        	}catch(Exception e) {}
+	        	String view = " create view Facts as select * from Facts_"+access;
+	        	Statement statement2 = con.createStatement();
+	        	statement2.executeUpdate(view);
 	        	
-	        	user = new User(request.getParameter("userId"), request.getParameter("password"));
+	        	user = new User(request.getParameter("userId"), request.getParameter("password"), access);
 	        	
 		   		 HttpSession session = request.getSession(true);
 			       session.removeAttribute("myUser");
@@ -200,8 +210,13 @@ public class LoginController {
 	        	model.remove("displaytype2");
 			    model.remove("passwordlab");
 			    model.remove("buildversion");
-	        	return "redirect:/main";
-	        }
+			    
+			 if (!request.getParameter("userId").equals("changestuff")){
+	        	   return "redirect:/main";
+			 }else {
+				   return "redirect:/setup2";
+			 }
+	        } 
 
 	        if (!found) {
 	        	logger.debug("user not found");

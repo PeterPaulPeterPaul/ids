@@ -17,7 +17,7 @@ public class ColumnNameArray implements DropdownInterface {
 	
 	JSONObject columnNameObject = new JSONObject();
 	
-	public ColumnNameArray(Statement statement, String topRow, int dimension1, int curYear) throws SQLException  {
+	public ColumnNameArray(Statement statement, String topRow, int dimension1, int fromYear, int toYear, String access) throws SQLException  {
 		
 	      try {
 
@@ -41,14 +41,14 @@ public class ColumnNameArray implements DropdownInterface {
 	    	  
 
 	          if (topRow.equals("years")) {
-	        	  for (int i=(curYear-5); i<=(curYear+5); i++) {
+	        	  for (int i=fromYear; i<=toYear; i++) {
 	        		  columnNameArray.put(Integer.toString(i));
 	        	  }
 	          }
 	          
 	          if (topRow.equals("product shortname")) {
 	        	  
-	        	  query = "select distinct shortname from Product order by shortname asc";
+	        	  query = "select distinct shortname from Product where access = '"+access+"' order by shortname asc";
 	        	  resultSet = statement.executeQuery(query);
 	        	  
 	        	  while (resultSet.next()) {
@@ -58,7 +58,7 @@ public class ColumnNameArray implements DropdownInterface {
 	          }
 	          if (topRow.equals("country shortname")) {
 	        	  
-	        	  query = "select distinct shortname from Country where shortname != 'ALLY' order by shortname asc";
+	        	  query = "select distinct shortname from Country where shortname != 'ALLY' and access = '"+access+"'  order by shortname asc";
 	        	  resultSet = statement.executeQuery(query);
 	        	  
 	        	  while (resultSet.next()) {
@@ -68,7 +68,7 @@ public class ColumnNameArray implements DropdownInterface {
 	          }
 	          if (topRow.equals("country")) {
 	        	  
-	        	  query = "select distinct country as name from Country where shortname != 'ALLY' order by shortname asc";
+	        	  query = "select distinct country as name from Country where shortname != 'ALLY'  and access = '"+access+"' order by shortname asc";
 	        	  resultSet = statement.executeQuery(query);
 	        	  
 	        	  while (resultSet.next()) {

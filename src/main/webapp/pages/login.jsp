@@ -49,7 +49,7 @@ background-color:#FFFF80;
 		<br>
 		<br>
 		<br>
-		<form id="territoryform" action="/ids/login" method="post">
+		<form id="territoryform" action="login" method="post">
 		<table>
 			<tr>
 				<td width="100px">UserId</td>

@@ -21,7 +21,6 @@
 
 
 
-
 <bean id="contextApplicationContextProvider" class="com.ids.context.ApplicationContextProvider">
 </bean>
 

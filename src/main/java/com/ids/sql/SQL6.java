@@ -4,8 +4,8 @@ public class SQL6 {
 
 	private String query="";
 	
-	public SQL6(int salesOrProduction, int years, int companyId, int curYear,int swap,String incExCountries,
-			String incExProducts, String incExCompanies, String dateParm) {
+	public SQL6(int salesOrProduction, int years, int companyId, int fromYear, int toYear, int swap,String incExCountries,
+			String incExProducts, String incExCompanies, String dateParm, String access) {
 		
 		String country = "c.shortname";
 		String product = "d.name";
@@ -24,11 +24,12 @@ public class SQL6 {
 	    		  " and a.year = " + years+
 	    		  " and a.companyId = " +companyId+
 	    		   " and b.name != 'ALL COMPANIES' " +
+	    		   " and a.access = '" + access + "' " +
 	    		   incExCountries +
 	    		   incExProducts +
 	    		   incExCompanies+
 	    		   dateParm+
-	    		  " and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
+	    		  " and a.year between "+fromYear+" and "+toYear+" " +
 	    		  " and d.id = a.productId " +
 	    		  " and a.countryId = c.id" +
 	    		  orderby;

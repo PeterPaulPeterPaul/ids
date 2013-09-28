@@ -20,7 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.slf4j.LoggerFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.appengine.api.rdbms.AppEngineDriver;
+import com.ids.businessLogic.DownloadExcel;
 import com.ids.businessLogic.DropdownInterface;
 import com.ids.businessLogic.FirstTimeQuery;
 import com.ids.businessLogic.StoreRequestParameters;
@@ -80,7 +82,8 @@ import com.ids.user.User;
 public class MainController implements DropdownInterface {
 
 	private Connection con;
-       static final Logger logger = LoggerFactory.getLogger(MainController.class);
+
+   	private final static Logger logger = Logger.getLogger(MainController.class.getName()); 
        
     //   HashMap<Integer,Integer> totalLine = null;
        HashMap<String,Integer> totalLine2 = null;
@@ -91,26 +94,19 @@ public class MainController implements DropdownInterface {
 	public String getMethodOne(
             HttpServletResponse response,
 			HttpServletRequest request,
-			ModelMap model) throws SQLException, JSONException {	   
+			ModelMap model) throws SQLException, JSONException, IOException {	   
 
 		 
-		 logger.debug("Entering application via GEt");
+		 logger.warning("Entering application via GEt");
+		 logger.warning("excelDownload: "+request.getParameter("excelDownload"));
 		 
-		 
-		 /*
-		  * comment out these two lines:
- *          DriverManager.registerDriver(new AppEngineDriver());
-         con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","user","password");
-       
-       replace with:
-                gcfc = new GetBeansFromContext();
-		 con = gcfc.myConnection();
-		 
-       
-		  */
-		 GetBeansFromContext gcfc = new GetBeansFromContext();
-         gcfc = new GetBeansFromContext();
-	 con = gcfc.myConnection();
+		
+
+		   DriverManager.registerDriver(new AppEngineDriver());
+		  con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","123smiggles321","Wednesday");
+	//	 GetBeansFromContext gcfc = new GetBeansFromContext();
+     //    gcfc = new GetBeansFromContext();
+	// con = gcfc.myConnection();
 		 
       //   DriverManager.registerDriver(new AppEngineDriver());
       //   con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","user","password");
@@ -142,9 +138,8 @@ public class MainController implements DropdownInterface {
 				   if (resultSet.getString("found").equals("found")) {
 					   found = true;
 					   break;
-				   }else {
-					   break;
 				   }
+				   break;
 			   }
 			   if (!found) {
 		   		      model.addAttribute("errortext","Invalid user credentials");
@@ -158,7 +153,7 @@ public class MainController implements DropdownInterface {
 	            
 			 if (request.getParameter("list") == null || request.getParameter("list").equals("1")){
 		    	  
-				 FirstTimeQuery ftq = new FirstTimeQuery(model, con, request, myYear );
+				 FirstTimeQuery ftq = new FirstTimeQuery(model, con, request, myYear, user.getAccess() );
 				 model = ftq.getModel();
 				 
 	    		  con.close(); 
@@ -170,7 +165,7 @@ public class MainController implements DropdownInterface {
 
 
 
-		    	  StoreRequestParameters srp = new   StoreRequestParameters(request);
+		    	  StoreRequestParameters srp = new   StoreRequestParameters(request,myYear);
 		    	  
 		    	
 		    	  if (srp.getJustClicked().equals("heading1")) {
@@ -222,11 +217,11 @@ public class MainController implements DropdownInterface {
 		    		    }
 		    		  }
 		    		  
-		    		  System.out.println("Dropdown2 here is: "+srp.getDropdown2() );
+
 		    		  SQL1Summary sql1 =  new SQL1Summary(srp.getSalesOrProduct(),
-				    			srp.getHeading1(), srp.getHeading2(), srp.getDropdown2(), myYear, srp.getSummary(),
+				    			srp.getHeading1(), srp.getHeading2(), srp.getDropdown2(), srp.getFromDate(), srp.getToDate(), srp.getSummary(),
 				    			srp.getIncExCountries(), srp.getIncExProducts(),
-				    			srp.getIncExCompanies(),srp.getDateParm());
+				    			srp.getIncExCompanies(),srp.getDateParm(), user.getAccess());
 		    		  
 		    		  
 	    			  cna = new ColumnSummaryNameArray(statement,sql1.getONE(), sql1.topHeadingLine(),
@@ -235,7 +230,7 @@ public class MainController implements DropdownInterface {
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
 
-		    		    logger.debug(sql1.getQuery());
+		    		    logger.warning(sql1.getQuery());
 
 		    	  List <JSONObject> l = getObj5Summary(resultSet, statement, sql1.getQuery(),sql1.getONE() ,sql1.getTWO(),
 		    			  colHeading,columnModel, cna.getColumnNameObject(), srp.getSalesOrProduct(), false);
@@ -244,10 +239,12 @@ public class MainController implements DropdownInterface {
 		    	  model.addAttribute("jsonData",obj5);
 		    	  model.addAttribute("jsonTotal",obj8);
                      
-		    	  logger.debug(obj5.toString());
+		    	  logger.warning(obj5.toString());
 		    	  model.addAttribute("jsonData",obj5);
 	    		  
 		    	  con.close();
+		    	  
+		    	//  DownloadExcel dx = new DownloadExcel( obj5,request,response) ;
 		    	  return "jsonData";
 		    		  
 		    	  }
@@ -286,9 +283,9 @@ public class MainController implements DropdownInterface {
 		    				  dropdown = srp.getDropdown1(); 
 		    			  }
 		    		       SQL1GrpSummary sql1 =  new SQL1GrpSummary(srp.getSalesOrProduct(),
-				    			   srp.getHeading1(), srp.getHeading2(), dropdown, myYear,srp.getSummary(),
+				    			   srp.getHeading1(), srp.getHeading2(), dropdown, srp.getFromDate(), srp.getToDate(),srp.getSummary(),
 				    			   srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-				    			   ,srp.getDateParm());
+				    			   ,srp.getDateParm(),user.getAccess());
 	
 		    		  
 	    			  cna = new ColumnSummaryNameArray(statement,sql1.getONE(), sql1.topHeadingLine(),
@@ -297,7 +294,7 @@ public class MainController implements DropdownInterface {
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
 
-		    		    logger.debug(sql1.getQuery());
+		    		    logger.warning(sql1.getQuery());
 
 		    		    boolean All = false;
 		    		    if (srp.getHeading2()==COMPANY ){
@@ -310,12 +307,12 @@ public class MainController implements DropdownInterface {
 		    	  model.addAttribute("jsonData",obj5);
 		    	  model.addAttribute("jsonTotal",obj8);
                      
-		    	  logger.debug(obj5.toString());
+		    	  logger.warning(obj5.toString());
 		    	  model.addAttribute("jsonData",obj5);
 	    		  
 		    	  con.close();  
-
-		    	  return "jsonData";
+		    	  // DownloadExcel dx = new DownloadExcel( obj5,request,response) ;
+		    	 return "jsonData";
 		    		  
 		    	  }
 		    	  
@@ -326,17 +323,17 @@ public class MainController implements DropdownInterface {
 		    		  String colHeading= "company";
 		    		  
 		    		  ColumnNameArray cna = new ColumnNameArray(statement,"country shortname", COMPANY,
-		    				  myYear);
+		    				  srp.getFromDate(), srp.getToDate(), user.getAccess());
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
 		    		  SQL1 sql1 =  new SQL1(srp.getSalesOrProduct(),
 		    			(srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), 
-		    		    (srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), myYear,
+		    		    (srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-		    		    ,srp.getDateParm());
+		    		    ,srp.getDateParm(),user.getAccess());
 
 
-			    		    logger.debug(sql1.getQuery());
+			    		    logger.warning(sql1.getQuery());
 
 			    	  List<JSONObject> l = getObj5(resultSet, statement, sql1.getQuery(),"company" ,"country","product","year",
 			    			  colHeading,columnModel, cna.getColumnNameObject(), srp.getSalesOrProduct(), true);
@@ -344,11 +341,11 @@ public class MainController implements DropdownInterface {
                       JSONObject obj8 = l.get(1);
 			    	  model.addAttribute("jsonData",obj5);
 			    	  model.addAttribute("jsonTotal",obj8);
-			    	  
+			    	  logger.warning("STUFF");
+			    	  logger.warning(obj5.toString());
 			    	  con.close(); 
-
-			    	  return "jsonData";	  
-		    		  
+			    	  // DownloadExcel dx = new DownloadExcel( obj5,request,response) ;
+				    	 return "jsonData";
 		    	  }
 		    		  catch(Exception e) {
 			    			 System.out.println("EXCEPTION");
@@ -372,22 +369,22 @@ public class MainController implements DropdownInterface {
 		    			  colHeading="product";
 		    			  colHead2="year";
 		    			  cna = new ColumnNameArray(statement,"years", PRODUCT,
-			 		    			 myYear); 
+		    					  srp.getFromDate(), srp.getToDate(), user.getAccess()); 
 		    		  } else {
 		    			  cna = new ColumnNameArray(statement,"product shortname", YEARS,
-		 		    			 myYear); 
+		    					  srp.getFromDate(), srp.getToDate(), user.getAccess()); 
 		    		  }
 
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
 		    		  SQL4 sql4 =  new SQL4(srp.getSalesOrProduct(),
 		    			(srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
-		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), myYear,srp.getSwap(),
+		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),srp.getSwap(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-		    		    ,srp.getDateParm());
+		    		    ,srp.getDateParm(),user.getAccess());
 
 
-			    		    logger.debug(sql4.getQuery());
+			    		    logger.warning(sql4.getQuery());
 
 			    	  List <JSONObject> l = getObj5(resultSet, statement, sql4.getQuery(),colHeading ,colHead2,"company","country",
 			    			  colHeading,columnModel, cna.getColumnNameObject(), srp.getSalesOrProduct(), false);
@@ -396,12 +393,13 @@ public class MainController implements DropdownInterface {
 			    	  model.addAttribute("jsonData",obj5);
 			    	  model.addAttribute("jsonTotal",obj8);
 	                       
-			    	  logger.debug(obj5.toString());
+			    	  logger.warning("STUFF2");
+			    	  logger.warning(obj5.toString());
 			    	  model.addAttribute("jsonData",obj5);
 		    		  
 			    	  con.close();  
-
-			    	  return "jsonData";	  
+			    	  // DownloadExcel dx = new DownloadExcel( obj5,request,response) ;
+				    	 return "jsonData"; 
 		    		  
 		    	  }
 		    		  catch(Exception e) {
@@ -424,10 +422,10 @@ public class MainController implements DropdownInterface {
 		    			  colHeading="country";
 		    			  colHead2="year";
 		    			  cna = new ColumnNameArray(statement,"years", COUNTRY,
-			 		    			 myYear); 
+		    					  srp.getFromDate(), srp.getToDate(), user.getAccess()); 
 		    		  } else {
 		    			  cna = new ColumnNameArray(statement,"country shortname", YEARS,
-		 		    			 myYear); 
+		    					  srp.getFromDate(), srp.getToDate(), user.getAccess()); 
 		    		  }
 		    		  
 
@@ -435,12 +433,12 @@ public class MainController implements DropdownInterface {
 
 		    		  SQL5 sql5 =  new SQL5(srp.getSalesOrProduct(),
 		    			(srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), 
-		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), myYear,srp.getSwap(),
+		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),srp.getSwap(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-		    		    ,srp.getDateParm());
+		    		    ,srp.getDateParm(),user.getAccess());
 
 
-			    		    logger.debug(sql5.getQuery());
+			    		    logger.warning(sql5.getQuery());
 
 			    	  List<JSONObject> l = getObj5(resultSet, statement, sql5.getQuery(),colHeading ,colHead2,"company","product",
 			    			  colHeading,columnModel, cna.getColumnNameObject(), srp.getSalesOrProduct(), false);
@@ -449,10 +447,11 @@ public class MainController implements DropdownInterface {
                       JSONObject obj8 = l.get(1);
 			    	  model.addAttribute("jsonData",obj5);
 			    	  model.addAttribute("jsonTotal",obj8);
-		    		  
+			    	  logger.warning("STUFF3");
+			    	  logger.warning(obj5.toString());
 			    	  con.close(); 
-
-			    	  return "jsonData";	  
+			    	  // DownloadExcel dx = new DownloadExcel( obj5,request,response) ;
+				    	 return "jsonData";  
 		    		  
 		    	  }
 		    		  catch(Exception e) {
@@ -473,22 +472,22 @@ public class MainController implements DropdownInterface {
 		    			  colHeading="country";
 		    			  colHead2="product";
 		    			  cna = new ColumnNameArray(statement,"product shortname", COUNTRY,
-			 		    			 myYear); 
+		    					  srp.getFromDate(), srp.getToDate(), user.getAccess()); 
 		    		  } else {
 		    			  cna = new ColumnNameArray(statement,"country shortname", PRODUCT,
-		 		    			 myYear); 
+		    					  srp.getFromDate(), srp.getToDate(), user.getAccess()); 
 		    		  }
 
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
 		    		  SQL6 sql6 =  new SQL6(srp.getSalesOrProduct(),
 		    			(srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), 
-		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), myYear, srp.getSwap(),
+		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(), srp.getSwap(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-		    		    ,srp.getDateParm());
+		    		    ,srp.getDateParm(),user.getAccess());
 
 
-			    		    logger.debug(sql6.getQuery());
+			    		    logger.warning(sql6.getQuery());
 
 			    	  List <JSONObject> l = getObj5(resultSet, statement, sql6.getQuery(),colHeading ,colHead2,"company","year",
 			    			  colHeading,columnModel, cna.getColumnNameObject(), srp.getSalesOrProduct(), false);
@@ -497,10 +496,11 @@ public class MainController implements DropdownInterface {
                       JSONObject obj8 = l.get(1);
 			    	  model.addAttribute("jsonData",obj5);
 			    	  model.addAttribute("jsonTotal",obj8);
-		    		  
-			    	  con.close();  
-
-			    	  return "jsonData";	  
+			    	  logger.warning("STUFF4");
+			    	  logger.warning(obj5.toString());
+			    	  con.close();
+			    	  // DownloadExcel dx = new DownloadExcel( obj5,request,response) ;
+				    	 return "jsonData";  
 		    		  
 		    	  }
 		    		  catch(Exception e) {
@@ -517,17 +517,17 @@ public class MainController implements DropdownInterface {
 		    		  String colHeading= "company";
 		    		  
 		    		  ColumnNameArray cna = new ColumnNameArray(statement,"product shortname", COMPANY,
-		    				   myYear);
+		    				  srp.getFromDate(), srp.getToDate(), user.getAccess());
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 		    		  
 		    		  SQL2 sql2 =  new SQL2(srp.getSalesOrProduct(),
 		    				  (srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
-				    		    (srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), myYear,
+				    		    (srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),
 				    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-				    		    ,srp.getDateParm());
+				    		    ,srp.getDateParm(),user.getAccess());
 
 
-			    		    logger.debug(sql2.getQuery());
+			    		    logger.warning(sql2.getQuery());
 			    		    resultSet = statement.executeQuery(sql2.getQuery());
 
 						   List <JSONObject> l = getObj5(resultSet, statement, sql2.getQuery(),"company" ,"product","country","year",
@@ -539,9 +539,10 @@ public class MainController implements DropdownInterface {
 					    	  model.addAttribute("jsonTotal",obj8);
 		    		  
 					    	  con.close(); 
-
-			    	  return "jsonData";	  
-		    		  
+					    	  logger.warning("STUFF5");
+					    	  logger.warning(obj5.toString());
+					    	  // DownloadExcel dx = new DownloadExcel( obj5,request,response) ;
+						    	 return "jsonData";
 		    	  }
 		    		  catch(Exception e) {
 			    			 System.out.println("EXCEPTION");
@@ -555,16 +556,16 @@ public class MainController implements DropdownInterface {
 		    		  try{
 		    		  String colHeading= "company";
 		    		  ColumnNameArray cna = new ColumnNameArray(statement,"years" ,COMPANY,
-		    				  myYear);
+		    				  srp.getFromDate(), srp.getToDate(), user.getAccess());
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 		    		  
 		    		  SQL3 sql3 =  new SQL3(srp.getSalesOrProduct(),
 		    				  (srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
-		    				  (srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), myYear,
+		    				  (srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),
 		    				  srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-		    				  ,srp.getDateParm());		    		 
+		    				  ,srp.getDateParm(),user.getAccess());		    		 
 
-		    		    logger.debug(sql3.getQuery());
+		    		    logger.warning(sql3.getQuery());
 		    		    resultSet = statement.executeQuery(sql3.getQuery());
 
 						 List <JSONObject> l = getObj5(resultSet, statement, sql3.getQuery(),"company" ,"year","country","product",
@@ -576,7 +577,10 @@ public class MainController implements DropdownInterface {
 				    	  model.addAttribute("jsonTotal",obj8);  
 
 				    	  con.close();
-				    	  return "jsonData";	  
+				    	  logger.warning("STUFF6");
+				    	  logger.warning(obj5.toString());
+				    	  // DownloadExcel dx = new DownloadExcel( obj5,request,response) ;
+					    	 return "jsonData"; 
 				    	  
 		    		  }  
 				    	  catch(Exception e) {
@@ -599,7 +603,7 @@ private List <JSONObject> getObj5(ResultSet resultSet, Statement statement, Stri
     String titleCountry = ""; 
     String titleProduct ="";
 
-    logger.debug(query);
+    logger.warning(query);
     resultSet = statement.executeQuery(query);
 	  String currentCo11="";
 	  JSONObject obj2a = null;
@@ -645,7 +649,7 @@ private List <JSONObject> getObj5Summary(ResultSet resultSet, Statement statemen
     String titleCountry = ""; 
     String titleProduct ="";
 
-    logger.debug(query);
+    logger.warning(query);
     resultSet = statement.executeQuery(query);
     String currentCo11="";
     JSONObject obj2a = null;
@@ -692,7 +696,7 @@ private List <JSONObject> getObj5GroupSummary(ResultSet resultSet, Statement sta
    String titleCountry = ""; 
    String titleProduct ="";
 
-   logger.debug(query);
+   logger.warning(query);
    resultSet = statement.executeQuery(query);
    String currentCo11="";
    JSONObject obj2a = null;
@@ -737,7 +741,7 @@ private List <JSONObject> getObj5GroupSummary(ResultSet resultSet, Statement sta
 			HttpServletRequest request,
 			ModelMap model) throws IOException, JSONException, SQLException {
 		 
-		 logger.debug("Entering application via POST");
+		 logger.warning("Entering application via POST");
 
 
 		 return getMethodOne(

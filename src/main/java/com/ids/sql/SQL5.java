@@ -4,8 +4,8 @@ public class SQL5 {
 
 	private String query="";
 	
-	public SQL5(int salesOrProduction, int productId, int companyId,int curYear,int swap, String incExCountries,
-			 String incExProducts, String incExCompanies, String dateParm) {
+	public SQL5(int salesOrProduction, int productId, int companyId,int fromYear,int toYear,int swap, String incExCountries,
+			 String incExProducts, String incExCompanies, String dateParm, String access) {
 		
 		String country = "c.shortname";
 		String orderby = " order by a.year, "+country+"  asc";
@@ -18,13 +18,14 @@ public class SQL5 {
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  " and a.productId = " + productId+
+	    		   " and a.access = '" + access + "' " +
 	              " and a.companyId = " +companyId+
 	               " and b.name != 'ALL COMPANIES' " +
 	               incExCountries+
 	               incExProducts+
 	               incExCompanies+
 	               dateParm+
-	    		  " and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
+	    		  " and a.year between "+fromYear+" and "+toYear+" " +
 	    		  " and d.id = a.productId " +
 	    		  " and a.countryId = c.id" +
 	    		  orderby;

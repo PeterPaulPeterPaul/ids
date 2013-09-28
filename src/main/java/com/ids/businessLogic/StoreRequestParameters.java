@@ -17,12 +17,16 @@ public class StoreRequestParameters {
 	private String incExProducts="";
 	private String incExCompanies="";
 	private String dateParm="";
+	private String fromDate="";
+	private String toDate="";
 	private int summary=0;
 	private int swap=0;
+	private int myYear=0;
 	
 	
-	public StoreRequestParameters(HttpServletRequest request){
+	public StoreRequestParameters(HttpServletRequest request, int myYear){
 		
+		this.myYear = myYear;
 		list = Integer.parseInt(request.getParameter("list"));
 		salesOrProduct = Integer.parseInt(request.getParameter("pors"));
 		summary=Integer.parseInt(request.getParameter("summary"));
@@ -80,6 +84,8 @@ public class StoreRequestParameters {
 			}
 		}
 		
+		fromDate = request.getParameter("fromDate");
+		toDate = request.getParameter("toDate");
 		dateParm = request.getParameter("dateParm");
 		
 
@@ -158,6 +164,28 @@ public class StoreRequestParameters {
 		}
 		return dateParm;
 	}
+	
+	public int getFromDate(){
+		int theDate=0;
+		if (fromDate==null){
+			theDate=myYear-5;
+		}else {
+			theDate = Integer.parseInt(fromDate);
+		}
+		return theDate;
+	}
+	
+	public int getToDate(){
+		int theDate=0;
+		if (toDate==null){
+			theDate=myYear+5;
+		}else {
+			theDate = Integer.parseInt(toDate);
+		}
+		return theDate;
+	}
+	
+
 	
 	public int getSalesOrProduct(){
 		return salesOrProduct;
