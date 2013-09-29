@@ -1136,6 +1136,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			        jQuery("#list47").jqGrid({
 				    			        	data:mylocalData,
 				    			        	datatype: "local",
+				    			        	editurl: saveURL,
 				    			        	height: 350,
 				    			        	cellEdit : true,
 				    			        	cellsubmit : 'remote',
@@ -1166,6 +1167,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			         	 ignoreCase:true,
 				    			         	userDataOnFooter: true,
 				    			        	   onSelectRow: function(id){
+
 					    			        	     if(id && id!==lastSel){ 
 					    			        	    	 
 					    			        	    	 jQuery('#list47').jqGrid('saveRow',id ,saveparameters);
