@@ -1139,7 +1139,21 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			        	height: 350,
 				    			        	cellEdit : true,
 				    			        	cellsubmit : 'remote',
-				    			        	cellurl : '/saverow',
+				    			        	cellurl : saveURL,
+				    			        	
+				    			        	beforeSubmitCell : function(rowid,celname,value,iRow,iCol) { 
+				    			        		//if( some_condition ) { 
+				    			        			
+				    			        			alert($("#list47").children("tbody").children("#"+rowid).children(":first").html());
+				    			        			var retVal = $("#list47").children("tbody").children("#"+rowid).children(":first").html();
+
+
+				    			        		return {firstColumn:retVal} 
+				    			        	//	} 
+				    			        	//	else 
+				    			        	//	{ return {} } 
+				    			        		} ,
+				    			        	
 				    			        	rowNum: 30,
 				    			        	rowList: [10,20,30],
 				    			           	colNames:cols,

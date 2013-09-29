@@ -1,5 +1,6 @@
 package com.ids.controllers;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,6 +22,10 @@ import javax.servlet.http.HttpSession;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.commons.fileupload.FileItemIterator;
+import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.util.Streams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.appengine.api.rdbms.AppEngineDriver;
+import com.google.cloud.sql.jdbc.PreparedStatement;
 import com.ids.businessLogic.DownloadExcel;
 import com.ids.businessLogic.DropdownInterface;
 import com.ids.businessLogic.FirstTimeQuery;
@@ -76,6 +83,26 @@ public class SaveController implements DropdownInterface {
 		 logger.warning("excelDownload: "+request.getParameter("excelDownload"));
 		 
 		
+		 Enumeration keys = request.getParameterNames();  
+		   while (keys.hasMoreElements() )  
+		   {  
+		      String key = (String)keys.nextElement();  
+		      logger.warning(key);  
+		   
+		      //To retrieve a single value  
+		      String value = request.getParameter(key);  
+		      logger.warning(value);  
+		   
+		      // If the same key has multiple values (check boxes)  
+		      String[] valueArray = request.getParameterValues(key);  
+		        
+		      for(int i = 0; i > valueArray.length; i++){  
+		    	  logger.warning("VALUE ARRAY" + valueArray[i]);  
+		      }  
+		   }  
+		 
+		 
+		 
 
 		   DriverManager.registerDriver(new AppEngineDriver());
 		  con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","123smiggles321","Wednesday");
@@ -120,6 +147,39 @@ public class SaveController implements DropdownInterface {
 		   		      model.addAttribute("errortext","Invalid user credentials");
 		   		   	  return "login";
 			   }
+			   
+			   
+			   
+			   
+			   ServletFileUpload upload = new ServletFileUpload();
+
+
+		    	try{
+		    	FileItemIterator iter = upload.getItemIterator(request);
+
+		    	boolean fileTypeFound = false;
+		    	String fileType="";
+		    	
+
+		    	  
+		    	while (iter.hasNext()) {
+
+		    	    FileItemStream item = iter.next();
+		    	    String name = item.getFieldName();
+		    	    
+		    	    logger.warning("NAME: "+ name);
+		    	    
+
+		    	    InputStream stream = item.openStream();
+
+
+		    	    	fileType = Streams.asString(stream);
+		    	    	logger.warning("file type: "+fileType);
+		    	    	
+		    	}
+		    	} catch(Exception e){}
+			   
+			   
 			   
 			   return "login";
 	 }
