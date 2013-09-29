@@ -22,7 +22,7 @@ public class ColumnModel {
 	    	  obj1a.put("index",jsonArray.get(i));
 	    	  obj1a.put("classes","titleFont"); 
 	    	  obj1a.put("width",100);   
-	    	  obj1a.put("editable",true);
+	    	  obj1a.put("editable",false);
 	  	  //    obj1a.put("classes","colorGrey");
 	    	  array3.put(obj1a);
 		  }else {

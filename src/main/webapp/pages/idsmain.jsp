@@ -980,6 +980,26 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			       		}
 			       		
 			       		
+			       		var saveURL = '/saverow?list=2&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
+						  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
+						  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue
+						  +countriesParm+countriesList+productsParm+productsList+
+						  companiesParm+companiesList+fromDate+toDate+"&excelDownload="+downloadExcel+dateParm;
+						
+			       		
+			       		
+			       		var saveparameters = {
+			       				"successfunc" : null,
+			       				"url" : saveURL,
+			       			        "extraparam" : {},
+			       				"aftersavefunc" : null,
+			       				"errorfunc": null,
+			       				"afterrestorefunc" : null,
+			       				"restoreAfterError" : true,
+			       				"mtype" : "POST"
+			       			}
+			       		
+			       		
 			               
 					  $.ajax({
 						  url: '/main?list=2&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
@@ -1100,11 +1120,26 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 		 var  colModels3 = JSON.parse(colModels2);
 		  //formatter: 'number', formatoptions: { decimalPlaces: 2 }
 		  
+		 saveparameters = {
+				    successfunc : null,
+				    url : '/saverow',
+				    extraparam : {},
+				    aftersavefunc : function( response ) {
+				                          alert('saved');
+				                      },
+				    errorfunc: null,
+				    afterrestorefunc : null,
+				    restoreAfterError : true,
+				    mtype : "POST"
+				};
 
 				    			        jQuery("#list47").jqGrid({
 				    			        	data:mylocalData,
 				    			        	datatype: "local",
 				    			        	height: 350,
+				    			        	cellEdit : true,
+				    			        	cellsubmit : 'remote',
+				    			        	cellurl : '/saverow',
 				    			        	rowNum: 30,
 				    			        	rowList: [10,20,30],
 				    			           	colNames:cols,
@@ -1118,7 +1153,9 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			         	userDataOnFooter: true,
 				    			        	   onSelectRow: function(id){
 					    			        	     if(id && id!==lastSel){ 
-					    			        	        jQuery('#list47').restoreRow(lastSel); 
+					    			        	    	 
+					    			        	    	 jQuery('#list47').jqGrid('saveRow',id ,saveparameters);
+
 					    			        	        lastSel=id; 
 					    			        	     }
 					    			        	     jQuery('#list47').editRow(id, true); 
@@ -1239,14 +1276,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
          	hidegrid:false,
          	footerrow: true, 
          	 ignoreCase:true,
-         	userDataOnFooter: true,
-     	   onSelectRow: function(id){
-      	     if(id && id!==lastSel){ 
-      	        jQuery('#list47').restoreRow(lastSel); 
-      	        lastSel=id; 
-      	     }
-      	     jQuery('#list47').editRow(id, true); 
-      	   },
+         	userDataOnFooter: true
       });
       
       jQuery("#list47").jqGrid('navGrid','#plist47',{edit:true,add:false,del:false});
