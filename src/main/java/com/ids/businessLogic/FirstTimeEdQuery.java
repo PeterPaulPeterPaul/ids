@@ -14,10 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.slf4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.ModelMap;
 
+import com.ids.controllers.MainController;
 import com.ids.entities.Company;
 import com.ids.entities.Country;
 import com.ids.entities.Product;
@@ -32,7 +34,7 @@ public class FirstTimeEdQuery {
 	
     private  HashMap<String,Integer> totalLine2 = null;
     private HashMap<String,Integer> otherLine2 = null;
-    static final Logger logger = LoggerFactory.getLogger(FirstTimeEdQuery.class);
+	private final static Logger logger = Logger.getLogger(FirstTimeEdQuery.class.getName()); 
     
 	public FirstTimeEdQuery(ModelMap model,Connection con,HttpServletRequest request, int curYear, String access){
 
@@ -203,13 +205,13 @@ public class FirstTimeEdQuery {
 
 
 			    		  
-			    		  query = " select distinct a.id, a.name from Company a  , Facts b " +
+			    		  query = " select distinct a.id, a.name from Company a  , FactsEdit b " +
 			    		  		" where a.id != 0" +
 			    		  		" and b.companyid = a.id " +
 			    		  		" and b.year between "+(curYear - 5)+" and "+(curYear+5)+
 			    		  		" order by a.name asc " ;
 					    
-			    		  logger.debug(query);
+			    		  logger.warning(query);
 			    		  	
 					         List<Company> companies = new ArrayList<Company>();
 					          
@@ -233,6 +235,7 @@ public class FirstTimeEdQuery {
 
     	  }
     	  }catch(Exception e) {
+    		  logger.warning("errrrrr"+e.getMessage());
     		  e.printStackTrace();
     	  }
 	

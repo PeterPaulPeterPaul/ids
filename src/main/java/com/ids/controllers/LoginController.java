@@ -196,10 +196,12 @@ public class LoginController {
 	        	String view = " drop view Facts ";
 	        	statement2.executeUpdate(view);
 	        	}catch(Exception e) {}
-	        	String view = " create view Facts as select * from Facts_"+access;
-	        	Statement statement2 = con.createStatement();
-	        	statement2.executeUpdate(view);
 	        	
+	        	if (!access.equals("e")) {
+	        	  String view = " create view Facts as select * from Facts_"+access;
+	        	  Statement statement2 = con.createStatement();
+	        	  statement2.executeUpdate(view);
+	        	}
 	        	user = new User(request.getParameter("userId"), request.getParameter("password"), access);
 	        	
 		   		 HttpSession session = request.getSession(true);
@@ -212,9 +214,14 @@ public class LoginController {
 			    model.remove("buildversion");
 			    
 			 if (!request.getParameter("userId").equals("changestuff")){
-	        	   return "redirect:/main";
+				 if (access.equals("e")) {
+					 logger.debug("going down the correct path");
+					 return "redirect:editor";
+				 } else {
+	        	    return "redirect:main";
+				 }
 			 }else {
-				   return "redirect:/setup2";
+				   return "setup2";
 			 }
 	        } 
 

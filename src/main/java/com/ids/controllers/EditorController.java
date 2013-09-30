@@ -89,6 +89,7 @@ import com.ids.user.User;
 public class EditorController implements DropdownInterface {
 
 	private Connection con;
+	private String access = "w" ;  //TEMP SOLUTION - SET TO WORLD
 
    	private final static Logger logger = Logger.getLogger(EditorController.class.getName()); 
        
@@ -160,11 +161,11 @@ public class EditorController implements DropdownInterface {
 	            
 			 if (request.getParameter("list") == null || request.getParameter("list").equals("1")){
 		    	  
-				 FirstTimeEdQuery ftq = new FirstTimeEdQuery(model, con, request, myYear, user.getAccess() );
+				 FirstTimeEdQuery ftq = new FirstTimeEdQuery(model, con, request, myYear, /* set access to world TEMP*/ "w"  );
 				 model = ftq.getModel();
 				 
 	    		  con.close(); 
-	    		    	 
+	    		    	 logger.warning("returning to idsEditmain");
 	    		  return "idsEditmain";
 		    		
 		      }
@@ -228,7 +229,7 @@ public class EditorController implements DropdownInterface {
 		    		  SQL1Summary sql1 =  new SQL1Summary(srp.getSalesOrProduct(),
 				    			srp.getHeading1(), srp.getHeading2(), srp.getDropdown2(), srp.getFromDate(), srp.getToDate(), srp.getSummary(),
 				    			srp.getIncExCountries(), srp.getIncExProducts(),
-				    			srp.getIncExCompanies(),srp.getDateParm(), user.getAccess());
+				    			srp.getIncExCompanies(),srp.getDateParm(), access);
 		    		  
 		    		  
 	    			  cna = new ColumnSummaryNameArray(statement,sql1.getONE(), sql1.topHeadingLine(),
@@ -292,7 +293,7 @@ public class EditorController implements DropdownInterface {
 		    		       SQL1GrpSummary sql1 =  new SQL1GrpSummary(srp.getSalesOrProduct(),
 				    			   srp.getHeading1(), srp.getHeading2(), dropdown, srp.getFromDate(), srp.getToDate(),srp.getSummary(),
 				    			   srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-				    			   ,srp.getDateParm(),user.getAccess());
+				    			   ,srp.getDateParm(),access);
 	
 		    		  
 	    			  cna = new ColumnSummaryNameArray(statement,sql1.getONE(), sql1.topHeadingLine(),
@@ -330,7 +331,7 @@ public class EditorController implements DropdownInterface {
 		    		  String colHeading= "company";
 		    		  
 		    		  ColumnNameArray cna = new ColumnNameArray(statement,"country shortname", COMPANY,
-		    				  srp.getFromDate(), srp.getToDate(), user.getAccess());
+		    				  srp.getFromDate(), srp.getToDate(), access);
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
 		    		  model.addAttribute("myDimension","country shortname");
@@ -338,7 +339,7 @@ public class EditorController implements DropdownInterface {
 		    			(srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), 
 		    		    (srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-		    		    ,srp.getDateParm(),user.getAccess());
+		    		    ,srp.getDateParm(),access);
 
 
 			    		    logger.warning(sql1.getQuery());
@@ -377,11 +378,11 @@ public class EditorController implements DropdownInterface {
 		    			  colHeading="product";
 		    			  colHead2="year";
 		    			  cna = new ColumnNameArray(statement,"years", PRODUCT,
-		    					  srp.getFromDate(), srp.getToDate(), user.getAccess()); 
+		    					  srp.getFromDate(), srp.getToDate(), access); 
 		    			  model.addAttribute("myDimension","years");
 		    		  } else {
 		    			  cna = new ColumnNameArray(statement,"product shortname", YEARS,
-		    					  srp.getFromDate(), srp.getToDate(), user.getAccess()); 
+		    					  srp.getFromDate(), srp.getToDate(), access); 
 		    			  model.addAttribute("myDimension","product shortname");
 		    		  }
 
@@ -391,7 +392,7 @@ public class EditorController implements DropdownInterface {
 		    			(srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
 		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),srp.getSwap(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-		    		    ,srp.getDateParm(),user.getAccess());
+		    		    ,srp.getDateParm(),access);
 
 
 			    		    logger.warning(sql4.getQuery());
@@ -432,11 +433,11 @@ public class EditorController implements DropdownInterface {
 		    			  colHeading="country";
 		    			  colHead2="year";
 		    			  cna = new ColumnNameArray(statement,"years", COUNTRY,
-		    					  srp.getFromDate(), srp.getToDate(), user.getAccess()); 
+		    					  srp.getFromDate(), srp.getToDate(), access); 
 		    			  model.addAttribute("myDimension","years");
 		    		  } else {
 		    			  cna = new ColumnNameArray(statement,"country shortname", YEARS,
-		    					  srp.getFromDate(), srp.getToDate(), user.getAccess()); 
+		    					  srp.getFromDate(), srp.getToDate(), access); 
 		    			  model.addAttribute("myDimension","country shortname");
 		    		  }
 		    		  
@@ -447,7 +448,7 @@ public class EditorController implements DropdownInterface {
 		    			(srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), 
 		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),srp.getSwap(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-		    		    ,srp.getDateParm(),user.getAccess());
+		    		    ,srp.getDateParm(),access);
 
 
 			    		    logger.warning(sql5.getQuery());
@@ -484,11 +485,11 @@ public class EditorController implements DropdownInterface {
 		    			  colHeading="country";
 		    			  colHead2="product";
 		    			  cna = new ColumnNameArray(statement,"product shortname", COUNTRY,
-		    					  srp.getFromDate(), srp.getToDate(), user.getAccess()); 
+		    					  srp.getFromDate(), srp.getToDate(),access); 
 		    			  model.addAttribute("myDimension","product shortname");
 		    		  } else {
 		    			  cna = new ColumnNameArray(statement,"country shortname", PRODUCT,
-		    					  srp.getFromDate(), srp.getToDate(), user.getAccess()); 
+		    					  srp.getFromDate(), srp.getToDate(),access); 
 		    			  model.addAttribute("myDimension","country shortname");
 		    		  }
 
@@ -498,7 +499,7 @@ public class EditorController implements DropdownInterface {
 		    			(srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), 
 		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(), srp.getSwap(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-		    		    ,srp.getDateParm(),user.getAccess());
+		    		    ,srp.getDateParm(),access);
 
 
 			    		    logger.warning(sql6.getQuery());
@@ -531,7 +532,7 @@ public class EditorController implements DropdownInterface {
 		    		  String colHeading= "company";
 		    		  
 		    		  ColumnNameArray cna = new ColumnNameArray(statement,"product shortname", COMPANY,
-		    				  srp.getFromDate(), srp.getToDate(), user.getAccess());
+		    				  srp.getFromDate(), srp.getToDate(), access);
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 		    		  model.addAttribute("myDimension","product shortname");
 		    		  
@@ -539,7 +540,7 @@ public class EditorController implements DropdownInterface {
 		    				  (srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
 				    		    (srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),
 				    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-				    		    ,srp.getDateParm(),user.getAccess());
+				    		    ,srp.getDateParm(),access);
 
 
 			    		    logger.warning(sql2.getQuery());
@@ -571,7 +572,7 @@ public class EditorController implements DropdownInterface {
 		    		  try{
 		    		  String colHeading= "company";
 		    		  ColumnNameArray cna = new ColumnNameArray(statement,"years" ,COMPANY,
-		    				  srp.getFromDate(), srp.getToDate(), user.getAccess());
+		    				  srp.getFromDate(), srp.getToDate(), access);
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 		    		  model.addAttribute("myDimension","years");
 		    		  
@@ -579,7 +580,7 @@ public class EditorController implements DropdownInterface {
 		    				  (srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
 		    				  (srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),
 		    				  srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-		    				  ,srp.getDateParm(),user.getAccess());		    		 
+		    				  ,srp.getDateParm(),access);		    		 
 
 		    		    logger.warning(sql3.getQuery());
 		    		    resultSet = statement.executeQuery(sql3.getQuery());

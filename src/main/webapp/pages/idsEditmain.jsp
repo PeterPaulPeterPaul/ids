@@ -559,10 +559,14 @@ To <select id="todate" name="todate" >
         	  $(".dropdown2").css("width","182px");
 
         	var clickType="";
-        	var swapValue="0";
-        	var summary=0;
 
 
+  
+	
+	
+	  
+	  
+	  
 	  $("#clearfilter").on("click",function(){
           $("#fromdate").val("-1");
           $("#todate").val("-1");
@@ -604,7 +608,7 @@ To <select id="todate" name="todate" >
 		  $("#dialogFilter").dialog("close");
 	  });
 	  
-
+	 
 	  $(".dropdown33").on("change",function(){
 		  downloadExcel="no";
 		  getGrid();
@@ -642,6 +646,7 @@ To <select id="todate" name="todate" >
 	  
 	  $(".myrad2").on("change",function(){
 		  clickType="myrad2";
+		 
 		  downloadExcel="no";
 		  getGrid(); 
 	  });
@@ -649,10 +654,7 @@ To <select id="todate" name="todate" >
 	  $(".myrad3").on("change",function(){
 		  clickType="myrad3";
 
-		  if ($(".myrad2:checked").val()=="4"|| 
-			  $(".myrad3:checked").val()=="4"){
 
-		
 		  downloadExcel="no";
 		  getGrid(); 
 	  });
@@ -905,11 +907,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 		    				   $("#z"+h2).prop('checked', true);
 		    				   
 
-		    				   if (h1 != "4") {
-		    					   $(".nosum").show(); 
-		    				   }else {
-		    					   $(".nosum").hide();  
-		    				   }
+		    				
 		    				  
 
 
