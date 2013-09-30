@@ -34,6 +34,11 @@
 		<url-pattern>/main</url-pattern>
 	</servlet-mapping>
 	
+	<servlet-mapping>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<url-pattern>/editor</url-pattern>
+	</servlet-mapping>
+	
 		<servlet-mapping>
 		<servlet-name>mvc-dispatcher</servlet-name>
 		<url-pattern>/saverow</url-pattern>

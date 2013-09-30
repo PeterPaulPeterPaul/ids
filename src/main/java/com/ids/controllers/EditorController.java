@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.google.appengine.api.rdbms.AppEngineDriver;
 import com.ids.businessLogic.DownloadExcel;
 import com.ids.businessLogic.DropdownInterface;
+import com.ids.businessLogic.FirstTimeEdQuery;
 import com.ids.businessLogic.FirstTimeQuery;
 import com.ids.businessLogic.StoreRequestParameters;
 import com.ids.context.GetBeansFromContext;
@@ -45,14 +46,20 @@ import com.ids.json.JsonGroupSummaryWithinLoop;
 import com.ids.json.JsonPackaging;
 import com.ids.json.JsonSummaryWithinLoop;
 import com.ids.json.JsonWithInLoop;
-import com.ids.sql.SQL1;
+
+import com.ids.sql.SQL1Ed;
 import com.ids.sql.SQL1GrpSummary;
 import com.ids.sql.SQL1Summary;
-import com.ids.sql.SQL2;
-import com.ids.sql.SQL3;
-import com.ids.sql.SQL4;
-import com.ids.sql.SQL5;
-import com.ids.sql.SQL6;
+
+import com.ids.sql.SQL2Ed;
+
+import com.ids.sql.SQL3Ed;
+
+import com.ids.sql.SQL4Ed;
+
+import com.ids.sql.SQL5Ed;
+
+import com.ids.sql.SQL6Ed;
 import com.ids.user.User;
 
 
@@ -78,12 +85,12 @@ import com.ids.user.User;
  */
 
 @Controller
-@RequestMapping(value="/main")
-public class MainController implements DropdownInterface {
+@RequestMapping(value="/editor")
+public class EditorController implements DropdownInterface {
 
 	private Connection con;
 
-   	private final static Logger logger = Logger.getLogger(MainController.class.getName()); 
+   	private final static Logger logger = Logger.getLogger(EditorController.class.getName()); 
        
     //   HashMap<Integer,Integer> totalLine = null;
        HashMap<String,Integer> totalLine2 = null;
@@ -119,14 +126,14 @@ public class MainController implements DropdownInterface {
 	      User user = (User) session.getAttribute("myUser");
 	 		 if (user==null ) {
 	   		      model.addAttribute("errortext","You must logon before you can access IDS");
-	   		   	  return "redirect:/login";
+	   		   	  return "login";
 	   		 }
 	      
 	 		 if (request.getParameter("exit")!= null ){
 	 			 if (session.getAttribute("myUser") != null) {
 	 			    session.setAttribute("myUser",null);
 	 			 }
-	 			return "redirect:/login"; 
+	 			return "login"; 
 	 		 }
 	 		String      query = " select 'found' as found from ids_users where userId = '"+user.getUserName()
 					  +"' and passwordId = '"+user.getPassword()+"'";
@@ -143,7 +150,7 @@ public class MainController implements DropdownInterface {
 			   }
 			   if (!found) {
 		   		      model.addAttribute("errortext","Invalid user credentials");
-		   		   	  return "redirect:/login";
+		   		   	  return "login";
 			   }
 
 		  
@@ -153,12 +160,12 @@ public class MainController implements DropdownInterface {
 	            
 			 if (request.getParameter("list") == null || request.getParameter("list").equals("1")){
 		    	  
-				 FirstTimeQuery ftq = new FirstTimeQuery(model, con, request, myYear, user.getAccess() );
+				 FirstTimeEdQuery ftq = new FirstTimeEdQuery(model, con, request, myYear, user.getAccess() );
 				 model = ftq.getModel();
 				 
 	    		  con.close(); 
 	    		    	 
-	    		  return "idsmain";
+	    		  return "idsEditmain";
 		    		
 		      }
 		    	
@@ -327,7 +334,7 @@ public class MainController implements DropdownInterface {
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
 		    		  model.addAttribute("myDimension","country shortname");
-		    		  SQL1 sql1 =  new SQL1(srp.getSalesOrProduct(),
+		    		  SQL1Ed sql1 =  new SQL1Ed(srp.getSalesOrProduct(),
 		    			(srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), 
 		    		    (srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
@@ -380,7 +387,7 @@ public class MainController implements DropdownInterface {
 
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
-		    		  SQL4 sql4 =  new SQL4(srp.getSalesOrProduct(),
+		    		  SQL4Ed sql4 =  new SQL4Ed(srp.getSalesOrProduct(),
 		    			(srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
 		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),srp.getSwap(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
@@ -436,7 +443,7 @@ public class MainController implements DropdownInterface {
 
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
-		    		  SQL5 sql5 =  new SQL5(srp.getSalesOrProduct(),
+		    		  SQL5Ed sql5 =  new SQL5Ed(srp.getSalesOrProduct(),
 		    			(srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), 
 		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),srp.getSwap(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
@@ -487,7 +494,7 @@ public class MainController implements DropdownInterface {
 
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
-		    		  SQL6 sql6 =  new SQL6(srp.getSalesOrProduct(),
+		    		  SQL6Ed sql6 =  new SQL6Ed(srp.getSalesOrProduct(),
 		    			(srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), 
 		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(), srp.getSwap(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
@@ -528,7 +535,7 @@ public class MainController implements DropdownInterface {
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 		    		  model.addAttribute("myDimension","product shortname");
 		    		  
-		    		  SQL2 sql2 =  new SQL2(srp.getSalesOrProduct(),
+		    		  SQL2Ed sql2 =  new SQL2Ed(srp.getSalesOrProduct(),
 		    				  (srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
 				    		    (srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),
 				    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
@@ -568,7 +575,7 @@ public class MainController implements DropdownInterface {
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 		    		  model.addAttribute("myDimension","years");
 		    		  
-		    		  SQL3 sql3 =  new SQL3(srp.getSalesOrProduct(),
+		    		  SQL3Ed sql3 =  new SQL3Ed(srp.getSalesOrProduct(),
 		    				  (srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
 		    				  (srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),
 		    				  srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
@@ -602,7 +609,7 @@ public class MainController implements DropdownInterface {
 		    	  
 		    	  
 		    	  con.close();   
-	return "idsmain";
+	return "idsEditmain";
 }
 	 
 	 

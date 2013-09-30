@@ -204,13 +204,10 @@ To <select id="todate" name="todate" >
 <div style="margin-left:15px;text-align:center"><br><br>
   <input type="image" name="filter" class="filter" id="filter"   src="images/filter.png" />
    <input type="button" style="font-size:x-small;display:none"  id="clearfilter"  value="Clear Filter"/>
-  <input type="button" style="font-size:x-small;display:none" class="swap" name="swap1" id="swap1"  value="Swap cols/rows"/>
 </div>
 <div style="float:left;width:90%;margin-right:5%;margin-top:5%;">
 <fieldset style="background-color:#FFFF80;margin-left: 10px;">
 <legend>Header 1</legend>
-<input type="button" style="font-size:x-small;" class="nosum" name="summary" id="summary" value="Summary"/>
-<input type="button" style="font-size:x-small;" class="nosum" name="grpsum" id="grpsum" value="Group Sum"/><br>
 <input class="myrad2" type="radio" name="horiz" id="a1"  value="1" checked >Country<br>
 <input class="myrad2" type="radio" name="horiz" id="a2"  value="2"  >Product<br>
 <input class="myrad2" type="radio" name="horiz" id="a3"  value="3"  >Years<br>
@@ -221,7 +218,6 @@ To <select id="todate" name="todate" >
 <div style="float:left;width:90%;margin-right:5%;margin-top:15%">
 <fieldset style="background-color:#FFFF80;margin-left: 10px;">
 <legend>Header 2</legend>
-<input type="button" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum"/><br>
 <input class="myrad3" type="radio" id="z1" name="verti" value="1"  >Country<br>
 <input class="myrad3" type="radio"  id="z2" name="verti" value="2" checked >Product<br>
 <input class="myrad3" type="radio"  id="z3" name="verti" value="3"  >Years<br>
@@ -566,83 +562,6 @@ To <select id="todate" name="todate" >
         	var swapValue="0";
         	var summary=0;
 
-  
-	$(".swap").on("click",function(){
-		if($(this).hasClass("noswap")){
-			swapValue="0"
-		   $(".swap").val("Swap cols/rows");
-			$(".swap").removeClass("noswap");
-		} else {
-			swapValue="1"
-		    $(".swap").val("Clear swap");
-			$(".swap").addClass("noswap");
-		}
-		downloadExcel="no";
-		 getGrid();
-	});
-	
-	  $("#summary").on("click",function(){
-		  if( $(this).hasClass("nosum")){
-		     summary=1;
-		     $(this).val("Clear summary");
-		     $(this).removeClass("nosum");
-		     $(this).addClass("sum");
-		     $("#a4").hide();
-		    $("#a44").hide();
-			  if ( $("#grpsum2").hasClass("sum")){
-				  summary=4;
-			  }
-		  } else {
-			  $(this).addClass("nosum");
-		       summary=0;  
-		      $(this).val("Summary");
-			  $("#a4").show();
-		      $("#a44").show();
-			  $(this).removeClass("sum");
-			  if ( $("#grpsum2").hasClass("sum")){
-				  summary=3;
-			  }
-		  }
-		  $("#grpsum").val("Group Sum");
-		  $("#grpsum").removeClass("nosum");
-		  $("#grpsum").removeClass("sum");
-		  $("#grpsum").addClass("nosum");
-		  
-		  downloadExcel="no";
-		  getGrid();
-	  });
-	  
-	  
-	  $("#grpsum").on("click",function(){
-		  if ( $(this).hasClass("nosum")){
-			     summary=2;
-			     $("#a4").hide();
-				 $("#a44").hide();
-			     $(this).val("Clr GrpSum");
-			     $(this).removeClass("nosum");
-			     $(this).addClass("sum");
-				  if ( $("#grpsum2").hasClass("sum")){
-					  summary=5;
-				  }
-			  } else {
-				  $(this).addClass("nosum");
-			       summary=0;  
-				   if ( $("#grpsum2").hasClass("sum")){
-						  summary=3;
-				   }
-				  $("#a4").show();
-				  $("#a44").show();
-			      $(this).val("Group Sum");
-				  $(this).removeClass("sum");
-			  }
-		  $("#summary").val("Summary");
-		  $("#summary").removeClass("sum");
-		  $("#summary").removeClass("nosum");
-		  $("#summary").addClass("nosum");
-		  downloadExcel="no";
-		  getGrid();
-	  });
-	  
 
 	  $("#clearfilter").on("click",function(){
           $("#fromdate").val("-1");
@@ -685,33 +604,6 @@ To <select id="todate" name="todate" >
 		  $("#dialogFilter").dialog("close");
 	  });
 	  
-	  $("#grpsum2").on("click",function(){
-		  if ( $(this).hasClass("nosum")){
-			     summary=3;
-			     $(this).val("Clr GrpSum");
-			     $(this).removeClass("nosum");
-			     $(this).addClass("sum");
-			     if ( $("#summary").hasClass("sum")){
-					  summary=4;
-			     }
-			     if ( $("#grpsum").hasClass("sum")){
-					  summary=5;
-			     }
-			  } else {
-				  $(this).addClass("nosum");
-			       summary=0;  
-				   if ( $("#summary").hasClass("sum")){
-						  summary=1;
-				  }
-				   if ( $("#grpsum").hasClass("sum")){
-						  summary=2;
-			      }
-			      $(this).val("Group Sum");
-				  $(this).removeClass("sum");
-			  }
-		  downloadExcel="no";
-		  getGrid();
-	  });
 
 	  $(".dropdown33").on("change",function(){
 		  downloadExcel="no";
@@ -750,20 +642,6 @@ To <select id="todate" name="todate" >
 	  
 	  $(".myrad2").on("change",function(){
 		  clickType="myrad2";
-		  if ($(".myrad2:checked").val()=="4"){
-
-			  $(".nosum").hide();
-
-			  
-		  $(".swap").show();
-	      } else {
-	    	  $(".nosum").show();
-	    	  if ( $(".myrad3:checked").val()=="4"){
-	    		  $(".swap").show(); 
-	    	  } else {
-	    	     $(".swap").hide();  
-	    	  }
-	      }
 		  downloadExcel="no";
 		  getGrid(); 
 	  });
@@ -774,16 +652,7 @@ To <select id="todate" name="todate" >
 		  if ($(".myrad2:checked").val()=="4"|| 
 			  $(".myrad3:checked").val()=="4"){
 
-		  $(".swap").show();
-		  if ($(".myrad2:checked").val()=="4") {
-		     $(".nosum").hide();
-		  } else {
-			  $(".nosum").show(); 
-		  }
-	      } else {
-	    	  $(".swap").hide();  
-	    	  $(".nosum").show();
-	      }
+		
 		  downloadExcel="no";
 		  getGrid(); 
 	  });
