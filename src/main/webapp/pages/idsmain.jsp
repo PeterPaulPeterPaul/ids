@@ -237,7 +237,7 @@ To <select id="todate" name="todate" >
 
 </div>
 
-<div id="myDimensionHidden" style="display:none"></div>
+
 
 <div id="titleBar" style="float:left;width:82%;height:40%;padding-top:1%;">
 <div style="float:left;">
@@ -980,25 +980,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			       		}
 			       		
 			       		
-			       		var saveURL = '/saverow?list=2&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
-						  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
-						  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue
-						  +countriesParm+countriesList+productsParm+productsList+
-						  companiesParm+companiesList+fromDate+toDate+"&excelDownload="+downloadExcel+dateParm;
-						
-			       		
-			       		
-			       		var saveparameters = {
-			       				"successfunc" : null,
-			       				"url" : saveURL,
-			       			        "extraparam" : {},
-			       				"aftersavefunc" : null,
-			       				"errorfunc": null,
-			       				"afterrestorefunc" : null,
-			       				"restoreAfterError" : true,
-			       				"mtype" : "POST"
-			       			}
-			       		
+			       	
 			       		
 			               
 					  $.ajax({
@@ -1022,8 +1004,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    	   
 				    	   $("#tempOldHeadings").text($("#tempStore #myOldHeadings").html() );
 				    	   
-				    	   $("#myDimensionHidden").text($("#tempStore #myDimension").html() ) ;
-				    	   
+   						
 	    			        $(".myrad2").prop('checked', false);
 		    				   $(".myrad3").prop('checked', false);
 		    				   
@@ -1121,78 +1102,12 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 		 var  colModels3 = JSON.parse(colModels2);
 		  //formatter: 'number', formatoptions: { decimalPlaces: 2 }
 		  
-		 saveparameters = {
-				    successfunc : null,
-				    url : '/saverow',
-				    extraparam : {},
-				    aftersavefunc : function( response ) {
-				                          alert('saved');
-				                      },
-				    errorfunc: null,
-				    afterrestorefunc : null,
-				    restoreAfterError : true,
-				    mtype : "POST"
-				};
+		
 
 				    			        jQuery("#list47").jqGrid({
 				    			        	data:mylocalData,
 				    			        	datatype: "local",
-				    			        	editurl: saveURL,
 				    			        	height: 350,
-				    			        	cellEdit : true,
-				    			        	cellsubmit : 'remote',
-				    			        	cellurl : saveURL,
-				    			        	
-				    			        	beforeSubmitCell : function(rowid,celname,value,iRow,iCol) { 
-				    			        		//if( some_condition ) { 
-				    			        			
-
-				    			        			var retVal = $("#list47").children("tbody").children("#"+rowid).children(":first").html();
-
-				    			        			alert("dimension1:  " + retVal);
-				    			        			var dimension2 = $(".viewable1").attr("id");
-				    			        			var text2 = $("#"+dimension2+"sSelectBoxItText").text();
-				    			        			var di_name="";
-				    			        			if (dimension2 == "drop11") {
-				    			        				di_name="countries";
-				    			        			}
-				    			        			if (dimension2 == "drop12") {
-				    			        				di_name="products";
-				    			        			}
-				    			        			if (dimension2 == "drop13") {
-				    			        				di_name="years";
-				    			        			}
-				    			        			if (dimension2 == "drop14") {
-				    			        				di_name="companies";
-				    			        			}
-				    			        			alert("dimension2 value:  " + text2 +" name: "+di_name);
-
-				    			        			var dimension3 = $(".viewable2").attr("id");
-				    			        			var text3 = $("#"+dimension3+"sSelectBoxItText").text();
-				    			        			
-				    			        			if (dimension3 == "drop21") {
-				    			        				di_name="countries";
-				    			        			}
-				    			        			if (dimension3 == "drop22") {
-				    			        				di_name="products";
-				    			        			}
-				    			        			if (dimension3 == "drop23") {
-				    			        				di_name="years";
-				    			        			}
-				    			        			if (dimension3 == "drop24") {
-				    			        				di_name="companies";
-				    			        			}
-				    			        			
-				    			        			alert("dimension3:  " + text3+" name: "+di_name);
-				    			        			alert("dimension4:  " +$("#drop31sSelectBoxItText").text() + "name production or sales");
-				    			        			alert("dimension5:  " +celname + " name: "+ $("#myDimensionHidden").text());
-				    			        			
-				    			        		return {firstColumn:retVal} 
-				    			        	//	} 
-				    			        	//	else 
-				    			        	//	{ return {} } 
-				    			        		} ,
-				    			        	
 				    			        	rowNum: 30,
 				    			        	rowList: [10,20,30],
 				    			           	colNames:cols,
@@ -1203,17 +1118,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			           	caption: mylocalTitle,
 				    			         	footerrow: true, 
 				    			         	 ignoreCase:true,
-				    			         	userDataOnFooter: true,
-				    			        	   onSelectRow: function(id){
-
-					    			        	     if(id && id!==lastSel){ 
-					    			        	    	 
-					    			        	    	 jQuery('#list47').jqGrid('saveRow',id ,saveparameters);
-
-					    			        	        lastSel=id; 
-					    			        	     }
-					    			        	     jQuery('#list47').editRow(id, true); 
-					    			        	   },
+				    			         	userDataOnFooter: true
 				    			        });
 				    			        
 
@@ -1298,7 +1203,6 @@ if (dateParm=="todate must be greater or equal to fromdate") {
   $("#totalsJson").val(JSON.stringify(totals));
   
 	 $("#printTotalJson").val(JSON.stringify(totals));
-
   
   
 	   var myTabData = data.tabData;
@@ -1321,58 +1225,6 @@ if (dateParm=="todate must be greater or equal to fromdate") {
       	data:mylocalData,
       	datatype: "local",
       	height: 350,
-      	cellEdit : true,
-    	cellsubmit : 'remote',
-    	cellurl :"/saverow",
-    	
-    	beforeSubmitCell : function(rowid,celname,value,iRow,iCol) { 
-    		//if( some_condition ) { 
-
-			var retVal = $("#list47").children("tbody").children("#"+rowid).children(":first").html();
-
-			alert("dimension1:  " + retVal);
-			var dimension2 = $(".viewable1").attr("id");
-			var text2 = $("#"+dimension2+"sSelectBoxItText").text();
-			var di_name="";
-			if (dimension2 == "drop11") {
-				di_name="countries";
-			}
-			if (dimension2 == "drop12") {
-				di_name="products";
-			}
-			if (dimension2 == "drop13") {
-				di_name="years";
-			}
-			if (dimension2 == "drop14") {
-				di_name="companies";
-			}
-			alert("dimension2 value:  " + text2 +" name: "+di_name);
-
-			var dimension3 = $(".viewable2").attr("id");
-			var text3 = $("#"+dimension3+"sSelectBoxItText").text();
-			
-			if (dimension3 == "drop21") {
-				di_name="countries";
-			}
-			if (dimension3 == "drop22") {
-				di_name="products";
-			}
-			if (dimension3 == "drop23") {
-				di_name="years";
-			}
-			if (dimension3 == "drop24") {
-				di_name="companies";
-			}
-			
-			alert("dimension3:  " + text3+" name: "+di_name);
-			alert("dimension4:  " +$("#drop31sSelectBoxItText").text() + "name production or sales");
-			alert("dimension5:  " +celname+ " name: years");
-    			
-    		return {firstColumn:retVal} 
-    	//	} 
-    	//	else 
-    	//	{ return {} } 
-    		} ,
       	rowNum: 30,
       	rowList: [10,20,30],
          	colNames:cols,
