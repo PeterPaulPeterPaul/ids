@@ -10,14 +10,21 @@ public class User  implements UserInterface, java.io.Serializable {
 	private String userStatus;
 	private String password;
 	private String access;
-
+    private int world;
+    private int china;
+    private int india;
+    private String currentLocation;
 	
 	
 	
-	public User(String userName,    String password, String access ) {
+	public User(String userName,    String password, String access, int world, int china, int india, String currentLocation ) {
 		this.userName = userName;
 		this.password = password;
 		this.access = access;
+		this.world = world;
+		this.china = china;
+		this.india = india;
+		this.currentLocation = currentLocation;
 	}
 	
 	public String getUserName() {
@@ -26,6 +33,19 @@ public class User  implements UserInterface, java.io.Serializable {
 
 	public String getPassword() {
 		return password;
+	}
+	
+	public String getCurrentLocation() {
+		return currentLocation;
+	}
+	public int getWorld() {
+		return world;
+	}
+	public int getChina() {
+		return china;
+	}
+	public int getIndia() {
+		return india;
 	}
 	
 	public String getUserStatus() {
@@ -55,5 +75,8 @@ public class User  implements UserInterface, java.io.Serializable {
 		this.access = access;
 	}
 	
+	public void setCurrentLocation(String currentLocation) {
+		this.currentLocation = currentLocation;
+	}
 	
 }

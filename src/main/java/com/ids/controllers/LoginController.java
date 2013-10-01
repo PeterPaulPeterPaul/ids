@@ -79,7 +79,25 @@ public class LoginController {
 		 
 
 		 
-	       User  user = null;	    
+	       User  user = null;	
+	       
+	       if (request.getParameter("currentAccess")!= null && !request.getParameter("currentAccess").equals("")) {
+	    	   
+	    	   
+		   		 HttpSession session = request.getSession(true);
+			     User user2 = (User)  session.getAttribute("myUser");
+			     if (user2==null) {
+			    	 logger.debug("no user");
+			    	 return "redirect:login";
+			     }
+			     user2.setCurrentLocation(request.getParameter("currentAccess"));
+			     session.setAttribute("myUser", user2) ; 
+			     logger.debug("going to main");
+		        	model.remove("displaytype2");
+				    model.remove("passwordlab");
+	        	    return "redirect:main";
+	    	   
+	       }
 
 	    if (request.getParameter("fromJsp")==null || request.getParameter("fromJsp").equals("") ) {
 	    	  logger.debug("first time in JSP not called");
@@ -175,10 +193,13 @@ public class LoginController {
 		      ResultSet resultSet = null;
 		      
 		     
-		String      query = " select 'found' as found, access from ids_users where userId = '"+request.getParameter("userId")
+		String      query = " select 'found' as found, access, world, china, india from ids_users where userId = '"+request.getParameter("userId")
 				  +"' and passwordId = '"+request.getParameter("password")+"'";
 
 		 String access="";
+		 int world=0;
+		 int china=0;
+		 int india=0;
 		 resultSet = statement.executeQuery(query);
 
            boolean found = false;
@@ -186,23 +207,27 @@ public class LoginController {
 			   if (resultSet.getString("found").equals("found")) {
 				   found = true;
 				   access= resultSet.getString("access");
+				   world = resultSet.getInt("world");
+				   china = resultSet.getInt("china");
+				   india = resultSet.getInt("india");
 			   }
 		   }
 
   
 	        if (found ) {
-	        	try{
-	            Statement statement2 = con.createStatement();
-	        	String view = " drop view Facts ";
-	        	statement2.executeUpdate(view);
-	        	}catch(Exception e) {}
 	        	
-	        	if (!access.equals("e")) {
-	        	  String view = " create view Facts as select * from Facts_"+access;
-	        	  Statement statement2 = con.createStatement();
-	        	  statement2.executeUpdate(view);
+	        	String currentLocation="";
+	        	if (india==1) {
+	        		currentLocation="i";
 	        	}
-	        	user = new User(request.getParameter("userId"), request.getParameter("password"), access);
+	        	if (china==1) {
+	        		currentLocation="c";
+	        	}
+	        	if (world==1) {
+	        		currentLocation="w";
+	        	}
+
+	        	user = new User(request.getParameter("userId"), request.getParameter("password"), access, world, china, india,currentLocation);
 	        	
 		   		 HttpSession session = request.getSession(true);
 			       session.removeAttribute("myUser");
@@ -213,7 +238,7 @@ public class LoginController {
 			    model.remove("passwordlab");
 			    model.remove("buildversion");
 			    
-			 if (!request.getParameter("userId").equals("changestuff")){
+			 if (!access.equals("a")){
 				 if (access.equals("e")) {
 					 logger.debug("going down the correct path");
 					 return "redirect:editor";
@@ -221,7 +246,7 @@ public class LoginController {
 	        	    return "redirect:main";
 				 }
 			 }else {
-				   return "setup2";
+				   return "redirect:setup2";
 			 }
 	        } 
 

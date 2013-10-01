@@ -208,6 +208,8 @@ public class FirstTimeEdQuery {
 			    		  query = " select distinct a.id, a.name from Company a  , FactsEdit b " +
 			    		  		" where a.id != 0" +
 			    		  		" and b.companyid = a.id " +
+			    		  		" and b.access = '" + access +"' and " +
+			    		  		" a.access = '" + access + "' " +
 			    		  		" and b.year between "+(curYear - 5)+" and "+(curYear+5)+
 			    		  		" order by a.name asc " ;
 					    

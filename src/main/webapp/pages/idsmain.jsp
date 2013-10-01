@@ -445,7 +445,14 @@ To <select id="todate" name="todate" >
 
 
 </div>
+<div style="float:left;margin-left:20px">
 
+<div id="drop41" style="display:block">
+<select name="accessType" class="dropdown3" id="accessType" style="width:180px;margin:10px">
+  ${accessoptions}
+</select>
+</div>
+</div>
 
 
  </div>
@@ -453,6 +460,13 @@ To <select id="todate" name="todate" >
  
  
 </div>
+<div style="display:none">
+<form id="accessform3" action="/login" method="post">
+   <input type="hidden" id="fromMain" name="currentAccess" value="populated" />
+   <input id='submitLogin' type="submit" value="Login">
+</form>
+   </div>
+
 
 
 <div id="beans" style="margin-left:5px;margin-top:18px;float:left;width:81%;height:90%;background-color:#FFFF80;">
@@ -481,6 +495,7 @@ To <select id="todate" name="todate" >
         	});
           
           $(document).ready(function(){
+
 
         	  var lastSel;
         	  
@@ -714,6 +729,7 @@ To <select id="todate" name="todate" >
 	  });
 
 	  $(".dropdown33").on("change",function(){
+		  
 		  downloadExcel="no";
 		  getGrid();
 	  });
@@ -743,6 +759,12 @@ To <select id="todate" name="todate" >
 	  
 	  $(".dropdown3").on("change",function(){
 		  clickType="myrad";
+		  if ($(this).attr("id")=="accessType") {
+			  var accessT = $("#accessType").val();
+			  $("#fromMain").val(accessT);
+			  $("#accessform3").submit();
+			  return false;
+		  }
 		  downloadExcel="no";
 		  getGrid(); 
 	  });
@@ -850,6 +872,7 @@ $(".showornot111").fadeOut();
 $(".showornot22").fadeOut()
 
 var my_SorP = $('#drop31s').val();
+var accessType = $("#accessType").val();
 			 
 $("#wholescreen").fadeOut();
 $("#titleBar").fadeOut();
@@ -978,13 +1001,9 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			       				countriesList!=""){
 			       	              $("#clearfilter").fadeIn();
 			       		}
-			       		
-			       		
-			       	
-			       		
-			               
+
 					  $.ajax({
-						  url: '/main?list=2&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
+						  url: '/main?list=1&accessType='+accessType+'&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
 				  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
 								  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue
 								  +countriesParm+countriesList+productsParm+productsList+
@@ -994,8 +1013,6 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				       processData: false,
 				       dataType: 'html',
 				       success: function(data) {  
-
-				    	  
 				    	   $("#tempStore").html(data);
 				    	   var data2 = JSON.parse($("#tempStore #myJson").html());
 				    	   
@@ -1003,8 +1020,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    	   $("#dataJson").val($("#tempStore #myJson").html());
 				    	   
 				    	   $("#tempOldHeadings").text($("#tempStore #myOldHeadings").html() );
-				    	   
-   						
+
 	    			        $(".myrad2").prop('checked', false);
 		    				   $(".myrad3").prop('checked', false);
 		    				   

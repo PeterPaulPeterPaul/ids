@@ -114,6 +114,9 @@ public class SaveController implements DropdownInterface {
       //   con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","user","password");
        
 		 
+		  
+		  
+		  
 	      Statement statement = con.createStatement();
 
 	      ResultSet resultSet = null;
@@ -148,38 +151,177 @@ public class SaveController implements DropdownInterface {
 		   		   	  return "login";
 			   }
 			   
+			   model.addAttribute("openOrClose","close");
 			   
+			   if (request.getParameter("save")!= null ) {
+				   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Delete from Facts_w");
+				   int retval = statement2.executeUpdate();
+				   statement2 = (PreparedStatement) con.prepareStatement("insert into Facts_w select * from FactsEdit ");
+				   retval = statement2.executeUpdate();
+				   con.commit();
+				   model.addAttribute("openOrClose","open");
+				   return "redirect:editor";
+ 
+			   }
 			   
+			   String year = "";
+			   String productId = "";
+			   String countryId = "";
+			   String companyId = "";
+			   String PorS ="";
+			   String SQL = "";
 			   
-			   ServletFileUpload upload = new ServletFileUpload();
+			   String value = request.getParameter("dimension1Name");
+               if (value.equals("Year")) {
+            	   year =  request.getParameter("dimension1Val");
+               } else {
+            	   
+            	  SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension1Val") +"' ";
+            	  logger.warning("SQL1: "+SQL);
+            	  resultSet = statement.executeQuery(SQL);
+            	  while (resultSet.next()) {
+            		  if (value.equals("Country")) {
+            			  countryId= resultSet.getString("id");
+            			  break;
+            		  }
+            		  if (value.equals("Company")) {
+            			  companyId= resultSet.getString("id");
+            			  break;
+            		  }
+            		  if (value.equals("Product")) {
+            			  productId= resultSet.getString("id");
+            			  break;
+            		  }
+            	  }
 
+               }
+               
+               
+               value = request.getParameter("dimension2Name");
+               if (value.equals("Year")) {
+            	   year =  request.getParameter("dimension2Val");
+               } else {
+             	  SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension2Val").trim() +"' ";
+             	 logger.warning("SQL2: "+SQL);
+             	logger.warning("value2: "+value);
+             	if (resultSet != null) {
+             		resultSet.close();
+             	}
+             	
+             	  resultSet = statement.executeQuery(SQL);
+             	  while (resultSet.next()) {
+             		  logger.warning("got in here ok");
+             		  if (value.trim().equals("Country")) {
+             			  logger.warning("come one we must have got in here");
+             			  countryId= Integer.toString(resultSet.getInt("id"));
+             			  break;
+             		  }
+             		  if (value.equals("Company")) {
+             			  companyId=Integer.toString(resultSet.getInt("id"));
+             			  break;
+             		  }
+             		  if (value.equals("Product")) {
+             			  productId= Integer.toString(resultSet.getInt("id"));
+             			  break;
+             		  }
+             	  }
+               }
+               
+               
+               value = request.getParameter("dimension3Name");
+               
+               if (value.equals("Year")) {
+            	   year =  request.getParameter("dimension3Val");
+               } else {
+            	   SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension3Val").trim() +"' ";
+            	   logger.warning("SQL3: "+SQL);
+            	   logger.warning("value3: "+value);
+              	  resultSet = statement.executeQuery(SQL);
+              	  while (resultSet.next()) {
+              		  if (value.equals("Country")) {
+              			  countryId= Integer.toString(resultSet.getInt("id"));
+              			  break;
+              		  }
+              		  if (value.equals("Company")) {
+              			  companyId= Integer.toString(resultSet.getInt("id"));
+              			  break;
+              		  }
+              		  if (value.equals("Product")) {
+              			  productId= Integer.toString(resultSet.getInt("id"));
+              			  break;
+              		  }
+              	  } 
+            	   
+               }
+               
+               if (request.getParameter("dimension4Val").equals("Sales") ) {
+            	   PorS= "1"; 
+               } else {
+            	   PorS = "2";
+               }
+               
+               value = request.getParameter("dimension5Name");
+               logger.warning("dimension5Name: "+value);
+               
+               if (value.equals("Year")) {
+            	   year =  request.getParameter("dimension5Val");
+               } else { 
 
-		    	try{
-		    	FileItemIterator iter = upload.getItemIterator(request);
+            	   value = value.substring(0,value.indexOf(" "));
+            	   SQL = " select id from "+value+ " where shortname = '" +request.getParameter("dimension5Val") +"' ";
+            	   logger.warning("SQL5: "+SQL);
+               	  resultSet = statement.executeQuery(SQL);
+               	  while (resultSet.next()) {
+               		  if (value.equals("Country")) {
+               			  countryId= resultSet.getString("id");
+               			  break;
+               		  }
+               		  if (value.equals("Product")) {
+               			  productId= resultSet.getString("id");
+               			  break;
+               		  }
+               	  } 
+            	   
+               }
+               
 
-		    	boolean fileTypeFound = false;
-		    	String fileType="";
-		    	
+               logger.warning("year: "+year);
+               logger.warning("productId: "+productId);
+               logger.warning("countryId: "+countryId);
+               logger.warning("companyId: "+companyId);
+               logger.warning("PorS: "+PorS);
+               
 
-		    	  
-		    	while (iter.hasNext()) {
+               int quant =0;
+               if (!request.getParameter("FactVal").trim().equals("")) { 
+                   quant = Integer.parseInt(request.getParameter("FactVal"));
+               }
+               if (quant==0) {
+            	   
+            	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Delete from FactsEdit where "+
+                		    " productId = "+productId + " and year = "+year+ " and access = 'w' "+
+                		   " and companyId = "+companyId + " and countryId = "+countryId+ " and sales_production = "+PorS);
+                   int retval = statement2.executeUpdate();
+            	   
+               }else {
+			    
+               PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Update FactsEdit set quantity = "+
+            		   request.getParameter("FactVal")+ " where productId = "+productId + " and access= 'w' and year = "+year+
+            		   " and companyId = "+companyId + " and countryId = "+countryId+ " and sales_production = "+PorS);
+               int retval = statement2.executeUpdate();
+               
+               if (retval==0) {
+            	   String newSQL = "Insert into FactsEdit (quantity, productId, year, companyId, countryId," +
+            	   		" sales_production, access) values ("+request.getParameter("FactVal")+","+productId
+            	   		+","+year+","+companyId+","+countryId+","+PorS+",'w')";
+            	   logger.warning("InsertSQL: "+newSQL);
+            	   statement2 = (PreparedStatement) con.prepareStatement(newSQL);
+            	   retval = statement2.executeUpdate();
+            	   
+               }
+               }
+                con.commit();
 
-		    	    FileItemStream item = iter.next();
-		    	    String name = item.getFieldName();
-		    	    
-		    	    logger.warning("NAME: "+ name);
-		    	    
-
-		    	    InputStream stream = item.openStream();
-
-
-		    	    	fileType = Streams.asString(stream);
-		    	    	logger.warning("file type: "+fileType);
-		    	    	
-		    	}
-		    	} catch(Exception e){}
-			   
-			   
 			   
 			   return "login";
 	 }

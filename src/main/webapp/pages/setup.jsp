@@ -42,6 +42,20 @@ background-color:#FFFF80;
 	             &nbsp;&nbsp;<input type="button" id="changePass" value="change Password"/></span>
 	</div>
 
+
+        <div id="successText" style="color:white;font-size: large;text-align: center; vertical-align: middle;height:20px;display:${displaytype2};background:blue">${done}${successtext}</div>
+	
+		<div id="errorText" style="color:white;font-size: large;text-align: center; vertical-align: middle;height:20px;display:${displaytype};background:#ff6666">${errortext}</div>
+
+        <div id="success2Text" style="color:white;font-size: large;text-align: center; vertical-align: middle;height:20px;display:none;background:blue"></div>
+	
+		<div id="error2Text" style="color:white;font-size: large;text-align: center; vertical-align: middle;height:20px;display:none;background:#ff6666"></div>
+
+
+    
+
+
+
 <div>
 
 <table>
@@ -184,30 +198,24 @@ background-color:#FFFF80;
  
  
 
-        <div id="successText" style="color:white;font-size: large;text-align: center; vertical-align: middle;height:20px;display:${displaytype2};background:blue">${done}${successtext}</div>
-	
-		<div id="errorText" style="color:white;font-size: large;text-align: center; vertical-align: middle;height:20px;display:${displaytype};background:#ff6666">${errortext}</div>
 
-        <div id="success2Text" style="color:white;font-size: large;text-align: center; vertical-align: middle;height:20px;display:none;background:blue"></div>
-	
-		<div id="error2Text" style="color:white;font-size: large;text-align: center; vertical-align: middle;height:20px;display:none;background:#ff6666"></div>
-
-
-    
     
 
     
     
     
-            <div id="dialog" title="Create User">
+            <div id="dialog" style="height:200px" title="Create User">
 
     <div style="width:100%">To create a user enter name, Id and password then press CREATE</div>
                 <div style="width:100%"><div style="width:30%">User Name: </div><div style="width:60%"><input type="text" id="theirUserName2" name="theirUserName" value="" /></div></div>
                 <div style="width:100%"><div style="width:30%">User Id: </div><div style="width:60%"><input type="text" id="theirId2" name="theirId" value="" /></div></div>
                 <div style="width:100%"><div style="width:30%">Password: </div><div style="width:60%"><input type="password" id="theirPassword2" name="theirPassword" value="" /></div></div>
-                <div style="width:100%"><div style="width:30%">World: </div><div style="width:60%"><input class="myrad2" type="radio" name="access" id="a1"  value="W" checked >World</div>
-                <div style="width:100%"><div style="width:30%">China: </div><div style="width:60%"><input class="myrad2" type="radio" name="access" id="a2"  value="C" checked >China</div>
-                <div style="width:100%"><div style="width:30%">India: </div><div style="width:60%"><input class="myrad2" type="radio" name="access" id="a3"  value="I" checked >India</div>
+                <div style="width:100%"><div style="width:99%">Admin: <input class="myrad2" type="radio" name="access" id="a1"  value="a"  />
+                Editor: <input class="myrad2" type="radio" name="access" id="a2"  value="e"  />
+                Subscriber: <input class="myrad2" type="radio" name="access" id="a3"  value="s" checked /></div></div>
+                <div style="width:100%"><div style="width:99%">World: <input class="myrad2" type="checkbox" name="world" id="a11"  value="w"  />
+                China: <input class="myrad2" type="checkbox" name="china" id="a22"  value="c"  />
+                India: <input class="myrad2" type="checkbox" name="india" id="a33"  value="i"  /></div></div>
  
      </div>
 
@@ -248,6 +256,7 @@ background-color:#FFFF80;
 						            buttons: [{
 						                text: "Create",
 						                click : function() {    
+						                	
 						                	if ($("#theirUserName2").val()=="" ||
 						    				         $("#theirId2").val()=="" ||
 						    				         $("#theirPassword2").val()=="" ) {
@@ -255,10 +264,37 @@ background-color:#FFFF80;
 						    				    	 return false;
 						    				     } else {
 						    				    	 
+									                	var access="";
+									                	var world="0";
+									                	var china="0";
+									                	var india="0";
+									                	if($('#a1').is(':checked')){
+									                		access="a";
+									                	}
+									                	if($('#a2').is(':checked')){
+									                		access="e";
+									                	}
+									                	if($('#a3').is(':checked')){
+									                		access="s";
+									                	}
+									                	if($('#a11').is(':checked')){
+									                		world="1";
+									                	}
+									                	if($('#a22').is(':checked')){
+									                		china="1";
+									                	}
+									                	if($('#a33').is(':checked')){
+									                		india="1";
+									                	}
 						    			         
 						    				         $.ajax({
 						    		       	          url: "/user?theirUserName="+$("#theirUserName2").val()
-						    		       	        		  +"&theirId="+$("#theirId2").val()+"&theirPassword="+$("#theirPassword2").val()+"&randNum=" + new Date().getTime(),
+						    		       	        		  +"&theirId="+$("#theirId2").val()+"&theirPassword="+$("#theirPassword2").val()+
+						    		       	        		  "&access="+access+
+						    		       	        		  "&world="+world+
+						    		       	        		  "&china="+china+
+						    		       	        		  "&india="+india+
+						    		       	        		  "&randNum=" + new Date().getTime(),
 						    		       	        		  
 						    		       	          type: 'GET',
 						    		       	          contentType: 'application/html',

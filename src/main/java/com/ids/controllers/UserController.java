@@ -143,8 +143,12 @@ public class UserController {
 	    	  
 	        	    		
 	        		   String  query = "INSERT into  ids_users " +
-	        		     		" (  userId, passwordId, user_name )" +
-	        		     		" values ('"+theirUserId+"','"+theirPassword+"','"+theirUserName+"' ) ";
+	        		     		" (  userId, passwordId, user_name, access, world, china, india )" +
+	        		     		" values ('"+theirUserId+"','"+theirPassword+"','"+theirUserName+"','" +
+	        		     		request.getParameter("access") +"',"+
+	        		     		request.getParameter("world") +","+
+	        		     		request.getParameter("china") +","+
+	        		     		request.getParameter("india") +")";
 	        				   
 	        		     logger.warning("update user: "+query);
 	        		     try{

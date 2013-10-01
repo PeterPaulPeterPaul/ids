@@ -89,7 +89,7 @@ import com.ids.user.User;
 public class EditorController implements DropdownInterface {
 
 	private Connection con;
-	private String access = "w" ;  //TEMP SOLUTION - SET TO WORLD
+	private String access = "" ;  //TEMP SOLUTION - SET TO WORLD
 
    	private final static Logger logger = Logger.getLogger(EditorController.class.getName()); 
        
@@ -108,7 +108,7 @@ public class EditorController implements DropdownInterface {
 		 logger.warning("Entering application via GEt");
 		 logger.warning("excelDownload: "+request.getParameter("excelDownload"));
 		 
-		
+
 
 		   DriverManager.registerDriver(new AppEngineDriver());
 		  con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","123smiggles321","Wednesday");
@@ -159,13 +159,46 @@ public class EditorController implements DropdownInterface {
 
 	            int myYear =  c.get(Calendar.YEAR) ;
 	            
-			 if (request.getParameter("list") == null || request.getParameter("list").equals("1")){
-		    	  
-				 FirstTimeEdQuery ftq = new FirstTimeEdQuery(model, con, request, myYear, /* set access to world TEMP*/ "w"  );
-				 model = ftq.getModel();
-				 
-	    		  con.close(); 
-	    		    	 logger.warning("returning to idsEditmain");
+	        	access=user.getCurrentLocation();
+            	
+            	
+            	String accessoptions = "";
+            	String selected = "";
+            	if (user.getWorld()==1) {
+            		if (access.equals("w")) {
+            			selected = "selected";
+            		} else {
+            			selected = "";
+            		}
+            		accessoptions+="<option value='w' "+selected+" >World</option>"; 
+            	}
+            	if (user.getChina()==1) {
+            		if (access.equals("c")) {
+            			selected = "selected";
+            		} else {
+            			selected = "";
+            		}
+            		accessoptions+="<option value='c' "+selected+" >China</option>";
+            	}
+            	if (user.getIndia()==1) {
+            		if (access.equals("i")) {
+            			selected = "selected";
+            		} else {
+            			selected = "";
+            		}
+            		accessoptions+="<option value='i' "+selected+" >India</option>";
+            	}
+            	  model.addAttribute("accessoptions",accessoptions);
+            	
+            
+		 if (request.getParameter("list") == null || !request.getParameter("list").equals("1")){
+	    	  
+			 FirstTimeEdQuery ftq = new FirstTimeEdQuery(model, con, request, myYear, access );
+			 model = ftq.getModel();
+			 
+    		  con.close(); 
+    		    	 logger.warning("coming out of first time");
+    		    	 model.addAttribute("openOrClose","close");
 	    		  return "idsEditmain";
 		    		
 		      }
@@ -334,7 +367,7 @@ public class EditorController implements DropdownInterface {
 		    				  srp.getFromDate(), srp.getToDate(), access);
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
-		    		  model.addAttribute("myDimension","country shortname");
+		    		  model.addAttribute("myDimension","Country shortname");
 		    		  SQL1Ed sql1 =  new SQL1Ed(srp.getSalesOrProduct(),
 		    			(srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), 
 		    		    (srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),
@@ -379,11 +412,11 @@ public class EditorController implements DropdownInterface {
 		    			  colHead2="year";
 		    			  cna = new ColumnNameArray(statement,"years", PRODUCT,
 		    					  srp.getFromDate(), srp.getToDate(), access); 
-		    			  model.addAttribute("myDimension","years");
+		    			  model.addAttribute("myDimension","Year");
 		    		  } else {
 		    			  cna = new ColumnNameArray(statement,"product shortname", YEARS,
 		    					  srp.getFromDate(), srp.getToDate(), access); 
-		    			  model.addAttribute("myDimension","product shortname");
+		    			  model.addAttribute("myDimension","Product shortname");
 		    		  }
 
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
@@ -434,11 +467,11 @@ public class EditorController implements DropdownInterface {
 		    			  colHead2="year";
 		    			  cna = new ColumnNameArray(statement,"years", COUNTRY,
 		    					  srp.getFromDate(), srp.getToDate(), access); 
-		    			  model.addAttribute("myDimension","years");
+		    			  model.addAttribute("myDimension","Year");
 		    		  } else {
 		    			  cna = new ColumnNameArray(statement,"country shortname", YEARS,
 		    					  srp.getFromDate(), srp.getToDate(), access); 
-		    			  model.addAttribute("myDimension","country shortname");
+		    			  model.addAttribute("myDimension","Country shortname");
 		    		  }
 		    		  
 
@@ -486,11 +519,11 @@ public class EditorController implements DropdownInterface {
 		    			  colHead2="product";
 		    			  cna = new ColumnNameArray(statement,"product shortname", COUNTRY,
 		    					  srp.getFromDate(), srp.getToDate(),access); 
-		    			  model.addAttribute("myDimension","product shortname");
+		    			  model.addAttribute("myDimension","Product shortname");
 		    		  } else {
 		    			  cna = new ColumnNameArray(statement,"country shortname", PRODUCT,
 		    					  srp.getFromDate(), srp.getToDate(),access); 
-		    			  model.addAttribute("myDimension","country shortname");
+		    			  model.addAttribute("myDimension","Country shortname");
 		    		  }
 
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
@@ -534,7 +567,7 @@ public class EditorController implements DropdownInterface {
 		    		  ColumnNameArray cna = new ColumnNameArray(statement,"product shortname", COMPANY,
 		    				  srp.getFromDate(), srp.getToDate(), access);
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
-		    		  model.addAttribute("myDimension","product shortname");
+		    		  model.addAttribute("myDimension","Product shortname");
 		    		  
 		    		  SQL2Ed sql2 =  new SQL2Ed(srp.getSalesOrProduct(),
 		    				  (srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
@@ -574,7 +607,7 @@ public class EditorController implements DropdownInterface {
 		    		  ColumnNameArray cna = new ColumnNameArray(statement,"years" ,COMPANY,
 		    				  srp.getFromDate(), srp.getToDate(), access);
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
-		    		  model.addAttribute("myDimension","years");
+		    		  model.addAttribute("myDimension","Year");
 		    		  
 		    		  SQL3Ed sql3 =  new SQL3Ed(srp.getSalesOrProduct(),
 		    				  (srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
@@ -610,6 +643,7 @@ public class EditorController implements DropdownInterface {
 		    	  
 		    	  
 		    	  con.close();   
+		    	  model.addAttribute("openOrClose","close");
 	return "idsEditmain";
 }
 	 
