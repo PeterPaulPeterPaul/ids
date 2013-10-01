@@ -67,7 +67,7 @@ public class FirstTimeEdQuery {
 		   }
 		  
 
-    	  YearArray yearArray = new YearArray("Company",years);
+    	  YearArray yearArray = new YearArray("company",years);
     	  
     	  ColumnModel columnModel = new ColumnModel(yearArray.getJsonYearArray());
 
@@ -117,7 +117,7 @@ public class FirstTimeEdQuery {
     			}
     			obj2a = new JSONObject();
     			currentCompany=resultSet.getString("name");
-    			obj2a.put("Company",currentCompany);
+    			obj2a.put("company",currentCompany);
     			obj2a.put(resultSet.getString("year"),resultSet.getString("quantity"));
     		} else {
     			obj2a.put(resultSet.getString("year"),resultSet.getString("quantity"));
@@ -132,7 +132,7 @@ public class FirstTimeEdQuery {
 
     	  
 	      JSONObject objTotal = new JSONObject();
-    	  objTotal.put("Company","TOTAL");
+    	  objTotal.put("company","TOTAL");
     	  Iterator<Entry<String, Integer>> it = totalLine2.entrySet().iterator();
     	   while (it.hasNext()) {
     	        Entry<String, Integer> pairs = it.next();

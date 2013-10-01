@@ -26,6 +26,7 @@ import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
+import org.apache.commons.lang3.text.WordUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -172,6 +173,7 @@ public class SaveController implements DropdownInterface {
 			   String SQL = "";
 			   
 			   String value = request.getParameter("dimension1Name");
+			   value = WordUtils.capitalize(value); 
                if (value.equals("Year")) {
             	   year =  request.getParameter("dimension1Val");
                } else {
@@ -198,6 +200,7 @@ public class SaveController implements DropdownInterface {
                
                
                value = request.getParameter("dimension2Name");
+               value =WordUtils.capitalize(value) ;
                if (value.equals("Year")) {
             	   year =  request.getParameter("dimension2Val");
                } else {
@@ -229,7 +232,7 @@ public class SaveController implements DropdownInterface {
                
                
                value = request.getParameter("dimension3Name");
-               
+               value =WordUtils.capitalize(value) ;
                if (value.equals("Year")) {
             	   year =  request.getParameter("dimension3Val");
                } else {
@@ -261,6 +264,7 @@ public class SaveController implements DropdownInterface {
                }
                
                value = request.getParameter("dimension5Name");
+               value =WordUtils.capitalize(value) ;
                logger.warning("dimension5Name: "+value);
                
                if (value.equals("Year")) {

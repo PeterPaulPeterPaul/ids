@@ -496,6 +496,39 @@ To <select id="todate" name="todate" >
  
      <div id="dialogAdd" title="Add new row">
     <p id="pp33" >Add new row</p>
+    
+     <div id="drop211" class="showornot2" style="display:none;">
+<select class="dropdown222" id="drop211s" style="width:180px;margin:10px">
+ <c:forEach var="drop1" items="${dropdown1a}">
+  <option value="${drop1.id}">${drop1.name}&nbsp;</option>
+  </c:forEach>
+</select>
+</div>
+
+<div id="drop222"  class="showornot2 viewable2" style="display:block">
+<select class="dropdown222" id="drop222s" style="width:180px;margin:10px">
+ <c:forEach var="drop1" items="${dropdown1b}">
+  <option value="${drop1.id}">${drop1.name}&nbsp;</option>
+  </c:forEach>
+</select>
+</div>
+
+<div id="drop233"  class="showornot2" style="display:none">
+<select class="dropdown222" id="drop233s" style="width:180px;margin:10px">
+ <c:forEach var="drop1" items="${dropdown1c}">
+  <option value="${drop1.id}">${drop1.name}&nbsp;</option>
+  </c:forEach>
+</select>
+</div>
+
+<div id="drop244"  class="showornot2" style="display:none">
+<select class="dropdown222" id="drop244s" style="width:180px;margin:10px">
+ <c:forEach var="drop1" items="${dropdown1d}">
+  <option value="${drop1.id}">${drop1.name}&nbsp;</option>
+  </c:forEach>
+</select>
+</div>
+
  </div>
  
       <div id="dialogDel" title="Delete row">
@@ -547,6 +580,28 @@ To <select id="todate" name="todate" >
         	  
         	  
         	  $("#addsub").on("click",function(){ 
+        		  
+        		  var dimension1Name = $(".ui-jqgrid-htable").children("thead").children("tr").children("th:first-child").attr("id");
+      			dimension1Name = dimension1Name.replace("list47_","");
+
+      			$("#drop211").css("display","none");
+      			$("#drop222").css("display","none");
+      			$("#drop233").css("display","none");
+      			$("#drop244").css("display","none");
+    			if (dimension1Name == "country") {
+        		  $("#drop211").css("display","block");
+    			}
+    			if (dimension1Name == "product") {
+    			   $("#drop222").css("display","block");
+    			}
+    			if (dimension1Name == "year") {
+    				$("#drop233").css("display","block");
+    			}
+    			if (dimension1Name == "company") {
+    				$("#drop244").css("display","block");
+    			}
+      			
+      			
         		  $("#dialogAdd").dialog("open");
         	  });
         	  $("#delsub").on("click",function(){ 
@@ -926,7 +981,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			       			}
 
 					  $.ajax({
-						  url: '/editor?list=2&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
+						  url: '/editor?list=1&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
 				  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
 								  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue
 								  +countriesParm+countriesList+productsParm+productsList+
