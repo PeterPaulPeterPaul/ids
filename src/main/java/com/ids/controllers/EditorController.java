@@ -198,7 +198,12 @@ public class EditorController implements DropdownInterface {
 			 
     		  con.close(); 
     		    	 logger.warning("coming out of first time");
-    		    	 model.addAttribute("openOrClose","close");
+    		    	 
+    		    	 if (request.getParameter("openOrClose") != null) {
+    		    		 model.addAttribute("openOrClose",request.getParameter("openOrClose") ); 
+    		    	 }else {
+    		    	    model.addAttribute("openOrClose","close");
+    		    	 }
 	    		  return "idsEditmain";
 		    		
 		      }

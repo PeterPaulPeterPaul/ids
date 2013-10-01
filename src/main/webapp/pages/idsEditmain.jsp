@@ -204,6 +204,7 @@ To <select id="todate" name="todate" >
 <div style="margin-left:15px;text-align:center"><br><br>
   <input type="image" name="filter" class="filter" id="filter"   src="images/filter.png" />
    <input type="button" style="font-size:x-small;display:none"  id="clearfilter"  value="Clear Filter"/>
+     <input type="button" style="font-size:x-small;display:none" class="swap" name="swap1" id="swap1"  value="Swap cols/rows"/>
 </div>
 <div style="float:left;width:90%;margin-right:5%;margin-top:5%;">
 <fieldset style="background-color:#FFFF80;margin-left: 10px;">
@@ -583,6 +584,10 @@ To <select id="todate" name="todate" >
         		  
         		  var dimension1Name = $(".ui-jqgrid-htable").children("thead").children("tr").children("th:first-child").attr("id");
       			dimension1Name = dimension1Name.replace("list47_","");
+      			
+      		  var dimension5Name = $(".ui-jqgrid-htable").children("thead").children("tr").children("th:nth-child(2)").attr("id");
+    			dimension5Name = dimension5Name.replace("list47_","");
+    			alert(dimension5Name);
 
       			$("#drop211").css("display","none");
       			$("#drop222").css("display","none");
@@ -601,6 +606,50 @@ To <select id="todate" name="todate" >
     				$("#drop244").css("display","block");
     			}
       			
+    			var dimension2 = $(".viewable1").attr("id");
+    			var text2 = $("#"+dimension2+"sSelectBoxItText").text();
+    			var di_name="";
+    			if (dimension2 == "drop11") {
+    				di_name="Country";
+    			}
+    			if (dimension2 == "drop12") {
+    				di_name="Product";
+    			}
+    			if (dimension2 == "drop13") {
+    				di_name="Year";
+    			}
+    			if (dimension2 == "drop14") {
+    				di_name="Company";
+    			}
+    			var dimension3 = $(".viewable2").attr("id");
+    			var text3 = $("#"+dimension3+"sSelectBoxItText").text();
+    			
+    			var di_name3="";
+    			if (dimension3 == "drop21") {
+    				di_name3="Country";
+    			}
+    			if (dimension3 == "drop22") {
+    				di_name3="Product";
+    			}
+    			if (dimension3 == "drop23") {
+    				di_name3="Year";
+    			}
+    			if (dimension3 == "drop24") {
+    				di_name3="Company";
+    			}
+    			
+    			/*
+    			dimension1Val:retVal,
+			    dimension1Name:dimension1Name,
+			    dimension2Val:text2.replace(/^\s+|\s+$/g, ''),
+			    dimension2Name:di_name,
+			    dimension3Val:text3.replace(/^\s+|\s+$/g, ''),
+			    dimension3Name:di_name3,
+    			dimension4Val:$("#drop31sSelectBoxItText").text(),
+		     	dimension4Name:"PorS",
+		     	dimension5Val:celname,
+			    dimension5Name:$("#myDimensionHidden").text(),
+    			*/
       			
         		  $("#dialogAdd").dialog("open");
         	  });
@@ -692,10 +741,23 @@ To <select id="todate" name="todate" >
         	  $(".dropdown2").css("width","182px");
 
         	var clickType="";
-
+        	var swapValue="0";
 
   
-	
+        	$(".swap").on("click",function(){
+        		if($(this).hasClass("noswap")){
+        			swapValue="0"
+        		   $(".swap").val("Swap cols/rows");
+        			$(".swap").removeClass("noswap");
+        		} else {
+        			swapValue="1"
+        		    $(".swap").val("Clear swap");
+        			$(".swap").addClass("noswap");
+        		}
+        		downloadExcel="no";
+        		 getGrid();
+        	});
+        	
 	
 	  
 	  
@@ -785,7 +847,16 @@ To <select id="todate" name="todate" >
 	  
 	  $(".myrad2").on("change",function(){
 		  clickType="myrad2";
-		 
+		  if ($(".myrad2:checked").val()=="4"){ 
+		  $(".swap").show();
+      } else {
+    	  if ( $(".myrad3:checked").val()=="4"){
+    		  $(".swap").show(); 
+    	  } else {
+    	     $(".swap").hide();  
+    	  }
+      }
+      
 		  downloadExcel="no";
 		  getGrid(); 
 	  });
@@ -793,6 +864,15 @@ To <select id="todate" name="todate" >
 	  $(".myrad3").on("change",function(){
 		  clickType="myrad3";
 
+		  if ($(".myrad2:checked").val()=="4"|| 
+				  $(".myrad3:checked").val()=="4"){
+
+			      $(".swap").show();
+
+		      } else {
+		    	  $(".swap").hide();  
+		      }
+		  
 
 		  downloadExcel="no";
 		  getGrid(); 
