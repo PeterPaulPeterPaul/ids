@@ -61,12 +61,12 @@ import com.ids.sql.SQL6;
 import com.ids.user.User;
 
 @Controller
-@RequestMapping(value="/saverow")
-public class SaveController implements DropdownInterface {
+@RequestMapping(value="/addrow")
+public class AddController implements DropdownInterface {
 
 	private Connection con;
 
-   	private final static Logger logger = Logger.getLogger(SaveController.class.getName()); 
+   	private final static Logger logger = Logger.getLogger(AddController.class.getName()); 
        
     //   HashMap<Integer,Integer> totalLine = null;
        HashMap<String,Integer> totalLine2 = null;
@@ -77,16 +77,35 @@ public class SaveController implements DropdownInterface {
 	public String getMethodOne(
             HttpServletResponse response,
 			HttpServletRequest request,
-			ModelMap model)  {	   
+			ModelMap model) {	   
 
 		 try{
-		 
 		 logger.warning("Entering application via GEt");
-
+		 logger.warning("excelDownload: "+request.getParameter("excelDownload"));
+		 
 
 		   DriverManager.registerDriver(new AppEngineDriver());
 		  con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","123smiggles321","Wednesday");
 
+		  Enumeration keys = request.getParameterNames();  
+		   while (keys.hasMoreElements() )  
+		   {  
+		      String key = (String)keys.nextElement();  
+		      logger.warning(key);  
+		   
+		      //To retrieve a single value  
+		      String value = request.getParameter(key);  
+		      logger.warning(value);  
+		   
+		      // If the same key has multiple values (check boxes)  
+		      String[] valueArray = request.getParameterValues(key);  
+		        
+		      for(int i = 0; i > valueArray.length; i++){  
+		    	  logger.warning("VALUE ARRAY" + valueArray[i]);  
+		      }  
+		   }  
+		 
+		  
 		  
 	      Statement statement = con.createStatement();
 
@@ -124,16 +143,7 @@ public class SaveController implements DropdownInterface {
 			   
 			   model.addAttribute("openOrClose","close");
 			   
-			   if (request.getParameter("save")!= null ) {
-				   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Delete from Facts_w");
-				   int retval = statement2.executeUpdate();
-				   statement2 = (PreparedStatement) con.prepareStatement("insert into Facts_w select * from FactsEdit ");
-				   retval = statement2.executeUpdate();
-				   con.commit();
-				   model.addAttribute("openOrClose","open");
-				   return "redirect:editor";
- 
-			   }
+
 			   
 			   String year = "";
 			   String productId = "";
@@ -143,6 +153,7 @@ public class SaveController implements DropdownInterface {
 			   String SQL = "";
 			   
 			   String value = request.getParameter("dimension1Name");
+			   logger.warning("dimension1Name: "+value);
 			   value = WordUtils.capitalize(value); 
                if (value.equals("Year")) {
             	   year =  request.getParameter("dimension1Val");
@@ -207,6 +218,8 @@ public class SaveController implements DropdownInterface {
             	   year =  request.getParameter("dimension3Val");
                } else {
             	   SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension3Val").trim() +"' ";
+            	   logger.warning("SQL3: "+SQL);
+            	   logger.warning("value3: "+value);
               	  resultSet = statement.executeQuery(SQL);
               	  while (resultSet.next()) {
               		  if (value.equals("Country")) {
@@ -233,6 +246,7 @@ public class SaveController implements DropdownInterface {
                
                value = request.getParameter("dimension5Name");
                value =WordUtils.capitalize(value) ;
+               logger.warning("dimension5Name: "+value);
                
                if (value.equals("Year")) {
             	   year =  request.getParameter("dimension5Val");
@@ -240,6 +254,7 @@ public class SaveController implements DropdownInterface {
 
             	   value = value.substring(0,value.indexOf(" "));
             	   SQL = " select id from "+value+ " where shortname = '" +request.getParameter("dimension5Val") +"' ";
+            	   logger.warning("SQL5: "+SQL);
                	  resultSet = statement.executeQuery(SQL);
                	  while (resultSet.next()) {
                		  if (value.equals("Country")) {
@@ -261,41 +276,20 @@ public class SaveController implements DropdownInterface {
                logger.warning("companyId: "+companyId);
                logger.warning("PorS: "+PorS);
                
+/*
 
-               int quant =0;
-               if (!request.getParameter("FactVal").trim().equals("")) { 
-                   quant = Integer.parseInt(request.getParameter("FactVal"));
-               }
-               if (quant==0) {
-            	   
-            	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Delete from FactsEdit where "+
-                		    " productId = "+productId + " and year = "+year+ " and access = 'w' "+
-                		   " and companyId = "+companyId + " and countryId = "+countryId+ " and sales_production = "+PorS);
-                   int retval = statement2.executeUpdate();
-            	   
-               }else {
-			    
-               PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Update FactsEdit set quantity = "+
-            		   request.getParameter("FactVal")+ " where productId = "+productId + " and access= 'w' and year = "+year+
-            		   " and companyId = "+companyId + " and countryId = "+countryId+ " and sales_production = "+PorS);
-               int retval = statement2.executeUpdate();
-               
-               if (retval==0) {
             	   String newSQL = "Insert into FactsEdit (quantity, productId, year, companyId, countryId," +
             	   		" sales_production, access) values ("+request.getParameter("FactVal")+","+productId
             	   		+","+year+","+companyId+","+countryId+","+PorS+",'w')";
             	   logger.warning("InsertSQL: "+newSQL);
-            	   statement2 = (PreparedStatement) con.prepareStatement(newSQL);
-            	   retval = statement2.executeUpdate();
-            	   
-               }
-               }
+            	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
+            	   int retval = statement2.executeUpdate();
+
                 con.commit();
+*/
+		 }catch(Exception e) {
+			 logger.log(Level.SEVERE,"Error",e);
 		 }
-                catch(Exception e) {
-                	logger.log(Level.SEVERE,"error",e);
-                }
-			   
 			   return "login";
 	 }
 	 
@@ -308,15 +302,11 @@ public class SaveController implements DropdownInterface {
 		 
 		 logger.warning("Entering application via POST");
 
-try{
+
 		 return getMethodOne(
 		            response,
 					request,
 					model);
-}catch(Exception e){
-	logger.log(Level.SEVERE,"error",e);
-	return null;
-}
 	 }
 	 
 	

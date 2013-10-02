@@ -473,7 +473,7 @@ To <select id="todate" name="todate" >
 
  </div>
  
- 
+
  
 </div>
 <div style="display:none">
@@ -484,13 +484,14 @@ To <select id="todate" name="todate" >
    </div>
    
    
-
+	
 <div id="beans" style="margin-left:5px;margin-top:18px;float:left;width:81%;height:90%;background-color:#FFFF80;">
 <table id="list47"></table>
 <div id="plist47"></div>
 </div>
 
 
+         
     <div id="dialog" title="Database update">
     <p id="pp34" >Database Update complete</p>
  </div>
@@ -538,6 +539,8 @@ To <select id="todate" name="todate" >
  
  
  </div>
+          <div id="success2Text" style="color:white;z-index:100;font-size: large;text-align: center; vertical-align: middle;height:20px;display:none;background:blue">
+         Database update now taking place</div>
  </body>
           <script type="text/javascript">
 
@@ -561,8 +564,8 @@ To <select id="todate" name="todate" >
         		        autoOpen: false
         		   };
         		    $("#dialog").dialog(dialogOpts2);
-        		    
         		    $("#dialogAdd").dialog(dialogOpts2);
+        		
         		    $("#dialogDel").dialog(dialogOpts2);
 
 
@@ -579,32 +582,49 @@ To <select id="todate" name="todate" >
         	  $("#dialogAdd").dialog("close");
         	  $("#dialogDel").dialog("close");
         	  
+        	  $("#twosub").on("click",function(){
+                   $("#success2Text").css("display","block");
+        		  return true;
+        	  });
+        	  
+
         	  
         	  $("#addsub").on("click",function(){ 
-        		  
+        		 
+            	  var selectedKey="";
+       			var dimension1Val="";
+       			
         		  var dimension1Name = $(".ui-jqgrid-htable").children("thead").children("tr").children("th:first-child").attr("id");
       			dimension1Name = dimension1Name.replace("list47_","");
-      			
+      			alert(dimension1Name);
       		  var dimension5Name = $(".ui-jqgrid-htable").children("thead").children("tr").children("th:nth-child(2)").attr("id");
     			dimension5Name = dimension5Name.replace("list47_","");
-    			alert(dimension5Name);
 
       			$("#drop211").css("display","none");
       			$("#drop222").css("display","none");
       			$("#drop233").css("display","none");
       			$("#drop244").css("display","none");
+ 
+      		//	var selectedKey="";
     			if (dimension1Name == "country") {
         		  $("#drop211").css("display","block");
+        		  selectedKey="drop211s";
     			}
+
     			if (dimension1Name == "product") {
     			   $("#drop222").css("display","block");
+    			   selectedKey="drop222s";
     			}
     			if (dimension1Name == "year") {
     				$("#drop233").css("display","block");
+    				selectedKey="drop233s";
     			}
     			if (dimension1Name == "company") {
     				$("#drop244").css("display","block");
+    				selectedKey="drop244s";
     			}
+    			
+
       			
     			var dimension2 = $(".viewable1").attr("id");
     			var text2 = $("#"+dimension2+"sSelectBoxItText").text();
@@ -638,6 +658,11 @@ To <select id="todate" name="todate" >
     				di_name3="Company";
     			}
     			
+ 
+    			dimension1Val = $("#"+selectedKey).val();
+          	
+    			
+    			
     			/*
     			dimension1Val:retVal,
 			    dimension1Name:dimension1Name,
@@ -650,9 +675,88 @@ To <select id="todate" name="todate" >
 		     	dimension5Val:celname,
 			    dimension5Name:$("#myDimensionHidden").text(),
     			*/
-      			
-        		  $("#dialogAdd").dialog("open");
+    		  	  $("#"+selectedKey).on("change",function(){ 
+              		 dimension1Val = $("#"+selectedKey+" option:selected").text();
+              	  });
+    			
+    			var dialogOpts3 = {
+    			 modal: true,
+	            width: 500,
+	            height: 300,
+	            buttons: [{
+	                text: "Create",
+	                click : function() {    
+
+	    				         $.ajax({
+	    		       	          url: "/addrow?dimension1Val="+dimension1Val+
+	    		      			    "&dimension1Name="+dimension1Name+
+	    		    			    "&dimension2Val="+text2.replace(/^\s+|\s+$/g, '')+
+	    		    			    "&dimension2Name="+di_name+
+	    		    			    "&dimension3Val="+text3.replace(/^\s+|\s+$/g, '')+
+	    		    			    "&dimension3Name="+di_name3+
+	    		        			"&dimension4Val="+$("#drop31sSelectBoxItText").text()+
+	    		        			"&dimension4Name="+"PorS"+
+	    		        			"&dimension5Val="+dimension5Name+
+	    		    			    "&dimension5Name="+$("#myDimensionHidden").text(),
+	    		       	        		 
+	    		       	          type: 'GET',
+	    		       	          contentType: 'application/html',
+	    		       	          processData: false,
+	    		       	          async: false,
+	    		       	          dataType: 'html',
+	    		       	          success: function(data) { 
+
+	    		       	        	  if (data=="User successfully created!"){
+	    		       	        		  $("#success2Text").text(data);
+	    		       	        		  $("#success2Text").css("display","block");
+	    		       	        		 $("#error2Text").css("display","none");
+	    		       	        		  
+	    		       	  		    	 
+	    		       	        		  $("#dialogAdd").dialog("close");
+
+	    		       	        	  } else {
+	    		       	        		  $("#error2Text").text(data);
+	    		       	        		 $("#success2Text").css("display","none");
+	    		       	        		  $("#error2Text").css("display","block");
+	    		       	        		  
+	    		       	        		 $("#theirPassword2").val("");
+	    		       	        	  }
+	    		       	        	  return false;
+	    		       	          },
+	    		    	          error: function (xhr, ajaxOptions, thrownError) {
+	    		    	        	  alert("error");
+	    		    	              alert(xhr.status);
+	    		    	              alert(thrownError);
+	    		    	            }
+
+	    		    	      });
+
+	                }
+
+	                }, {
+	                text: "Cancel",
+	                click: function() {
+	                  $( this ).dialog( "close" );
+	                    $(this).dialog(dialogOpts3).dialog("close"); //return false; 
+	                    return false;
+	                } 
+	                
+	                }]
+	       };
+    			
+        		  $("#dialogAdd").dialog(dialogOpts3).dialog("open");
+        		  
+        		  
+ 
+    			
         	  });
+        	  
+
+      
+        	  
+        	 
+        	  
+        	  
         	  $("#delsub").on("click",function(){ 
         		  $("#dialogDel").dialog("open");
         	  });
