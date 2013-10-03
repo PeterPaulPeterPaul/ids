@@ -65,43 +65,15 @@ public class SetupController {
 		   HttpServletResponse response,  HttpServletRequest request,
                    ModelMap map) throws SQLException,  IOException  {
 
-    	
-    	logger.warning("ABOVE THE STUFF a");
-    	System.out.println("ABOVE THE STUFF b");
+
     	
   		 HttpSession session = request.getSession(true);
-  		 
-  		 
-  		Enumeration keys = request.getParameterNames();  
-  	   while (keys.hasMoreElements() )  
-  	   {  
-  	      String key = (String)keys.nextElement();  
-  	    logger.warning("key name: "+key);  
-  	   
-  	      //To retrieve a single value  
-  	      String value = request.getParameter(key);  
-  	    logger.warning("parm value: "+value);  
-  	   
 
-  	   }  
-  	   
-  		 
-  		 
-  		 
 	     User user =(User) session.getAttribute("myUser");
     	
 		 if (user==null || !user.getUserName().equals("changestuff")) {
 			 return "redirect:/login";
 		 }
-    	
-		 logger.warning("ABOVE THE STUFF aa");
-	    	System.out.println("ABOVE THE STUFF bb");
-	    	
-
-    	
-	    logger.warning("ABOVE THE STUFF aaa: " +request.getParameter("table"));
-    	System.out.println("ABOVE THE STUFF bbb");
-    	
     	
     	
         DriverManager.registerDriver(new AppEngineDriver());
@@ -635,9 +607,31 @@ return "setup";
 			   model.addAttribute("displaytype","none");
 			   model.addAttribute("displaytype2","none");
 			   model.addAttribute("fileType","facts");
-			 //  model.addAttribute("fileType2","products");
-			//   model.addAttribute("fileType4","companies");
-			 //  model.addAttribute("fileType3","countries");
+			   
+			   DriverManager.registerDriver(new AppEngineDriver());
+		        con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","123smiggles321","Wednesday");
+		      //  con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","user","password");
+		       
+
+				 con.setAutoCommit(false);
+				 
+				 
+				 
+			      Statement statement = con.createStatement();
+
+			      ResultSet resultSet = null;
+			      String query = "select userId from ids_users order by userId asc ";
+			      String options="";
+				  resultSet = statement.executeQuery(query);
+
+
+				   while (resultSet.next()) {
+					   options += "<option>"+resultSet.getString("userId")+"</option>";
+				   }
+
+				   model.addAttribute("options",options);
+				   
+
     	return "setup";
 	 }
 	
