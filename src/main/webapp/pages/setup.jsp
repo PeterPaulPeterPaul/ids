@@ -21,6 +21,7 @@
 	   };
 	    $("#dialog").dialog(dialogOpts);
 	    $("#dialog2").dialog(dialogOpts);
+	    $("#dialog3").dialog(dialogOpts);
 	});
 	</script>
 	
@@ -36,10 +37,13 @@ background-color:#FFFF80;
 	<span style="font-size:250%">International Database Service</span><br>
 	<span style="font-size:150%">Off-Highway Research</span><br><br>
 	<span><input type="image" name="close" id="closeit"  value="exit" src="images/exit.bmp" /></span>
-	
+	</div>
 	<br><br><br><br>
-	<span style="margin-left:400px"><input type="button" id="createUser" value="Create User"/>
-	             &nbsp;&nbsp;<input type="button" id="changePass" value="change Password"/></span>
+	<div style="width:700px">
+	<span style="margin-left:200px"><input type="button" id="createUser" value="Create User"/>
+	             <input type="button" id="changePass" value="change Password"/>
+	             	<input type="button" id="upgradeUser" value="Upgrade User"/>
+</span>
 	</div>
 
 
@@ -52,13 +56,9 @@ background-color:#FFFF80;
 		<div id="error2Text" style="color:white;font-size: large;text-align: center; vertical-align: middle;height:20px;display:none;background:#ff6666"></div>
 
 
-    
-
-
-
 <div>
 
-<table>
+<table style="margin-left:120px;margin-top:10px;">
 
 
 <tr>
@@ -228,6 +228,18 @@ background-color:#FFFF80;
      </div>
     
     
+                <div id="dialog3" style="height:200px" title="Upgrade User">
+
+    <div style="width:100%">Select user and new access type</div>
+                <div style="width:100%"><div style="width:30%">User Name: </div><div style="width:60%"><input type="text" id="theirUserName2" name="theirUserName" value="" /></div></div>
+                <div style="width:100%"><div style="width:30%">User Id: </div><div style="width:60%"><input type="text" id="theirId2" name="theirId" value="" /></div></div>
+     
+                <div style="width:100%"><div style="width:99%">World: <input class="myrad2" type="checkbox" name="world" id="a11"  value="w"  />
+                China: <input class="myrad2" type="checkbox" name="china" id="a22"  value="c"  />
+                India: <input class="myrad2" type="checkbox" name="india" id="a33"  value="i"  /></div>
+ </div>
+     </div>
+    
 	<script type="text/javascript">
 	 $(document).ready(function(){
 						
@@ -235,6 +247,7 @@ background-color:#FFFF80;
 						    
 						    $("#dialog").dialog("close");
 						    $("#dialog2").dialog("close");
+						    $("#dialog3").dialog("close");
 						    
 						    
 						    
