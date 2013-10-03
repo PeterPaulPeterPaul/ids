@@ -599,7 +599,7 @@ To <select id="todate" name="todate" >
 </div>
 
 First Quantity:
-<div id="drop2555"  class="showornot2" style="display:block">
+<div    style="display:block">
 <input type="text" id="quantityAmt" name="quantityAmt" value="" />
 </div>
 
