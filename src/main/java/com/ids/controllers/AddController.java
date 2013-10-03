@@ -256,18 +256,15 @@ public class AddController implements DropdownInterface {
                    }catch(Exception e) {
                 	   //Ignore 
                    }
-            	   SQL = " select id from "+value+ " where shortname = '" +request.getParameter("dimension5Val") +"' ";
-            	   logger.warning("SQL5: "+SQL);
-               	  resultSet = statement.executeQuery(SQL);
-               	  while (resultSet.next()) {
+            	  // SQL = " select id from "+value+ " where shortname = '" +request.getParameter("dimension5Val") +"' ";
+            	  // logger.warning("SQL5: "+SQL);
+             //  	  resultSet = statement.executeQuery(SQL);
+              // 	  while (resultSet.next()) {
                		  if (value.equals("Country")) {
-               			  countryId= resultSet.getString("id");
-               			  break;
+               			  countryId= request.getParameter("dimension5Val");
                		  }
                		  if (value.equals("Product")) {
-               			  productId= resultSet.getString("id");
-               			  break;
-               		  }
+               			  productId= request.getParameter("dimension5Val");
                	  } 
             	   
                }
