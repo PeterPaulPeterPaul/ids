@@ -234,7 +234,7 @@ To <select id="todate" name="todate" >
 
 </div>
 
-<div id="myDimensionHidden" style="display:none"></div>
+<div id="myDimensionHidden" style="display:none">Year</div>
 
 <div id="titleBar" style="float:left;width:82%;height:40%;padding-top:1%;">
 <div style="float:left;">
@@ -490,15 +490,47 @@ To <select id="todate" name="todate" >
 <div id="plist47"></div>
 </div>
 
+<div style="display:none">
 
+<form id="addrowForm" action="/addrow">
+<input type="text" name="dimension1Val" id="dimension1Val">
+<input type="text" name="dimension1Name" id="dimension1Name">
+<input type="text" name="dimension2Val" id="dimension2Val">
+<input type="text" name="dimension2Name" id="dimension2Name">
+<input type="text" name="dimension3Val" id="dimension3Val">
+<input type="text" name="dimension3Name" id="dimension3Name">
+<input type="text" name="dimension4Val" id="dimension4Val">
+<input type="text" name="dimension4Name" id="dimension4Name">
+<input type="text" name="dimension5Val" id="dimension5Val">
+<input type="text" name="dimension5Name" id="dimension5Name">
+<input type="text" name="quantAmt" id="quantAmt">
+<input type="text" name="accessCurr" id="accessCurr" >
+</form>
+ </div>
+
+<div style="display:none">
+
+<form id="deleterowForm" action="/deleterow">
+<input type="text" name="dimension1Val" id="dimension11Val">
+<input type="text" name="dimension1Name" id="dimension11Name">
+<input type="text" name="dimension2Val" id="dimension22Val">
+<input type="text" name="dimension2Name" id="dimension22Name">
+<input type="text" name="dimension3Val" id="dimension33Val">
+<input type="text" name="dimension3Name" id="dimension33Name">
+<input type="text" name="dimension4Val" id="dimension44Val">
+<input type="text" name="dimension4Name" id="dimension44Name">
+<input type="text" name="accessCurr" id="accessCurrr" >
+</form>
+ </div>
          
     <div id="dialog" title="Database update">
     <p id="pp34" >Database Update complete</p>
  </div>
  
      <div id="dialogAdd" title="Add new row">
-    <p id="pp33" >Add new row</p>
+    <p id="pp33" >(You need to add the first quantity here before you can perform the normal row editing functions)</p>
     
+    (Side grid column you wish to add)
      <div id="drop211" class="showornot2" style="display:none;">
 <select class="dropdown222" id="drop211s" style="width:180px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1a}">
@@ -531,10 +563,85 @@ To <select id="todate" name="todate" >
 </select>
 </div>
 
+
+(Top grid column name you wish to add first quantity to)
+
+ <div id="drop2111" class="showornot2" style="display:none;">
+<select class="dropdown222" id="drop2111s" style="width:180px;margin:10px">
+ <c:forEach var="drop1" items="${dropdown1a}">
+  <option value="${drop1.id}">${drop1.name}&nbsp;</option>
+  </c:forEach>
+</select>
+</div>
+
+<div id="drop2222"  class="showornot2 viewable2" style="display:block">
+<select class="dropdown222" id="drop2222s" style="width:180px;margin:10px">
+ <c:forEach var="drop1" items="${dropdown1b}">
+  <option value="${drop1.id}">${drop1.name}&nbsp;</option>
+  </c:forEach>
+</select>
+</div>
+
+<div id="drop2333"  class="showornot2" style="display:none">
+<select class="dropdown222" id="drop2333s" style="width:180px;margin:10px">
+ <c:forEach var="drop1" items="${dropdown1c}">
+  <option value="${drop1.id}">${drop1.name}&nbsp;</option>
+  </c:forEach>
+</select>
+</div>
+
+<div id="drop2444"  class="showornot2" style="display:none">
+<select class="dropdown222" id="drop2444s" style="width:180px;margin:10px">
+ <c:forEach var="drop1" items="${dropdown1d}">
+  <option value="${drop1.id}">${drop1.name}&nbsp;</option>
+  </c:forEach>
+</select>
+</div>
+
+First Quantity:
+<div id="drop2555"  class="showornot2" style="display:block">
+<input type="text" id="quantityAmt" name="quantityAmt" value="" />
+</div>
+
+
  </div>
  
       <div id="dialogDel" title="Delete row">
     <p id="pp333" >Delete row</p>
+    
+        (Side grid column you wish to delete)
+     <div id="drop211z" class="showornot2" style="display:none;">
+<select class="dropdown222" id="drop211sz" style="width:180px;margin:10px">
+ <c:forEach var="drop1" items="${dropdown1a}">
+  <option value="${drop1.id}">${drop1.name}&nbsp;</option>
+  </c:forEach>
+</select>
+</div>
+
+<div id="drop222z"  class="showornot2 viewable2" style="display:block">
+<select class="dropdown222" id="drop222sz" style="width:180px;margin:10px">
+ <c:forEach var="drop1" items="${dropdown1b}">
+  <option value="${drop1.id}">${drop1.name}&nbsp;</option>
+  </c:forEach>
+</select>
+</div>
+
+<div id="drop233z"  class="showornot2" style="display:none">
+<select class="dropdown222" id="drop233sz" style="width:180px;margin:10px">
+ <c:forEach var="drop1" items="${dropdown1c}">
+  <option value="${drop1.id}">${drop1.name}&nbsp;</option>
+  </c:forEach>
+</select>
+</div>
+
+<div id="drop244z"  class="showornot2" style="display:none">
+<select class="dropdown222" id="drop244sz" style="width:180px;margin:10px">
+ <c:forEach var="drop1" items="${dropdown1d}">
+  <option value="${drop1.id}">${drop1.name}&nbsp;</option>
+  </c:forEach>
+</select>
+</div>
+    
  </div>
  
  
@@ -592,14 +699,18 @@ To <select id="todate" name="todate" >
         	  $("#addsub").on("click",function(){ 
         		 
             	  var selectedKey="";
+            	  var selectedKey2="";
+            	  
        			var dimension1Val="";
        			
         		  var dimension1Name = $(".ui-jqgrid-htable").children("thead").children("tr").children("th:first-child").attr("id");
       			dimension1Name = dimension1Name.replace("list47_","");
-      			alert(dimension1Name);
-      		  var dimension5Name = $(".ui-jqgrid-htable").children("thead").children("tr").children("th:nth-child(2)").attr("id");
-    			dimension5Name = dimension5Name.replace("list47_","");
 
+      		  var dimension5Val = $(".ui-jqgrid-htable").children("thead").children("tr").children("th:nth-child(2)").attr("id");
+    			dimension5Val = dimension5Val.replace("list47_","");
+
+    			var dimension5Name = $("#myDimensionHidden").text();
+    			
       			$("#drop211").css("display","none");
       			$("#drop222").css("display","none");
       			$("#drop233").css("display","none");
@@ -610,7 +721,6 @@ To <select id="todate" name="todate" >
         		  $("#drop211").css("display","block");
         		  selectedKey="drop211s";
     			}
-
     			if (dimension1Name == "product") {
     			   $("#drop222").css("display","block");
     			   selectedKey="drop222s";
@@ -624,7 +734,28 @@ To <select id="todate" name="todate" >
     				selectedKey="drop244s";
     			}
     			
+      			$("#drop2111").css("display","none");
+      			$("#drop2222").css("display","none");
+      			$("#drop2333").css("display","none");
+      			$("#drop2444").css("display","none");
 
+//    			var selectedKey2="";
+    			if (dimension5Name == "Country shortname") {
+        		  $("#drop2111").css("display","block");
+        		  selectedKey2="drop2111s";
+    			}
+    			if (dimension5Name == "Product shortname") {
+    			   $("#drop2222").css("display","block");
+    			   selectedKey2="drop2222s";
+    			}
+    			if (dimension5Name == "Year") {
+    				$("#drop2333").css("display","block");
+    				selectedKey2="drop2333s";
+    			}
+    			if (dimension5Name == "Company shortname") {
+    				$("#drop2444").css("display","block");
+    				selectedKey2="drop2444s";
+    			}
       			
     			var dimension2 = $(".viewable1").attr("id");
     			var text2 = $("#"+dimension2+"sSelectBoxItText").text();
@@ -660,77 +791,48 @@ To <select id="todate" name="todate" >
     			
  
     			dimension1Val = $("#"+selectedKey).val();
-          	
-    			
-    			
-    			/*
-    			dimension1Val:retVal,
-			    dimension1Name:dimension1Name,
-			    dimension2Val:text2.replace(/^\s+|\s+$/g, ''),
-			    dimension2Name:di_name,
-			    dimension3Val:text3.replace(/^\s+|\s+$/g, ''),
-			    dimension3Name:di_name3,
-    			dimension4Val:$("#drop31sSelectBoxItText").text(),
-		     	dimension4Name:"PorS",
-		     	dimension5Val:celname,
-			    dimension5Name:$("#myDimensionHidden").text(),
-    			*/
+    			dimension5Val = $("#"+selectedKey2).val();
+
     		  	  $("#"+selectedKey).on("change",function(){ 
               		 dimension1Val = $("#"+selectedKey+" option:selected").text();
               	  });
+    		  	  
+    		  	  $("#"+selectedKey2).on("change",function(){ 
+               		 dimension5Val = $("#"+selectedKey2+" option:selected").text();
+               	  });
     			
     			var dialogOpts3 = {
     			 modal: true,
 	            width: 500,
-	            height: 300,
+	            height: 600,
 	            buttons: [{
 	                text: "Create",
 	                click : function() {    
 
-	    				         $.ajax({
-	    		       	          url: "/addrow?dimension1Val="+dimension1Val+
-	    		      			    "&dimension1Name="+dimension1Name+
-	    		    			    "&dimension2Val="+text2.replace(/^\s+|\s+$/g, '')+
-	    		    			    "&dimension2Name="+di_name+
-	    		    			    "&dimension3Val="+text3.replace(/^\s+|\s+$/g, '')+
-	    		    			    "&dimension3Name="+di_name3+
-	    		        			"&dimension4Val="+$("#drop31sSelectBoxItText").text()+
-	    		        			"&dimension4Name="+"PorS"+
-	    		        			"&dimension5Val="+dimension5Name+
-	    		    			    "&dimension5Name="+$("#myDimensionHidden").text(),
-	    		       	        		 
-	    		       	          type: 'GET',
-	    		       	          contentType: 'application/html',
-	    		       	          processData: false,
-	    		       	          async: false,
-	    		       	          dataType: 'html',
-	    		       	          success: function(data) { 
-
-	    		       	        	  if (data=="User successfully created!"){
-	    		       	        		  $("#success2Text").text(data);
-	    		       	        		  $("#success2Text").css("display","block");
-	    		       	        		 $("#error2Text").css("display","none");
-	    		       	        		  
-	    		       	  		    	 
-	    		       	        		  $("#dialogAdd").dialog("close");
-
-	    		       	        	  } else {
-	    		       	        		  $("#error2Text").text(data);
-	    		       	        		 $("#success2Text").css("display","none");
-	    		       	        		  $("#error2Text").css("display","block");
-	    		       	        		  
-	    		       	        		 $("#theirPassword2").val("");
-	    		       	        	  }
-	    		       	        	  return false;
-	    		       	          },
-	    		    	          error: function (xhr, ajaxOptions, thrownError) {
-	    		    	        	  alert("error");
-	    		    	              alert(xhr.status);
-	    		    	              alert(thrownError);
-	    		    	            }
-
-	    		    	      });
-
+	                	if ($("#quantityAmt").val().length){
+	                	if(	$.isNumeric($("#quantityAmt").val())) {
+	                	$("#dimension1Val").val(dimension1Val.replace(/^\s+|\s+$/g, ''));
+	                	$("#dimension1Name").val(dimension1Name);
+	                 	$("#dimension2Val").val(text2.replace(/^\s+|\s+$/g, ''));
+	                	$("#dimension2Name").val(di_name);
+	                 	$("#dimension3Val").val(text3.replace(/^\s+|\s+$/g, ''));
+	                	$("#dimension3Name").val(di_name3);
+	                 	$("#dimension4Val").val($("#drop31sSelectBoxItText").text());
+	                	$("#dimension4Name").val("PorS");
+	                 	$("#dimension5Val").val(dimension5Val.replace(/^\s+|\s+$/g, ''));
+	                	$("#dimension5Name").val($("#myDimensionHidden").text());
+	                	$("#quantAmt").val($("#quantityAmt").val());
+	                	$("#accessCurr").val($("#accessType").val());
+	                	$("#addrowForm").submit();
+	                	}else {
+	                		alert("you must only enter a numeric value");
+	                	}
+	                	}else{
+	                		alert("you must enter a quantity");
+	                	}
+	      			    return false;
+	                	
+	    		
 	                }
 
 	                }, {
@@ -758,8 +860,123 @@ To <select id="todate" name="todate" >
         	  
         	  
         	  $("#delsub").on("click",function(){ 
-        		  $("#dialogDel").dialog("open");
+               	  var selectedKey="";
+            	  var selectedKey2="";
+            	  
+       			var dimension1Val="";
+       			
+        		  var dimension1Name = $(".ui-jqgrid-htable").children("thead").children("tr").children("th:first-child").attr("id");
+      			dimension1Name = dimension1Name.replace("list47_","");
+
+
+    			
+      			$("#drop211z").css("display","none");
+      			$("#drop222z").css("display","none");
+      			$("#drop233z").css("display","none");
+      			$("#drop244z").css("display","none");
+ 
+      		//	var selectedKey="";
+    			if (dimension1Name == "country") {
+        		  $("#drop211z").css("display","block");
+        		  selectedKey="drop211sz";
+    			}
+    			if (dimension1Name == "product") {
+    			   $("#drop222z").css("display","block");
+    			   selectedKey="drop222sz";
+    			}
+    			if (dimension1Name == "year") {
+    				$("#drop233z").css("display","block");
+    				selectedKey="drop233sz";
+    			}
+    			if (dimension1Name == "company") {
+    				$("#drop244z").css("display","block");
+    				selectedKey="drop244sz";
+    			}
+    			
+      			
+    			var dimension2 = $(".viewable1").attr("id");
+    			var text2 = $("#"+dimension2+"sSelectBoxItText").text();
+    			var di_name="";
+    			if (dimension2 == "drop11") {
+    				di_name="Country";
+    			}
+    			if (dimension2 == "drop12") {
+    				di_name="Product";
+    			}
+    			if (dimension2 == "drop13") {
+    				di_name="Year";
+    			}
+    			if (dimension2 == "drop14") {
+    				di_name="Company";
+    			}
+    			var dimension3 = $(".viewable2").attr("id");
+    			var text3 = $("#"+dimension3+"sSelectBoxItText").text();
+    			
+    			var di_name3="";
+    			if (dimension3 == "drop21") {
+    				di_name3="Country";
+    			}
+    			if (dimension3 == "drop22") {
+    				di_name3="Product";
+    			}
+    			if (dimension3 == "drop23") {
+    				di_name3="Year";
+    			}
+    			if (dimension3 == "drop24") {
+    				di_name3="Company";
+    			}
+    			
+ 
+    			dimension1Val = $("#"+selectedKey).val();
+
+    		  	  $("#"+selectedKey).on("change",function(){ 
+              		 dimension1Val = $("#"+selectedKey+" option:selected").text();
+              	  });
+
+    			
+    			var dialogOpts3 = {
+    			 modal: true,
+	            width: 500,
+	            height: 300,
+	            buttons: [{
+	                text: "Delete",
+	                click : function() {    
+
+	                	$("#dimension11Val").val(dimension1Val.replace(/^\s+|\s+$/g, ''));
+	                	$("#dimension11Name").val(dimension1Name);
+	                 	$("#dimension22Val").val(text2.replace(/^\s+|\s+$/g, ''));
+	                	$("#dimension22Name").val(di_name);
+	                 	$("#dimension33Val").val(text3.replace(/^\s+|\s+$/g, ''));
+	                	$("#dimension33Name").val(di_name3);
+	                 	$("#dimension44Val").val($("#drop31sSelectBoxItText").text());
+	                	$("#dimension44Name").val("PorS");
+	                	$("#accessCurrr").val($("#accessType").val());
+	                	$("#deleterowForm").submit();
+	                	
+	      			    return false;
+	                	
+	    		
+	                }
+
+	                }, {
+	                text: "Cancel",
+	                click: function() {
+	                  $( this ).dialog( "close" );
+	                    $(this).dialog(dialogOpts3).dialog("close"); //return false; 
+	                    return false;
+	                } 
+	                
+	                }]
+	       };
+    			
+        		  $("#dialogDel").dialog(dialogOpts3).dialog("open");
+        		  
+        		  
+ 
+    			
         	  });
+        	  
+
         	  
           	var summary=0;
           	var swapValue="0";

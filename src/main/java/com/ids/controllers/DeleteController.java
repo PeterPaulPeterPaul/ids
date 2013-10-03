@@ -61,12 +61,12 @@ import com.ids.sql.SQL6;
 import com.ids.user.User;
 
 @Controller
-@RequestMapping(value="/addrow")
-public class AddController implements DropdownInterface {
+@RequestMapping(value="/deleterow")
+public class DeleteController implements DropdownInterface {
 
 	private Connection con;
 
-   	private final static Logger logger = Logger.getLogger(AddController.class.getName()); 
+   	private final static Logger logger = Logger.getLogger(DeleteController.class.getName()); 
        
     //   HashMap<Integer,Integer> totalLine = null;
        HashMap<String,Integer> totalLine2 = null;
@@ -244,33 +244,6 @@ public class AddController implements DropdownInterface {
             	   PorS = "2";
                }
                
-               value = request.getParameter("dimension5Name");
-               value =WordUtils.capitalize(value) ;
-               logger.warning("dimension5Name: "+value);
-               
-               if (value.equals("Year")) {
-            	   year =  request.getParameter("dimension5Val");
-               } else { 
-                   try{
-            	   value = value.substring(0,value.indexOf(" "));
-                   }catch(Exception e) {
-                	   //Ignore 
-                   }
-            	   SQL = " select id from "+value+ " where shortname = '" +request.getParameter("dimension5Val") +"' ";
-            	   logger.warning("SQL5: "+SQL);
-               	  resultSet = statement.executeQuery(SQL);
-               	  while (resultSet.next()) {
-               		  if (value.equals("Country")) {
-               			  countryId= resultSet.getString("id");
-               			  break;
-               		  }
-               		  if (value.equals("Product")) {
-               			  productId= resultSet.getString("id");
-               			  break;
-               		  }
-               	  } 
-            	   
-               }
                
 
                logger.warning("year: "+year);
@@ -279,12 +252,42 @@ public class AddController implements DropdownInterface {
                logger.warning("companyId: "+companyId);
                logger.warning("PorS: "+PorS);
                
+                   String newSQL="";
+                
+                   if (productId==null || productId.equals("")){
+                     newSQL = "delete from FactsEdit " +
+                   		" where year = "+year+
+                		   " and companyId = "+companyId+
+                		   " and countryId = "+countryId+
+                		   " and sales_production ="+PorS+
+                		   " and access = '"+request.getParameter("accessCurr")+"'";
+                   }
+                   if (year==null || year.equals("")) {
+                     newSQL = "delete from FactsEdit " +
+                   		" where productId = "+productId+
+                		   " and companyId = "+companyId+
+                		   " and countryId = "+countryId+
+                		   " and sales_production ="+PorS+
+                		   " and access = '"+request.getParameter("accessCurr")+"'";
+                   }
+                   if (companyId == null || companyId.equals("")) {
+                     newSQL = "delete from FactsEdit " +
+                   		" where productId = "+productId+
+                		   " and year = "+year+
+                		   " and countryId = "+countryId+
+                		   " and sales_production ="+PorS+
+                		   " and access = '"+request.getParameter("accessCurr")+"'";
+                   }
+                   if (countryId==null || countryId.equals("")) {
+                     newSQL = "delete from FactsEdit " +
+                   		" where productId = "+productId+
+                		   " and year = "+year+
+                		   " and companyId = "+companyId+
+                		   " and sales_production ="+PorS+
+                		   " and access = '"+request.getParameter("accessCurr")+"'";
+                   }
 
-
-            	   String newSQL = "Insert into FactsEdit (quantity, productId, year, companyId, countryId," +
-            	   		" sales_production, access) values ("+request.getParameter("quantAmt")+","+productId
-            	   		+","+year+","+companyId+","+countryId+","+PorS+",'"+request.getParameter("accessCurr")+"')";
-            	   logger.warning("InsertSQL: "+newSQL);
+            	   logger.warning("deleteSQL: "+newSQL);
             	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
             	   int retval = statement2.executeUpdate();
 
