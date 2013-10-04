@@ -322,7 +322,7 @@ background-color:#FFFF80;
 											                	}
 								    			         
 								    				         $.ajax({
-								    		       	          url: "/upgrade?userId="+$("#theirId2").val()+
+								    		       	          url: "/upgrade?userId="+$("#mySelUser").val()+
 								    		       	        		  "&world="+world+
 								    		       	        		  "&china="+china+
 								    		       	        		  "&india="+india+
@@ -512,16 +512,16 @@ background-color:#FFFF80;
 						            buttons: [{
 						                text: "Change Password",
 						                click : function() {    
-						                	if ($("#userID").val()=="" ||
+						                	if(
 						    				         $("#newPass").val()==""  ) {
-						    				    	 alert("You need to enter: Id and new Password");
+						    				    	 alert("You need to enter:  new Password");
 						    				    	 return false;
 						    				     } else {
 						    				    	 
 						    			         
 						    				         $.ajax({
 						    		       	          url: "/user?newPass="+$("#newPass").val()
-						    		       	        		  +"&userID="+$("#userID").val()+"&randNum=" + new Date().getTime(),
+						    		       	        		  +"&userID="+$("#mySelUser2").val()+"&randNum=" + new Date().getTime(),
 						    		       	        		  
 						    		       	          type: 'GET',
 						    		       	          contentType: 'application/html',
