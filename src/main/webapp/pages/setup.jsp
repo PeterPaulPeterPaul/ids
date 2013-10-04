@@ -216,7 +216,7 @@ background-color:#FFFF80;
     <div style="width:100%">Select user and new access type</div>
                 <div style="width:100%"><div style="width:30%">User Id: </div><div style="width:60%"><select id="mySelUser" name="mySelUser">${options}</select></div></div>
      
-                <div style="width:100%"><div style="width:99%">World: <input class="myrad2" type="checkbox" name="world" id="a11"  value="w"  />
+                <div style="width:100%" id="setboxes" ><div style="width:99%">World: <input class="myrad2" type="checkbox" name="world" id="a11"  value="w"  />
                 China: <input class="myrad2" type="checkbox" name="china" id="a22"  value="c"  />
                 India: <input class="myrad2" type="checkbox" name="india" id="a33"  value="i"  /></div>
  </div>
@@ -232,11 +232,58 @@ background-color:#FFFF80;
 						    $("#dialog3").dialog("close");
 						    
 						    
+						    $("#mySelUser").on("change", function(e) {
+						    	$.ajax({
+		    		       	          url: "/getAccess?myUserId="+$("#mySelUser").val()+
+		    		       	        		  "&randNum=" + new Date().getTime(),
+		    		       	        		  
+		    		       	          type: 'GET',
+		    		       	          contentType: 'application/html',
+		    		       	          processData: false,
+		    		       	          async: false,
+		    		       	          dataType: 'html',
+		    		       	          success: function(data) { 
+		    		       	        	  $("#setboxes").html(data);
+		    		       	        	return false;
+		    		       	          },
+		    		    	          error: function (xhr, ajaxOptions, thrownError) {
+		    		    	        	  alert("error");
+		    		    	              alert(xhr.status);
+		    		    	              alert(thrownError);
+		    		    	            }
+
+		    		    	      });
+						    	
+						    	
+						    	
+						    	
+						    });
 						    
-							
+
 						    $("#upgradeUser").on("click", function(e) {
 						    	$("#SuccessText").css("display","none");
 								 $("#errorText").css("display","none");
+								 
+								 $.ajax({
+		    		       	          url: "/getAccess?myUserId="+$("#mySelUser").val()+
+		    		       	        		  "&randNum=" + new Date().getTime(),
+		    		       	        		  
+		    		       	          type: 'GET',
+		    		       	          contentType: 'application/html',
+		    		       	          processData: false,
+		    		       	          async: false,
+		    		       	          dataType: 'html',
+		    		       	          success: function(data) { 
+		    		       	        	  $("#setboxes").html(data);
+		    		       	        	return false;
+		    		       	          },
+		    		    	          error: function (xhr, ajaxOptions, thrownError) {
+		    		    	        	  alert("error");
+		    		    	              alert(xhr.status);
+		    		    	              alert(thrownError);
+		    		    	            }
+
+		    		    	      });
 								 
 								 e.preventDefault();
 								 
@@ -246,15 +293,10 @@ background-color:#FFFF80;
 								            width: 500,
 								            height: 300,
 								            buttons: [{
-								                text: "Create",
+								                text: "Upgrade",
 								                click : function() {    
 								                	
-								                	if ($("#theirUserName2").val()=="" ||
-								    				         $("#theirId2").val()=="" ||
-								    				         $("#theirPassword2").val()=="" ) {
-								    				    	 alert("You need to enter: Id, password and user name");
-								    				    	 return false;
-								    				     } else {
+								                	
 								    				    	 
 											                	var access="";
 											                	var world="0";
@@ -269,20 +311,18 @@ background-color:#FFFF80;
 											                	if($('#a3').is(':checked')){
 											                		access="s";
 											                	}
-											                	if($('#a11').is(':checked')){
+											                	if($('#a1world').is(':checked')){
 											                		world="1";
 											                	}
-											                	if($('#a22').is(':checked')){
+											                	if($('#a1china').is(':checked')){
 											                		china="1";
 											                	}
-											                	if($('#a33').is(':checked')){
+											                	if($('#a1india').is(':checked')){
 											                		india="1";
 											                	}
 								    			         
 								    				         $.ajax({
-								    		       	          url: "/user?theirUserName="+$("#theirUserName2").val()
-								    		       	        		  +"&theirId="+$("#theirId2").val()+"&theirPassword="+$("#theirPassword2").val()+
-								    		       	        		  "&access="+access+
+								    		       	          url: "/upgrade?userId="+$("#theirId2").val()+
 								    		       	        		  "&world="+world+
 								    		       	        		  "&china="+china+
 								    		       	        		  "&india="+india+
@@ -295,24 +335,13 @@ background-color:#FFFF80;
 								    		       	          dataType: 'html',
 								    		       	          success: function(data) { 
 
-								    		       	        	  if (data=="User successfully created!"){
+								    		       	   
 								    		       	        		  $("#success2Text").text(data);
 								    		       	        		  $("#success2Text").css("display","block");
 								    		       	        		 $("#error2Text").css("display","none");
-								    		       	        		  
-								    		       	  		          $("#theirUserName2").val("");
-								    		       	 		          $("#theirId2").val("");
-								    		       	 		          $("#theirPassword2").val("");
 								    		       	  		    	 
 								    		       	        		  $("#dialog3").dialog("close");
 
-								    		       	        	  } else {
-								    		       	        		  $("#error2Text").text(data);
-								    		       	        		 $("#success2Text").css("display","none");
-								    		       	        		  $("#error2Text").css("display","block");
-								    		       	        		  
-								    		       	        		 $("#theirPassword2").val("");
-								    		       	        	  }
 								    		       	        	  return false;
 								    		       	          },
 								    		    	          error: function (xhr, ajaxOptions, thrownError) {
@@ -323,7 +352,7 @@ background-color:#FFFF80;
 
 								    		    	      });
 								    				         
-								    				     }
+							
 								                }
 
 								                }, {
