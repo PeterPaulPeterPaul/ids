@@ -95,7 +95,11 @@ public class LoginController {
 			     logger.debug("going to main");
 		        	model.remove("displaytype2");
 				    model.remove("passwordlab");
-	        	    return "redirect:main";
+				    if (user2.getAccess().equals("e")){
+	        	       return "redirect:editor";
+				    }else{
+				    	 return "redirect:main";
+				    }
 	    	   
 	       }
 
