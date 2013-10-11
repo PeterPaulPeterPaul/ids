@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.appengine.api.rdbms.AppEngineDriver;
+import com.google.cloud.sql.jdbc.PreparedStatement;
 import com.ids.businessLogic.DownloadExcel;
 import com.ids.businessLogic.DropdownInterface;
 import com.ids.businessLogic.FirstTimeEdQuery;
@@ -155,6 +156,23 @@ public class EditorController implements DropdownInterface {
 			   }
 
 		  
+			   
+			   
+			   Statement statement3 =  con.createStatement();
+			   resultSet = statement3.executeQuery("select flag from editing ");
+			   String flag="";
+         	   while (resultSet.next()) {
+         		  flag= resultSet.getString("flag");
+         		  logger.warning("what is flag: "+flag);
+         	   }
+         	   if (flag.equals("1")) {
+         		  model.addAttribute("saveBut","block"); 
+         		  model.addAttribute("openOrClose2","open"); 
+         	   }else{
+         		  model.addAttribute("openOrClose2","close"); 
+         		  model.addAttribute("saveBut","none"); 
+         	   }
+ 
 	         final Calendar c = Calendar.getInstance();
 
 	            int myYear =  c.get(Calendar.YEAR) ;

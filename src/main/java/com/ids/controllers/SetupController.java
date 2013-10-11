@@ -71,7 +71,7 @@ public class SetupController {
 
 	     User user =(User) session.getAttribute("myUser");
     	
-		 if (user==null || !user.getUserName().equals("changestuff")) {
+		 if (user==null || !user.getAccess().equals("a")) {
 			 return "redirect:/login";
 		 }
     	
@@ -85,6 +85,15 @@ public class SetupController {
 		 
 		 
 		 String access = request.getParameter("access");
+		 
+	    	String multiplier="";
+	    	if (access.equals("c")) {
+	    		multiplier="*10000";
+	    	}
+	    	if (access.equals("i")) {
+	    		multiplier="*200000";
+	    	}
+	    	
 
 	//	 Statement statement1 = con.createStatement();
    
@@ -119,17 +128,17 @@ public class SetupController {
     	    	if (fileType.equals("resetOthers")){
     	    		
     	    		PreparedStatement statement = (PreparedStatement) con.prepareStatement("DELETE FROM " +
-                            "   Facts_"+access+" where companyId = -1 and access='"+request.getParameter("access")+"' ");
+                            "   Facts_"+access+" where companyId < 0 and access='"+request.getParameter("access")+"' ");
                     statement.executeUpdate();
                      con.commit();
     	    		
     	    		 statement = (PreparedStatement) con.prepareStatement("DELETE FROM " +
-    	    				                                                       "   Company where id = -1 and access='"+request.getParameter("access")+"' ");
+    	    				                                                       "   Company where id < 0 and access='"+request.getParameter("access")+"' ");
     	    		 
     	    		statement.executeUpdate();
     	    		con.commit();
     	    		
-        	    	String sql = " Insert into Company (Name, ShortName, Id, access ) values ('Others' , 'OTH' , -1 ,'"+request.getParameter("access")+"' ) ";
+        	    	String sql = " Insert into Company (Name, ShortName, Id, access ) values ('Others' , 'OTH' , -1"+multiplier+" ,'"+request.getParameter("access")+"' ) ";
                     statement = (PreparedStatement) con.prepareStatement(sql);
 
                     statement.executeUpdate();
@@ -153,9 +162,9 @@ public class SetupController {
 
     	    	if (fileType.contains("facts")){
     	    	BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
-    	    	
     	    	String sql = "INSERT INTO Facts_"+access+"  (companyId, countryid, productid, year, sales_production, quantity, flag, access) " +
-    	    			" values (?,?,?,?,?, ?, ?,?)";
+    	    			" values (?"+multiplier+",?"+multiplier+",?"+multiplier+",?,?, ?, ?,?)";
+    	    	logger.warning("current sql: "+sql);
     	    //	String sql = "INSERT INTO Product (Name, Shortname, Id, SortOrder ) values (? , ? , ? ,? ) ";
                 PreparedStatement statement = (PreparedStatement) con.prepareStatement(sql);
 
@@ -179,6 +188,7 @@ public class SetupController {
     	    		commitCount+=1;
     	    		commitCount1+=1;
     	    		String[] parms = sCurrentLine.split("\t");
+    	    		
     	    		 statement.setString(1,  parms[0]);
     	             statement.setString(2,  parms[1]);
     	             statement.setInt(3,  Integer.parseInt(parms[2]));
@@ -223,10 +233,17 @@ public class SetupController {
     	    	
     	    	
     	    	if (fileType.contains("otherFacts")){
+    	    		
+    	    		String sql = "INSERT INTO Company (name, shortname, Id, access) values ('[Others]','OTH',-1"+multiplier+",'"+access+"') ";
+        	    	Statement statement11 = con.createStatement();
+    	    		statement11.executeUpdate(sql);
+    	    		
         	    	BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+
         	    	
-        	    	String sql = "INSERT INTO Facts_"+access+"  (companyId, countryid, productid, year, sales_production, quantity, flag, access) " +
-        	    			" values (?,?,?,?,?, ?, ?, ?)";
+        	    	
+        	    	 sql = "INSERT INTO Facts_"+access+"  (companyId, countryid, productid, year, sales_production, quantity, flag, access) " +
+        	    			" values (?"+multiplier+",?"+multiplier+",?"+multiplier+",?,?, ?, ?, ?)";
         	    //	String sql = "INSERT INTO Product (Name, Shortname, Id, SortOrder ) values (? , ? , ? ,? ) ";
                     PreparedStatement statement = (PreparedStatement) con.prepareStatement(sql);
 
@@ -266,7 +283,7 @@ public class SetupController {
         	             statement.addBatch();
         	             
         	    	//	statement.executeUpdate();
-        	    		if (commitCount1>=5000) {
+        	    		if (commitCount1>=3000) {
         	    			statement.executeBatch();
         	    			con.commit();
         	    			commitCount1=0;
@@ -286,6 +303,8 @@ public class SetupController {
      			   map.addAttribute("successtext"," records committed. LOAD COMPLETE!");
      			  statement.executeBatch();
         	    	con.commit();
+        	    	
+        	    	   return  "setup";
         	        // Process the input stream
         	    	}
         	    	
@@ -301,7 +320,7 @@ public class SetupController {
     	    		
     	    	BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
     	    	
-    	    	String sql = "INSERT INTO Product (Name, Shortname, Id, SortOrder, access ) values (? , ? , ? ,? ,?) ";
+    	    	String sql = "INSERT INTO Product (Name, Shortname, Id, SortOrder, access ) values (? , ? , ?"+multiplier+" ,? ,?) ";
                 statement = (PreparedStatement) con.prepareStatement(sql);
 
     	    	String sCurrentLine= null;
@@ -345,7 +364,7 @@ public class SetupController {
     	    		
     	    	BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
     	    	
-    	    	String sql = "INSERT INTO Country (Country, ShortName, Id, SortOrder, access ) values (? , ? , ? ,? ,?) ";
+    	    	String sql = "INSERT INTO Country (Country, ShortName, Id, SortOrder, access ) values (? , ? , ?"+multiplier+" ,? ,?) ";
                 statement = (PreparedStatement) con.prepareStatement(sql);
 
     	    	String sCurrentLine= null;
@@ -356,6 +375,9 @@ public class SetupController {
     	    		String[] parms = sCurrentLine.split("\t");
     	    		 statement.setString(1,  parms[0]);
     	             statement.setString(2,  parms[1]);
+    	             if ( Integer.parseInt(parms[2])==0) {
+    	            	 continue;
+    	             }
     	             statement.setInt(3,  Integer.parseInt(parms[2]));
     	             
     	    		 statement.setInt(4,  Integer.parseInt(parms[3]));
@@ -388,14 +410,18 @@ public class SetupController {
     	    		
     	    	BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
     	    	
-    	    	String sql = "INSERT INTO Company (Name, ShortName, Id, access ) values (? , ? , ? ,? ) ";
+    	    	String sql = "INSERT INTO Company (Name, ShortName, Id, access ) values (? , ? , ?"+multiplier+" ,? ) ";
                 statement = (PreparedStatement) con.prepareStatement(sql);
 
     	    	String sCurrentLine= null;
 
     	    	int count=0;
     	    	while ((sCurrentLine = br.readLine()) != null) {
+    	    		logger.warning("curr line: "+sCurrentLine);
     	    		String[] parms = sCurrentLine.split("\t");
+    	    		logger.warning("length: "+parms.length);
+    	    		if (parms.length==0)
+    	    			continue;
     	    		 statement.setString(1,  parms[0]);
     	             statement.setString(2,  parms[1]);
     	             statement.setInt(3,  Integer.parseInt(parms[2]));
@@ -408,148 +434,9 @@ public class SetupController {
     	    	
     	    	int other=0;
     	    	con.commit();	   
-    	    	
-    	    	/*
-    	    	 Statement statement2 = con.createStatement();
-    	    	 Statement statement3 = con.createStatement();
-    	    	 Statement statement1 = con.createStatement();
-    	    	
-    	    	String query1 = "DELETE from Facts where companyId = -1";
-    		      statement2.executeUpdate(query1);
-    		      
-    		      query1 = "DELETE from Company where id= -1";
-    		      statement2.executeUpdate(query1);
-    		      
-    		      query1 = "INSERT INTO Company (name, shortname, id) values ('OTHER','OTH',-1) ";
-    		      statement2.executeUpdate(query1);
-    		    //  loop 0: Sales or Prod
-    		      
-    		      query1 = "SELECT * from Facts  where companyId = 11 ";
-
-    		      
-    		      ResultSet resultSet1 = null;
-    		      ResultSet resultSet2 = null;
-    		      con.commit();
-    		      resultSet1 = statement1.executeQuery(query1);
-    		      List<String> lines = new ArrayList<String>();
-    		   //   List<String> lines2 = new ArrayList<String>();
-    		      logger.warning("check how many times"); */
-    		/*      while (resultSet1.next()) {
-    		    	  
-
-    		    	 int totalQuantity = Integer.parseInt(resultSet1.getString("quantity"));
-    		    	  String totalYear = resultSet1.getString("year");
-    		    	  String totalProduct = resultSet1.getString("productid");
-    		    	  String totalCountry = resultSet1.getString("countryid");
-    		    	  String totalsalesPo = resultSet1.getString("sales_production");
-    		    	  String totalFlag =  resultSet1.getString("flag");
-    		    	  
-    		    	  
-    		    	  
-    		    	  String query2 =	  " INSERT INTO Facts " +
-		    	  		"(companyId, countryId, productId, year,sales_production,quantity,flag) " +
-                            "SELECT -1 as companyId ,countryId, productId, year,sales_production, sum(quantity) as quantity ,flag from Facts " +
-    		    	  		" where year = " +totalYear + 
-    		    	  		" and productid = "+totalProduct +
-    		    	  		" and countryId = " + totalCountry +
-    		    	  		" and quantity > 0 "+
-    		    	  		" and sales_production = " + totalsalesPo +
-    		    	  		" and flag = '"+totalFlag +"' " +
-    		    	  		" and companyId != 11 and companyId != -1 " +
-    		    	  		" group by -1,countryId, productId, year,sales_production,quantity,flag "+
-    		    	  		" HAVING sum(quantity) <  "+ totalQuantity;
-    		    	  
-    		    	  lines.add(query2);
-    		    	//  lines2.add(totalYear+"|"+totalQuantity+"|"+totalProduct+"|"+ totalCountry+"|"+ totalsalesPo+"|"+totalFlag+"|");
-    		    	  
-
-    		    	  }
-    		      */
-    	    	/*
-    		      resultSet1.close();
-    		      logger.warning("size of lines: "+lines.size());
-    		      int lineIt = 0;
-    		      for (String s: lines) {
-		    	//  logger.warning(s);
-    		    	  /*
-    		    	int  totalYear=	  Integer.parseInt(lines2.get(lineIt).split("\\|")[0]);
-    		    	int totalQuantity =    Integer.parseInt(lines2.get(lineIt).split("\\|")[1]);
-    		    	int totalProduct =    Integer.parseInt(lines2.get(lineIt).split("\\|")[2]);
-    		    	int totalCountry =    Integer.parseInt(lines2.get(lineIt).split("\\|")[3]);
-    		    	String totalsalesPo =    lines2.get(lineIt).split("\\|")[4];
-    		    	String totalFlag =    lines2.get(lineIt).split("\\|")[5];
-    		    	
-    		    	 lineIt+=1;
-    		    	  
-    		    	  statement3.addBatch(s);
-    		    	  
-    		    	  if (lineIt>=500) {
-    		    		  logger.warning("into commit");
-      	    			statement3.executeBatch();
-      	    			con.commit();
-      	    			lineIt=0;
-      	    			
-    		    	  }
-    		    	  
-		    	//  resultSet2 = statement2.executeQuery(s);
-
-		    /*	   List<String> lastLines = new ArrayList<String>();
-		    	   
-		    	  while (resultSet2.next()) {
-		    		  
-		    		  if (resultSet2.getString("quantity")==null || resultSet2.getString("quantity").equals("0")) {
-		    			  continue;
-		    		  }
-		    		  int smallerQuant = Integer.parseInt(resultSet2.getString("quantity"));
-		    		  if (smallerQuant > totalQuantity){
-
-		    		  }else{
-		    			  
-		    		  if (totalQuantity-smallerQuant>0) {
-			    	  String query3 = " INSERT INTO Facts" +
-			    	  		"(companyId, countryId, productId, year,sales_production,quantity,flag) " +
-			    	  		" values (-1, "+totalCountry+","+totalProduct+","+totalYear+
-			    			  ","+totalsalesPo+","+(totalQuantity-smallerQuant)+",'"+
-			    			  totalFlag+"')";
-			    	  other+=1;
-			    	  
-
-			    	   lastLines.add(query3);*/
-			    	//  statement3.executeUpdate(query3);
-		    		//  }
-    		    	  
-    		    	  
-    		    	  
-
-		    	//  }
-
-		   /* 		  
-		    	  }
-    		      
-            	    statement2.executeBatch();
-          			con.commit();
-    	    
-
-    		   //   }
-
-    		     
-    	    	*/
-    	    	
-    	    	
-    	    	
-    	    	
-    	    	
-    	    	
-    	    	
-    	    	
-    	    	
-    	    	
-    	    	
-    	    	
-    		      con.commit();
     	    	map.addAttribute("displaytype2","block");
     	    	map.addAttribute("displaytype","none");
- 			   map.addAttribute("successtext"," Companies committed. (plus  'Other' companies. COMPLETE!!!");
+ 			   map.addAttribute("successtext"," Companies committed. COMPLETE!!!");
  			   return  "setup";
     	        // Process the input stream
     	    	}
@@ -570,7 +457,7 @@ public class SetupController {
  	    	map.addAttribute("displaytype2","none");
  	    	map.addAttribute("displaytype","none");
     	}
-    	
+	
     	
     
 

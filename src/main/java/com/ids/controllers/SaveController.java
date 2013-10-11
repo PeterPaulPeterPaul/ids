@@ -126,11 +126,15 @@ public class SaveController implements DropdownInterface {
 			   
 			   if (request.getParameter("save")!= null ) {
 				   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Delete from Facts_w");
-				   int retval = statement2.executeUpdate();
+				   statement2.executeUpdate();
 				   statement2 = (PreparedStatement) con.prepareStatement("insert into Facts_w select * from FactsEdit ");
-				   retval = statement2.executeUpdate();
+				   statement2.executeUpdate();
+				   statement2 = (PreparedStatement) con.prepareStatement("update editing set flag = '0' ");
+				   statement2.executeUpdate();
 				   con.commit();
+				   model.addAttribute("saveBut","none");
 				   model.addAttribute("openOrClose","open");
+				   
 				   return "redirect:editor";
  
 			   }
@@ -290,6 +294,11 @@ public class SaveController implements DropdownInterface {
             	   
                }
                }
+               
+        	   String newSQL = "update editing set flag = '1' ";
+        	   PreparedStatement statement3 = (PreparedStatement) con.prepareStatement(newSQL);
+           	   statement3.executeUpdate();
+               
                 con.commit();
 		 }
                 catch(Exception e) {

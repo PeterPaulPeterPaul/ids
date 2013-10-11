@@ -26,6 +26,9 @@
 body { 
 background-color:#FFFF80; 
 }
+body.wait, body.wait *{
+ cursor: wait !important;   
+}
 .js {display: none;}
 .colorWhite {
             background-color: white !important;
@@ -95,7 +98,7 @@ margin-right:3px;
 }
 </style>
 
-<body>
+<body class="js">
 <div id="wholescreen" style="width:100%;height:100%">
 
 <div class="box">
@@ -250,7 +253,7 @@ To <select id="todate" name="todate" >
 
 </form>
 
-<form  id="printer" action="/print" method="post" name="factsForm"   > 
+<form  target="_blank"  id="printer" action="/print" method="post" name="factsForm"   > 
  <input id="printDataJson"  type="hidden" name="jsonStuff" value="" />
   <input id="printTotalJson"  type="hidden" name="jsonTotals" value="" />
           <input id="two" class="k-button" type="submit" name="submitBtn" value="Print Preview" />
@@ -549,6 +552,7 @@ To <select id="todate" name="todate" >
 
         	  
         	  $("#closeit").on("click",function(){
+        		  $("body").toggleClass("wait");
         		  $.ajax({
 					  url: '/main?exit=yes',
 			         type: 'GET',
@@ -580,6 +584,8 @@ To <select id="todate" name="todate" >
         	var clickType="";
         	var swapValue="0";
         	var summary=0;
+        	
+        	$("body").removeClass("js");
 
   
 	$(".swap").on("click",function(){
@@ -856,6 +862,8 @@ if 	(firstPartId == secondPartId && clickType=="myrad2" ){
 	$("#"+myId).removeClass("viewable2");
 	$("#drop2"+h1).addClass("viewable2");
 	 mydropdown2 = $("#drop2"+h1+"s").val();
+	 
+
 	  $(".myrad3").prop('checked', false);
 	  $("#z"+h1).prop('checked', true);
 }
@@ -1145,7 +1153,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			        
 			    						  $("#wholescreen").fadeIn();
 			    						  
-				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:true,add:false,del:false});
+				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false});
 
 				    	
 				    			 	   $('#gbox_list47').fadeIn();
@@ -1154,7 +1162,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
 				    					 var totals = JSON.parse($("#tempStore #myJsonTotals").html());
 				    					 $("#totalsJson").val($("#tempStore #myJsonTotals").html());
-				    					 $("#printDataJson").val($("#tempStore #myJsonTotals").html());
+				    				//	 $("#printDataJson").val($("#tempStore #myJsonTotals").html());
 								    	   
 								    	   
 				    					 
@@ -1254,7 +1262,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
          	userDataOnFooter: true
       });
       
-      jQuery("#list47").jqGrid('navGrid','#plist47',{edit:true,add:false,del:false});
+      jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false});
       
       $("#filter").on("click",function(){
     	  

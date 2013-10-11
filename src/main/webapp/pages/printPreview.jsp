@@ -31,7 +31,7 @@ ${printTable}
           
  $("#closeit").on("click",function(){
         		 
-	 window.history.back();
+	 window.close();
 				      });
 				      
  });

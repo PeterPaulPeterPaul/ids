@@ -26,6 +26,9 @@
 body { 
 background-color:#FFFF80; 
 }
+body.wait, body.wait *{
+ cursor: wait !important;   
+}
 .js {display: none;}
 .colorWhite {
             background-color: white !important;
@@ -95,7 +98,7 @@ margin-right:3px;
 }
 </style>
 
-<body>
+<body class="js">
 <div id="wholescreen" style="width:100%;height:100%">
 
 <div class="box">
@@ -247,7 +250,7 @@ To <select id="todate" name="todate" >
 
 </form>
 
-<form  id="printer" action="/print" method="post" name="factsForm"   > 
+<form   target="_blank" id="printer" action="/print" method="post" name="factsForm"   > 
  <input id="printDataJson"  type="hidden" name="jsonStuff" value="" />
   <input id="printTotalJson"  type="hidden" name="jsonTotals" value="" />
           <input id="two" class="k-button" type="submit" name="submitBtn" value="Print Preview" />
@@ -270,7 +273,7 @@ To <select id="todate" name="todate" >
 
 
 <div style="text-align:center;float:none">
-<div style="margin-left:15%;float:left">
+<div style="margin-left:12%;float:left">
 
 
 
@@ -359,7 +362,8 @@ To <select id="todate" name="todate" >
 
 </div>
 
-<div style="float:left;margin-left:20px">
+<div style="float:left;margin-left:15px">
+
 <div id="drop21" class="showornot2" style="display:none;">
 <select class="dropdown2" id="drop21s" style="width:180px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1a}">
@@ -429,7 +433,7 @@ To <select id="todate" name="todate" >
 
 
    
-   <div style="float:left;margin-left:20px">
+   <div style="float:left;margin-left:15px">
 
 <div id="drop31" style="display:block">
 <select name="s_or_p" class="dropdown3" id="drop31s" style="width:180px;margin:10px">
@@ -440,7 +444,7 @@ To <select id="todate" name="todate" >
 
 
 </div>
-<div style="float:left;margin-left:20px">
+<div style="float:left;margin-left:15px">
 
 <div id="drop41" style="display:block">
 <select name="accessType" class="dropdown3" id="accessType" style="width:180px;margin:10px">
@@ -450,11 +454,11 @@ To <select id="todate" name="todate" >
 </div>
 
 
-<div style="float:left;margin-left:20px">
+<div id="saveButId" style="float:left;margin-left:20px;display:${saveBut}">
 <div  style="display:block">
 <form  id="saving" action="/saverow" method="get" name="saveForm"   > 
  <input  type="hidden" name="save" value="" />
-          <input id="twosub" class="k-button" type="submit" name="submitBtn" value="SAVE" />
+          <input id="twosub" style="background-color:red" class="k-button" type="submit" name="submitBtn" value="Save to PRODUCTION database" />
 
 </form>
 </div>
@@ -526,6 +530,11 @@ To <select id="todate" name="todate" >
     <div id="dialog" title="Database update">
     <p id="pp34" >Database Update complete</p>
  </div>
+ 
+     <div id="dialog44" title="Database update">
+    <p id="pp44" >You have outstanding "EDIT" changes. To save to production press the RED save button</p>
+ </div>
+ 
  
      <div id="dialogAdd" title="Add new row">
     <p id="pp33" >(You need to add the first quantity here before you can perform the normal row editing functions)</p>
@@ -646,7 +655,7 @@ First Quantity:
  
  
  </div>
-          <div id="success2Text" style="color:white;z-index:100;font-size: large;text-align: center; vertical-align: middle;height:20px;display:none;background:blue">
+          <div id="success2Text" style="color:white;font-size: large;text-align: center; vertical-align: middle;height:20px;display:none;background:blue">
          Database update now taking place</div>
  </body>
           <script type="text/javascript">
@@ -671,6 +680,7 @@ First Quantity:
         		        autoOpen: false
         		   };
         		    $("#dialog").dialog(dialogOpts2);
+        		    $("#dialog44").dialog(dialogOpts2);
         		    $("#dialogAdd").dialog(dialogOpts2);
         		
         		    $("#dialogDel").dialog(dialogOpts2);
@@ -685,17 +695,15 @@ First Quantity:
           
           $(document).ready(function(){
         	
-        	  $("#dialog").dialog("${openOrClose}");
         	  $("#dialogAdd").dialog("close");
         	  $("#dialogDel").dialog("close");
         	  
         	  $("#twosub").on("click",function(){
-                   $("#success2Text").css("display","block");
+        		  $("body").toggleClass("wait");
         		  return true;
         	  });
         	  
 
-        	  
         	  $("#addsub").on("click",function(){ 
         		 
             	  var selectedKey="";
@@ -1030,9 +1038,14 @@ First Quantity:
         	  
         	  $("#dialogFilter").dialog("close");
         	  
+		      $("body").removeClass("js");
+		      $("#dialog44").dialog("${openOrClose2}");
+		   	  $("#dialog").dialog("${openOrClose}");
+        	  
 
         	  
         	  $("#closeit").on("click",function(){
+        		  $("body").toggleClass("wait");
         		  $.ajax({
 					  url: '/main?exit=yes',
 			         type: 'GET',
@@ -1488,7 +1501,9 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			        	cellEdit : true,
 				    			        	cellsubmit : 'remote',
 				    			        	cellurl : saveURL,
-				    			        	
+				    			        	afterSaveCell: function(){
+				    			        		$("#saveButId").css("display","block");
+				    			        	},
 				    			        	beforeSubmitCell : function(rowid,celname,value,iRow,iCol) { 
 				    			        		//if( some_condition ) { 
 				    			        			
@@ -1577,7 +1592,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			        
 			    						  $("#wholescreen").fadeIn();
 			    						  
-				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:true,add:false,del:false});
+				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false});
 
 				    	
 				    			 	   $('#gbox_list47').fadeIn();
@@ -1586,7 +1601,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
 				    					 var totals = JSON.parse($("#tempStore #myJsonTotals").html());
 				    					 $("#totalsJson").val($("#tempStore #myJsonTotals").html());
-				    					 $("#printDataJson").val($("#tempStore #myJsonTotals").html());
+				    				//	 $("#printDataJson").val($("#tempStore #myJsonTotals").html());
 								    	   
 								    	   
 				    					 
@@ -1633,10 +1648,6 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				   
 			 });
 
-
-
-
-
   
   }  
 	
@@ -1677,7 +1688,9 @@ if (dateParm=="todate must be greater or equal to fromdate") {
       	cellEdit : true,
     	cellsubmit : 'remote',
     	cellurl :"/saverow",
-    	
+    	afterSaveCell: function(){
+    		$("#saveButId").css("display","block");
+    	},
     	beforeSubmitCell : function(rowid,celname,value,iRow,iCol) { 
     		//if( some_condition ) { 
 
@@ -1747,7 +1760,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
          	userDataOnFooter: true
       });
       
-      jQuery("#list47").jqGrid('navGrid','#plist47',{edit:true,add:false,del:false});
+      jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false});
       
       $("#filter").on("click",function(){
     	  
@@ -1773,6 +1786,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
       
 	   $('#gbox_list47').fadeIn();
 	   $('#list47').fadeIn();
+
 
 /*
 	   $("#gbox_list47").closest("div.ui-jqgrid-view")
@@ -1859,6 +1873,8 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 		    		 return testing;
 		    	}
 		     	 
+		     	 
+
 		     	 
 			
   });

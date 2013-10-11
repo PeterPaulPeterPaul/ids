@@ -44,9 +44,22 @@ public class FirstTimeQuery {
 	      String query=null;
 	      ResultSet resultSet = null;
 	      
-		
-		  TitleArray titleArray = new TitleArray("Austria","Agricultural Tractor", "sales" );
-		  
+	      TitleArray titleArray= new TitleArray("Austria","Agricultural Tractor", "sales" );
+	      int countryId = 7; //Austria
+	      
+	    	String multiplier="";
+
+	    	
+	      if (access.equals("c")) {
+		    titleArray = new TitleArray("China","Agricultural Tractor", "sales" );
+		    countryId = 210000; //China
+		    multiplier="*10000";
+	      }
+	      if (access.equals("i")) {
+		    titleArray = new TitleArray("India","Agricultural Tractor", "sales" );
+		    countryId = 2000000;  //India
+		    multiplier="*200000";
+	      }
 		  
 		  query="SELECT YEAR(DATE_ADD( CURDATE(), INTERVAL -5 YEAR)) as year1 ";
 
@@ -75,10 +88,10 @@ public class FirstTimeQuery {
 	      String query2 = " select a.year, a.quantity, b.name from Facts a, Company b, Country c " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.countryid=c.id " + 
-	    		  " and c.id=7 " + 
+	    		  " and c.id="+countryId  + 
 	    		  " and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
 	    		  " and a.sales_production= 1" + 
-	    		  " and a.productid=1 " + 
+	    		  " and a.productid=1"+multiplier  + 
 	    		  " and a.access = '" + access + "' " +
 	    		  " and b.name!='ALL COMPANIES' " +
 	    		  " order by b.name , a.year asc";
@@ -209,7 +222,7 @@ public class FirstTimeQuery {
 			    		  		" and b.companyid = a.id " +
 			    		  		" and b.access = '" + access +"' and " +
 			    		  		" a.access = '" + access + "' " +
-			    		  		" and b.year between "+(curYear - 5)+" and "+(curYear+5)+
+			    		  	//	" and b.year between "+(curYear - 5)+" and "+(curYear+5)+
 			    		  		" order by a.name asc " ;
 					    
 			    		  logger.warning(query);

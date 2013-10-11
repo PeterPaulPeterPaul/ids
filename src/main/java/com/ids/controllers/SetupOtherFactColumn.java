@@ -1,5 +1,6 @@
 package com.ids.controllers;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -36,7 +37,10 @@ public class SetupOtherFactColumn {
 	public String getMethodOne(
            HttpServletResponse response,
 			HttpServletRequest request,
-			ModelMap model) throws SQLException, JSONException {
+			ModelMap model)  {
+    	
+    	ServletOutputStream out = null;
+    	
 		 try{
 logger.warning("HHHHHHHHHHHHHHHHHHHH");
 		   DriverManager.registerDriver(new AppEngineDriver());
@@ -44,25 +48,46 @@ logger.warning("HHHHHHHHHHHHHHHHHHHH");
 
 
 		 
-	      Statement statement1 = con.createStatement();
+
 	      Statement statement2 = con.createStatement();
 	      Statement statement3 = con.createStatement();
 
 
-	      ResultSet resultSet1 = null;
 	      ResultSet resultSet2 = null;
+	      
+	      logger.warning("above response");
 
 	      response.setContentType("application/octet-stream");
-	      response.setHeader("Content-Disposition","attachment;filename=temp.txt");
-		  
-			ServletOutputStream out = response.getOutputStream();
-			
+	      logger.warning("above response 1") ;
+	      response.setHeader("Content-Disposition","attachment;filename=otherFacts.txt");
+	      logger.warning("above response 2") ;
+			out = response.getOutputStream();
+			  logger.warning("created stream") ;
 
-
+			 String access = request.getParameter("access");
+			  logger.warning("got request") ;
+		    	String multiplier="";
+		    	if (access.equals("c")) {
+		    		multiplier="*10000";
+		    	}
+		    	if (access.equals("i")) {
+		    		multiplier="*20000";
+		    	}
 	      
-	      String query1 = "DELETE from Facts where companyId = -1";
+		    	logger.warning("above delete") ;
+	      String query1 = "DELETE from Facts_"+access+" where companyId < 0";
+	      logger.warning("query: "+query1);
+	      statement3.executeUpdate(query1);
+	      query1 = "DELETE from Others_"+access;
+	      logger.warning("query: "+query1);
 	      statement3.executeUpdate(query1);
 	      
+	      statement2.executeUpdate("insert into Others_"+access+"  select productId, countryId, sales_production," +
+	      		" flag, year, sum(quantity) quantity from Facts_"+access+ " where companyID != 11"+multiplier+
+	      				" group by productId, countryId, sales_production," +
+	      		" flag, year");
+	      
+	      logger.warning("below delete");
 	//      query1 = "DELETE from company where id= -1";
 	  //    statement3.executeUpdate(query1);
 	      
@@ -74,16 +99,16 @@ logger.warning("HHHHHHHHHHHHHHHHHHHH");
 
 	    	  
 	    	  String query2 = "select  a.productid, a.countryId, a.sales_production, "+
-"a.flag , a.year, a.companyId ,  (b.quantity -a.quantity) as quantity  from Others a, Facts b "+
+"a.flag , a.year, -1"+multiplier+" as companyI ,  (b.quantity -a.quantity) as quantity  from Others_"+access+" a, Facts_"+access+" b "+
 "where a.productid = b.productid "+
  "and a.countryId = b.countryId "+
 " and a.sales_production = b.sales_production "+
 "and a.flag = b.flag "+
 "and a.year = b.year "+
-"and b.companyid = 11 "+
+"and b.companyid = 11"+multiplier+" "+
 " and b.quantity - a.quantity > 0 ";
 	    	  
-	    	//  logger.warning(query2);
+	    	  logger.warning(query2);
 	    	  resultSet2 = statement2.executeQuery(query2);
 
 	    	  int flusher=0;
@@ -94,7 +119,7 @@ logger.warning("HHHHHHHHHHHHHHHHHHHH");
 	    		  }
   
 	    			  
-	    				out.print("-1\t"+ resultSet2.getString("countryId")+"\t" + resultSet2.getString("productid")
+	    				out.print(resultSet2.getString("companyI")+"\t"+ resultSet2.getString("countryId")+"\t" + resultSet2.getString("productid")
 	    						+"\t"  + resultSet2.getString("year")+"\t" +
 	    						resultSet2.getString("sales_production")+ "\t"
 	    						+ resultSet2.getString("quantity")+"\t" + resultSet2.getString("flag")+"\r\n"); 
@@ -118,8 +143,14 @@ return "setup";
 		 
 	// }
 	 }catch(Exception e) {
-		 logger.warning(e.getMessage());
-		 e.printStackTrace();
+		 try {
+			 logger.warning(e.getMessage());
+			 e.printStackTrace();
+			out.close();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		 return "setup";
 	 }
 	 }

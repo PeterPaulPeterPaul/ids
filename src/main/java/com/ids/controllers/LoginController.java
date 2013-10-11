@@ -197,7 +197,7 @@ public class LoginController {
 		      ResultSet resultSet = null;
 		      
 		     
-		String      query = " select 'found' as found, access, world, china, india from ids_users where userId = '"+request.getParameter("userId")
+		String      query = " select 'found' as found, access, world, china, india, locked from ids_users where userId = '"+request.getParameter("userId")
 				  +"' and passwordId = '"+request.getParameter("password")+"'";
 
 		 String access="";
@@ -206,6 +206,7 @@ public class LoginController {
 		 int india=0;
 		 resultSet = statement.executeQuery(query);
 
+		 String locked = "0";
            boolean found = false;
 		   while (resultSet.next()) {
 			   if (resultSet.getString("found").equals("found")) {
@@ -214,10 +215,20 @@ public class LoginController {
 				   world = resultSet.getInt("world");
 				   china = resultSet.getInt("china");
 				   india = resultSet.getInt("india");
+				   locked = resultSet.getString("locked");
 			   }
 		   }
 
   
+	        if (locked.equals("1")) {
+	        	logger.debug("user locked");
+		    	model.addAttribute("displaytype","block");
+		    	model.addAttribute("userId",request.getParameter("userId"));
+		    	model.addAttribute("errortext","UserId is locked - contact Administrator");
+	        	return "login";
+	        }
+	        
+	        
 	        if (found ) {
 	        	
 	        	String currentLocation="";

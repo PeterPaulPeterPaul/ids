@@ -85,7 +85,43 @@ public class UserController {
 			 con.setAutoCommit(false);
 			 
 
+			 if (request.getParameter("lockedUserID") != null && !request.getParameter("lockedUserID").trim().equals("")) {
+				 
+				 String locked = request.getParameter("locked");
+				 String userID = request.getParameter("lockedUserID");
+				 
+				 
+				 
+		  		   String  query = "UPDATE  ids_users set locked = '" + locked + "' " +
+       		            " WHERE userId = '"+userID+"' ";
+
+       				   
+       		     logger.warning("update user: "+query);
+       		     try{
+       		       statement.executeUpdate(query);
+       		       con.commit();
+       		       String msg = "User locked!";
+       		       if (locked.equals("0")) {
+       		    	   msg = "User unlocked!";
+       		       }
+       		       model.addAttribute("returnedText",msg);
+       		     } catch(Exception ex) {
+       		    	 ex.printStackTrace();
+       		    	 logger.warning( "failed!" );
+       		    	 model.addAttribute("returnedText","SQL error (each User needs a unique Id name), check logs");
+       		     }
+
+
+   	           con.close();
+	          return "createUser";
+	      
+	      
+	      
+				 
+				 
+			 }
 			 
+
 			 if (request.getParameter("newPass") != null && !request.getParameter("newPass").trim().equals("")) {
 				 
 				 String newPass = request.getParameter("newPass");
@@ -143,12 +179,12 @@ public class UserController {
 	    	  
 	        	    		
 	        		   String  query = "INSERT into  ids_users " +
-	        		     		" (  userId, passwordId, user_name, access, world, china, india )" +
+	        		     		" (  userId, passwordId, user_name, access, world, china, india, locked )" +
 	        		     		" values ('"+theirUserId+"','"+theirPassword+"','"+theirUserName+"','" +
 	        		     		request.getParameter("access") +"',"+
 	        		     		request.getParameter("world") +","+
 	        		     		request.getParameter("china") +","+
-	        		     		request.getParameter("india") +")";
+	        		     		request.getParameter("india") +",'0')";
 	        				   
 	        		     logger.warning("update user: "+query);
 	        		     try{
