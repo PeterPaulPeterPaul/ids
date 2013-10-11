@@ -7,7 +7,7 @@ public class SQL2Ed {
 	public SQL2Ed(int salesOrProduction, int countryId, int years, int fromYear, int toYear, String incExCountries, String incExProducts,
 			String incExCompanies, String dateParm, String access) {
 		
-	      query = " select a.year, a.quantity, b.name as company, d.shortname as product, c.country from FactsEdit a, Company b, Country c, Product d " +
+	      query = " select a.year, a.quantity, b.name as company, d.shortname as product, c.country from FactsEdit_"+access+" a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  " and a.countryId = " + countryId+

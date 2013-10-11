@@ -11,10 +11,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFHeader;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,10 +59,20 @@ public class Down extends HttpServlet {
 		HSSFWorkbook workbook = new HSSFWorkbook();
 			HSSFSheet worksheet = workbook.createSheet("Off-Highway Research");
 
-			   HSSFRow row = worksheet.createRow((short) 0);
-
+			Header header = worksheet.getHeader();
+		    header.setCenter("Center Header");
+		    header.setLeft("Left Header");
+		    header.setRight(HSSFHeader.font("Stencil-Normal", "Italic") +
+		                    HSSFHeader.fontSize((short) 16) + "Right w/ Stencil-Normal Italic font and size 16");
+		    
+	
+			
+			   HSSFRow rowhead = worksheet.createRow((short) 0);
+			   HSSFCell cellHead = rowhead.createCell((short) 0);
+			   cellHead.setCellValue(request.getParameter("title1") + " " + request.getParameter("title2") + " "+
+						  request.getParameter("title3") + " " + request.getParameter("title4"));
     		   
-    		   
+			   HSSFRow row = worksheet.createRow((short) 1);
     		   
     		   
     		   
@@ -76,6 +88,8 @@ public class Down extends HttpServlet {
 				JSONObject jo1 = clobArray.getJSONObject(1);
 				logger.warning("size1 is: "+clobArray.length());
 
+				
+				
 				List<String> columnHeaders = new ArrayList<String>();
 				if (jo1.has("columns")){
 					logger.warning("it has myData");
@@ -100,7 +114,7 @@ public class Down extends HttpServlet {
 					logger.warning("myData size: "+myDataArray.length());
 					for (int i = 0; i < myDataArray.length();i++){
 						
-						 HSSFRow nextRow = worksheet.createRow((short) i+1);
+						 HSSFRow nextRow = worksheet.createRow((short) i+2);
 						 int j=0;
 						for (String s : columnHeaders){
 							

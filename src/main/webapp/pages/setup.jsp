@@ -69,13 +69,13 @@ body.wait, body.wait *{
 <tr>
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp11" action="setup2?access=w" method="post" name="factsForm1" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="facts" /> 
-   <td>Fact World:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my1file${rowCount}" id="myfile11"  type="file" /></td>
+   <td>Fact IDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my1file${rowCount}" id="myfile11"  type="file" /></td>
         <td>  <input id="one1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
 </form>
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp12" action="setup2?access=c" method="post" name="factsForm2" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="facts" /> 
-   <td>Fact China:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my2file${rowCount}" id="myfile12"  type="file" /></td>
+   <td>Fact CDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my2file${rowCount}" id="myfile12"  type="file" /></td>
         <td>  <input id="one2" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
 </form>
@@ -84,7 +84,7 @@ body.wait, body.wait *{
 <tr>
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp13" action="setup2?access=i" method="post" name="factsForm3" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="facts" /> 
-   <td>Fact India:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my3file${rowCount}" id="myfile13"  type="file" /></td>
+   <td>Fact INDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my3file${rowCount}" id="myfile13"  type="file" /></td>
         <td>  <input id="one3" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
 </form>
@@ -92,7 +92,7 @@ body.wait, body.wait *{
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp21" action="setup2?access=w" method="post" name="productsForm4" enctype="multipart/form-data"   >
 
     <input type="hidden" name="table" value="products" /> 
-    <td>Products World:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my4file${rowCount}" id="myfile21"  type="file" /></td>
+    <td>Products IDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my4file${rowCount}" id="myfile21"  type="file" /></td>
         <td>  <input id="two1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
 </form>
@@ -101,7 +101,7 @@ body.wait, body.wait *{
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp22" action="setup2?access=c" method="post" name="productsForm5" enctype="multipart/form-data"   >
 
     <input type="hidden" name="table" value="products" /> 
-    <td>Products China:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my5file${rowCount}" id="myfile22"  type="file" /></td>
+    <td>Products CDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my5file${rowCount}" id="myfile22"  type="file" /></td>
         <td>  <input id="two2" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
 </form>
@@ -109,7 +109,7 @@ body.wait, body.wait *{
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp23" action="setup2?access=i" method="post" name="productsForm6" enctype="multipart/form-data"   >
 
     <input type="hidden" name="table" value="products" /> 
-    <td>Products India:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my6file${rowCount}" id="myfile23"  type="file" /></td>
+    <td>Products INDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my6file${rowCount}" id="myfile23"  type="file" /></td>
         <td>  <input id="two3" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
 </form>
@@ -118,14 +118,14 @@ body.wait, body.wait *{
     <tr>
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp31" action="setup2?access=w" method="post" name="countriesForm7" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="countries" /> 
-    <td>Countries World:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my7file${rowCount}" id="myfile31"  type="file" /></td>
+    <td>Countries IDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my7file${rowCount}" id="myfile31"  type="file" /></td>
        <td>   <input id="three1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
 </form>
 
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp32" action="setup2?access=c" method="post" name="countriesForm8" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="countries" /> 
-    <td>Countries China:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my8file${rowCount}" id="myfile32"  type="file" /></td>
+    <td>Countries CDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my8file${rowCount}" id="myfile32"  type="file" /></td>
        <td>   <input id="three2" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
 </form>
@@ -133,14 +133,14 @@ body.wait, body.wait *{
     <tr>
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp33" action="setup2?access=i" method="post" name="countriesForm9" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="countries" /> 
-    <td>Countries India:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my9file${rowCount}" id="myfile33"  type="file" /></td>
+    <td>Countries INDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my9file${rowCount}" id="myfile33"  type="file" /></td>
        <td>   <input id="three3" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
 </form>
 
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp41" action="setup2?access=w" method="post" name="companiesForm11" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="companies" /> 
-    <td>Companies World:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my11file${rowCount}" id="myfile41"  type="file" /></td>
+    <td>Companies IDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my11file${rowCount}" id="myfile41"  type="file" /></td>
       <td>    <input id="four1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
 </form>
@@ -148,14 +148,14 @@ body.wait, body.wait *{
  <tr>
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp42" action="setup2?access=c" method="post" name="companiesForm12" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="companies" /> 
-    <td>Companies China:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my12file${rowCount}" id="myfile42"  type="file" /></td>
+    <td>Companies CDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my12file${rowCount}" id="myfile42"  type="file" /></td>
       <td>    <input id="four2" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
 </form>
 
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp43" action="setup2?access=i" method="post" name="companiesForm13" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="companies" /> 
-    <td>Companies India:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my13file${rowCount}" id="myfile43"  type="file" /></td>
+    <td>Companies INDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my13file${rowCount}" id="myfile43"  type="file" /></td>
       <td>    <input id="four3" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
 </form>
@@ -165,14 +165,14 @@ body.wait, body.wait *{
 
   <tr>
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp66" action="setup3?access=w" method="post" name="testForm1"   > 
-    <td>Other download:</td><td>get World Data </td>
+    <td>Other download:</td><td>get IDS Data </td>
       <td>    <input id="six" class="k-button" type="submit" name="submitBtn" value="test" /></td>
 
 </form>
 
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp666" action="setup2?access=w" method="post" name="othersForm2" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="otherFacts" /> 
-    <td>Other World Load:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my14file${rowCount}" id="myfile5"  type="file" /></td>
+    <td>Other IDS Load:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my14file${rowCount}" id="myfile5"  type="file" /></td>
       <td>    <input id="six" class="k-button" type="submit" name="submitBtn" value="reupload data" /></td>
 
 </form>
@@ -180,14 +180,14 @@ body.wait, body.wait *{
 
  <tr>
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp77" action="setup3?access=c" method="post" name="testForm3"   > 
-    <td>Other download:</td><td>get China Data </td>
+    <td>Other download:</td><td>get CDS Data </td>
       <td>    <input id="six" class="k-button" type="submit" name="submitBtn" value="test" /></td>
 
 </form>
 
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp777" action="setup2?access=c" method="post" name="othersForm4" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="otherFacts" /> 
-    <td>Other China Load:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my15file${rowCount}" id="myfile5"  type="file" /></td>
+    <td>Other CDS Load:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my15file${rowCount}" id="myfile5"  type="file" /></td>
       <td>    <input id="six" class="k-button" type="submit" name="submitBtn" value="reupload data" /></td>
 
 </form>
@@ -196,14 +196,14 @@ body.wait, body.wait *{
 
  <tr>
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp88" action="setup3?access=i" method="post" name="testForm5"   > 
-    <td>Other download:</td><td>get India Data </td>
+    <td>Other download:</td><td>get INDS Data </td>
       <td>    <input id="six" class="k-button" type="submit" name="submitBtn" value="test" /></td>
 
 </form>
 
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp888" action="setup2?access=i" method="post" name="othersForm6" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="otherFacts" /> 
-    <td>Other india Load:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my16file${rowCount}" id="myfile5"  type="file" /></td>
+    <td>Other INDS Load:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my16file${rowCount}" id="myfile5"  type="file" /></td>
       <td>    <input id="six" class="k-button" type="submit" name="submitBtn" value="reupload data" /></td>
 
 </form>
@@ -232,9 +232,9 @@ body.wait, body.wait *{
                 <div style="width:100%"><div style="width:99%">Admin: <input class="myrad2" type="radio" name="access" id="a1"  value="a"  />
                 Editor: <input class="myrad2" type="radio" name="access" id="a2"  value="e"  />
                 Subscriber: <input class="myrad2" type="radio" name="access" id="a3"  value="s" checked /></div></div>
-                <div style="width:100%"><div style="width:99%">World: <input class="myrad2" type="checkbox" name="world" id="a11"  value="w"  />
-                China: <input class="myrad2" type="checkbox" name="china" id="a22"  value="c"  />
-                India: <input class="myrad2" type="checkbox" name="india" id="a33"  value="i"  /></div></div>
+                <div style="width:100%"><div style="width:99%">IDS: <input class="myrad2" type="checkbox" name="world" id="a11"  value="w"  />
+                CDS: <input class="myrad2" type="checkbox" name="china" id="a22"  value="c"  />
+                INDS: <input class="myrad2" type="checkbox" name="india" id="a33"  value="i"  /></div></div>
  
      </div>
 
@@ -260,9 +260,9 @@ body.wait, body.wait *{
     <div style="width:100%">Select user and new access type</div>
                 <div style="width:100%"><div style="width:30%">User Id: </div><div style="width:60%"><select id="mySelUser" name="mySelUser">${options}</select></div></div>
      
-                <div style="width:100%" id="setboxes" ><div style="width:99%">World: <input class="myrad2" type="checkbox" name="world" id="a11"  value="w"  />
-                China: <input class="myrad2" type="checkbox" name="china" id="a22"  value="c"  />
-                India: <input class="myrad2" type="checkbox" name="india" id="a33"  value="i"  /></div>
+                <div style="width:100%" id="setboxes" ><div style="width:99%">IDS: <input class="myrad2" type="checkbox" name="world" id="a11"  value="w"  />
+                CDS: <input class="myrad2" type="checkbox" name="china" id="a22"  value="c"  />
+                INDS: <input class="myrad2" type="checkbox" name="india" id="a33"  value="i"  /></div>
  </div>
      </div>
     

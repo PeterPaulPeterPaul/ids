@@ -109,7 +109,7 @@ public class SQL1Summary implements DropdownInterface {
 		}
 		
 	      query = " select "+selectClause+"  SUM(a.quantity) quantity  " +
-	      		" from Facts a, Company b, Country c, Product d " +
+	      		" from Facts_"+access+" a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  andClause +

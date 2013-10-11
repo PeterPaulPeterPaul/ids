@@ -162,7 +162,7 @@ public class MainController implements DropdownInterface {
 	            		} else {
 	            			selected = "";
 	            		}
-	            		accessoptions+="<option value='w' "+selected+" >World</option>"; 
+	            		accessoptions+="<option value='w' "+selected+" >IDS</option>"; 
 	            	}
 	            	if (user.getChina()==1) {
 	            		if (access.equals("c")) {
@@ -170,7 +170,7 @@ public class MainController implements DropdownInterface {
 	            		} else {
 	            			selected = "";
 	            		}
-	            		accessoptions+="<option value='c' "+selected+" >China</option>";
+	            		accessoptions+="<option value='c' "+selected+" >CDS</option>";
 	            	}
 	            	if (user.getIndia()==1) {
 	            		if (access.equals("i")) {
@@ -178,7 +178,7 @@ public class MainController implements DropdownInterface {
 	            		} else {
 	            			selected = "";
 	            		}
-	            		accessoptions+="<option value='i' "+selected+" >India</option>";
+	            		accessoptions+="<option value='i' "+selected+" >INDS</option>";
 	            	}
 	            	  model.addAttribute("accessoptions",accessoptions);
 	            	

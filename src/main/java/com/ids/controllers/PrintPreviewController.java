@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -85,15 +86,32 @@ public class PrintPreviewController {
 		}
 		  
 		  
+		  Enumeration keys = request.getParameterNames();  
+		   while (keys.hasMoreElements() )  
+		   {  
+		      String key = (String)keys.nextElement();  
+		   
+		      //To retrieve a single value  
+		      String value = request.getParameter(key);  
+		      logger.warning("key: "+key+" value: "+value);    
+		   
+  
+		   } 
+		  
+		  
 		  StringBuffer sb = new StringBuffer();
 
+		  sb.append("<h2 style='text-align:center'>" + request.getParameter("title1") + " " + request.getParameter("title2") + " "+
+				  request.getParameter("title3") + " " + request.getParameter("title4") + "</h2>" );
+		  
+		  
 			if(myData.has("tabData")){
 				try {
 					logger.warning("it has tabData");
 
 					JSONArray clobArray = myData.getJSONArray("tabData");
-					
-					
+				
+
 					JSONObject jo1 = clobArray.getJSONObject(1);
 					logger.warning("size1 is: "+clobArray.length());
 
@@ -103,7 +121,7 @@ public class PrintPreviewController {
 						JSONArray myArray = jo1.getJSONArray("columns");
 						logger.warning("myArray size: "+myArray.length());
 						
-						sb.append("<table border='1' style='margin-left:8%'><tr>");
+						sb.append("<table  style='border-collapse:collapse;border:1px solid black;margin: 0px auto;'><tr>");
 						for (int i = 0; i < myArray.length();i++){
 							   sb.append("<td>"+myArray.getString(i)+"</td>");
 							columnHeaders.add(myArray.getString(i));
@@ -148,7 +166,11 @@ public class PrintPreviewController {
 								   sb.append("<td>"+totals.getJSONObject(0).getString(s).trim().replaceAll(",","")+"</td>");
 
 							   }catch(Exception e){
-								   sb.append("<td>0</td>");
+								   if (j==1) {
+									   sb.append("<td>TOTAL</td>"); 
+								   }else{
+								       sb.append("<td>0</td>");
+								   }
 							   }
 							}
 					 sb.append("</tr></table>");

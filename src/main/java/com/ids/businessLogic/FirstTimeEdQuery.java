@@ -86,7 +86,7 @@ public class FirstTimeEdQuery {
 
 
     	  
-	      String query2 = " select a.year, a.quantity, b.name from FactsEdit a, Company b, Country c " +
+	      String query2 = " select a.year, a.quantity, b.name from FactsEdit_"+access+" a, Company b, Country c " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.countryid=c.id " + 
 	    		  " and c.id="+countryId  + 
@@ -218,7 +218,7 @@ public class FirstTimeEdQuery {
 
 
 			    		  
-			    		  query = " select distinct a.id, a.name from Company a  , FactsEdit b " +
+			    		  query = " select distinct a.id, a.name from Company a  , FactsEdit_"+access+" b " +
 			    		  		" where a.id != 0" +
 			    		  		" and b.companyid = a.id " +
 			    		  		" and b.access = '" + access +"' and " +

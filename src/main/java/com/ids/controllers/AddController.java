@@ -87,23 +87,7 @@ public class AddController implements DropdownInterface {
 		   DriverManager.registerDriver(new AppEngineDriver());
 		  con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","123smiggles321","Wednesday");
 
-		  Enumeration keys = request.getParameterNames();  
-		   while (keys.hasMoreElements() )  
-		   {  
-		      String key = (String)keys.nextElement();  
-		      logger.warning(key);  
-		   
-		      //To retrieve a single value  
-		      String value = request.getParameter(key);  
-		      logger.warning(value);  
-		   
-		      // If the same key has multiple values (check boxes)  
-		      String[] valueArray = request.getParameterValues(key);  
-		        
-		      for(int i = 0; i > valueArray.length; i++){  
-		    	  logger.warning("VALUE ARRAY" + valueArray[i]);  
-		      }  
-		   }  
+		 
 		 
 		  
 		  
@@ -123,6 +107,9 @@ public class AddController implements DropdownInterface {
 	 			 }
 	 			return "login"; 
 	 		 }
+	 		 
+
+	 		 
 	 		String      query = " select 'found' as found from ids_users where userId = '"+user.getUserName()
 					  +"' and passwordId = '"+user.getPassword()+"'";
 
@@ -278,7 +265,7 @@ public class AddController implements DropdownInterface {
                
 
 
-            	   String newSQL = "Insert into FactsEdit (quantity, productId, year, companyId, countryId," +
+            	   String newSQL = "Insert into FactsEdit_"+request.getParameter("accessCurr")+" (quantity, productId, year, companyId, countryId," +
             	   		" sales_production, access) values ("+request.getParameter("quantAmt")+","+productId
             	   		+","+year+","+companyId+","+countryId+","+PorS+",'"+request.getParameter("accessCurr")+"')";
             	   logger.warning("InsertSQL: "+newSQL);

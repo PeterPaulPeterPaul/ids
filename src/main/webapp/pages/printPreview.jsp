@@ -11,6 +11,18 @@
 <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <title>Print Preview</title>
+<style type="text/css" media="screen">
+
+table{
+border-collapse:collapse;
+border:1px solid black;
+}
+
+table td{
+border:1px solid black;
+}
+</style>
+
 <style type="text/css" media="print"> .noprint {visibility: hidden;} </style>
 
 </head>

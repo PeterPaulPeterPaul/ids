@@ -142,7 +142,6 @@ public class DeleteController implements DropdownInterface {
 			   }
 			   
 			   model.addAttribute("openOrClose","close");
-			   
 
 			   
 			   String year = "";
@@ -255,7 +254,7 @@ public class DeleteController implements DropdownInterface {
                    String newSQL="";
                 
                    if (productId==null || productId.equals("")){
-                     newSQL = "delete from FactsEdit " +
+                     newSQL = "delete from FactsEdit_"+request.getParameter("accessCurr")+" " +
                    		" where year = "+year+
                 		   " and companyId = "+companyId+
                 		   " and countryId = "+countryId+
@@ -263,7 +262,7 @@ public class DeleteController implements DropdownInterface {
                 		   " and access = '"+request.getParameter("accessCurr")+"'";
                    }
                    if (year==null || year.equals("")) {
-                     newSQL = "delete from FactsEdit " +
+                     newSQL = "delete from FactsEdit_"+request.getParameter("accessCurr")+" " +
                    		" where productId = "+productId+
                 		   " and companyId = "+companyId+
                 		   " and countryId = "+countryId+
@@ -271,7 +270,7 @@ public class DeleteController implements DropdownInterface {
                 		   " and access = '"+request.getParameter("accessCurr")+"'";
                    }
                    if (companyId == null || companyId.equals("")) {
-                     newSQL = "delete from FactsEdit " +
+                     newSQL = "delete from FactsEdit_"+request.getParameter("accessCurr")+" " +
                    		" where productId = "+productId+
                 		   " and year = "+year+
                 		   " and countryId = "+countryId+
@@ -279,7 +278,7 @@ public class DeleteController implements DropdownInterface {
                 		   " and access = '"+request.getParameter("accessCurr")+"'";
                    }
                    if (countryId==null || countryId.equals("")) {
-                     newSQL = "delete from FactsEdit " +
+                     newSQL = "delete from FactsEdit_"+request.getParameter("accessCurr")+" " +
                    		" where productId = "+productId+
                 		   " and year = "+year+
                 		   " and companyId = "+companyId+

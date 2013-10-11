@@ -246,13 +246,21 @@ To <select id="todate" name="todate" >
 <form  id="testUp1" action="/cron/down" method="post" name="factsForm"   > 
  <input id="dataJson"  type="hidden" name="jsonStuff" value="" />
   <input id="totalsJson"  type="hidden" name="jsonTotals" value="" />
+    <input id="title11" type="hidden" name="title1" value=""/>
+  <input id="title22" type="hidden" name="title2" value=""/>
+  <input id="title33" type="hidden" name="title3" value=""/>
+  <input id="title44" type="hidden" name="title4" value=""/>
           <input id="one" class="k-button" type="submit" name="submitBtn" value="Download Excel" />
 
 </form>
 
-<form   target="_blank" id="printer" action="/print" method="post" name="factsForm"   > 
+<form  target="_blank"  id="printer" action="/print" method="post" name="factsForm"   > 
  <input id="printDataJson"  type="hidden" name="jsonStuff" value="" />
   <input id="printTotalJson"  type="hidden" name="jsonTotals" value="" />
+  <input id="title1" type="hidden" name="title1" value=""/>
+  <input id="title2" type="hidden" name="title2" value=""/>
+  <input id="title3" type="hidden" name="title3" value=""/>
+  <input id="title4" type="hidden" name="title4" value=""/>
           <input id="two" class="k-button" type="submit" name="submitBtn" value="Print Preview" />
 
 </form>
@@ -1073,6 +1081,21 @@ First Quantity:
         	  
         	  $(".dropdown1").css("width","182px");
         	  $(".dropdown2").css("width","182px");
+        	  
+        	  
+        	  var mySS1 = $(".viewable1").children(".dropdown1").attr("id");
+        	  var mySS2 = $(".viewable2").children(".dropdown2").attr("id");
+        	  
+        	  $("#title1").val(  $.trim($("#accessType option:selected").text()) );
+        	  $("#title2").val(  $.trim($("#drop31s option:selected").text()) );
+        	  $("#title3").val(  $.trim($("#"+mySS1+" option:first").text()) );
+        	  $("#title4").val(  $.trim($("#"+mySS2+" option:first").text()) );
+        	  
+        	  $("#title11").val(  $.trim($("#accessType option:selected").text()) );
+        	  $("#title22").val(  $.trim($("#drop31s option:selected").text()) );
+        	  $("#title33").val(  $.trim($("#"+mySS1+" option:first").text()) );
+        	  $("#title44").val(  $.trim($("#"+mySS2+" option:first").text()) );
+
 
         	var clickType="";
         	var swapValue="0";
@@ -1450,14 +1473,28 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 	  		    				   $("#drop1"+h1+" option[value="+value1+"]").prop("selected", true);
 		  		    				$("#drop2"+h2+" option:selected").prop("selected", false);
 		  		    				$("#drop2"+h2+" option[value="+value2+"]").prop("selected", true);
+		  		    				
+		  		    				 $("#title3").val($.trim( $("#drop1"+h1+" option[value="+value1+"]").text() ) );
+		  		    				 $("#title33").val($.trim( $("#drop1"+h1+" option[value="+value1+"]").text() ) );
+			  		    				$("#title4").val($.trim( $("#drop2"+h2+" option[value="+value2+"]").text()) );
+			  		    				$("#title44").val($.trim( $("#drop2"+h2+" option[value="+value2+"]").text()) );
+
 
 		    				   }  
+		    				   
+		    				   $("#title2").val(  $.trim($("#drop31s option:selected").text()) );
+		    				   $("#title1").val(  $.trim($("#accessType option:selected").text()) );
+		    				   $("#title22").val(  $.trim($("#drop31s option:selected").text()) );
+		    				   $("#title11").val(  $.trim($("#accessType option:selected").text()) );
 		    				   
 		    				   if (clickType=="myrad3"){
 	  		    				   $("#drop2"+h2+" option:selected").prop("selected", false);
 	  		    				   $("#drop2"+h2+" option[value="+value2+"]").prop("selected", true);
 			  		    		   $("#drop1"+h1+" option:selected").prop("selected", false);
 			  		    		   $("#drop1"+h1+" option[value="+value1+"]").prop("selected", true);
+			  		    		   
+			  		    		 $("#title4").val($("#drop2"+h2+" option[value="+value2+"]").text());
+				  		    		 $("#title3").val($("#drop1"+h1+" option[value="+value1+"]").text());
 
 		    				   }
 		    				   

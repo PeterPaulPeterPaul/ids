@@ -112,10 +112,10 @@ logger.warning("query: "+query);
 				  india="checked";
 			  }
 		   }
-		   
-			  String checked = "<div style='width:99%'>World: <input class='myrad2' type='checkbox' name='world' id='a1world'  value='w' "+world+" />"+
-		                " China: <input class='myrad2' type='checkbox' name='china' id='a1china'  value='c' "+china+" />"+
-		                " India: <input class='myrad2' type='checkbox' name='india' id='a1india'  value='i' "+india+" /></div>";
+
+			  String checked = "<div style='width:99%'>IDS: <input class='myrad2' type='checkbox' name='world' id='a1world'  value='w' "+world+" />"+
+		                " CDS: <input class='myrad2' type='checkbox' name='china' id='a1china'  value='c' "+china+" />"+
+		                " INDS: <input class='myrad2' type='checkbox' name='india' id='a1india'  value='i' "+india+" /></div>";
 			  
 		   model.addAttribute("mycheckboxes",checked);
 		   

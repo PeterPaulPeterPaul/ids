@@ -7,7 +7,7 @@ public class SQL3Ed {
 	public SQL3Ed(int salesOrProduction, int countryId, int productId, int fromYear, int toYear, String incExCountries,
 			String incExProducts, String incExCompanies, String dateParm, String access) {
 		
-	      query = " select a.year, a.quantity, b.name as company, d.name as product, c.country from FactsEdit a, Company b, Country c, Product d " +
+	      query = " select a.year, a.quantity, b.name as company, d.name as product, c.country from FactsEdit_"+access+" a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  " and a.countryId = " + countryId+

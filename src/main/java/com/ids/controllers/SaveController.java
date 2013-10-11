@@ -124,10 +124,13 @@ public class SaveController implements DropdownInterface {
 			   
 			   model.addAttribute("openOrClose","close");
 			   
+			    
+				   
+			   
 			   if (request.getParameter("save")!= null ) {
 				   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Delete from Facts_w");
 				   statement2.executeUpdate();
-				   statement2 = (PreparedStatement) con.prepareStatement("insert into Facts_w select * from FactsEdit ");
+				   statement2 = (PreparedStatement) con.prepareStatement("insert into Facts_w select * from FactsEdit_w ");
 				   statement2.executeUpdate();
 				   statement2 = (PreparedStatement) con.prepareStatement("update editing set flag = '0' ");
 				   statement2.executeUpdate();
@@ -178,7 +181,11 @@ public class SaveController implements DropdownInterface {
                if (value.equals("Year")) {
             	   year =  request.getParameter("dimension2Val");
                } else {
-             	  SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension2Val").trim() +"' ";
+            	   if (request.getParameter("dimension2Name").trim().equals("Country")){
+            		   SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension2Val").trim() +"' ";
+            	   } else {
+             	      SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension2Val").trim() +"' ";
+            	   }
              	 logger.warning("SQL2: "+SQL);
              	logger.warning("value2: "+value);
              	if (resultSet != null) {
@@ -210,7 +217,11 @@ public class SaveController implements DropdownInterface {
                if (value.equals("Year")) {
             	   year =  request.getParameter("dimension3Val");
                } else {
-            	   SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension3Val").trim() +"' ";
+            	   if (value.equals("Country")) {
+            	       SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension3Val").trim() +"' ";
+            	   }else{
+            		   SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension3Val").trim() +"' "; 
+            	   }
               	  resultSet = statement.executeQuery(SQL);
               	  while (resultSet.next()) {
               		  if (value.equals("Country")) {
@@ -272,20 +283,23 @@ public class SaveController implements DropdownInterface {
                }
                if (quant==0) {
             	   
-            	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Delete from FactsEdit where "+
+            	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Delete from FactsEdit_w where "+
                 		    " productId = "+productId + " and year = "+year+ " and access = 'w' "+
                 		   " and companyId = "+companyId + " and countryId = "+countryId+ " and sales_production = "+PorS);
                    int retval = statement2.executeUpdate();
             	   
                }else {
 			    
-               PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Update FactsEdit set quantity = "+
+               PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Update FactsEdit_w set quantity = "+
+            		   request.getParameter("FactVal")+ " where productId = "+productId + " and access= 'w' and year = "+year+
+            		   " and companyId = "+companyId + " and countryId = "+countryId+ " and sales_production = "+PorS);
+               logger.warning("SQL: "+"Update FactsEdit_w set quantity = "+
             		   request.getParameter("FactVal")+ " where productId = "+productId + " and access= 'w' and year = "+year+
             		   " and companyId = "+companyId + " and countryId = "+countryId+ " and sales_production = "+PorS);
                int retval = statement2.executeUpdate();
                
                if (retval==0) {
-            	   String newSQL = "Insert into FactsEdit (quantity, productId, year, companyId, countryId," +
+            	   String newSQL = "Insert into FactsEdit_w (quantity, productId, year, companyId, countryId," +
             	   		" sales_production, access) values ("+request.getParameter("FactVal")+","+productId
             	   		+","+year+","+companyId+","+countryId+","+PorS+",'w')";
             	   logger.warning("InsertSQL: "+newSQL);

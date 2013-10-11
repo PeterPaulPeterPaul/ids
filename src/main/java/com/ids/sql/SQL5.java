@@ -14,7 +14,7 @@ public class SQL5 {
 			orderby = " order by "+country+", a.year  asc";
 		}
 	      query = " select a.year, a.quantity, b.name as company, d.name as product, "+country+" as country " +
-	      		" from Facts a, Company b, Country c, Product d " +
+	      		" from Facts_"+access+" a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  " and a.productId = " + productId+
