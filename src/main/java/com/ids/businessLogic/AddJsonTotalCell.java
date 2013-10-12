@@ -26,12 +26,18 @@ public class AddJsonTotalCell {
 		try{
 		if(myData.has("myTotals")){
 			
+			//myData.put("TOTAL",totalTotal);
 			JSONArray clobArray = myData.getJSONArray("myTotals");
-			
-			JSONObject obj1a = new JSONObject();
-			obj1a.put("TOTAL",totalTotal);
-			clobArray.put(clobArray.length()-1,obj1a);
+			JSONObject jo0 = clobArray.getJSONObject(0);
+			jo0.put("TOTAL",totalTotal);
+			clobArray.put(0,jo0);
 			myData.put("myTotals",clobArray);
+			//JSONArray myArray = jo0.getJSONArray("");
+
+			//JSONObject obj1a = new JSONObject();
+			//obj1a.put("TOTAL",totalTotal);
+			//clobArray.put(clobArray.length(),obj1a);
+			//myData.put("myTotals",clobArray);
 			
 		}
 		
