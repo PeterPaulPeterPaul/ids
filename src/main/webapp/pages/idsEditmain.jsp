@@ -245,7 +245,7 @@ To <select id="todate" name="todate" >
 
 </form>
 
- <input id="toggleRowTotal"  style="font-size:x-small" type="button" name="toggleRowTotal" value="Remove row total" />
+ <input id="toggleRowTotal"  style="font-size:x-small" type="button" name="toggleRowTotal" value="Add row total" />
 
 <input type="image" name="close" id="closeit"  src="images/exit.bmp" />
 
@@ -1402,7 +1402,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
 								  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue
 								  +countriesParm+countriesList+productsParm+productsList+
-								  companiesParm+companiesList+fromDate+toDate+"&excelDownload="+downloadExcel+dateParm,
+								  companiesParm+companiesList+fromDate+toDate+"&rowTotal="+rowTotal+"&excelDownload="+downloadExcel+dateParm,
 				         type: 'GET',
 				       contentType: 'application/html',
 				       processData: false,

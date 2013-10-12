@@ -1207,14 +1207,14 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    							  
 				    							});
 				    						  
-				    		        		  if ($("#list47_TOTAL").length) {
-				    		         		     $("#toggleRowTotal").val("Remove row total");
-				    		         		  } else {
-				    		         			  $("#toggleRowTotal").val("Add row total");
-				    		         		  }
-				    		        		  
-				    		        		  
+
 				    						  $("#titleBar").fadeIn();
+				    		        		  if ($("#list47_TOTAL").length) {
+					    		         		     $("#toggleRowTotal").val("Remove row total");
+					    		         		  } else {
+					    		         			  $("#toggleRowTotal").val("Add row total");
+					    		         		  }
+				    		        		  
 
 					   },
 					    error: function (xhr, ajaxOptions, thrownError) {
