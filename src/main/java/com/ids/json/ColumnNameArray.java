@@ -17,7 +17,7 @@ public class ColumnNameArray implements DropdownInterface {
 	
 	JSONObject columnNameObject = new JSONObject();
 	
-	public ColumnNameArray(Statement statement, String topRow, int dimension1, int fromYear, int toYear, String access) throws SQLException  {
+	public ColumnNameArray(Statement statement, String topRow, int dimension1, int fromYear, int toYear, String access, String total) throws SQLException  {
 		
 	      try {
 
@@ -77,6 +77,9 @@ public class ColumnNameArray implements DropdownInterface {
 	        	  
 	          }
 
+	          if (!total.equals("")) {
+	        	  columnNameArray.put("TOTAL");
+	          }
 	    	  
 	    	  columnNameObject.put("columns", columnNameArray);
 	      

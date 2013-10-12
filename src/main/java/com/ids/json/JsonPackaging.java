@@ -24,7 +24,7 @@ public class JsonPackaging implements DropdownInterface {
     
 	public JsonPackaging(JSONObject obj2a,JSONArray array7,String colHeading,HashMap<String,Integer> totalLine2,
 			 String titleONE, String titleTWO,
-			JSONObject model, JSONObject columnNameObject, String salesOrProduction, boolean hasAll ) throws JSONException{
+			JSONObject model, JSONObject columnNameObject, String salesOrProduction,  boolean hasAll ) throws JSONException{
 		
 		
 		 if (obj2a != null) {
@@ -58,6 +58,8 @@ public class JsonPackaging implements DropdownInterface {
     	        Entry<String, Integer> pairs = it.next();
     	        obj2Total.put(pairs.getKey(), pairs.getValue());
     	  }
+    	  
+    	  
 	      if (obj2Total != null) {
 	    	     JSONArray array8 = new JSONArray();
 	    	     array8.put(obj2Total);

@@ -21,7 +21,6 @@
 <script src="js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script src="js/jquery.jqGrid.min.js" type="text/javascript"></script>
 <title>IDS</title>
-</head>
 <style>
 body { 
 background-color:#FFFF80; 
@@ -97,8 +96,9 @@ margin-left:10px;
 margin-right:3px;
 }
 </style>
+</head>
 
-<body class="js">
+<body class="jss">
 <div id="wholescreen" style="width:100%;height:100%">
 
 <div class="box">
@@ -121,32 +121,12 @@ International Database Service
    <div id="dialogFilter" title="Filter" style="z-index:1500">
              <div style="width:800px;float:left">
              
-             <div id="dropa11" style="width:230px; float:left" >
-<select name="e_or_i1" class="dropdown33" id="dropa11s" style="font-size:small;width:180px;margin:10px">
-  <option value="1">Exclude</option>
-  <option value="2">Include</option>
-</select>
-</div>
-
-             <div id="dropa22" style="width:230px; float:left" >
-<select name="e_or_i2" class="dropdown33" id="dropa22s" style="font-size:small;width:180px;margin:10px">
-  <option value="1">Exclude</option>
-  <option value="2">Include</option>
-</select>
-</div>
-
-                <div id="dropa33" style="width:250px; float:left" >
-<select name="e_or_i3" class="dropdown33" id="dropa33s" style="font-size:small;width:180px;margin:10px">
-  <option value="1">Exclude</option>
-  <option value="2">Include</option>
-</select>
-</div>
-
+ 
                 <div id="dropa44" style="width:90px; float:left" >
 <input type="button" style="font-size:small;"  name="submit1" id="submit1"  value="Hide"/>
     </div>
           
-<div id="dropa1"  style="width:230px; float:left; z-index:1500" >
+<div id="dropa1"  style="width:230px; float:left; z-index:1500;margin-top:4px"  >
 <select multiple="multiple" class="dropdown11" id="drop11as" style="font-family:Arial, Helvetica, sans-serif;">
 <option   class="drop11check" style="font-family:Arial, Helvetica, sans-serif;font-size:small;color:green"value="-1">Toggle clear/all &nbsp;</option>
  <c:forEach var="drop1" items="${dropdown1a}">
@@ -155,7 +135,7 @@ International Database Service
 </select>
 </div>
 
-<div id="dropa2"  style="width:230px;float:left"  >
+<div id="dropa2"  style="width:230px;float:left;margin-top:4px"   >
 <select multiple="multiple" class="dropdown11" id="drop12as">
 <option style="font-size:small;color:green" value="-1">Toggle clear/all&nbsp;</option>
  <c:forEach var="drop1" items="${dropdown1b}">
@@ -166,7 +146,7 @@ International Database Service
 
 
 
-<div id="dropa4"  style="width:230px;float:left"  >
+<div id="dropa4"  style="width:230px;float:left;margin-top:4px"  >
 <select multiple="multiple" class="dropdown11" id="drop14as" >
 <option style="font-size:small;color:green"value="-1">Toggle clear/all&nbsp;</option>
  <c:forEach var="drop1" items="${dropdown1d}">
@@ -265,7 +245,7 @@ To <select id="todate" name="todate" >
 
 </form>
 
-
+ <input id="toggleRowTotal"  type="button" name="toggleRowTotal" value="Remove row total" />
 
 <input type="image" name="close" id="closeit"  src="images/exit.bmp" />
 
@@ -1013,6 +993,19 @@ First Quantity:
     		   
     		   
         	  var downloadExcel="no";
+        	  var rowTotal="on";
+            	  
+            	  $("#toggleRowTotal").on("click",function(){ 
+            		  if ($("#list47_TOTAL").length) {
+            		     rowTotal="off";
+            		     $("#toggleRowTotal").val("Add row total");
+            		  } else {
+            			  rowTotal="on";
+            			  $("#toggleRowTotal").val("Remove row total");
+            		  }
+            		  getGrid();
+            	  });
+        	  
         	  
         	  $("#toExcel").on("click",function(){ 
         		  downloadExcel="yes";
@@ -1339,12 +1332,8 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				});
 
 	               if (countriesList!=""){
-	      				if ($('#dropa11s').val()=="1"){
-	   					countriesParm="&excludedCountries=";
-	   				    }else{
 	   					countriesParm="&includedCountries=";
-	   				    }
-	                  }
+                   }
 	               
 	               
 					var productsParm="";
@@ -1357,11 +1346,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 					});
 	
 		               if (productsList!=""){
-		      				if ($('#dropa22s').val()=="1"){
-		   					productsParm="&excludedProducts=";
-		   				}else{
 		   					productsParm="&includedProducts=";
-		   				}
 		                   }
 
 						var companiesParm="";
@@ -1374,13 +1359,9 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 						});
 						
 			               if (companiesList!=""){
-			      				if ($('#dropa33s').val()=="1"){
-			      					companiesParm="&excludedCompanies=";
-			   				}else{
-			   					companiesParm="&includedCompanies=";
+			      			 companiesParm="&includedCompanies=";
 			   				}
-			                   }
-   
+
 			               var fromDate = "";
 			               if ($("#fromdate").val() != "-1") {
 			            	   fromDate = "&fromDate="+$("#fromdate").val();
@@ -1403,7 +1384,8 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 						  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
 						  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue
 						  +countriesParm+countriesList+productsParm+productsList+
-						  companiesParm+companiesList+fromDate+toDate+"&excelDownload="+downloadExcel+dateParm;
+			       		  companiesParm+companiesList+fromDate+toDate+"&excelDownload="+downloadExcel+
+						  "&rowTotal="+rowTotal+dateParm,
 						
 
 			       		var saveparameters = {

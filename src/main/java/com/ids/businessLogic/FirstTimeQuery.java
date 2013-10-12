@@ -79,7 +79,7 @@ public class FirstTimeQuery {
 		   }
 		  
 
-    	  YearArray yearArray = new YearArray("Company",years);
+    	  YearArray yearArray = new YearArray("Company",years,"TOTAL");
     	  
     	  ColumnModel columnModel = new ColumnModel(yearArray.getJsonYearArray());
 
@@ -142,7 +142,7 @@ public class FirstTimeQuery {
     	  }   
     	  
 
-    	  
+    	  /*
 	      JSONObject objTotal = new JSONObject();
     	  objTotal.put("Company","TOTAL");
     	  Iterator<Entry<String, Integer>> it = totalLine2.entrySet().iterator();
@@ -150,6 +150,7 @@ public class FirstTimeQuery {
     	        Entry<String, Integer> pairs = it.next();
     	        objTotal.put(pairs.getKey(), pairs.getValue());
     	    }
+    	   objTotal.put("Total", 0);
     	   JSONArray array8 = new JSONArray(); 
     	   
 	    	  if (objTotal != null) {
@@ -158,7 +159,7 @@ public class FirstTimeQuery {
 		       	     obj8.put("myTotals", array8);
 		    	     model.addAttribute("jsonTotal",obj8);
 		    	  }
-
+*/
     	  
     	  JSONObject obj7 = new JSONObject();
     	  obj7.put("myData", array7);
@@ -174,7 +175,31 @@ public class FirstTimeQuery {
     	  JSONObject obj5 = new JSONObject();
     	  obj5.put("tabData", array4);
 
+    	  AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
+    	  
+    	  
+	      JSONObject objTotal = new JSONObject();
+    	  objTotal.put("Company","TOTAL");
+    	  Iterator<Entry<String, Integer>> it = totalLine2.entrySet().iterator();
+    	   while (it.hasNext()) {
+    	        Entry<String, Integer> pairs = it.next();
+    	        objTotal.put(pairs.getKey(), pairs.getValue());
+    	    }
+    	   objTotal.put("TOTAL", aj.getTotal());
+    	   JSONArray array8 = new JSONArray(); 
+    	   
+	    	  if (objTotal != null) {
+		    	     array8.put(objTotal);
+		    	     JSONObject obj8 = new JSONObject();
+		       	     obj8.put("myTotals", array8);
+		    	     model.addAttribute("jsonTotal",obj8);
+		    	  }
+	    	  
+    	  
+    	  
     	  model.addAttribute("jsonData",obj5);
+    	  
+    	  logger.warning(obj5.toString());
     	  if (request.getParameter("list") == null){
     		  
     		  

@@ -64,10 +64,8 @@ public class JsonWithInLoop {
 			   totalQuantity1=0;
 			   if (totalLine2.get(TWO)!= null) {
 				   totalQuantity1= totalLine2.get(TWO);
-				   System.out.println("(1) totalQuantity1: "+totalQuantity1+" TWO: "+TWO);
 			   }
 			   totalQuantity1 += Integer.parseInt(quantity);
-			   System.out.println("(2) totalQuantity1: "+totalQuantity1+" TWO: "+TWO);
 			   totalLine2.put(TWO, totalQuantity1);
 		}
 		

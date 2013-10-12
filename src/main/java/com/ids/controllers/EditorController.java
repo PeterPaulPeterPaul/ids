@@ -34,6 +34,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.appengine.api.rdbms.AppEngineDriver;
 import com.google.cloud.sql.jdbc.PreparedStatement;
+import com.ids.businessLogic.AddJsonRowTotal;
+import com.ids.businessLogic.AddJsonTotalCell;
 import com.ids.businessLogic.DownloadExcel;
 import com.ids.businessLogic.DropdownInterface;
 import com.ids.businessLogic.FirstTimeEdQuery;
@@ -91,6 +93,7 @@ public class EditorController implements DropdownInterface {
 
 	private Connection con;
 	private String access = "" ;  //TEMP SOLUTION - SET TO WORLD
+	private String total ="";
 
    	private final static Logger logger = Logger.getLogger(EditorController.class.getName()); 
        
@@ -154,8 +157,12 @@ public class EditorController implements DropdownInterface {
 		   		      model.addAttribute("errortext","Invalid user credentials");
 		   		   	  return "login";
 			   }
-
-		  
+			   
+	    		  if (request.getParameter("rowTotal")==null || request.getParameter("rowTotal").equals("on")) {
+	    			  total="TOTAL";
+	    		  }else {
+	    			  total="";
+	    		  }
 			   
 			   
 			   Statement statement3 =  con.createStatement();
@@ -304,7 +311,6 @@ public class EditorController implements DropdownInterface {
 		    	  model.addAttribute("jsonTotal",obj8);
                      
 		    	  logger.warning(obj5.toString());
-		    	  model.addAttribute("jsonData",obj5);
 	    		  
 		    	  con.close();
 		    	  
@@ -372,7 +378,6 @@ public class EditorController implements DropdownInterface {
 		    	  model.addAttribute("jsonTotal",obj8);
                      
 		    	  logger.warning(obj5.toString());
-		    	  model.addAttribute("jsonData",obj5);
 	    		  
 		    	  con.close();  
 		    	  // DownloadExcel dx = new DownloadExcel( obj5,request,response) ;
@@ -387,7 +392,7 @@ public class EditorController implements DropdownInterface {
 		    		  String colHeading= "company";
 		    		  
 		    		  ColumnNameArray cna = new ColumnNameArray(statement,"country shortname", COMPANY,
-		    				  srp.getFromDate(), srp.getToDate(), access);
+		    				  srp.getFromDate(), srp.getToDate(), access, total);
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
 		    		  model.addAttribute("myDimension","Country shortname");
@@ -404,10 +409,12 @@ public class EditorController implements DropdownInterface {
 			    			  colHeading,columnModel, cna.getColumnNameObject(), srp.getSalesOrProduct(), true);
                       JSONObject obj5 = l.get(0);
                       JSONObject obj8 = l.get(1);
+                      if (total.equals("TOTAL")){
+                    	  AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
+                    	  new AddJsonTotalCell(obj8,aj.getTotal());
+                       }
 			    	  model.addAttribute("jsonData",obj5);
 			    	  model.addAttribute("jsonTotal",obj8);
-			    	  logger.warning("STUFF");
-			    	  logger.warning(obj5.toString());
 			    	  con.close(); 
 			    	  // DownloadExcel dx = new DownloadExcel( obj5,request,response) ;
 				    	 return "jsonData";
@@ -434,11 +441,11 @@ public class EditorController implements DropdownInterface {
 		    			  colHeading="product";
 		    			  colHead2="year";
 		    			  cna = new ColumnNameArray(statement,"years", PRODUCT,
-		    					  srp.getFromDate(), srp.getToDate(), access); 
+		    					  srp.getFromDate(), srp.getToDate(), access, total); 
 		    			  model.addAttribute("myDimension","Year");
 		    		  } else {
 		    			  cna = new ColumnNameArray(statement,"product shortname", YEARS,
-		    					  srp.getFromDate(), srp.getToDate(), access); 
+		    					  srp.getFromDate(), srp.getToDate(), access, total); 
 		    			  model.addAttribute("myDimension","Product shortname");
 		    		  }
 
@@ -457,12 +464,12 @@ public class EditorController implements DropdownInterface {
 			    			  colHeading,columnModel, cna.getColumnNameObject(), srp.getSalesOrProduct(), false);
                       JSONObject obj5 = l.get(0);
                       JSONObject obj8 = l.get(1);
+                      if (total.equals("TOTAL")){
+                          AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
+                          new AddJsonTotalCell(obj8,aj.getTotal());
+                       }
 			    	  model.addAttribute("jsonData",obj5);
 			    	  model.addAttribute("jsonTotal",obj8);
-	                       
-			    	  logger.warning("STUFF2");
-			    	  logger.warning(obj5.toString());
-			    	  model.addAttribute("jsonData",obj5);
 		    		  
 			    	  con.close();  
 			    	  // DownloadExcel dx = new DownloadExcel( obj5,request,response) ;
@@ -489,11 +496,11 @@ public class EditorController implements DropdownInterface {
 		    			  colHeading="country";
 		    			  colHead2="year";
 		    			  cna = new ColumnNameArray(statement,"years", COUNTRY,
-		    					  srp.getFromDate(), srp.getToDate(), access); 
+		    					  srp.getFromDate(), srp.getToDate(), access, total); 
 		    			  model.addAttribute("myDimension","Year");
 		    		  } else {
 		    			  cna = new ColumnNameArray(statement,"country shortname", YEARS,
-		    					  srp.getFromDate(), srp.getToDate(), access); 
+		    					  srp.getFromDate(), srp.getToDate(), access, total); 
 		    			  model.addAttribute("myDimension","Country shortname");
 		    		  }
 		    		  
@@ -514,10 +521,12 @@ public class EditorController implements DropdownInterface {
 
                       JSONObject obj5 = l.get(0);
                       JSONObject obj8 = l.get(1);
+                      if (total.equals("TOTAL")){
+                          AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
+                          new AddJsonTotalCell(obj8,aj.getTotal());
+                       }
 			    	  model.addAttribute("jsonData",obj5);
 			    	  model.addAttribute("jsonTotal",obj8);
-			    	  logger.warning("STUFF3");
-			    	  logger.warning(obj5.toString());
 			    	  con.close(); 
 			    	  // DownloadExcel dx = new DownloadExcel( obj5,request,response) ;
 				    	 return "jsonData";  
@@ -541,11 +550,11 @@ public class EditorController implements DropdownInterface {
 		    			  colHeading="country";
 		    			  colHead2="product";
 		    			  cna = new ColumnNameArray(statement,"product shortname", COUNTRY,
-		    					  srp.getFromDate(), srp.getToDate(),access); 
+		    					  srp.getFromDate(), srp.getToDate(),access,total); 
 		    			  model.addAttribute("myDimension","Product shortname");
 		    		  } else {
 		    			  cna = new ColumnNameArray(statement,"country shortname", PRODUCT,
-		    					  srp.getFromDate(), srp.getToDate(),access); 
+		    					  srp.getFromDate(), srp.getToDate(),access,total); 
 		    			  model.addAttribute("myDimension","Country shortname");
 		    		  }
 
@@ -565,10 +574,13 @@ public class EditorController implements DropdownInterface {
 
                       JSONObject obj5 = l.get(0);
                       JSONObject obj8 = l.get(1);
+                      if (total.equals("TOTAL")){
+                          AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
+                          new AddJsonTotalCell(obj8,aj.getTotal());
+                       }
 			    	  model.addAttribute("jsonData",obj5);
 			    	  model.addAttribute("jsonTotal",obj8);
-			    	  logger.warning("STUFF4");
-			    	  logger.warning(obj5.toString());
+;
 			    	  con.close();
 			    	  // DownloadExcel dx = new DownloadExcel( obj5,request,response) ;
 				    	 return "jsonData";  
@@ -588,7 +600,7 @@ public class EditorController implements DropdownInterface {
 		    		  String colHeading= "company";
 		    		  
 		    		  ColumnNameArray cna = new ColumnNameArray(statement,"product shortname", COMPANY,
-		    				  srp.getFromDate(), srp.getToDate(), access);
+		    				  srp.getFromDate(), srp.getToDate(), access,total);
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 		    		  model.addAttribute("myDimension","Product shortname");
 		    		  
@@ -607,12 +619,15 @@ public class EditorController implements DropdownInterface {
 
 		                      JSONObject obj5 = l.get(0);
 		                      JSONObject obj8 = l.get(1);
+		                      if (total.equals("TOTAL")){
+		                          AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
+		                          new AddJsonTotalCell(obj8,aj.getTotal());
+		                       }
 					    	  model.addAttribute("jsonData",obj5);
 					    	  model.addAttribute("jsonTotal",obj8);
 		    		  
 					    	  con.close(); 
-					    	  logger.warning("STUFF5");
-					    	  logger.warning(obj5.toString());
+
 					    	  // DownloadExcel dx = new DownloadExcel( obj5,request,response) ;
 						    	 return "jsonData";
 		    	  }
@@ -628,7 +643,7 @@ public class EditorController implements DropdownInterface {
 		    		  try{
 		    		  String colHeading= "company";
 		    		  ColumnNameArray cna = new ColumnNameArray(statement,"years" ,COMPANY,
-		    				  srp.getFromDate(), srp.getToDate(), access);
+		    				  srp.getFromDate(), srp.getToDate(), access,total);
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 		    		  model.addAttribute("myDimension","Year");
 		    		  
@@ -646,11 +661,14 @@ public class EditorController implements DropdownInterface {
 		                   
 	                      JSONObject obj5 = l.get(0);
 	                      JSONObject obj8 = l.get(1);
+	                      if (total.equals("TOTAL")){
+	                          AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
+	                          new AddJsonTotalCell(obj8,aj.getTotal());
+	                       }
 				    	  model.addAttribute("jsonData",obj5);
 				    	  model.addAttribute("jsonTotal",obj8);  
 
 				    	  con.close();
-				    	  logger.warning("STUFF6");
 				    	  logger.warning(obj5.toString());
 				    	  // DownloadExcel dx = new DownloadExcel( obj5,request,response) ;
 					    	 return "jsonData"; 

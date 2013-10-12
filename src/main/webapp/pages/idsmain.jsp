@@ -21,7 +21,6 @@
 <script src="js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script src="js/jquery.jqGrid.min.js" type="text/javascript"></script>
 <title>IDS</title>
-</head>
 <style>
 body { 
 background-color:#FFFF80; 
@@ -29,7 +28,7 @@ background-color:#FFFF80;
 body.wait, body.wait *{
  cursor: wait !important;   
 }
-.jss {display: none;}
+.js {display: none;}
 .colorWhite {
             background-color: white !important;
         }
@@ -98,7 +97,9 @@ margin-right:3px;
 }
 </style>
 
-<body class="js">
+</head>
+
+<body class="jss">
 <div id="wholescreen" style="width:100%;height:100%">
 
 <div class="box">
@@ -120,33 +121,13 @@ International Database Service
 
    <div id="dialogFilter" title="Filter" style="z-index:1500">
              <div style="width:800px;float:left">
-             
-             <div id="dropa11" style="width:230px; float:left" >
-<select name="e_or_i1" class="dropdown33" id="dropa11s" style="font-size:small;width:180px;margin:10px">
-  <option value="1">Exclude</option>
-  <option value="2">Include</option>
-</select>
-</div>
-
-             <div id="dropa22" style="width:230px; float:left" >
-<select name="e_or_i2" class="dropdown33" id="dropa22s" style="font-size:small;width:180px;margin:10px">
-  <option value="1">Exclude</option>
-  <option value="2">Include</option>
-</select>
-</div>
-
-                <div id="dropa33" style="width:250px; float:left" >
-<select name="e_or_i3" class="dropdown33" id="dropa33s" style="font-size:small;width:180px;margin:10px">
-  <option value="1">Exclude</option>
-  <option value="2">Include</option>
-</select>
-</div>
+           
 
                 <div id="dropa44" style="width:90px; float:left" >
 <input type="button" style="font-size:small;"  name="submit1" id="submit1"  value="Hide"/>
     </div>
           
-<div id="dropa1"  style="width:230px; float:left; z-index:1500" >
+<div id="dropa1"  style="width:230px; float:left; z-index:1500; margin-top:4px" >
 <select multiple="multiple" class="dropdown11" id="drop11as" style="font-family:Arial, Helvetica, sans-serif;">
 <option   class="drop11check" style="font-family:Arial, Helvetica, sans-serif;font-size:small;color:green"value="-1">Toggle clear/all &nbsp;</option>
  <c:forEach var="drop1" items="${dropdown1a}">
@@ -155,7 +136,7 @@ International Database Service
 </select>
 </div>
 
-<div id="dropa2"  style="width:230px;float:left"  >
+<div id="dropa2"  style="width:230px;float:left;margin-top:4px"  >
 <select multiple="multiple" class="dropdown11" id="drop12as">
 <option style="font-size:small;color:green" value="-1">Toggle clear/all&nbsp;</option>
  <c:forEach var="drop1" items="${dropdown1b}">
@@ -166,7 +147,7 @@ International Database Service
 
 
 
-<div id="dropa4"  style="width:230px;float:left"  >
+<div id="dropa4"  style="width:230px;float:left;margin-top:4px"  >
 <select multiple="multiple" class="dropdown11" id="drop14as" >
 <option style="font-size:small;color:green"value="-1">Toggle clear/all&nbsp;</option>
  <c:forEach var="drop1" items="${dropdown1d}">
@@ -246,29 +227,21 @@ To <select id="todate" name="todate" >
 <div style="float:left;">
 
 
-<form  id="testUp1" action="/cron/down" method="post" name="factsForm"   > 
+<form  id="testUp1" action="/cron/down" method="post" name="factsForm1"   > 
  <input id="dataJson"  type="hidden" name="jsonStuff" value="" />
   <input id="totalsJson"  type="hidden" name="jsonTotals" value="" />
-    <input id="title11" type="hidden" name="title1" value=""/>
-  <input id="title22" type="hidden" name="title2" value=""/>
-  <input id="title33" type="hidden" name="title3" value=""/>
-  <input id="title44" type="hidden" name="title4" value=""/>
           <input id="one" class="k-button" type="submit" name="submitBtn" value="Download Excel" />
 
 </form>
 
-<form  target="_blank"  id="printer" action="/print" method="post" name="factsForm"   > 
+<form  target="_blank"  id="printer" action="/print" method="post" name="factsForm2"   > 
  <input id="printDataJson"  type="hidden" name="jsonStuff" value="" />
   <input id="printTotalJson"  type="hidden" name="jsonTotals" value="" />
-  <input id="title1" type="hidden" name="title1" value=""/>
-  <input id="title2" type="hidden" name="title2" value=""/>
-  <input id="title3" type="hidden" name="title3" value=""/>
-  <input id="title4" type="hidden" name="title4" value=""/>
           <input id="two" class="k-button" type="submit" name="submitBtn" value="Print Preview" />
 
 </form>
 
-
+ <input id="toggleRowTotal"  type="button" name="toggleRowTotal" value="Remove row total" />
 
 <input type="image" name="close" id="closeit"  src="images/exit.bmp" />
 
@@ -524,6 +497,19 @@ To <select id="todate" name="todate" >
     		   
     		   
         	  var downloadExcel="no";
+        	  var rowTotal="on";
+        	  
+        	  $("#toggleRowTotal").on("click",function(){ 
+        		  if ($("#list47_TOTAL").length) {
+        		     rowTotal="off";
+        		     $("#toggleRowTotal").val("Add row total");
+        		  } else {
+        			  rowTotal="on";
+        			  $("#toggleRowTotal").val("Remove row total");
+        		  }
+        		  getGrid();
+        	  });
+        	  
         	  
         	  $("#toExcel").on("click",function(){ 
         		  downloadExcel="yes";
@@ -589,7 +575,6 @@ To <select id="todate" name="todate" >
         	  $(".dropdown1").css("width","182px");
         	  $(".dropdown2").css("width","182px");
         	  
-
         	  var mySS1 = $(".viewable1").children(".dropdown1").attr("id");
         	  var mySS2 = $(".viewable2").children(".dropdown2").attr("id");
         	  
@@ -607,7 +592,7 @@ To <select id="todate" name="todate" >
         	var swapValue="0";
         	var summary=0;
         	
-        	$("body").removeClass("js");
+        //	$("body").removeClass("js");
 
   
 	$(".swap").on("click",function(){
@@ -977,11 +962,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				});
 				
 	               if (countriesList!=""){
-	      				if ($('#dropa11s').val()=="1"){
-	   					countriesParm="&excludedCountries=";
-	   				}else{
 	   					countriesParm="&includedCountries=";
-	   				}
 	                   }
 	               
 	               
@@ -995,11 +976,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 					});
 					
 		               if (productsList!=""){
-		      				if ($('#dropa22s').val()=="1"){
-		   					productsParm="&excludedProducts=";
-		   				}else{
 		   					productsParm="&includedProducts=";
-		   				}
 		                   }
 
 						var companiesParm="";
@@ -1012,11 +989,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 						});
 						
 			               if (companiesList!=""){
-			      				if ($('#dropa33s').val()=="1"){
-			      					companiesParm="&excludedCompanies=";
-			   				}else{
 			   					companiesParm="&includedCompanies=";
-			   				}
 			                   }
    
 			               var fromDate = "";
@@ -1041,7 +1014,8 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
 								  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue
 								  +countriesParm+countriesList+productsParm+productsList+
-								  companiesParm+companiesList+fromDate+toDate+"&excelDownload="+downloadExcel+dateParm,
+								  companiesParm+companiesList+fromDate+toDate+"&excelDownload="+downloadExcel+
+								  "&rowTotal="+rowTotal+dateParm,
 				         type: 'GET',
 				       contentType: 'application/html',
 				       processData: false,
@@ -1130,7 +1104,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 		  		    				$("#drop2"+h2+" option[value="+value2+"]").prop("selected", true);
 		  		    				
 		  		    				$("#title4").val($.trim( $("#drop2"+h2+" option[value="+value2+"]").text()) );
-		  		    				$("#title44").val($.trim( $("#drop2"+h2+" option[value="+value2+"]").text()) );
+		  		    		$("#title44").val($.trim( $("#drop2"+h2+" option[value="+value2+"]").text()) );
 
 		    				   }  
 		    				   

@@ -15,7 +15,7 @@ public class ColumnModel {
 		  
 		  
 	  for (int i=0;i<jsonArray.length();i++) {
-		  System.out.println(jsonArray.get(i));
+
 		  if (i==0) {
   		      JSONObject obj1a = new JSONObject();
 	    	  obj1a.put("name",jsonArray.get(i));

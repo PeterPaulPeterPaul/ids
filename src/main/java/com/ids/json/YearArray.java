@@ -26,9 +26,24 @@ public class YearArray {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-		
 	}
-	
+  	  
+public YearArray(String horizonalHeading, List<Year> years, String total) {
+		
+		jsonYearArray.put(horizonalHeading);
+		for (Year y : years) {
+			jsonYearArray.put(y.getId());
+		}
+		jsonYearArray.put(total);
+
+  	  try {
+		jsonYearObject.put("columns", jsonYearArray);
+	} catch (JSONException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		
+}
 	public JSONArray getJsonYearArray(){
 		return this.jsonYearArray;
 	}
