@@ -241,7 +241,7 @@ To <select id="todate" name="todate" >
 
 </form>
 
- <input id="toggleRowTotal"  type="button" name="toggleRowTotal" value="Remove row total" />
+ <input id="toggleRowTotal"  style="font-size:x-small" type="button" name="toggleRowTotal" value="Remove row total" />
 
 <input type="image" name="close" id="closeit"  src="images/exit.bmp" />
 
@@ -502,10 +502,8 @@ To <select id="todate" name="todate" >
         	  $("#toggleRowTotal").on("click",function(){ 
         		  if ($("#list47_TOTAL").length) {
         		     rowTotal="off";
-        		     $("#toggleRowTotal").val("Add row total");
         		  } else {
         			  rowTotal="on";
-        			  $("#toggleRowTotal").val("Remove row total");
         		  }
         		  getGrid();
         	  });
@@ -1208,6 +1206,14 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    							  }
 				    							  
 				    							});
+				    						  
+				    		        		  if ($("#list47_TOTAL").length) {
+				    		         		     $("#toggleRowTotal").val("Remove row total");
+				    		         		  } else {
+				    		         			  $("#toggleRowTotal").val("Add row total");
+				    		         		  }
+				    		        		  
+				    		        		  
 				    						  $("#titleBar").fadeIn();
 
 					   },
