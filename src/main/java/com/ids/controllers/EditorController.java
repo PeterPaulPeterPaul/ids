@@ -296,7 +296,7 @@ public class EditorController implements DropdownInterface {
 		    		  
 		    		  
 	    			  cna = new ColumnSummaryNameArray(statement,sql1.getONE(), sql1.topHeadingLine(),
-		    				  myYear);
+	    					  srp.getFromDate(), srp.getToDate(), access, total);
 	    			  
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
@@ -307,6 +307,11 @@ public class EditorController implements DropdownInterface {
 		    			  colHeading,columnModel, cna.getColumnNameObject(), srp.getSalesOrProduct(), false);
               JSONObject obj5 = l.get(0);
               JSONObject obj8 = l.get(1);
+              if (total.equals("TOTAL")){
+                  AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
+                  logger.warning("THIS--> "+obj8);
+                  new AddJsonTotalCell(obj8,aj.getTotal());
+               }
 		    	  model.addAttribute("jsonData",obj5);
 		    	  model.addAttribute("jsonTotal",obj8);
                      
@@ -359,7 +364,7 @@ public class EditorController implements DropdownInterface {
 	
 		    		  
 	    			  cna = new ColumnSummaryNameArray(statement,sql1.getONE(), sql1.topHeadingLine(),
-		    				  myYear);
+	    					  srp.getFromDate(), srp.getToDate(), access, total);
 	    			  
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
@@ -374,6 +379,11 @@ public class EditorController implements DropdownInterface {
 		    			  colHeading,columnModel, cna.getColumnNameObject(), srp.getSalesOrProduct(), All,srp.getSummary());
               JSONObject obj5 = l.get(0);
               JSONObject obj8 = l.get(1);
+              if (total.equals("TOTAL")){
+                  AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
+                  logger.warning("THIS--> "+obj8);
+                  new AddJsonTotalCell(obj8,aj.getTotal());
+               }
 		    	  model.addAttribute("jsonData",obj5);
 		    	  model.addAttribute("jsonTotal",obj8);
                      

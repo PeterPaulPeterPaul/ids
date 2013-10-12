@@ -17,7 +17,7 @@ public class ColumnSummaryNameArray implements DropdownInterface {
 	
 	JSONObject columnNameObject = new JSONObject();
 	
-	public ColumnSummaryNameArray(Statement statement, String firstColumn, int topRow, int curYear) throws SQLException  {
+	public ColumnSummaryNameArray(Statement statement, String firstColumn, int topRow,  int fromYear, int toYear, String access, String total) throws SQLException  {
 		
 	      try {
 
@@ -28,14 +28,14 @@ public class ColumnSummaryNameArray implements DropdownInterface {
 	    	  
 
 	          if (topRow==YEARS) {
-	        	  for (int i=(curYear-5); i<=(curYear+5); i++) {
+	        	  for (int i=fromYear; i<=toYear; i++) {
 	        		  columnNameArray.put(Integer.toString(i));
 	        	  }
 	          }
 	          
 	          if (topRow==PRODUCT) {
 	        	  
-	        	  query = "select distinct shortname from Product order by shortname asc";
+	        	  query = "select distinct shortname from Product where access = '"+access+"'  order by shortname asc";
 	        	  resultSet = statement.executeQuery(query);
 	        	  
 	        	  while (resultSet.next()) {
@@ -45,7 +45,7 @@ public class ColumnSummaryNameArray implements DropdownInterface {
 	          }
 	          if (topRow==COUNTRY) {
 	        	  
-	        	  query = "select distinct shortname from Country where shortname != 'ALLY' order by shortname asc";
+	        	  query = "select distinct shortname from Country where shortname != 'ALLY' and access = '"+access+"' order by shortname asc";
 	        	  resultSet = statement.executeQuery(query);
 	        	  
 	        	  while (resultSet.next()) {
@@ -54,7 +54,9 @@ public class ColumnSummaryNameArray implements DropdownInterface {
 	        	  
 	          }
 
-
+	          if (!total.equals("")) {
+	        	  columnNameArray.put("TOTAL");
+	          }
 	    	  
 	    	  columnNameObject.put("columns", columnNameArray);
 	      
