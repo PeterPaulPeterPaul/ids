@@ -1,6 +1,7 @@
 package com.ids.businessLogic;
 
 import java.sql.Connection;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -50,12 +51,61 @@ public class AddJsonPercentage {
 					   headers.put(myArray.getString(i),value);
 				   }
 				   
-				   Iterator it = headers.entrySet().iterator();
-				    while (it.hasNext()) {
-				        Map.Entry pairs = (Map.Entry)it.next();
-				        logger.warning(pairs.getKey() + " = " + pairs.getValue());
-				        it.remove(); // avoids a ConcurrentModificationException
-				    }
+				//   Iterator it = headers.entrySet().iterator();
+				//    while (it.hasNext()) {
+				//        Map.Entry pairs = (Map.Entry)it.next();
+				//        logger.warning(pairs.getKey() + " = " + pairs.getValue());
+				//        it.remove(); // avoids a ConcurrentModificationException
+				 //   }
+				   
+				   
+				   JSONObject jo2 = clobArray.getJSONObject(2);
+					logger.warning("size1 is: "+clobArray.length());
+					
+					JSONArray myDataArray = jo2.getJSONArray("myData");
+					logger.warning("myData size: "+myDataArray.length());
+					
+						Iterator it = headers.entrySet().iterator();
+						 while (it.hasNext()) {
+								try{
+									 Map.Entry pairs = (Map.Entry)it.next();
+									 if (((Integer)pairs.getValue()) !=0) {
+										 
+							 for (int i = 0; i < myDataArray.length();i++){
+			
+								 try{
+									 DecimalFormat oneDigit = new DecimalFormat("###0"); 
+									 logger.warning("keyVal "+pairs.getKey());
+									 float cellValue =  Integer.parseInt(myDataArray.getJSONObject(i).getString(((String)pairs.getKey())).
+		    		                          trim().replaceAll(",",""))  ;
+									
+									 logger.warning("cellValue: "+cellValue);
+									 logger.warning("totalvalue: "+ ((Integer)pairs.getValue()));
+									 logger.warning("div val: "+Math.round((cellValue /((Integer)pairs.getValue())  ) * 100)  );
+									 
+									 logger.warning("PERCENT: "+ oneDigit.format( Math.round((cellValue /((Integer)pairs.getValue())  ) * 100  )) ); 
+
+								 }catch(Exception eee) {
+									 logger.warning("I guess not found");
+								 }
+								 
+								 }
+
+								 it.remove();
+								 
+						
+								
+							}
+									 
+									 
+								} catch(Exception ee) {
+									ee.printStackTrace();
+									it.remove();
+									logger.warning("ERROR");
+									
+								}
+						}
+				   
 				
 			    }
 			}
