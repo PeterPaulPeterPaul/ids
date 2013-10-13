@@ -50,7 +50,7 @@ public class AddJsonRowTotal {
 			}
 			*/
 			List<String> columnHeaders = new ArrayList<String>();
-			
+			/*
 			if (jo1.has("columns")){
 				logger.warning("it has myData");
 				JSONArray myArray = jo1.getJSONArray("columns");
@@ -60,7 +60,7 @@ public class AddJsonRowTotal {
 				myData.put("tabData",clobArray);
 				
 			}
-			
+			*/
 			if (jo1.has("columns")){
 				logger.warning("it has myData");
 				JSONArray myArray = jo1.getJSONArray("columns");

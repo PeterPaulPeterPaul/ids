@@ -45,10 +45,12 @@ public class AddJsonPercentage {
 			    if (jo1.has("columns")){
 				   logger.warning("it has myData");
 				   JSONArray myArray = jo1.getJSONArray("columns");
-				   HashMap<String,Integer> headers = new HashMap<String,Integer>();
+				   List<ColumnsAndTotals> headers = new ArrayList<ColumnsAndTotals>();
+				   
 				   for (int i = 1; i < myArray.length();i++){
 					   int value = getTotalCellValue.getTotal(myArray.getString(i));
-					   headers.put(myArray.getString(i),value);
+					   ColumnsAndTotals header = new ColumnsAndTotals(myArray.getString(i),value);
+					   headers.add(header);
 				   }
 				   
 				//   Iterator it = headers.entrySet().iterator();
@@ -65,27 +67,27 @@ public class AddJsonPercentage {
 					JSONArray myDataArray = jo2.getJSONArray("myData");
 					logger.warning("myData size: "+myDataArray.length());
 					
-						Iterator it = headers.entrySet().iterator();
+						
 						int j = 0;
-						 while (it.hasNext()) {
+						 for (ColumnsAndTotals h : headers) {
 							 j+=1;
 							
 								try{
-									 Map.Entry pairs = (Map.Entry)it.next();
-									 logger.warning("j: "+j+ " columnName: "+((String)pairs.getKey() ));
-									 if (((Integer)pairs.getValue()) !=0) {
+
+									 logger.warning("j: "+j+ " columnName: "+(h.getColName() ));
+									 if (h.getTotalValue() !=0) {
 										 
 							 for (int i = 0; i < myDataArray.length();i++){
 			
 								 try{
 									 DecimalFormat oneDigit = new DecimalFormat("###0"); 
 									// logger.warning("keyVal "+pairs.getKey());
-									 float cellValue =  Integer.parseInt(myDataArray.getJSONObject(i).getString(((String)pairs.getKey())).
+									 float cellValue =  Integer.parseInt(myDataArray.getJSONObject(i).getString(h.getColName()).
 		    		                          trim().replaceAll(",",""))  ;
 									
 									// logger.warning("cellValue: "+cellValue);
 									// logger.warning("totalvalue: "+ ((Integer)pairs.getValue()));
-									 int percent =  Math.round((cellValue /((Integer)pairs.getValue())  ) * 100) ;
+									 int percent =  Math.round((cellValue /(h.getTotalValue())  ) * 100) ;
 									 
 									// logger.warning("PERCENT: "+ oneDigit.format( Math.round((cellValue /((Integer)pairs.getValue())  ) * 100  )) ); 
 
@@ -95,7 +97,7 @@ public class AddJsonPercentage {
 								 
 								 }
 
-								 it.remove();
+
 								 
 						
 								
@@ -104,7 +106,7 @@ public class AddJsonPercentage {
 									 
 								} catch(Exception ee) {
 									ee.printStackTrace();
-									it.remove();
+
 									logger.warning("ERROR");
 									
 								}
