@@ -69,12 +69,16 @@ public class AddJsonPercentage {
 					
 						
 						int j = 0;
+						int p=0;
 						 for (ColumnsAndTotals h : headers) {
 							 j+=1;
 							
 								try{
 
 									 logger.warning("j: "+j+ " columnName: "+(h.getColName() ));
+									 if (!h.getColName().contains("%")) {
+										 p+=1;
+									 }
 									 if (h.getTotalValue() !=0) {
 										 
 							 for (int i = 0; i < myDataArray.length();i++){
@@ -90,7 +94,9 @@ public class AddJsonPercentage {
 									 int percent =  Math.round((cellValue /(h.getTotalValue())  ) * 100) ;
 									 
 									// logger.warning("PERCENT: "+ oneDigit.format( Math.round((cellValue /((Integer)pairs.getValue())  ) * 100  )) ); 
-
+									    myDataArray.getJSONObject(i).put("%"+p, percent);
+									
+									 
 								 }catch(Exception eee) {
 								//	 logger.warning("I guess not found");
 								 }
@@ -98,7 +104,8 @@ public class AddJsonPercentage {
 								 }
 
 
-								 
+								jo2.put("myData",myDataArray);
+								clobArray.put(2,jo2);
 						
 								
 							}

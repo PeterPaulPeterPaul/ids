@@ -30,15 +30,26 @@ public class ColumnModel {
   	         obj1a.put("name",jsonArray.get(i));
   	         obj1a.put("index",jsonArray.get(i));
 
+
 	    	  if (jsonArray.length()>11) {
 	    	     obj1a.put("width",40);
 	    	  } else {
 	    		  obj1a.put("width",90); 
 	    	  }
 	    	  obj1a.put("editable",true);
+	    	  obj1a.put("classes","colorWhite"); 
+	    	  if (((String)jsonArray.get(i)).contains("%")){
+	    		  obj1a.put("width",8);
+	    		  obj1a.put("classes","titleFont"); 
+	    		  obj1a.put("editable",false);
+	    	  }
+	    	  if (((String)jsonArray.get(i)).contains("TOTAL")){
+	    		  obj1a.put("classes","titleFont"); 
+	    		  obj1a.put("editable",false);
+	    	  }
   	         obj1a.put("sorttype","int"); 
   	         obj1a.put("formatter","number");
-  	            obj1a.put("classes","colorWhite"); 
+  	           
              array3.put(obj1a);
 
 		  }
