@@ -39,10 +39,13 @@ public class ColumnNameArray implements DropdownInterface {
 	        	  }
 	          }
 	    	  
+	          int j=0;
 
 	          if (topRow.equals("years")) {
 	        	  for (int i=fromYear; i<=toYear; i++) {
 	        		  columnNameArray.put(Integer.toString(i));
+	        		  j+=1;
+	        		  columnNameArray.put("%"+j);
 	        	  }
 	          }
 	          
@@ -50,9 +53,11 @@ public class ColumnNameArray implements DropdownInterface {
 	        	  
 	        	  query = "select distinct shortname from Product where access = '"+access+"' order by shortname asc";
 	        	  resultSet = statement.executeQuery(query);
-	        	  
+
 	        	  while (resultSet.next()) {
 	        		  columnNameArray.put(resultSet.getString("shortname"));
+	        		  j+=1;
+	        		  columnNameArray.put("%"+j);
 	        	  }
 	        	  
 	          }
@@ -63,6 +68,8 @@ public class ColumnNameArray implements DropdownInterface {
 	        	  
 	        	  while (resultSet.next()) {
 	        		  columnNameArray.put(resultSet.getString("shortname"));
+	        		  j+=1;
+	        		  columnNameArray.put("%"+j);
 	        	  }
 	        	  
 	          }
@@ -73,12 +80,16 @@ public class ColumnNameArray implements DropdownInterface {
 	        	  
 	        	  while (resultSet.next()) {
 	        		  columnNameArray.put(resultSet.getString("name"));
+	        		  j+=1;
+	        		  columnNameArray.put("%"+j);
 	        	  }
 	        	  
 	          }
 
 	          if (!total.equals("")) {
 	        	  columnNameArray.put("TOTAL");
+        		  j+=1;
+        		  columnNameArray.put("%"+j);
 	          }
 	    	  
 	    	  columnNameObject.put("columns", columnNameArray);

@@ -66,27 +66,31 @@ public class AddJsonPercentage {
 					logger.warning("myData size: "+myDataArray.length());
 					
 						Iterator it = headers.entrySet().iterator();
+						int j = 0;
 						 while (it.hasNext()) {
+							 j+=1;
+							
 								try{
 									 Map.Entry pairs = (Map.Entry)it.next();
+									 logger.warning("j: "+j+ " columnName: "+((String)pairs.getKey() ));
 									 if (((Integer)pairs.getValue()) !=0) {
 										 
 							 for (int i = 0; i < myDataArray.length();i++){
 			
 								 try{
 									 DecimalFormat oneDigit = new DecimalFormat("###0"); 
-									 logger.warning("keyVal "+pairs.getKey());
+									// logger.warning("keyVal "+pairs.getKey());
 									 float cellValue =  Integer.parseInt(myDataArray.getJSONObject(i).getString(((String)pairs.getKey())).
 		    		                          trim().replaceAll(",",""))  ;
 									
-									 logger.warning("cellValue: "+cellValue);
-									 logger.warning("totalvalue: "+ ((Integer)pairs.getValue()));
-									 logger.warning("div val: "+Math.round((cellValue /((Integer)pairs.getValue())  ) * 100)  );
+									// logger.warning("cellValue: "+cellValue);
+									// logger.warning("totalvalue: "+ ((Integer)pairs.getValue()));
+									 int percent =  Math.round((cellValue /((Integer)pairs.getValue())  ) * 100) ;
 									 
-									 logger.warning("PERCENT: "+ oneDigit.format( Math.round((cellValue /((Integer)pairs.getValue())  ) * 100  )) ); 
+									// logger.warning("PERCENT: "+ oneDigit.format( Math.round((cellValue /((Integer)pairs.getValue())  ) * 100  )) ); 
 
 								 }catch(Exception eee) {
-									 logger.warning("I guess not found");
+								//	 logger.warning("I guess not found");
 								 }
 								 
 								 }
