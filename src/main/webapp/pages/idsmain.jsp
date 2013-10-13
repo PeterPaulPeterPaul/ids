@@ -242,6 +242,7 @@ To <select id="todate" name="todate" >
 </form>
 
  <input id="toggleRowTotal"  style="font-size:x-small" type="button" name="toggleRowTotal" value="Remove row total" />
+  <input id="togglePercent"  style="font-size:x-small" type="button" name="togglePercent" value="Add Percentages" />
 
 <input type="image" name="close" id="closeit"  src="images/exit.bmp" />
 
@@ -498,6 +499,7 @@ To <select id="todate" name="todate" >
     		   
         	  var downloadExcel="no";
         	  var rowTotal="on";
+        	  var percents="off";
         	  
         	  $("#toggleRowTotal").on("click",function(){ 
         		  if ($("#list47_TOTAL").length) {
@@ -508,6 +510,14 @@ To <select id="todate" name="todate" >
         		  getGrid();
         	  });
         	  
+        	  $("#togglePercent").on("click",function(){ 
+        		  if ($("#list47_PPC1").length) {
+        			  percents="off";
+        		  } else {
+        			  percents="on";
+        		  }
+        		  getGrid();
+        	  });
         	  
         	  $("#toExcel").on("click",function(){ 
         		  downloadExcel="yes";
@@ -1013,7 +1023,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 								  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue
 								  +countriesParm+countriesList+productsParm+productsList+
 								  companiesParm+companiesList+fromDate+toDate+"&excelDownload="+downloadExcel+
-								  "&rowTotal="+rowTotal+dateParm,
+								  "&rowTotal="+rowTotal+"&percent="+percents+dateParm,
 				         type: 'GET',
 				       contentType: 'application/html',
 				       processData: false,
@@ -1214,6 +1224,16 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 					    		         		  } else {
 					    		         			  $("#toggleRowTotal").val("Add row total");
 					    		         		  }
+				    		        		  
+				    		        		  if ($("#list47_PPC1").length) {
+					    		         		     $("#togglePercent").val("Remove Percentages");
+					    		         		  } else {
+					    		         			  $("#togglePercent").val("Add Percentages");
+					    		         	  }
+				    		        		  
+				    		        		  $('div[id^="jqgh_list47_PPC"]').each(function() {
+				    		        			  $(this).text("%");
+				    		        		  });
 				    		        		  
 
 					   },

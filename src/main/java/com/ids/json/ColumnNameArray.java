@@ -17,7 +17,8 @@ public class ColumnNameArray implements DropdownInterface {
 	
 	JSONObject columnNameObject = new JSONObject();
 	
-	public ColumnNameArray(Statement statement, String topRow, int dimension1, int fromYear, int toYear, String access, String total) throws SQLException  {
+	public ColumnNameArray(Statement statement, String topRow, int dimension1, int fromYear, int toYear, 
+			   String access, String total, String percent) throws SQLException  {
 		
 	      try {
 
@@ -44,8 +45,10 @@ public class ColumnNameArray implements DropdownInterface {
 	          if (topRow.equals("years")) {
 	        	  for (int i=fromYear; i<=toYear; i++) {
 	        		  columnNameArray.put(Integer.toString(i));
-	        		  j+=1;
-	        		  columnNameArray.put("%"+j);
+	        		  if (percent.equals("yes")) {
+	        		     j+=1;
+	        		     columnNameArray.put("PPC"+j);
+	        		  }
 	        	  }
 	          }
 	          
@@ -56,8 +59,10 @@ public class ColumnNameArray implements DropdownInterface {
 
 	        	  while (resultSet.next()) {
 	        		  columnNameArray.put(resultSet.getString("shortname"));
-	        		  j+=1;
-	        		  columnNameArray.put("%"+j);
+	        		  if (percent.equals("yes")) {
+		        		     j+=1;
+		        		     columnNameArray.put("PPC"+j);
+		        		  }
 	        	  }
 	        	  
 	          }
@@ -68,8 +73,10 @@ public class ColumnNameArray implements DropdownInterface {
 	        	  
 	        	  while (resultSet.next()) {
 	        		  columnNameArray.put(resultSet.getString("shortname"));
-	        		  j+=1;
-	        		  columnNameArray.put("%"+j);
+	        		  if (percent.equals("yes")) {
+		        		     j+=1;
+		        		     columnNameArray.put("PPC"+j);
+		        		  }
 	        	  }
 	        	  
 	          }
@@ -80,16 +87,20 @@ public class ColumnNameArray implements DropdownInterface {
 	        	  
 	        	  while (resultSet.next()) {
 	        		  columnNameArray.put(resultSet.getString("name"));
-	        		  j+=1;
-	        		  columnNameArray.put("%"+j);
+	        		  if (percent.equals("yes")) {
+		        		     j+=1;
+		        		     columnNameArray.put("PPC"+j);
+		        		  }
 	        	  }
 	        	  
 	          }
 
 	          if (!total.equals("")) {
 	        	  columnNameArray.put("TOTAL");
-        		  j+=1;
-        		  columnNameArray.put("%"+j);
+        		  if (percent.equals("yes")) {
+	        		     j+=1;
+	        		     columnNameArray.put("PPC"+j);
+	        		  }
 	          }
 	    	  
 	    	  columnNameObject.put("columns", columnNameArray);

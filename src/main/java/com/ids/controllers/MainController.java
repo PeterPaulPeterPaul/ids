@@ -36,6 +36,7 @@ import com.google.appengine.api.rdbms.AppEngineDriver;
 import com.ids.businessLogic.AddJsonPercentage;
 import com.ids.businessLogic.AddJsonRowTotal;
 import com.ids.businessLogic.AddJsonTotalCell;
+import com.ids.businessLogic.AddJsonTotalPercentCells;
 import com.ids.businessLogic.DownloadExcel;
 import com.ids.businessLogic.DropdownInterface;
 import com.ids.businessLogic.FirstTimeQuery;
@@ -94,6 +95,7 @@ public class MainController implements DropdownInterface {
 
 	 private String access= "";
 	 private String total="";
+	 private String percent="";
 	 @RequestMapping( method = RequestMethod.GET)
 	public String getMethodOne(
             HttpServletResponse response,
@@ -157,11 +159,18 @@ public class MainController implements DropdownInterface {
 
 	            	access=user.getCurrentLocation();
 	            	
+	            	logger.warning("tot: "+request.getParameter("rowTotal"));
+	            	logger.warning("per: "+request.getParameter("percent"));
 	            	
 		    		  if (request.getParameter("rowTotal")==null || request.getParameter("rowTotal").equals("on")) {
 		    			  total="TOTAL";
 		    		  }else {
 		    			  total="";
+		    		  }
+		    		  if (request.getParameter("percent")!=null && request.getParameter("percent").equals("on")) {
+		    			  percent="yes";
+		    		  }else {
+		    			  percent="";
 		    		  }
 	            	
 	            	String accessoptions = "";
@@ -268,7 +277,7 @@ public class MainController implements DropdownInterface {
 		    		  
 		    		  
 	    			  cna = new ColumnSummaryNameArray(statement,sql1.getONE(), sql1.topHeadingLine(),
-	    					  srp.getFromDate(), srp.getToDate(), access, total);
+	    					  srp.getFromDate(), srp.getToDate(), access, total,percent);
 	    			  
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
@@ -285,13 +294,10 @@ public class MainController implements DropdownInterface {
                   new AddJsonTotalCell(obj8,aj.getTotal());
                }
               
-              if (total.equals("TOTAL")){
-                  AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
-                  logger.warning("THIS--> "+obj8);
-                  new AddJsonTotalCell(obj8,aj.getTotal());
-                  new AddJsonPercentage(obj5, obj8);
-               }
-              
+              if (percent.equals("yes")) {
+                  AddJsonPercentage ajp = new AddJsonPercentage(obj5, obj8);
+                  new AddJsonTotalPercentCells(obj8,ajp.getHeaderValues());
+              }
 		    	  model.addAttribute("jsonData",obj5);
 		    	  model.addAttribute("jsonTotal",obj8);
                      
@@ -344,7 +350,7 @@ public class MainController implements DropdownInterface {
 	
 		    		  
 	    			  cna = new ColumnSummaryNameArray(statement,sql1.getONE(), sql1.topHeadingLine(),
-	    					  srp.getFromDate(), srp.getToDate(), access, total );
+	    					  srp.getFromDate(), srp.getToDate(), access, total,percent );
 	    			  
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
@@ -363,8 +369,12 @@ public class MainController implements DropdownInterface {
                   AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
                   logger.warning("THIS--> "+obj8);
                   new AddJsonTotalCell(obj8,aj.getTotal());
-                  new AddJsonPercentage(obj5, obj8);
                }
+              
+              if (percent.equals("yes")) {
+                  AddJsonPercentage ajp = new AddJsonPercentage(obj5, obj8);
+                  new AddJsonTotalPercentCells(obj8,ajp.getHeaderValues());
+              }
 		    	  model.addAttribute("jsonData",obj5);
 		    	  model.addAttribute("jsonTotal",obj8);
                      
@@ -383,7 +393,7 @@ public class MainController implements DropdownInterface {
 		    		  String colHeading= "company";
 
 		    		  ColumnNameArray cna = new ColumnNameArray(statement,"country shortname", COMPANY,
-		    				  srp.getFromDate(), srp.getToDate(), access,total);
+		    				  srp.getFromDate(), srp.getToDate(), access,total,percent);
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
 		    		  model.addAttribute("myDimension","country shortname");
@@ -404,7 +414,10 @@ public class MainController implements DropdownInterface {
                          AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
                          logger.warning("THIS--> "+obj8);
                          new AddJsonTotalCell(obj8,aj.getTotal());
-                         new AddJsonPercentage(obj5, obj8);
+                      }
+                      if (percent.equals("yes")) {
+                          AddJsonPercentage ajp = new AddJsonPercentage(obj5, obj8);
+                          new AddJsonTotalPercentCells(obj8,ajp.getHeaderValues());
                       }
 			    	  model.addAttribute("jsonData",obj5);
 			    	  model.addAttribute("jsonTotal",obj8);
@@ -437,11 +450,11 @@ public class MainController implements DropdownInterface {
 		    			  colHeading="product";
 		    			  colHead2="year";
 		    			  cna = new ColumnNameArray(statement,"years", PRODUCT,
-		    					  srp.getFromDate(), srp.getToDate(), access, total); 
+		    					  srp.getFromDate(), srp.getToDate(), access, total,percent); 
 		    			  model.addAttribute("myDimension","years");
 		    		  } else {
 		    			  cna = new ColumnNameArray(statement,"product shortname", YEARS,
-		    					  srp.getFromDate(), srp.getToDate(), access, total); 
+		    					  srp.getFromDate(), srp.getToDate(), access, total,percent); 
 		    			  model.addAttribute("myDimension","product shortname");
 		    		  }
 
@@ -466,6 +479,10 @@ public class MainController implements DropdownInterface {
                            new AddJsonTotalCell(obj8,aj.getTotal());
                            new AddJsonPercentage(obj5, obj8);
                        }
+                      if (percent.equals("yes")) {
+                          AddJsonPercentage ajp = new AddJsonPercentage(obj5, obj8);
+                          new AddJsonTotalPercentCells(obj8,ajp.getHeaderValues());
+                      }
 			    	  model.addAttribute("jsonData",obj5);
 			    	  model.addAttribute("jsonTotal",obj8);
 	                       
@@ -497,11 +514,11 @@ public class MainController implements DropdownInterface {
 		    			  colHeading="country";
 		    			  colHead2="year";
 		    			  cna = new ColumnNameArray(statement,"years", COUNTRY,
-		    					  srp.getFromDate(), srp.getToDate(), access, total); 
+		    					  srp.getFromDate(), srp.getToDate(), access, total,percent); 
 		    			  model.addAttribute("myDimension","years");
 		    		  } else {
 		    			  cna = new ColumnNameArray(statement,"country shortname", YEARS,
-		    					  srp.getFromDate(), srp.getToDate(),access, total); 
+		    					  srp.getFromDate(), srp.getToDate(),access, total,percent); 
 		    			  model.addAttribute("myDimension","country shortname");
 		    		  }
 		    		  
@@ -528,6 +545,10 @@ public class MainController implements DropdownInterface {
                            new AddJsonTotalCell(obj8,aj.getTotal());
                            new AddJsonPercentage(obj5, obj8);
                        }
+                      if (percent.equals("yes")) {
+                          AddJsonPercentage ajp = new AddJsonPercentage(obj5, obj8);
+                          new AddJsonTotalPercentCells(obj8,ajp.getHeaderValues());
+                      }
 			    	  model.addAttribute("jsonData",obj5);
 			    	  model.addAttribute("jsonTotal",obj8);
 			    	  logger.warning("STUFF3");
@@ -555,11 +576,11 @@ public class MainController implements DropdownInterface {
 		    			  colHeading="country";
 		    			  colHead2="product";
 		    			  cna = new ColumnNameArray(statement,"product shortname", COUNTRY,
-		    					  srp.getFromDate(), srp.getToDate(), access, total); 
+		    					  srp.getFromDate(), srp.getToDate(), access, total,percent); 
 		    			  model.addAttribute("myDimension","product shortname");
 		    		  } else {
 		    			  cna = new ColumnNameArray(statement,"country shortname", PRODUCT,
-		    					  srp.getFromDate(), srp.getToDate(), access, total); 
+		    					  srp.getFromDate(), srp.getToDate(), access, total,percent); 
 		    			  model.addAttribute("myDimension","country shortname");
 		    		  }
 
@@ -584,6 +605,10 @@ public class MainController implements DropdownInterface {
                           new AddJsonTotalCell(obj8,aj.getTotal());
                           new AddJsonPercentage(obj5, obj8);
                        }
+                      if (percent.equals("yes")) {
+                          AddJsonPercentage ajp = new AddJsonPercentage(obj5, obj8);
+                          new AddJsonTotalPercentCells(obj8,ajp.getHeaderValues());
+                      }
 			    	  model.addAttribute("jsonData",obj5);
 			    	  model.addAttribute("jsonTotal",obj8);
 			    	  logger.warning("STUFF4");
@@ -607,7 +632,7 @@ public class MainController implements DropdownInterface {
 		    		  String colHeading= "company";
 		    		  
 		    		  ColumnNameArray cna = new ColumnNameArray(statement,"product shortname", COMPANY,
-		    				  srp.getFromDate(), srp.getToDate(),access, total);
+		    				  srp.getFromDate(), srp.getToDate(),access, total,percent);
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 		    		  model.addAttribute("myDimension","product shortname");
 		    		  
@@ -631,6 +656,10 @@ public class MainController implements DropdownInterface {
                                   new AddJsonTotalCell(obj8,aj.getTotal());
                                   new AddJsonPercentage(obj5, obj8);
 		                       }
+		                      if (percent.equals("yes")) {
+		                          AddJsonPercentage ajp = new AddJsonPercentage(obj5, obj8);
+		                          new AddJsonTotalPercentCells(obj8,ajp.getHeaderValues());
+		                      }
 					    	  model.addAttribute("jsonData",obj5);
 					    	  model.addAttribute("jsonTotal",obj8);
 		    		  
@@ -652,7 +681,7 @@ public class MainController implements DropdownInterface {
 		    		  try{
 		    		  String colHeading= "company";
 		    		  ColumnNameArray cna = new ColumnNameArray(statement,"years" ,COMPANY,
-		    				  srp.getFromDate(), srp.getToDate(), access, total);
+		    				  srp.getFromDate(), srp.getToDate(), access, total,percent);
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 		    		  model.addAttribute("myDimension","years");
 		    		  
@@ -675,6 +704,10 @@ public class MainController implements DropdownInterface {
 	                           new AddJsonTotalCell(obj8,aj.getTotal());
 	                           new AddJsonPercentage(obj5, obj8);
 	                       }
+	                      if (percent.equals("yes")) {
+	                          AddJsonPercentage ajp = new AddJsonPercentage(obj5, obj8);
+	                          new AddJsonTotalPercentCells(obj8,ajp.getHeaderValues());
+	                      }
 				    	  model.addAttribute("jsonData",obj5);
 				    	  model.addAttribute("jsonTotal",obj8);  
 

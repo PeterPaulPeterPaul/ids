@@ -17,7 +17,8 @@ public class ColumnSummaryNameArray implements DropdownInterface {
 	
 	JSONObject columnNameObject = new JSONObject();
 	
-	public ColumnSummaryNameArray(Statement statement, String firstColumn, int topRow,  int fromYear, int toYear, String access, String total) throws SQLException  {
+	public ColumnSummaryNameArray(Statement statement, String firstColumn, int topRow,  int fromYear, int toYear,
+			String access, String total, String percent) throws SQLException  {
 		
 	      try {
 
@@ -26,10 +27,14 @@ public class ColumnSummaryNameArray implements DropdownInterface {
 	      ResultSet resultSet = null;
 	      columnNameArray.put(firstColumn);
 	    	  
-
+	      int j=0;
 	          if (topRow==YEARS) {
 	        	  for (int i=fromYear; i<=toYear; i++) {
 	        		  columnNameArray.put(Integer.toString(i));
+	        		  if (percent.equals("yes")) {
+		        		     j+=1;
+		        		     columnNameArray.put("PPC"+j);
+		        		  }
 	        	  }
 	          }
 	          
@@ -40,6 +45,10 @@ public class ColumnSummaryNameArray implements DropdownInterface {
 	        	  
 	        	  while (resultSet.next()) {
 	        		  columnNameArray.put(resultSet.getString("shortname"));
+	        		  if (percent.equals("yes")) {
+		        		     j+=1;
+		        		     columnNameArray.put("PPC"+j);
+		        		  }
 	        	  }
 	        	  
 	          }
@@ -50,12 +59,20 @@ public class ColumnSummaryNameArray implements DropdownInterface {
 	        	  
 	        	  while (resultSet.next()) {
 	        		  columnNameArray.put(resultSet.getString("shortname"));
+	        		  if (percent.equals("yes")) {
+		        		     j+=1;
+		        		     columnNameArray.put("PPC"+j);
+		        		  }
 	        	  }
 	        	  
 	          }
 
 	          if (!total.equals("")) {
 	        	  columnNameArray.put("TOTAL");
+	        	  if (percent.equals("yes")) {
+	        		     j+=1;
+	        		     columnNameArray.put("PPC"+j);
+	        		  }
 	          }
 	    	  
 	    	  columnNameObject.put("columns", columnNameArray);

@@ -38,11 +38,12 @@ public class ColumnModel {
 	    	  }
 	    	  obj1a.put("editable",true);
 	    	  obj1a.put("classes","colorWhite"); 
-	    	  if (((String)jsonArray.get(i)).contains("%")){
-	    		  obj1a.put("width",8);
+	    	  if (((String)jsonArray.get(i)).contains("PPC")){
+	    		  obj1a.put("width",15);
 	    		  obj1a.put("classes","titleFont"); 
 	    		  obj1a.put("editable",false);
 	    	  }
+	    	  
 	    	  if (((String)jsonArray.get(i)).contains("TOTAL")){
 	    		  obj1a.put("classes","titleFont"); 
 	    		  obj1a.put("editable",false);

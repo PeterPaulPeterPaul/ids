@@ -25,6 +25,7 @@ public class AddJsonPercentage {
 	private int myTotal =0;
 	private int currTotal =0;
 	private GetTotalCellValue  getTotalCellValue;
+	private List<ColumnsAndTotals> headers;
 	private final static Logger logger = Logger.getLogger(AddJsonPercentage.class.getName()); 
 	public  AddJsonPercentage( JSONObject myData, JSONObject totals) throws JSONException{
 		
@@ -45,7 +46,7 @@ public class AddJsonPercentage {
 			    if (jo1.has("columns")){
 				   logger.warning("it has myData");
 				   JSONArray myArray = jo1.getJSONArray("columns");
-				   List<ColumnsAndTotals> headers = new ArrayList<ColumnsAndTotals>();
+				   headers = new ArrayList<ColumnsAndTotals>();
 				   
 				   for (int i = 1; i < myArray.length();i++){
 					   int value = getTotalCellValue.getTotal(myArray.getString(i));
@@ -76,7 +77,7 @@ public class AddJsonPercentage {
 								try{
 
 									 logger.warning("j: "+j+ " columnName: "+(h.getColName() ));
-									 if (!h.getColName().contains("%")) {
+									 if (!h.getColName().contains("PPC")) {
 										 p+=1;
 									 }
 									 if (h.getTotalValue() !=0) {
@@ -94,7 +95,7 @@ public class AddJsonPercentage {
 									 int percent =  Math.round((cellValue /(h.getTotalValue())  ) * 100) ;
 									 
 									// logger.warning("PERCENT: "+ oneDigit.format( Math.round((cellValue /((Integer)pairs.getValue())  ) * 100  )) ); 
-									    myDataArray.getJSONObject(i).put("%"+p, percent);
+									    myDataArray.getJSONObject(i).put("PPC"+p, percent);
 									
 									 
 								 }catch(Exception eee) {
@@ -130,8 +131,8 @@ public class AddJsonPercentage {
 	
 	}
 	
-	public int getTotal() {
-		return myTotal;
+	public List<ColumnsAndTotals> getHeaderValues() {
+		return headers;
 	}
 	
 	
