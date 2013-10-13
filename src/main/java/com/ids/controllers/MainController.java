@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.appengine.api.rdbms.AppEngineDriver;
+import com.ids.businessLogic.AddJsonPercentage;
 import com.ids.businessLogic.AddJsonRowTotal;
 import com.ids.businessLogic.AddJsonTotalCell;
 import com.ids.businessLogic.DownloadExcel;
@@ -288,6 +289,7 @@ public class MainController implements DropdownInterface {
                   AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
                   logger.warning("THIS--> "+obj8);
                   new AddJsonTotalCell(obj8,aj.getTotal());
+                  new AddJsonPercentage(obj5, obj8);
                }
               
 		    	  model.addAttribute("jsonData",obj5);
@@ -361,6 +363,7 @@ public class MainController implements DropdownInterface {
                   AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
                   logger.warning("THIS--> "+obj8);
                   new AddJsonTotalCell(obj8,aj.getTotal());
+                  new AddJsonPercentage(obj5, obj8);
                }
 		    	  model.addAttribute("jsonData",obj5);
 		    	  model.addAttribute("jsonTotal",obj8);
@@ -401,6 +404,7 @@ public class MainController implements DropdownInterface {
                          AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
                          logger.warning("THIS--> "+obj8);
                          new AddJsonTotalCell(obj8,aj.getTotal());
+                         new AddJsonPercentage(obj5, obj8);
                       }
 			    	  model.addAttribute("jsonData",obj5);
 			    	  model.addAttribute("jsonTotal",obj8);
@@ -460,6 +464,7 @@ public class MainController implements DropdownInterface {
                           AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
                           logger.warning("THIS--> "+obj8);
                            new AddJsonTotalCell(obj8,aj.getTotal());
+                           new AddJsonPercentage(obj5, obj8);
                        }
 			    	  model.addAttribute("jsonData",obj5);
 			    	  model.addAttribute("jsonTotal",obj8);
@@ -521,6 +526,7 @@ public class MainController implements DropdownInterface {
                           AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
                           logger.warning("THIS--> "+obj8);
                            new AddJsonTotalCell(obj8,aj.getTotal());
+                           new AddJsonPercentage(obj5, obj8);
                        }
 			    	  model.addAttribute("jsonData",obj5);
 			    	  model.addAttribute("jsonTotal",obj8);
@@ -576,6 +582,7 @@ public class MainController implements DropdownInterface {
                       if (total.equals("TOTAL")){
                           AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
                           new AddJsonTotalCell(obj8,aj.getTotal());
+                          new AddJsonPercentage(obj5, obj8);
                        }
 			    	  model.addAttribute("jsonData",obj5);
 			    	  model.addAttribute("jsonTotal",obj8);
@@ -622,6 +629,7 @@ public class MainController implements DropdownInterface {
 		                      if (total.equals("TOTAL")){
 		                          AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
                                   new AddJsonTotalCell(obj8,aj.getTotal());
+                                  new AddJsonPercentage(obj5, obj8);
 		                       }
 					    	  model.addAttribute("jsonData",obj5);
 					    	  model.addAttribute("jsonTotal",obj8);
@@ -665,6 +673,7 @@ public class MainController implements DropdownInterface {
 	                      if (total.equals("TOTAL")){
 	                          AddJsonRowTotal aj = new AddJsonRowTotal(obj5);
 	                           new AddJsonTotalCell(obj8,aj.getTotal());
+	                           new AddJsonPercentage(obj5, obj8);
 	                       }
 				    	  model.addAttribute("jsonData",obj5);
 				    	  model.addAttribute("jsonTotal",obj8);  
