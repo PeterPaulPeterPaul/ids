@@ -176,6 +176,7 @@ public class MainController implements DropdownInterface {
 	            	      if ( longStringCompanies.contains("includedCompanies")) {
 	            	    	  longStringCompanies= longStringCompanies.replace("{\"includedCompanies\":\"","");
 	            	    	  longStringCompanies= longStringCompanies.replace("}","");
+	             	    	  longStringCompanies = longStringCompanies.replace("\"","");
 	            	    	  logger.warning(longStringCompanies); 
 	            	    	  break;
 	            	      }
