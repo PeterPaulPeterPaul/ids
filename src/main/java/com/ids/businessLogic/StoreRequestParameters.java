@@ -24,7 +24,7 @@ public class StoreRequestParameters {
 	private int myYear=0;
 	
 	
-	public StoreRequestParameters(HttpServletRequest request, int myYear){
+	public StoreRequestParameters(HttpServletRequest request, int myYear, String longStringCompanies){
 		
 		this.myYear = myYear;
 		list = Integer.parseInt(request.getParameter("list"));
@@ -71,17 +71,11 @@ public class StoreRequestParameters {
 			}
 		}
 		
-		incExCompanies = request.getParameter("excludedCompanies");
-		if (incExCompanies== null || incExCompanies.length()<1){
-			incExCompanies = request.getParameter("includedCompanies");
-		}
-		if (incExCompanies !=null && incExCompanies.length()>0 ){
+		
+		incExCompanies = longStringCompanies;
+		if (incExCompanies !=null && incExCompanies.length()>1 ){
 			incExCompanies=incExCompanies.substring(0,incExCompanies.length()-1);
-			if( request.getParameter("excludedCompanies")==null ||request.getParameter("excludedCompanies").length()<1 ){
-				incExCompanies= " AND b.id IN ("+incExCompanies.replace("|", ",")+") ";
-			}else{
-				incExCompanies= " AND b.id NOT IN ("+incExCompanies.replace("|", ",")+") ";
-			}
+			incExCompanies= " AND b.id IN ("+incExCompanies.replace("|", ",")+") ";
 		}
 		
 		fromDate = request.getParameter("fromDate");

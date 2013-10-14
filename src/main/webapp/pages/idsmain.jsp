@@ -227,23 +227,30 @@ To <select id="todate" name="todate" >
 <div style="float:left;">
 
 
-<form  id="testUp1" action="/cron/down" method="post" name="factsForm1"   > 
+<form  id="excel1" action="/cron/down" method="post" name="factsForm1"   > 
  <input id="dataJson"  type="hidden" name="jsonStuff" value="" />
   <input id="totalsJson"  type="hidden" name="jsonTotals" value="" />
-          <input id="one" class="k-button" type="submit" name="submitBtn" value="Download Excel" />
-
+      <input id="title11" type="hidden" name="title1" value=""/>
+  <input id="title22" type="hidden" name="title2" value=""/>
+  <input id="title33" type="hidden" name="title3" value=""/>
+  <input id="title44" type="hidden" name="title4" value=""/>
 </form>
 
 <form  target="_blank"  id="printer" action="/print" method="post" name="factsForm2"   > 
  <input id="printDataJson"  type="hidden" name="jsonStuff" value="" />
   <input id="printTotalJson"  type="hidden" name="jsonTotals" value="" />
-          <input id="two" class="k-button" type="submit" name="submitBtn" value="Print Preview" />
-
+    <input id="title1" type="hidden" name="title1" value=""/>
+  <input id="title2" type="hidden" name="title2" value=""/>
+  <input id="title3" type="hidden" name="title3" value=""/>
+  <input id="title4" type="hidden" name="title4" value=""/>
 </form>
 
- <input id="toggleRowTotal"  style="font-size:x-small" type="button" name="toggleRowTotal" value="Remove row total" />
+ <input id="one" style="font-size:x-small" type="button" name="submitBtn" value="Download Excel" />
+  <input id="two"  style="font-size:x-small" type="button" name="two" value="Print Preview" /><br>
+   <input id="toggleRowTotal"  style="font-size:x-small" type="button" name="toggleRowTotal" value="Remove row total" />
   <input id="togglePercent"  style="font-size:x-small" type="button" name="togglePercent" value="Add Percentages" />
-
+  
+  
 <input type="image" name="close" id="closeit"  src="images/exit.bmp" />
 
 
@@ -481,6 +488,17 @@ To <select id="todate" name="todate" >
           
           $(document).ready(function(){
 
+        	  $( "#two" ).on("click" , function() {
+        		  $("#printer").submit();
+        		  return false;
+        		});
+        	  $( "#one" ).on("click" , function() {
+        		  $("#excel1").submit();
+        		  return false;
+        		});
+        	  
+        	  
+
 
         	  var lastSel;
         	  
@@ -577,6 +595,20 @@ To <select id="todate" name="todate" >
         	  $(".dropdown2").selectBoxIt();
         	  $(".dropdown3").selectBoxIt();
         	  $(".dropdown33").selectBoxIt();
+        	  
+        	          	  var mySS1 = $(".viewable1").children(".dropdown1").attr("id");
+        	  var mySS2 = $(".viewable2").children(".dropdown2").attr("id");
+        	  
+        	  $("#title1").val(  $.trim($("#accessType option:selected").text()) );
+        	  $("#title2").val(  $.trim($("#drop31s option:selected").text()) );
+        	  $("#title3").val(  $.trim($("#"+mySS1+" option:first").text()) );
+        	  $("#title4").val(  $.trim($("#"+mySS2+" option:first").text()) );
+        	  
+        	  $("#title11").val(  $.trim($("#accessType option:selected").text()) );
+        	  $("#title22").val(  $.trim($("#drop31s option:selected").text()) );
+        	  $("#title33").val(  $.trim($("#"+mySS1+" option:first").text()) );
+        	  $("#title44").val(  $.trim($("#"+mySS2+" option:first").text()) );
+        	  
         	  
         	  $( "input:button" ).button();
         	  
@@ -1016,16 +1048,19 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			       				countriesList!=""){
 			       	              $("#clearfilter").fadeIn();
 			       		}
+			       		
+
 
 					  $.ajax({
+					         type: 'POST',
 						  url: '/main?list=1&accessType='+accessType+'&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
 				  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
 								  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue
 								  +countriesParm+countriesList+productsParm+productsList+
-								  companiesParm+companiesList+fromDate+toDate+"&excelDownload="+downloadExcel+
+								  fromDate+toDate+"&excelDownload="+downloadExcel+
 								  "&rowTotal="+rowTotal+"&percent="+percents+dateParm,
-				         type: 'GET',
-				       contentType: 'application/html',
+				       data: JSON.stringify({ "includedCompanies" : companiesList }),
+				       contentType: "application/x-www-form-urlencoded;charset=UTF-8", 
 				       processData: false,
 				       dataType: 'html',
 				       success: function(data) {  

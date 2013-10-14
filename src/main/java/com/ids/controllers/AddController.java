@@ -146,6 +146,10 @@ public class AddController implements DropdownInterface {
             	   year =  request.getParameter("dimension1Val");
                } else {
             	   
+            	   if (value.equals("Company")) {
+         			  companyId=request.getParameter("dimension1Val");
+            	   }  else{
+         			  
             	  SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension1Val") +"' ";
             	  logger.warning("SQL1: "+SQL);
             	  resultSet = statement.executeQuery(SQL);
@@ -163,6 +167,9 @@ public class AddController implements DropdownInterface {
             			  break;
             		  }
             	  }
+            	  
+            	  
+            	   } //not company
 
                }
                
@@ -172,7 +179,11 @@ public class AddController implements DropdownInterface {
                if (value.equals("Year")) {
             	   year =  request.getParameter("dimension2Val");
                } else {
-             	  SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension2Val").trim() +"' ";
+            	   if (request.getParameter("dimension2Name").trim().equals("Country")){
+            		   SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension2Val").trim() +"' ";
+            	   } else {
+             	      SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension2Val").trim() +"' ";
+            	   }
              	 logger.warning("SQL2: "+SQL);
              	logger.warning("value2: "+value);
              	if (resultSet != null) {
@@ -204,7 +215,11 @@ public class AddController implements DropdownInterface {
                if (value.equals("Year")) {
             	   year =  request.getParameter("dimension3Val");
                } else {
-            	   SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension3Val").trim() +"' ";
+            	   if (value.equals("Country")) {
+            	       SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension3Val").trim() +"' ";
+            	   }else{
+            		   SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension3Val").trim() +"' "; 
+            	   }
             	   logger.warning("SQL3: "+SQL);
             	   logger.warning("value3: "+value);
               	  resultSet = statement.executeQuery(SQL);

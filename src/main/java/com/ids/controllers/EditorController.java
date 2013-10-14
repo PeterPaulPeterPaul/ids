@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 
@@ -233,10 +234,26 @@ public class EditorController implements DropdownInterface {
 		    		
 		      }
 		    	
+     	String longStringCompanies="";
+    	
+     	Enumeration keys = request.getParameterNames();  
+     	   while (keys.hasMoreElements() )  
+     	   {  
+     		   longStringCompanies = (String)keys.nextElement();  
+     	      
+     	      if ( longStringCompanies.contains("includedCompanies")) {
+     	    	  longStringCompanies= longStringCompanies.replace("{\"includedCompanies\":\"","");
+     	    	  longStringCompanies= longStringCompanies.replace("}","");
+     	    	  longStringCompanies = longStringCompanies.replace("\"","");
+     	    	  logger.warning(longStringCompanies); 
+     	    	  break;
+     	      }
 
+     	   }
+     	   
+     	  logger.warning("at this point its: "+longStringCompanies);
 
-
-		    	  StoreRequestParameters srp = new   StoreRequestParameters(request,myYear);
+		    	  StoreRequestParameters srp = new   StoreRequestParameters(request,myYear,longStringCompanies);
 		    	  
 		    	
 		    	  if (srp.getJustClicked().equals("heading1")) {

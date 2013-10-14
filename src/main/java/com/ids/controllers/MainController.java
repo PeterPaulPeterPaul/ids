@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,6 +24,9 @@ import javax.servlet.http.HttpSession;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.commons.fileupload.FileItemIterator;
+import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -162,6 +166,24 @@ public class MainController implements DropdownInterface {
 	            	logger.warning("tot: "+request.getParameter("rowTotal"));
 	            	logger.warning("per: "+request.getParameter("percent"));
 	            	
+	            	String longStringCompanies="";
+	            	
+	            	Enumeration keys = request.getParameterNames();  
+	            	   while (keys.hasMoreElements() )  
+	            	   {  
+	            		   longStringCompanies = (String)keys.nextElement();  
+	            	      
+	            	      if ( longStringCompanies.contains("includedCompanies")) {
+	            	    	  longStringCompanies= longStringCompanies.replace("{\"includedCompanies\":\"","");
+	            	    	  longStringCompanies= longStringCompanies.replace("}","");
+	            	    	  logger.warning(longStringCompanies); 
+	            	    	  break;
+	            	      }
+
+	            	   }  
+	            	   
+	               	
+	            	
 		    		  if (request.getParameter("rowTotal")==null || request.getParameter("rowTotal").equals("on")) {
 		    			  total="TOTAL";
 		    		  }else {
@@ -217,7 +239,7 @@ public class MainController implements DropdownInterface {
 
 
 
-		    	  StoreRequestParameters srp = new   StoreRequestParameters(request,myYear);
+		    	  StoreRequestParameters srp = new   StoreRequestParameters(request,myYear,longStringCompanies);
 		    	  
 		    	
 		    	  if (srp.getJustClicked().equals("heading1")) {

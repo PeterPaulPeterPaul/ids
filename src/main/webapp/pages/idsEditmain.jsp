@@ -223,14 +223,14 @@ To <select id="todate" name="todate" >
 <div style="float:left;">
 
 
-<form  id="testUp1" action="/cron/down" method="post" name="factsForm"   > 
+<form  id="excel1" action="/cron/down" method="post" name="factsForm"   > 
  <input id="dataJson"  type="hidden" name="jsonStuff" value="" />
   <input id="totalsJson"  type="hidden" name="jsonTotals" value="" />
     <input id="title11" type="hidden" name="title1" value=""/>
   <input id="title22" type="hidden" name="title2" value=""/>
   <input id="title33" type="hidden" name="title3" value=""/>
   <input id="title44" type="hidden" name="title4" value=""/>
-          <input id="one" class="k-button" type="submit" name="submitBtn" value="Download Excel" />
+
 
 </form>
 
@@ -241,10 +241,12 @@ To <select id="todate" name="todate" >
   <input id="title2" type="hidden" name="title2" value=""/>
   <input id="title3" type="hidden" name="title3" value=""/>
   <input id="title4" type="hidden" name="title4" value=""/>
-          <input id="two" class="k-button" type="submit" name="submitBtn" value="Print Preview" />
+
 
 </form>
 
+ <input id="one" style="font-size:x-small" type="button" name="submitBtn" value="Download Excel" />
+  <input id="two"  style="font-size:x-small" type="button" name="two" value="Print Preview" /><br>
  <input id="toggleRowTotal"  style="font-size:x-small" type="button" name="toggleRowTotal" value="Add row total" />
 
 <input type="image" name="close" id="closeit"  src="images/exit.bmp" />
@@ -682,6 +684,18 @@ First Quantity:
     	  
           
           $(document).ready(function(){
+        	  
+        	  
+        	  $( "#two" ).on("click" , function() {
+        		  $("#printer").submit();
+        		  return false;
+        		});
+        	  $( "#one" ).on("click" , function() {
+        		  $("#excel1").submit();
+        		  return false;
+        		});
+        	  
+        	  
         	
         	  $("#dialogAdd").dialog("close");
         	  $("#dialogDel").dialog("close");
@@ -1398,15 +1412,16 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			       			}
 
 					  $.ajax({
+					         type: 'POST',
 						  url: '/editor?list=1&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
 				  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
 								  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue
 								  +countriesParm+countriesList+productsParm+productsList+
-								  companiesParm+companiesList+fromDate+toDate+"&rowTotal="+rowTotal+"&excelDownload="+downloadExcel+dateParm,
-				         type: 'GET',
-				       contentType: 'application/html',
-				       processData: false,
-				       dataType: 'html',
+								  fromDate+toDate+"&rowTotal="+rowTotal+"&excelDownload="+downloadExcel+dateParm,
+					       contentType: "application/x-www-form-urlencoded;charset=UTF-8", 
+					       processData: false,
+					       dataType: 'html',
+				       data: JSON.stringify({ "includedCompanies" : companiesList }),
 				       success: function(data) {  
 
 				    	   $("#tempStore").html(data);
