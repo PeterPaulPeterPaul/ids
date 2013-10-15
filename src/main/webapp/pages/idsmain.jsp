@@ -858,7 +858,6 @@ To <select id="todate" name="todate" >
 	  {
 
 
-          
 		  
 var myId2= $(".viewable2").attr("id");
 var mydropdown2 = $("#"+myId2+"s").val();
@@ -905,23 +904,25 @@ if 	(firstPartId == secondPartId && clickType=="myrad2" ){
 	  $(".myrad3").prop('checked', false);
 	  $("#z"+h1).prop('checked', true);
 }
-
+/*
 if (clickType=="myrad2" || clickType=="myrad3" ) {
+
 	   $(".showornot1").fadeOut();
 	   $(".showornot2").fadeOut();
 	   $(".showornot2").removeClass("viewable2");
 	   $(".showornot1").removeClass("viewable1");
-}
-
+}*/
+/* HAWTHORNE
 $(".showornot11").fadeOut();
 $(".showornot111").fadeOut();
 $(".showornot22").fadeOut()
-
+*/
 var my_SorP = $('#drop31s').val();
 var accessType = $("#accessType").val();
-			 
-$("#wholescreen").fadeOut();
-$("#titleBar").fadeOut();
+			
+$("body").toggleClass("wait");
+//$("#wholescreen").fadeOut();
+//$("#titleBar").fadeOut();
 
 
 var dateParm=       validateDates() ;
@@ -929,24 +930,20 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 	 alert(dateParm);
 	 $("#titleBar").fadeIn();
 	 $("#wholescreen").fadeIn();
-	 
 	 $("#clearfilter").fadeIn();
-	  
-
-	  
 	 return;
 }
    
 
-			 $('#gbox_list47').fadeOut().promise().done(function() {  
+		//	 $('#gbox_list47').fadeOut().promise().done(function() {  
 	
 				 
 				 
 				 
 				 
 				 
-				   $('#gbox_list47').remove();
-				   $("#beans").append("<table id='list47'></table><div id='plist47'></div>");
+			//	   $('#gbox_list47').remove();
+			//	   $("#beans").append("<table id='list47'></table><div id='plist47'></div>");
 
 				   if (summary!=0  &&  summary !=3 ) {
 					   if (h2=="4") {
@@ -1051,6 +1048,30 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				       processData: false,
 				       dataType: 'html',
 				       success: function(data) {  
+
+				    	 $("#beans").fadeOut();
+				    	 
+
+				    	/* HAWTHORNE
+				    	$(".showornot11").fadeOut();
+				    	$(".showornot111").fadeOut();
+				    	$(".showornot22").fadeOut()
+				    	*/
+				    	
+				    	
+				    	
+				    	 
+				    //	   $("#titleBar").fadeOut();
+				    	   
+								   $('#gbox_list47').remove();
+								   $("#beans").append("<table id='list47'></table><div id='plist47'></div>");
+							
+				    	   
+				    	//   $('#gbox_list47').fadeIn();
+			    			//	   $('#list47').fadeIn();
+			    			
+			    		//	alert(data);
+				    	   
 				    	   $("#tempStore").html(data);
 				    	   var data2 = JSON.parse($("#tempStore #myJson").html());
 				    	   
@@ -1058,6 +1079,12 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    	   $("#dataJson").val($("#tempStore #myJson").html());
 				    	   
 				    	   $("#tempOldHeadings").text($("#tempStore #myOldHeadings").html() );
+				    	   
+				    	 //  if ($("#tempStore #drop11").length) {
+				    		   $("#drop11").html($("#tempStore #drop11_IN").html());
+				    		   $("#drop21").html($("#tempStore #drop11_IN").html());
+				    		   $(".dropdown1").selectBoxIt();
+				    	//   }
 
 	    			        $(".myrad2").prop('checked', false);
 		    				   $(".myrad3").prop('checked', false);
@@ -1105,8 +1132,22 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 					    		   $("#box3"+h1).fadeIn();
 					    	   }
 
+					    	   //HAWTHORNE
+					    	   $("#titleBar").fadeOut();
+						    	 if (clickType=="myrad2" || clickType=="myrad3" ) {
+                                        
+						    		   $(".showornot1").fadeOut();
+						    		   $(".showornot2").fadeOut();
+						    		   $(".showornot2").removeClass("viewable2");
+						    		   $(".showornot1").removeClass("viewable1");
+						    	}
+						    	 
+						    	 
+						    	 
+					    	   
 		    				  var value1 =  $("#tempStore #myDropValue1").html();
 		    				  var value2 =  $("#tempStore #myDropValue2").html();
+		    				  
  		    				   $(".showornot1").removeClass("viewable1");
   		    				   $("#drop1"+h1).addClass("viewable1");
   		    				   $(".showornot2").removeClass("viewable2");
@@ -1183,17 +1224,22 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			        
 				    			        
 				    			        
-				    			        
-			    						  $("#wholescreen").fadeIn();
+				    			        $("#titleBar").fadeIn();
+			    						  $("#beans").fadeIn();
+			    					//	  $("#titleBar").fadeIn();
+			    					//	  $("#titleBar").fadeIn();
 			    						  
 				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false});
 
 				    			        jQuery("#list47").jqGrid('gridResize');
 				    			        
-				    			 	   $('#gbox_list47').fadeIn();
-				    				   $('#list47').fadeIn();
+				    			 //	   $('#gbox_list47').fadeIn();
+				    			//	   $('#list47').fadeIn();
 
 
+				    			$("body").toggleClass("wait");
+				    			
+				    			
 				    					 var totals = JSON.parse($("#tempStore #myJsonTotals").html());
 				    					 $("#totalsJson").val($("#tempStore #myJsonTotals").html());
 				    				//	 $("#printDataJson").val($("#tempStore #myJsonTotals").html());
@@ -1228,7 +1274,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    							});
 				    						  
 
-				    						  $("#titleBar").fadeIn();
+				    						//  $("#titleBar").fadeIn();
 				    		        		  if ($("#list47_TOTAL").length) {
 					    		         		     $("#toggleRowTotal").val("Remove row total");
 					    		         		  } else {
@@ -1259,7 +1305,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				   
 				   
 				   
-			 });
+		//	 });
 
 
 

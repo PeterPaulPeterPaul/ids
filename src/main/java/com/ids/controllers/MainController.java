@@ -44,6 +44,7 @@ import com.ids.businessLogic.AddJsonTotalPercentCells;
 import com.ids.businessLogic.DownloadExcel;
 import com.ids.businessLogic.DropdownInterface;
 import com.ids.businessLogic.FirstTimeQuery;
+import com.ids.businessLogic.ReplaceDropsWithFilterValues;
 import com.ids.businessLogic.StoreRequestParameters;
 import com.ids.context.GetBeansFromContext;
 import com.ids.json.ColumnModel;
@@ -163,28 +164,9 @@ public class MainController implements DropdownInterface {
 
 	            	access=user.getCurrentLocation();
 	            	
-	            	logger.warning("tot: "+request.getParameter("rowTotal"));
-	            	logger.warning("per: "+request.getParameter("percent"));
-	            	
-	            	String longStringCompanies="";
-	            	
-	            	Enumeration keys = request.getParameterNames();  
-	            	   while (keys.hasMoreElements() )  
-	            	   {  
-	            		   longStringCompanies = (String)keys.nextElement();  
-	            	      
-	            	      if ( longStringCompanies.contains("includedCompanies")) {
-	            	    	  longStringCompanies= longStringCompanies.replace("{\"includedCompanies\":\"","");
-	            	    	  longStringCompanies= longStringCompanies.replace("}","");
-	             	    	  longStringCompanies = longStringCompanies.replace("\"","");
-	            	    	  logger.warning(longStringCompanies); 
-	            	    	  break;
-	            	      }
 
-	            	   }  
-	            	   
-	               	
-	            	
+	            	String longStringCompanies="";
+
 		    		  if (request.getParameter("rowTotal")==null || request.getParameter("rowTotal").equals("on")) {
 		    			  total="TOTAL";
 		    		  }else {
@@ -241,7 +223,7 @@ public class MainController implements DropdownInterface {
 
 
 		    	  StoreRequestParameters srp = new   StoreRequestParameters(request,myYear,longStringCompanies);
-		    	  
+
 		    	
 		    	  if (srp.getJustClicked().equals("heading1")) {
 		    		  
@@ -268,6 +250,19 @@ public class MainController implements DropdownInterface {
 		    		  }
 		    	  }
 
+		    	  int countryId = 0;
+		    	  if (srp.getHeading1()==COUNTRY) {
+		    		  countryId= srp.getDropdown1();
+		    	  }
+		    	  if (srp.getHeading2()==COUNTRY) {
+		    		  countryId= srp.getDropdown2();
+		    	  }
+		    	  
+		    	  ReplaceDropsWithFilterValues rd = new ReplaceDropsWithFilterValues(  con, srp.getIncExCountries(), 
+		    			  access,  model,countryId);
+		    	  model = rd.getModel();
+
+		    		  
 		    	  model.addAttribute("myDropValue1",srp.getDropdown1());
 		    	  model.addAttribute("myDropValue2",srp.getDropdown2());
 		    	  model.addAttribute("myOldHeadings",Integer.toString(srp.getHeading1())+Integer.toString(srp.getHeading2()));
@@ -487,7 +482,7 @@ public class MainController implements DropdownInterface {
 		    			(srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
 		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),srp.getSwap(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-		    		    ,srp.getDateParm(),access);
+		    		    ,srp.getDateParm(),access,rd.getCountryFilter());
 
 
 			    		    logger.warning(sql4.getQuery());
@@ -663,7 +658,7 @@ public class MainController implements DropdownInterface {
 		    				  (srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
 				    		    (srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),
 				    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-				    		    ,srp.getDateParm(),access);
+				    		    ,srp.getDateParm(),access,rd.getCountryFilter());
 
 
 			    		    logger.warning(sql2.getQuery());
@@ -712,7 +707,7 @@ public class MainController implements DropdownInterface {
 		    				  (srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
 		    				  (srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),
 		    				  srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-		    				  ,srp.getDateParm(),access);		    		 
+		    				  ,srp.getDateParm(),access,rd.getCountryFilter());		    		 
 
 		    		    logger.warning(sql3.getQuery());
 		    		    resultSet = statement.executeQuery(sql3.getQuery());
