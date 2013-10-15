@@ -489,10 +489,22 @@ To <select id="todate" name="todate" >
           $(document).ready(function(){
 
         	  $( "#two" ).on("click" , function() {
-        		  $("#printer").submit();
+            	  var mySS1 = $(".viewable1").children(".dropdown1").attr("id");
+            	  var mySS2 = $(".viewable2").children(".dropdown2").attr("id");
+            	  $("#title1").val(  $.trim($("#accessTypeSelectBoxItText").text()) );
+            	  $("#title2").val(  $.trim($("#drop31sSelectBoxItText").text()) );
+            	  $("#title3").val(  $.trim($("#"+mySS1+"SelectBoxItText").text()) );
+            	  $("#title4").val(  $.trim($("#"+mySS2+"SelectBoxItText").text()) );
+  		    	  $("#printer").submit();
         		  return false;
         		});
         	  $( "#one" ).on("click" , function() {
+            	  var mySS1 = $(".viewable1").children(".dropdown1").attr("id");
+            	  var mySS2 = $(".viewable2").children(".dropdown2").attr("id");
+            	  $("#title11").val(  $.trim($("#accessTypeSelectBoxItText").text()) );
+            	  $("#title22").val(  $.trim($("#drop31sSelectBoxItText").text()) );
+            	  $("#title33").val(  $.trim($("#"+mySS1+"SelectBoxItText").text()) );
+            	  $("#title44").val(  $.trim($("#"+mySS2+" option:first").text()) );
         		  $("#excel1").submit();
         		  return false;
         		});
@@ -596,37 +608,12 @@ To <select id="todate" name="todate" >
         	  $(".dropdown3").selectBoxIt();
         	  $(".dropdown33").selectBoxIt();
         	  
-        	          	  var mySS1 = $(".viewable1").children(".dropdown1").attr("id");
-        	  var mySS2 = $(".viewable2").children(".dropdown2").attr("id");
-        	  
-        	  $("#title1").val(  $.trim($("#accessType option:selected").text()) );
-        	  $("#title2").val(  $.trim($("#drop31s option:selected").text()) );
-        	  $("#title3").val(  $.trim($("#"+mySS1+" option:first").text()) );
-        	  $("#title4").val(  $.trim($("#"+mySS2+" option:first").text()) );
-        	  
-        	  $("#title11").val(  $.trim($("#accessType option:selected").text()) );
-        	  $("#title22").val(  $.trim($("#drop31s option:selected").text()) );
-        	  $("#title33").val(  $.trim($("#"+mySS1+" option:first").text()) );
-        	  $("#title44").val(  $.trim($("#"+mySS2+" option:first").text()) );
-        	  
         	  
         	  $( "input:button" ).button();
         	  
         	  $(".dropdown1").css("width","182px");
         	  $(".dropdown2").css("width","182px");
-        	  
-        	  var mySS1 = $(".viewable1").children(".dropdown1").attr("id");
-        	  var mySS2 = $(".viewable2").children(".dropdown2").attr("id");
-        	  
-        	  $("#title1").val(  $.trim($("#accessType option:selected").text()) );
-        	  $("#title2").val(  $.trim($("#drop31s option:selected").text()) );
-        	  $("#title3").val(  $.trim($("#"+mySS1+" option:first").text()) );
-        	  $("#title4").val(  $.trim($("#"+mySS2+" option:first").text()) );
-        	  
-        	  $("#title11").val(  $.trim($("#accessType option:selected").text()) );
-        	  $("#title22").val(  $.trim($("#drop31s option:selected").text()) );
-        	  $("#title33").val(  $.trim($("#"+mySS1+" option:first").text()) );
-        	  $("#title44").val(  $.trim($("#"+mySS2+" option:first").text()) );
+
 
         	var clickType="";
         	var swapValue="0";
@@ -1138,32 +1125,19 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 	  		    				   $("#drop1"+h1+" option:selected").prop("selected", false);
 	  		    				   $("#drop1"+h1+" option[value="+value1+"]").prop("selected", true);
 
-	  		    				   
-	  		    				 $("#title3").val($.trim( $("#drop1"+h1+" option[value="+value1+"]").text() ) );
-	  		    				 $("#title33").val($.trim( $("#drop1"+h1+" option[value="+value1+"]").text() ) );
-	  		    				 
-	  		    				 
 		  		    				$("#drop2"+h2+" option:selected").prop("selected", false);
 		  		    				$("#drop2"+h2+" option[value="+value2+"]").prop("selected", true);
-		  		    				
-		  		    				$("#title4").val($.trim( $("#drop2"+h2+" option[value="+value2+"]").text()) );
-		  		    		$("#title44").val($.trim( $("#drop2"+h2+" option[value="+value2+"]").text()) );
 
 		    				   }  
 		    				   
-		    				   $("#title2").val(  $.trim($("#drop31s option:selected").text()) );
-		    				   $("#title1").val(  $.trim($("#accessType option:selected").text()) );
-		    				   $("#title22").val(  $.trim($("#drop31s option:selected").text()) );
-		    				   $("#title11").val(  $.trim($("#accessType option:selected").text()) );
+
 		    				   
 		    				   if (clickType=="myrad3"){
 	  		    				   $("#drop2"+h2+" option:selected").prop("selected", false);
 	  		    				   $("#drop2"+h2+" option[value="+value2+"]").prop("selected", true);
-	  		    				 $("#title4").val($("#drop2"+h2+" option[value="+value2+"]").text());
 			  		    		   $("#drop1"+h1+" option:selected").prop("selected", false);
 			  		    		   $("#drop1"+h1+" option[value="+value1+"]").prop("selected", true);
-			  		    		   
-			  		    		 $("#title3").val($("#drop1"+h1+" option[value="+value1+"]").text());
+
 
 		    				   }
 		    				   
@@ -1214,7 +1188,8 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			    						  
 				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false});
 
-				    	
+				    			        jQuery("#list47").jqGrid('gridResize');
+				    			        
 				    			 	   $('#gbox_list47').fadeIn();
 				    				   $('#list47').fadeIn();
 
@@ -1340,6 +1315,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
       });
       
       jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false});
+      jQuery("#list47").jqGrid('gridResize');
       
       $("#filter").on("click",function(){
     	  
@@ -1351,13 +1327,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
     	  $(".ui-widget-header").css("color","black");
     	  $(".ui-widget-header").css("border","1px solid black");
     	  $(".ui-widget-header").css("font-weight","normal");
-       //   jQuery("#list47").jqGrid('searchGrid', 
-       	//       {sopt:['eq','ne','cn','bw','bn','gt','lt','the','ge','in','ni','en','ew','nc','noo','nn'], multipleSearch:true, ignoreCase:true}
-       //	);
-       
-
-    	  
-    	  
+  
       });
 
  
@@ -1366,31 +1336,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 	   $('#gbox_list47').fadeIn();
 	   $('#list47').fadeIn();
 
-/*
-	   $("#gbox_list47").closest("div.ui-jqgrid-view")
-	    .children("div.ui-jqgrid-titlebar")
-	    .css("text-align", "center")
-	    .children("span.ui-jqgrid-title")
-	    .css("float", "none");
-	   
-	   $("#list47").closest("div.ui-jqgrid-view")
-	    .children("div.ui-jqgrid-titlebar")
-	    .css("text-align", "center")
-	    .children("span.ui-jqgrid-title")
-	    .css("float", "none");
-	   $(".ui-jqgrid-titlebar").css("color","black");
 
-
-			*/
-			
-  		 //   var newHeight = $(window).height() + "px";
-		 //   $("body").css("height", newHeight);
-		    
-	//Every resize of window
-//$(window).resize(function() {
- //   var newHeight =$(window).height()  + "px";
- //   $("body").css("height", newHeight);
-//});
 	
 	
 	
@@ -1399,9 +1345,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 					totals.myTotals[0]); 
 			
 			 $('.footrow').children("td").removeClass("colorWhite"); 
-			 
-		//	 var myval = $("span.ui-jqgrid-title").text();
-		//	 $("#myTitle").text(myval);
+
 			 
 			 $(".ui-jqgrid-titlebar").remove();
 			

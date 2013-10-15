@@ -28,6 +28,9 @@ background-color:#FFFF00;
 body.wait, body.wait *{
  cursor: wait !important;   
 }
+body.wait, body.wait *{
+ cursor: wait !important;   
+}
 .js {display: none;}
 .colorWhite {
             background-color: white !important;
@@ -687,10 +690,23 @@ First Quantity:
         	  
         	  
         	  $( "#two" ).on("click" , function() {
-        		  $("#printer").submit();
+            	  var mySS1 = $(".viewable1").children(".dropdown1").attr("id");
+            	  var mySS2 = $(".viewable2").children(".dropdown2").attr("id");
+            	  $("#title1").val(  $.trim($("#accessType option:selected").text()) );
+            	  $("#title2").val(  $.trim($("#drop31s option:selected").text()) );
+            	  alert( $.trim($("#"+mySS1+" option:first").text()));
+            	  $("#title3").val(  $.trim($("#"+mySS1+" option:first").text()) );
+            	  $("#title4").val(  $.trim($("#"+mySS2+" option:first").text()) );
+  		    	  $("#printer").submit();
         		  return false;
         		});
         	  $( "#one" ).on("click" , function() {
+            	  var mySS1 = $(".viewable1").children(".dropdown1").attr("id");
+            	  var mySS2 = $(".viewable2").children(".dropdown2").attr("id");
+            	  $("#title11").val(  $.trim($("#accessType option:selected").text()) );
+            	  $("#title22").val(  $.trim($("#drop31s option:selected").text()) );
+            	  $("#title33").val(  $.trim($("#"+mySS1+" option:first").text()) );
+            	  $("#title44").val(  $.trim($("#"+mySS2+" option:first").text()) );
         		  $("#excel1").submit();
         		  return false;
         		});
