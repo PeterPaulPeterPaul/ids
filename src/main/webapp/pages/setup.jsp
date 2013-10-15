@@ -6,7 +6,7 @@
 <head>
    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="css/chris.css" />
 <link rel="stylesheet" href="css/login.css" />
 <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
@@ -29,7 +29,7 @@
 </head>
 <style>
 body { 
-background-color:#FFFF80;
+background-color:#FFFF00;
 }
 body.wait, body.wait *{
  cursor: wait !important;   

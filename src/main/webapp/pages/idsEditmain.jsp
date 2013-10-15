@@ -6,7 +6,7 @@
 <head>
    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<link rel="stylesheet" type="text/css" media="screen" href="css/ui-lightness/jquery-ui-1.10.3.custom.min.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="css/chris.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="css/ui.dropdownchecklist.themeroller.css" />
 
@@ -23,7 +23,7 @@
 <title>IDS</title>
 <style>
 body { 
-background-color:#FFFF80; 
+background-color:#FFFF00; 
 }
 body.wait, body.wait *{
  cursor: wait !important;   
@@ -110,7 +110,7 @@ International Database Service
 </div>
 
 
-<div style="float:right;width:18%;background-color:#FFFF80;height:100%;">
+<div style="float:right;width:18%;background-color:#FFFF00;height:100%;">
 <div>
 
 <div id="tempStore" style="display:none"></div>
@@ -190,7 +190,7 @@ To <select id="todate" name="todate" >
      <input type="button" style="font-size:x-small;display:none" class="swap" name="swap1" id="swap1"  value="Swap cols/rows"/>
 </div>
 <div style="float:left;width:90%;margin-right:5%;margin-top:5%;">
-<fieldset style="background-color:#FFFF80;margin-left: 10px;">
+<fieldset style="background-color:#FFFF00;margin-left: 10px;">
 <legend>Header 1</legend>
 <input class="myrad2" type="radio" name="horiz" id="a1"  value="1" checked >Country<br>
 <input class="myrad2" type="radio" name="horiz" id="a2"  value="2"  >Product<br>
@@ -200,7 +200,7 @@ To <select id="todate" name="todate" >
 </fieldset>
 </div>
 <div style="float:left;width:90%;margin-right:5%;margin-top:15%">
-<fieldset style="background-color:#FFFF80;margin-left: 10px;">
+<fieldset style="background-color:#FFFF00;margin-left: 10px;">
 <legend>Header 2</legend>
 <input class="myrad3" type="radio" id="z1" name="verti" value="1"  >Country<br>
 <input class="myrad3" type="radio"  id="z2" name="verti" value="2" checked >Product<br>
@@ -479,7 +479,7 @@ To <select id="todate" name="todate" >
    
    
 	
-<div id="beans" style="margin-left:5px;margin-top:18px;float:left;width:81%;height:90%;background-color:#FFFF80;">
+<div id="beans" style="margin-left:5px;margin-top:18px;float:left;width:81%;height:90%;background-color:#FFFF00;">
 <table id="list47"></table>
 <div id="plist47"></div>
 </div>
@@ -1808,7 +1808,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
     	  
     	  $("#dialogFilter").removeClass("ui-dialog-content");
     	  $(".ui-dropdownchecklist-text").css("font-weight","lighter");
-    	  $(".ui-widget-header").css("background","#FFFF80");
+    	  $(".ui-widget-header").css("background","#FFFF00");
     	  $(".ui-widget-header").css("color","black");
     	  $(".ui-widget-header").css("border","1px solid black");
     	  $(".ui-widget-header").css("font-weight","normal");
