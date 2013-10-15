@@ -1079,11 +1079,30 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    	   $("#dataJson").val($("#tempStore #myJson").html());
 				    	   
 				    	   $("#tempOldHeadings").text($("#tempStore #myOldHeadings").html() );
-				    	   
+
+				    	  // alert($("#tempStore #drop11_IN").html());
 				    	 //  if ($("#tempStore #drop11").length) {
 				    		   $("#drop11").html($("#tempStore #drop11_IN").html());
-				    		   $("#drop21").html($("#tempStore #drop11_IN").html());
+				    		   $("#drop21").html($("#tempStore #drop21_IN").html());
+				    		   
+				    		//   alert($("#drop21").html());
+				    		   
 				    		   $(".dropdown1").selectBoxIt();
+				    		   $(".dropdown2").selectBoxIt();
+				    		   
+				    		   $(".dropdown1").on("change",function(){
+				    				  clickType= $(this).attr('id');
+				    				  downloadExcel="no";
+				    				  getGrid();
+				    			  });
+				    			  
+				    			  $(".dropdown2").on("change",function(){
+				    				  clickType=$(this).attr('id');
+				    				  downloadExcel="no";
+				    				  getGrid();
+				    			  });
+				    			  
+				    			  
 				    	//   }
 
 	    			        $(".myrad2").prop('checked', false);
