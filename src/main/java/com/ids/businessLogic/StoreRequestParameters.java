@@ -159,6 +159,10 @@ public class StoreRequestParameters {
 		return dateParm;
 	}
 	
+	public void setDateParm(String dateParm){
+		this.dateParm = dateParm;
+	}
+	
 	public int getFromDate(){
 		int theDate=0;
 		if (fromDate==null){
@@ -178,8 +182,6 @@ public class StoreRequestParameters {
 		}
 		return theDate;
 	}
-	
-
 	
 	public int getSalesOrProduct(){
 		return salesOrProduct;

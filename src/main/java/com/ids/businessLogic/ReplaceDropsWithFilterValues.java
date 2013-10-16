@@ -12,26 +12,73 @@ import org.springframework.ui.ModelMap;
 
 import com.ids.controllers.MainController;
 import com.ids.entities.Country;
+import com.ids.entities.Year;
 
-public class ReplaceDropsWithFilterValues {
+public class ReplaceDropsWithFilterValues  implements DropdownInterface {
 
 	private Connection con;
 
    	private final static Logger logger = Logger.getLogger(ReplaceDropsWithFilterValues.class.getName()); 
 	private ModelMap model;
 	private int countryId;
+	private int productId;
+	private int countryId2;
+	private int productId2;
+	private int yearParam;
+	private int fromYear;
+	private int toYear;
+	private String countries;
+	private String products;
 	private boolean countryFilter = false;
-	public ReplaceDropsWithFilterValues ( Connection con, String countries, String access, ModelMap model, int countryId ) throws SQLException {
+	public ReplaceDropsWithFilterValues ( Connection con, StoreRequestParameters srp, String access, ModelMap model ) 
+			 throws SQLException {
 
 		this.model = model;
 		ResultSet resultSet = null;
 		Statement statement = con.createStatement();
 		 
 		countryFilter=false;
+		
+		countries = srp.getIncExCountries();
+		products = srp.getIncExProducts();
+		yearParam = srp.getFromDate();
+		fromYear = srp.getFromDate();
+		toYear = srp.getToDate();
 
+		if (srp.getHeading1()==COUNTRY) {
+  		  countryId2= srp.getDropdown1();
+  		  logger.warning("head 1 countryID: "+countryId );
+  	  }
+  	  if (srp.getHeading2()==COUNTRY) {
+  		  countryId2= srp.getDropdown2();
+  		  logger.warning("head 2 countryID: "+countryId );
+  	  }
+  	  if (srp.getHeading1()==PRODUCT) {
+  		  productId2= srp.getDropdown1();
+  		  logger.warning("head 1 productID: "+productId );
+  	  }
+  	  if (srp.getHeading2()==PRODUCT) {
+  		  productId2= srp.getDropdown2();
+  		  logger.warning("head 2 productID: "+productId );
+  	  }
+  	  if (srp.getHeading1()==YEARS) {
+  		yearParam = srp.getDropdown1();
+  		  logger.warning("head 1 year: "+yearParam );
+  	  }
+  	  if (srp.getHeading2()==YEARS) {
+  		yearParam = srp.getDropdown2();
+  		  logger.warning("head 2 year: "+yearParam );
+  	  }
+		
 		if (countries==null || countries.length()<3) {
 			countries="";
 		}
+		if (products==null || products.length()<3) {
+			products="";
+		}
+		
+		
+		
 			 model.addAttribute("drop11","drop11");
 			 model.addAttribute("drop21","drop21");
 		
@@ -49,15 +96,64 @@ public class ReplaceDropsWithFilterValues {
 		    		  first = false;
 		    	  }
 		    	  sb.append("<option value="+resultSet.getString("id")+">"+resultSet.getString("country")+" </option>");
-		          if (Integer.parseInt(resultSet.getString("id"))==countryId ){
+		          if (Integer.parseInt(resultSet.getString("id"))==countryId2 ){
 		        	  countryFilter=true;
-		        	  this.countryId = countryId;
+		        	  this.countryId = Integer.parseInt(resultSet.getString("id"));
 		        	  logger.warning("found ID when should not");
 		          }
 		      }
 
 		      model.addAttribute("countries",sb.toString());
-	
+		      
+		      
+		      
+		      
+		      
+		      model.addAttribute("drop12","drop12");
+				 model.addAttribute("drop22","drop22");
+			
+		         String  query2 = "select d.id as id , d.name as name from Product d where d.id != 0 and d.access = '"+access+"' " +
+		         		products +" order by d.name asc " ;
+		      
+		         logger.warning(query2);
+
+			      resultSet = statement.executeQuery(query2);
+			      StringBuilder sb2 = new StringBuilder();
+			      boolean first2 =true;
+			      while (resultSet.next()) {
+			    	  if ( first2) {
+			    		  this.productId = Integer.parseInt(resultSet.getString("id"));  
+			    		  first2 = false;
+			    	  }
+			    	  sb2.append("<option value="+resultSet.getString("id")+">"+resultSet.getString("name")+" </option>");
+			          if (Integer.parseInt(resultSet.getString("id"))==productId2 ){
+			        	  this.productId = Integer.parseInt(resultSet.getString("id"));
+			          }
+			      }
+
+			      model.addAttribute("products",sb2.toString());
+		      
+		      
+			      
+			      
+			      
+			         model.addAttribute("drop13","drop13");
+					 model.addAttribute("drop23","drop23");
+					 
+						 if (yearParam < fromYear) {
+							 yearParam = fromYear;
+						 }
+						 if (yearParam > toYear) {
+							 yearParam = fromYear;
+						 }
+
+					 
+					 StringBuilder sb3 = new StringBuilder();
+					 for (int i=fromYear;i<=toYear;i++) {
+						 sb3.append("<option value="+i+">"+i+" </option>");
+			    	  }
+				      model.addAttribute("years",sb3.toString());
+
 	}
 	
 	public ModelMap getModel() {
@@ -68,5 +164,11 @@ public class ReplaceDropsWithFilterValues {
 	}
 	public int getCountryId() {
 		return countryId;
+	}
+	public int getProductId() {
+		return productId;
+	}
+	public int getYearParam() {
+		return yearParam;
 	}
 }

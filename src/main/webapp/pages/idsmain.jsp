@@ -866,7 +866,7 @@ var firstPartId = $(".myrad2:checked").val();
 var secondPartId = $(".myrad3:checked").val();
 
 if (clickType=="myrad3") {
-	   mydropdown2 = $("#drop2"+secondPartId+"s").val();
+	   mydropdown2 = $("#drop2"+secondPartId+" option:selected").val();
 }
 
 var h1 = $("#tempOldHeadings").html();
@@ -878,12 +878,10 @@ var myId= $(".viewable1").attr("id");
 
 var mydropdown1 = $("#"+myId+" option:selected").val();
 
-
 	if 	(firstPartId == secondPartId && clickType=="myrad3" && (summary ==0 || h2 != "4")){
 		$("#"+myId).removeClass("viewable1");
 		$("#drop1"+h2).addClass("viewable1");
-		 mydropdown1 = $("#drop1"+h2+"s").val();
-
+		 mydropdown1 = $("#drop1"+h2+" option:selected").val();
 		  $(".myrad2").prop('checked', false);
 		  $("#a"+h2).prop('checked', true);
 	}
@@ -891,16 +889,14 @@ var mydropdown1 = $("#"+myId+" option:selected").val();
 
 
 
-if (clickType=="myrad2") {
-           mydropdown1 = $("#drop1"+firstPartId+"s").val();
-} 
+      if (clickType=="myrad2") {
+           mydropdown1 = $("#drop1"+firstPartId+" option:selected").val();
+       } 
 
 if 	(firstPartId == secondPartId && clickType=="myrad2" ){
 	$("#"+myId).removeClass("viewable2");
 	$("#drop2"+h1).addClass("viewable2");
-	 mydropdown2 = $("#drop2"+h1+"s").val();
-	 
-
+	 mydropdown2 = $("#drop2"+h1+" option:selected").val();
 	  $(".myrad3").prop('checked', false);
 	  $("#z"+h1).prop('checked', true);
 }
@@ -952,17 +948,17 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 								  if ($(".myrad2:checked").val()=="1") {
 									  $("#a1").prop('checked', false);
 									  $("#a2").prop('checked', true);
-									  mydropdown1 = $("#drop12s").val();
+									  mydropdown1 = $("#drop12 option:selected").val();
 								  } else {
 								      if ($(".myrad2:checked").val()=="2") {
 									      $(".myrad2").prop('checked', false);
 									      $("#a3").prop('checked', true);
-									      mydropdown1 = $("#drop13s").val();
+									      mydropdown1 = $("#drop13 option:selected").val();
 								      } else { 
 								          if ($(".myrad2:checked").val()=="3") {
 									       $(".myrad2").prop('checked', false);
 									       $("#a1").prop('checked', true);
-									       mydropdown1 = $("#drop11s").val();
+									       mydropdown1 = $("#drop11 option:selected").val();
 								          }
 								      }
 								  }
@@ -1067,6 +1063,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 ;
 				    	   
 				    	   $("#tempStore").html(data);
+
 				    	   var data2 = JSON.parse($("#tempStore #myJson").html());
 				    	   
 				    	   $("#printDataJson").val($("#tempStore #myJson").html());
@@ -1077,7 +1074,11 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    		   $("#drop11").html($("#tempStore #drop11_IN").html());
 				    		   $("#drop21").html($("#tempStore #drop21_IN").html());
 				    		   
-	
+				    		   $("#drop12").html($("#tempStore #drop12_IN").html());
+				    		   $("#drop22").html($("#tempStore #drop22_IN").html());
+				    		   
+				    		   $("#drop13").html($("#tempStore #drop13_IN").html());
+				    		   $("#drop23").html($("#tempStore #drop23_IN").html());
 
 
 	    			        $(".myrad2").prop('checked', false);
@@ -1141,13 +1142,38 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 					    	   
 		    				  var value1 =  $("#tempStore #myDropValue1").html();
 		    				  var value2 =  $("#tempStore #myDropValue2").html();
+		    				  
+		    			       $("#drop1"+h1+" option:selected").prop("selected", false);
+		    				   $("#drop1"+h1+" option[value="+value1+"]").prop("selected", true);
+
+		    			    $("#drop2"+h2+" option:selected").prop("selected", false);
+		    				   $("#drop2"+h2+" option[value="+value2+"]").prop("selected", true);
+
+		    			    $("#drop1"+h1+" option:selected").prop("selected", false);
+		    				   $("#drop1"+h1+" option[value="+value1+"]").prop("selected", true);
+
+		    			 $("#drop2"+h2+" option:selected").prop("selected", false);
+		    				   $("#drop2"+h2+" option[value="+value2+"]").prop("selected", true);
+		    				   
+		 /*   				   
 
 if (clickType=="drop11s") {
        $("#drop1"+h1+" option:selected").prop("selected", false);
 	   $("#drop1"+h1+" option[value="+value1+"]").prop("selected", true);
-
-				       }
-		    				    
+ }
+if (clickType=="drop21s") {
+    $("#drop2"+h2+" option:selected").prop("selected", false);
+	   $("#drop2"+h2+" option[value="+value2+"]").prop("selected", true);
+}
+if (clickType=="drop12s") {
+    $("#drop1"+h1+" option:selected").prop("selected", false);
+	   $("#drop1"+h1+" option[value="+value1+"]").prop("selected", true);
+}
+if (clickType=="drop22s") {
+ $("#drop2"+h2+" option:selected").prop("selected", false);
+	   $("#drop2"+h2+" option[value="+value2+"]").prop("selected", true);
+}
+		*/    				    
 		    				    
 		    				   if (clickType=="myrad2"){
 	  		    				   $("#drop1"+h1+" option:selected").prop("selected", false);
@@ -1169,8 +1195,6 @@ if (clickType=="drop11s") {
 	  		    				   $("#drop2"+h2+" option[value="+value2+"]").prop("selected", true);
 			  		    		   $("#drop1"+h1+" option:selected").prop("selected", false);
 			  		    		   $("#drop1"+h1+" option[value="+value1+"]").prop("selected", true);
-
-
 		    				   }
 
 
@@ -1237,9 +1261,6 @@ if (clickType=="drop11s") {
 				    			//	   $('#list47').fadeIn();
 
 
-				    			$("body").toggleClass("wait");
-				    			
-				    			
 				    					 var totals = JSON.parse($("#tempStore #myJsonTotals").html());
 				    					 $("#totalsJson").val($("#tempStore #myJsonTotals").html());
 				    				//	 $("#printDataJson").val($("#tempStore #myJsonTotals").html());
@@ -1309,7 +1330,7 @@ if (clickType=="drop11s") {
 								    				  getGrid();
 								    			  });
 								    			  
-								    			  
+								    			  $("body").toggleClass("wait");	  
 
 					   },
 					    error: function (xhr, ajaxOptions, thrownError) {

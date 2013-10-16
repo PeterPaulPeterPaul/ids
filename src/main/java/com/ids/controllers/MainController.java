@@ -249,16 +249,8 @@ public class MainController implements DropdownInterface {
 		    		  }
 		    	  }
 
-		    	  int countryId = 0;
-		    	  if (srp.getHeading1()==COUNTRY) {
-		    		  countryId= srp.getDropdown1();
-		    	  }
-		    	  if (srp.getHeading2()==COUNTRY) {
-		    		  countryId= srp.getDropdown2();
-		    	  }
-		    	  
-		    	  ReplaceDropsWithFilterValues rd = new ReplaceDropsWithFilterValues(  con, srp.getIncExCountries(), 
-		    			  access,  model,countryId);
+
+		    	  ReplaceDropsWithFilterValues rd = new ReplaceDropsWithFilterValues(  con, srp, access,  model);
 		    	  model = rd.getModel();
 
 		    		  
@@ -415,8 +407,8 @@ public class MainController implements DropdownInterface {
 
 		    		  model.addAttribute("myDimension","country shortname");
 		    		  SQL1 sql1 =  new SQL1(srp.getSalesOrProduct(),
-		    			(srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), 
-		    		    (srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),
+		    			rd.getProductId(), 
+		    		    rd.getYearParam(), srp.getFromDate(), srp.getToDate(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
 		    		    ,srp.getDateParm(),access);
 
@@ -543,7 +535,7 @@ public class MainController implements DropdownInterface {
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
 		    		  SQL5 sql5 =  new SQL5(srp.getSalesOrProduct(),
-		    			(srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), 
+		    				  rd.getProductId(), 
 		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),srp.getSwap(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
 		    		    ,srp.getDateParm(),access);
@@ -604,7 +596,7 @@ public class MainController implements DropdownInterface {
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
 		    		  SQL6 sql6 =  new SQL6(srp.getSalesOrProduct(),
-		    			(srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), 
+		    				  rd.getYearParam(), 
 		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(), srp.getSwap(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
 		    		    ,srp.getDateParm(),access);
@@ -655,7 +647,7 @@ public class MainController implements DropdownInterface {
 		    		  
 		    		  SQL2 sql2 =  new SQL2(srp.getSalesOrProduct(),
 		    				     rd.getCountryId(), 
-				    		    (srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),
+		    				     rd.getYearParam(), srp.getFromDate(), srp.getToDate(),
 				    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
 				    		    ,srp.getDateParm(),access);
 
@@ -704,7 +696,7 @@ public class MainController implements DropdownInterface {
 		    		  
 		    		  SQL3 sql3 =  new SQL3(srp.getSalesOrProduct(),
 		    				  rd.getCountryId(), 
-		    				  (srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),
+		    				  rd.getProductId(), srp.getFromDate(), srp.getToDate(),
 		    				  srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
 		    				  ,srp.getDateParm(),access);		    		 
 
