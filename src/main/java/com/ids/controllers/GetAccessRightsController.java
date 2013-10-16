@@ -81,11 +81,10 @@ public class GetAccessRightsController implements DropdownInterface {
 
 		 try{
 
-		 
-
-		   DriverManager.registerDriver(new AppEngineDriver());
-		  con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","123smiggles321","Wednesday");
-
+			 GetBeansFromContext gcfc = new GetBeansFromContext();
+		     gcfc = new GetBeansFromContext();
+			 DriverManager.registerDriver(new AppEngineDriver());
+			 con = DriverManager.getConnection(gcfc.myURL(),gcfc.myUserId(),gcfc.myPassword());
 		  con.setAutoCommit(false);
 			 
 			 

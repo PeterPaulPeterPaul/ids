@@ -110,11 +110,10 @@ public class MainController implements DropdownInterface {
 		 
 		 logger.warning("Entering application via GEt");
 		 logger.warning("excelDownload: "+request.getParameter("excelDownload"));
-		 
-		
-
-		   DriverManager.registerDriver(new AppEngineDriver());
-		  con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","123smiggles321","Wednesday");
+		 GetBeansFromContext gcfc = new GetBeansFromContext();
+	     gcfc = new GetBeansFromContext();
+		 DriverManager.registerDriver(new AppEngineDriver());
+		 con = DriverManager.getConnection(gcfc.myURL(),gcfc.myUserId(),gcfc.myPassword());
 	//	 GetBeansFromContext gcfc = new GetBeansFromContext();
      //    gcfc = new GetBeansFromContext();
 	// con = gcfc.myConnection();
@@ -479,10 +478,10 @@ public class MainController implements DropdownInterface {
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
 		    		  SQL4 sql4 =  new SQL4(srp.getSalesOrProduct(),
-		    			(srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
+		    			rd.getCountryId(), 
 		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),srp.getSwap(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-		    		    ,srp.getDateParm(),access,rd.getCountryFilter());
+		    		    ,srp.getDateParm(),access);
 
 
 			    		    logger.warning(sql4.getQuery());
@@ -655,10 +654,10 @@ public class MainController implements DropdownInterface {
 		    		  model.addAttribute("myDimension","product shortname");
 		    		  
 		    		  SQL2 sql2 =  new SQL2(srp.getSalesOrProduct(),
-		    				  (srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
+		    				     rd.getCountryId(), 
 				    		    (srp.getHeading1()==YEARS ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),
 				    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-				    		    ,srp.getDateParm(),access,rd.getCountryFilter());
+				    		    ,srp.getDateParm(),access);
 
 
 			    		    logger.warning(sql2.getQuery());
@@ -704,10 +703,10 @@ public class MainController implements DropdownInterface {
 		    		  model.addAttribute("myDimension","years");
 		    		  
 		    		  SQL3 sql3 =  new SQL3(srp.getSalesOrProduct(),
-		    				  (srp.getHeading1()==COUNTRY ? srp.getDropdown1(): srp.getDropdown2()), 
+		    				  rd.getCountryId(), 
 		    				  (srp.getHeading1()==PRODUCT ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),
 		    				  srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-		    				  ,srp.getDateParm(),access,rd.getCountryFilter());		    		 
+		    				  ,srp.getDateParm(),access);		    		 
 
 		    		    logger.warning(sql3.getQuery());
 		    		    resultSet = statement.executeQuery(sql3.getQuery());

@@ -10,13 +10,13 @@
 <link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="css/ui.dropdownchecklist.themeroller.css" />
 
-          <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.6.0/jquery.selectBoxIt.css" />
+          <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.8.0/jquery.selectBoxIt.css" />
 
 <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="js/ui.dropdownchecklist-1.4-min.js"></script>
 
-          <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.6.0/jquery.selectBoxIt.min.js"></script>
+          <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.8.0/jquery.selectBoxIt.min.js"></script>
 
 <script src="js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script src="js/jquery.jqGrid.min.js" type="text/javascript"></script>
@@ -860,15 +860,13 @@ To <select id="todate" name="todate" >
 
 		  
 var myId2= $(".viewable2").attr("id");
-var mydropdown2 = $("#"+myId2+"s").val();
+var mydropdown2 = $("#"+myId2+" option:selected").val();
 
 var firstPartId = $(".myrad2:checked").val();
 var secondPartId = $(".myrad3:checked").val();
 
 if (clickType=="myrad3") {
-
 	   mydropdown2 = $("#drop2"+secondPartId+"s").val();
-
 }
 
 var h1 = $("#tempOldHeadings").html();
@@ -877,13 +875,15 @@ h1 = h1.substr(0,1);
 h2 = h2.substr(1,1);
 
 var myId= $(".viewable1").attr("id");
-var mydropdown1 = $("#"+myId+"s").val();
+
+var mydropdown1 = $("#"+myId+" option:selected").val();
 
 
 	if 	(firstPartId == secondPartId && clickType=="myrad3" && (summary ==0 || h2 != "4")){
 		$("#"+myId).removeClass("viewable1");
 		$("#drop1"+h2).addClass("viewable1");
 		 mydropdown1 = $("#drop1"+h2+"s").val();
+
 		  $(".myrad2").prop('checked', false);
 		  $("#a"+h2).prop('checked', true);
 	}
@@ -1032,7 +1032,6 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			       				countriesList!=""){
 			       	              $("#clearfilter").fadeIn();
 			       		}
-			       		
 
 
 					  $.ajax({
@@ -1065,12 +1064,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    	   
 								   $('#gbox_list47').remove();
 								   $("#beans").append("<table id='list47'></table><div id='plist47'></div>");
-							
-				    	   
-				    	//   $('#gbox_list47').fadeIn();
-			    			//	   $('#list47').fadeIn();
-			    			
-			    		//	alert(data);
+;
 				    	   
 				    	   $("#tempStore").html(data);
 				    	   var data2 = JSON.parse($("#tempStore #myJson").html());
@@ -1080,30 +1074,11 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    	   
 				    	   $("#tempOldHeadings").text($("#tempStore #myOldHeadings").html() );
 
-				    	  // alert($("#tempStore #drop11_IN").html());
-				    	 //  if ($("#tempStore #drop11").length) {
 				    		   $("#drop11").html($("#tempStore #drop11_IN").html());
 				    		   $("#drop21").html($("#tempStore #drop21_IN").html());
 				    		   
-				    		//   alert($("#drop21").html());
-				    		   
-				    		   $(".dropdown1").selectBoxIt();
-				    		   $(".dropdown2").selectBoxIt();
-				    		   
-				    		   $(".dropdown1").on("change",function(){
-				    				  clickType= $(this).attr('id');
-				    				  downloadExcel="no";
-				    				  getGrid();
-				    			  });
-				    			  
-				    			  $(".dropdown2").on("change",function(){
-				    				  clickType=$(this).attr('id');
-				    				  downloadExcel="no";
-				    				  getGrid();
-				    			  });
-				    			  
-				    			  
-				    	//   }
+	
+
 
 	    			        $(".myrad2").prop('checked', false);
 		    				   $(".myrad3").prop('checked', false);
@@ -1166,30 +1141,27 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 					    	   
 		    				  var value1 =  $("#tempStore #myDropValue1").html();
 		    				  var value2 =  $("#tempStore #myDropValue2").html();
-		    				  
- 		    				   $(".showornot1").removeClass("viewable1");
-  		    				   $("#drop1"+h1).addClass("viewable1");
-  		    				   $(".showornot2").removeClass("viewable2");
-  		    				   $("#drop2"+h2).addClass("viewable2");
-  		    				   
-		    				    if (summary != 1 && summary !=4 && summary != 2 && summary !=5) {
-		  		    				   $("#drop1"+h1).fadeIn();
-	  		    				    }
-		    				    
-		    				    if (summary != 3 && summary != 4 && summary != 5) {
-		  		    				   $("#drop2"+h2).fadeIn();
-		  		    				}
+
+if (clickType=="drop11s") {
+       $("#drop1"+h1+" option:selected").prop("selected", false);
+	   $("#drop1"+h1+" option[value="+value1+"]").prop("selected", true);
+
+				       }
 		    				    
 		    				    
 		    				   if (clickType=="myrad2"){
 	  		    				   $("#drop1"+h1+" option:selected").prop("selected", false);
 	  		    				   $("#drop1"+h1+" option[value="+value1+"]").prop("selected", true);
-
 		  		    				$("#drop2"+h2+" option:selected").prop("selected", false);
 		  		    				$("#drop2"+h2+" option[value="+value2+"]").prop("selected", true);
 
 		    				   }  
 		    				   
+
+ 		    				   $(".showornot1").removeClass("viewable1");
+  		    				   $("#drop1"+h1).addClass("viewable1");
+  		    				   $(".showornot2").removeClass("viewable2");
+  		    				   $("#drop2"+h2).addClass("viewable2");
 
 		    				   
 		    				   if (clickType=="myrad3"){
@@ -1200,9 +1172,18 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
 
 		    				   }
-		    				   
-		    				   
-		    				   
+
+
+				    		   
+		    				    if (summary != 1 && summary !=4 && summary != 2 && summary !=5) {
+		  		    				   $("#drop1"+h1).fadeIn();
+	  		    				    }
+		    				    
+		    				    if (summary != 3 && summary != 4 && summary != 5) {
+		  		    				   $("#drop2"+h2).fadeIn();
+		  		    				}
+		    				    
+		    				    
 				    	   
 				    	   var myTabData = data2.tabData;
 			var cols= myTabData[1].columns;
@@ -1310,6 +1291,25 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    		        			  $(this).text("%");
 				    		        		  });
 				    		        		  
+				    		        		  
+				    		        		  
+								    		   $(".dropdown1").selectBoxIt();
+								    		   $(".dropdown2").selectBoxIt();
+								    		   
+								    		   $(".dropdown1").on("change",function(){
+								    				  clickType= $(this).attr('id');
+								    				  downloadExcel="no";
+								    				  getGrid();
+								    			  });
+								    		   
+				  		    				   
+								    			  $(".dropdown2").on("change",function(){
+								    				  clickType=$(this).attr('id');
+								    				  downloadExcel="no";
+								    				  getGrid();
+								    			  });
+								    			  
+								    			  
 
 					   },
 					    error: function (xhr, ajaxOptions, thrownError) {

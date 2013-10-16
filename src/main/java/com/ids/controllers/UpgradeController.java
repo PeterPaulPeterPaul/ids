@@ -73,13 +73,10 @@ public class UpgradeController {
 
 	       User  user = null;	    
 
-	  	 
-
-	    
-	    
-	       DriverManager.registerDriver(new AppEngineDriver());
-	        con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","123smiggles321","Wednesday");
-
+			 GetBeansFromContext gcfc = new GetBeansFromContext();
+		     gcfc = new GetBeansFromContext();
+			 DriverManager.registerDriver(new AppEngineDriver());
+			 con = DriverManager.getConnection(gcfc.myURL(),gcfc.myUserId(),gcfc.myPassword());
 	        Statement statement = con.createStatement();
 	        
 			 con.setAutoCommit(false);

@@ -5,17 +5,14 @@ public class SQL2 {
 	private String query="";
 	
 	public SQL2(int salesOrProduction, int countryId, int years, int fromYear, int toYear, String incExCountries, String incExProducts,
-			String incExCompanies, String dateParm, String access, boolean countryFilter) {
+			String incExCompanies, String dateParm, String access) {
 		
-		String countryClause="";
-		if (countryFilter){
-			countryClause= " and a.countryId = " + countryId;
-		}
+
 	      query = " select a.year, a.quantity, b.name as company, d.shortname as product, c.country from Facts_"+access+" a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +
-	    		  countryClause+
 	    		  " and a.year = " + years+
+	    		   " and a.countryId = " + countryId+
 	    		  incExCountries +
 	    		  incExProducts+
 	    		  incExCompanies+
