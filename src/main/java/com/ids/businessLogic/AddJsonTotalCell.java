@@ -41,7 +41,7 @@ public class AddJsonTotalCell {
 			
 		}
 		
-		logger.warning("HHH: "+ myData);
+//		logger.warning("HHH: "+ myData);
 		
 		}catch(JSONException je) {
 			je.printStackTrace();

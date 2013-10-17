@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <link rel="stylesheet" type="text/css" media="screen" href="css/chris.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="css/ids.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="css/ui.dropdownchecklist.themeroller.css" />
 
           <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.8.0/jquery.selectBoxIt.css" />
@@ -57,7 +58,7 @@ padding-left: 3px;
 color:#1c94c4;
 }       
 .titleFont{
-color:#1c94c4;
+background:silver;
 }
 
 
@@ -488,23 +489,63 @@ To <select id="todate" name="todate" >
           
           $(document).ready(function(){
 
+
         	  $( "#two" ).on("click" , function() {
-            	  var mySS1 = $(".viewable1").children(".dropdown1").attr("id");
-            	  var mySS2 = $(".viewable2").children(".dropdown2").attr("id");
             	  $("#title1").val(  $.trim($("#accessTypeSelectBoxItText").text()) );
             	  $("#title2").val(  $.trim($("#drop31sSelectBoxItText").text()) );
-            	  $("#title3").val(  $.trim($("#"+mySS1+"SelectBoxItText").text()) );
-            	  $("#title4").val(  $.trim($("#"+mySS2+"SelectBoxItText").text()) );
+            	  
+           	  if ($(".showornot11").css("display") === "block") {
+        		  var myId1= $(".showornot11").attr("id");
+        		  $("#title3").val( $("#"+myId1).text() );
+        	  } else {
+               	  if ($(".showornot111").css("display") === "block") {
+            		  var myId1= $(".showornot111").attr("id");
+            		  $("#title3").val( $("#"+myId1).text() );
+               	  } else {
+        		      var myId1= $(".viewable1").attr("id");
+        		      $("#title3").val( $.trim($("#"+myId1+" option:selected").text() ));
+               	  }
+        	  }
+
+           	  var myId="";
+           	if ($('.showornot22').filter(function (index) {
+           		myId=$(this).attr("id");
+                return $(this).css("display") === "block";
+            }).length) {
+      		     $("#title4").val( $("#"+myId).text() );
+      	      } else {
+            	  var myId2= $(".viewable2").attr("id");
+            	  $("#title4").val(  $.trim($("#"+myId2+" option:selected").text() ));
+      	      }  
   		    	  $("#printer").submit();
         		  return false;
         		});
+        	  
+        	  
         	  $( "#one" ).on("click" , function() {
-            	  var mySS1 = $(".viewable1").children(".dropdown1").attr("id");
-            	  var mySS2 = $(".viewable2").children(".dropdown2").attr("id");
             	  $("#title11").val(  $.trim($("#accessTypeSelectBoxItText").text()) );
             	  $("#title22").val(  $.trim($("#drop31sSelectBoxItText").text()) );
-            	  $("#title33").val(  $.trim($("#"+mySS1+"SelectBoxItText").text()) );
-            	  $("#title44").val(  $.trim($("#"+mySS2+" option:first").text()) );
+            	  
+           	  if ($(".showornot11").css("display") === "block") {
+        		  var myId1= $(".showornot11").attr("id");
+        		  $("#title33").val( $("#"+myId1).text() );
+        	  } else {
+               	  if ($(".showornot111").css("display") === "block") {
+            		  var myId1= $(".showornot111").attr("id");
+            		  $("#title33").val( $("#"+myId1).text() );
+               	  } else {
+        		      var myId1= $(".viewable1").attr("id");
+        		      $("#title33").val( $.trim($("#"+myId1+" option:selected").text() ));
+               	  }
+        	  }
+
+           	  if ($(".showornot22").css("display") === "block") {
+      		     var myId1= $(".showornot22").attr("id");
+      		     $("#title44").val( $("#"+myId1).text() );
+      	      } else {
+            	  var myId2= $(".viewable2").attr("id");
+            	  $("#title44").val(  $.trim($("#"+myId2+" option:selected").text() ));
+      	      } 
         		  $("#excel1").submit();
         		  return false;
         		});
@@ -908,11 +949,11 @@ if (clickType=="myrad2" || clickType=="myrad3" ) {
 	   $(".showornot2").removeClass("viewable2");
 	   $(".showornot1").removeClass("viewable1");
 }*/
-/* HAWTHORNE
+
 $(".showornot11").fadeOut();
 $(".showornot111").fadeOut();
 $(".showornot22").fadeOut()
-*/
+
 var my_SorP = $('#drop31s').val();
 var accessType = $("#accessType").val();
 			
@@ -923,6 +964,7 @@ $("body").toggleClass("wait");
 
 var dateParm=       validateDates() ;
 if (dateParm=="todate must be greater or equal to fromdate") {
+	 $("body").removeClass("wait");
 	 alert(dateParm);
 	 $("#titleBar").fadeIn();
 	 $("#wholescreen").fadeIn();
@@ -1047,11 +1089,10 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    	 $("#beans").fadeOut();
 				    	 
 
-				    	/* HAWTHORNE
 				    	$(".showornot11").fadeOut();
 				    	$(".showornot111").fadeOut();
 				    	$(".showornot22").fadeOut()
-				    	*/
+				    	
 				    	
 				    	
 				    	
@@ -1079,6 +1120,9 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    		   
 				    		   $("#drop13").html($("#tempStore #drop13_IN").html());
 				    		   $("#drop23").html($("#tempStore #drop23_IN").html());
+				    		   
+				    		   $("#drop14").html($("#tempStore #drop14_IN").html());
+				    		   $("#drop24").html($("#tempStore #drop24_IN").html());
 
 
 	    			        $(".myrad2").prop('checked', false);
@@ -1098,33 +1142,38 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 		    				   }else {
 		    					   $(".nosum").hide();  
 		    				   }
-		    				  
-
 
 					    	   if (summary==1) {
 					    		   $(".showornot1").fadeOut();
 					    		   $("#box1"+h1).fadeIn();
+					    		   $("#box1"+h1).css("display","block");
 					    	   }
 					    	   if (summary==2) {
 					    		   $(".showornot1").fadeOut();
 					    		   $("#box3"+h1).fadeIn();
+					    		   $("#box3"+h1).css("display","block");
 					    	   }
 					    	   
 					    	   if (summary==3) {
 					    		   $(".showornot2").fadeOut();
 					    		   $("#box2"+h2).fadeIn();
+					    		   $("#box2"+h2).css("display","block");
 					    	   }
 					    	   if (summary==4) {
 					    		   $(".showornot2").fadeOut();
 					    		   $(".showornot1").fadeOut();
 					    		   $("#box2"+h2).fadeIn();
+					    		   $("#box2"+h2).css("display","block");
 					    		   $("#box1"+h1).fadeIn();
+					    		   $("#box1"+h1).css("display","block");
 					    	   }
 					    	   if (summary==5) {
 					    		   $(".showornot2").fadeOut();
 					    		   $(".showornot1").fadeOut();
 					    		   $("#box2"+h2).fadeIn();
+					    		   $("#box2"+h2).css("display","block");
 					    		   $("#box3"+h1).fadeIn();
+					    		   $("#box3"+h1).css("display","block");
 					    	   }
 
 					    	   //HAWTHORNE
@@ -1329,8 +1378,8 @@ if (clickType=="drop22s") {
 								    				  downloadExcel="no";
 								    				  getGrid();
 								    			  });
-								    			  
-								    			  $("body").toggleClass("wait");	  
+
+								    			  $("body").removeClass("wait");	  
 
 					   },
 					    error: function (xhr, ajaxOptions, thrownError) {

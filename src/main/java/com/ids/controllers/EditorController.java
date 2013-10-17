@@ -418,7 +418,7 @@ public class EditorController implements DropdownInterface {
 		    		  try{
 		    		  String colHeading= "company";
 		    		  
-		    		  ColumnNameArray cna = new ColumnNameArray(statement,"country shortname", COMPANY,
+		    		  ColumnNameArray cna = new ColumnNameArray(srp,statement,"country shortname", COMPANY,
 		    				  srp.getFromDate(), srp.getToDate(), access, total,"no");
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
@@ -467,11 +467,11 @@ public class EditorController implements DropdownInterface {
 		    		  if (srp.getSwap()==1){
 		    			  colHeading="product";
 		    			  colHead2="year";
-		    			  cna = new ColumnNameArray(statement,"years", PRODUCT,
+		    			  cna = new ColumnNameArray(srp,statement,"years", PRODUCT,
 		    					  srp.getFromDate(), srp.getToDate(), access, total,"no"); 
 		    			  model.addAttribute("myDimension","Year");
 		    		  } else {
-		    			  cna = new ColumnNameArray(statement,"product shortname", YEARS,
+		    			  cna = new ColumnNameArray(srp,statement,"product shortname", YEARS,
 		    					  srp.getFromDate(), srp.getToDate(), access, total,"no"); 
 		    			  model.addAttribute("myDimension","Product shortname");
 		    		  }
@@ -522,11 +522,11 @@ public class EditorController implements DropdownInterface {
 		    		  if (srp.getSwap()==1){
 		    			  colHeading="country";
 		    			  colHead2="year";
-		    			  cna = new ColumnNameArray(statement,"years", COUNTRY,
+		    			  cna = new ColumnNameArray(srp,statement,"years", COUNTRY,
 		    					  srp.getFromDate(), srp.getToDate(), access, total,"no"); 
 		    			  model.addAttribute("myDimension","Year");
 		    		  } else {
-		    			  cna = new ColumnNameArray(statement,"country shortname", YEARS,
+		    			  cna = new ColumnNameArray(srp,statement,"country shortname", YEARS,
 		    					  srp.getFromDate(), srp.getToDate(), access, total,"no"); 
 		    			  model.addAttribute("myDimension","Country shortname");
 		    		  }
@@ -576,11 +576,11 @@ public class EditorController implements DropdownInterface {
 		    		  if (srp.getSwap()==1){
 		    			  colHeading="country";
 		    			  colHead2="product";
-		    			  cna = new ColumnNameArray(statement,"product shortname", COUNTRY,
+		    			  cna = new ColumnNameArray(srp,statement,"product shortname", COUNTRY,
 		    					  srp.getFromDate(), srp.getToDate(),access,total,"no"); 
 		    			  model.addAttribute("myDimension","Product shortname");
 		    		  } else {
-		    			  cna = new ColumnNameArray(statement,"country shortname", PRODUCT,
+		    			  cna = new ColumnNameArray(srp,statement,"country shortname", PRODUCT,
 		    					  srp.getFromDate(), srp.getToDate(),access,total,"no"); 
 		    			  model.addAttribute("myDimension","Country shortname");
 		    		  }
@@ -626,7 +626,7 @@ public class EditorController implements DropdownInterface {
 		    		  try{
 		    		  String colHeading= "company";
 		    		  
-		    		  ColumnNameArray cna = new ColumnNameArray(statement,"product shortname", COMPANY,
+		    		  ColumnNameArray cna = new ColumnNameArray(srp,statement,"product shortname", COMPANY,
 		    				  srp.getFromDate(), srp.getToDate(), access,total,"no");
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 		    		  model.addAttribute("myDimension","Product shortname");
@@ -669,7 +669,7 @@ public class EditorController implements DropdownInterface {
 		    			  (srp.getHeading2()==COUNTRY && srp.getHeading1()==PRODUCT) ) {
 		    		  try{
 		    		  String colHeading= "company";
-		    		  ColumnNameArray cna = new ColumnNameArray(statement,"years" ,COMPANY,
+		    		  ColumnNameArray cna = new ColumnNameArray(srp,statement,"years" ,COMPANY,
 		    				  srp.getFromDate(), srp.getToDate(), access,total,"no");
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 		    		  model.addAttribute("myDimension","Year");

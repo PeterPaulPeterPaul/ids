@@ -44,7 +44,7 @@ public class AddJsonPercentage {
 				JSONObject jo1 = clobArray.getJSONObject(1);
 			
 			    if (jo1.has("columns")){
-				   logger.warning("it has myData");
+				//   logger.warning("it has myData");
 				   JSONArray myArray = jo1.getJSONArray("columns");
 				   headers = new ArrayList<ColumnsAndTotals>();
 				   
@@ -63,10 +63,10 @@ public class AddJsonPercentage {
 				   
 				   
 				   JSONObject jo2 = clobArray.getJSONObject(2);
-					logger.warning("size1 is: "+clobArray.length());
+				//	logger.warning("size1 is: "+clobArray.length());
 					
 					JSONArray myDataArray = jo2.getJSONArray("myData");
-					logger.warning("myData size: "+myDataArray.length());
+				//	logger.warning("myData size: "+myDataArray.length());
 					
 						
 						int j = 0;
@@ -76,7 +76,7 @@ public class AddJsonPercentage {
 							
 								try{
 
-									 logger.warning("j: "+j+ " columnName: "+(h.getColName() ));
+									// logger.warning("j: "+j+ " columnName: "+(h.getColName() ));
 									 if (!h.getColName().contains("PPC")) {
 										 p+=1;
 									 }

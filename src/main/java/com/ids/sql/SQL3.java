@@ -7,10 +7,24 @@ public class SQL3 {
 	public SQL3(int salesOrProduction, int countryId, int productId, int fromYear, int toYear, String incExCountries,
 			String incExProducts, String incExCompanies, String dateParm, String access) {
 
-	      query = " select a.year, a.quantity, b.name as company, d.name as product, c.country from Facts_"+access+" a, Company b, Country c, Product d " +
+        String countryClause="";
+        String queryPart1 =  "";
+        String groupBy="";
+		if (countryId == -10) {
+			countryClause = " AND a.countryId NOT IN (20,21,0) ";
+			queryPart1 =  " select a.year, SUM(a.quantity) as quantity, b.name as company, d.name as product, 'EUROPE' as country ";
+			groupBy = " group by  a.year,  b.name, d.name, 'EUROPE'  ";
+		} else {
+			countryClause = " AND a.countryId = "+countryId;
+			queryPart1 =  " select a.year, a.quantity, b.name as company, d.name as product, c.country ";
+		}
+
+
+	               query = queryPart1+
+	              " from Facts_"+access+" a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +
-	    		  " and a.countryId = " + countryId+
+	    		  countryClause+
 	    		  " and a.productId = " +productId+
 	    		  incExCountries +
 	    		  incExProducts+
@@ -21,6 +35,7 @@ public class SQL3 {
 	    		  " and d.id = a.productId " +
 	    		  " and a.access = '" + access + "' " +
 	    		  " and a.countryId = c.id" +
+	    		  groupBy+
 	    		  " order by b.name , a.year asc";
 		
 	}

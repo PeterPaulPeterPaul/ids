@@ -22,13 +22,16 @@ public class ReplaceDropsWithFilterValues  implements DropdownInterface {
 	private ModelMap model;
 	private int countryId;
 	private int productId;
+	private int companyId;
 	private int countryId2;
 	private int productId2;
+	private int companyId2;
 	private int yearParam;
 	private int fromYear;
 	private int toYear;
 	private String countries;
 	private String products;
+	private String companies;
 	private boolean countryFilter = false;
 	public ReplaceDropsWithFilterValues ( Connection con, StoreRequestParameters srp, String access, ModelMap model ) 
 			 throws SQLException {
@@ -36,7 +39,7 @@ public class ReplaceDropsWithFilterValues  implements DropdownInterface {
 		this.model = model;
 		ResultSet resultSet = null;
 		Statement statement = con.createStatement();
-		 
+		
 		countryFilter=false;
 		
 		countries = srp.getIncExCountries();
@@ -53,6 +56,14 @@ public class ReplaceDropsWithFilterValues  implements DropdownInterface {
   		  countryId2= srp.getDropdown2();
   		  logger.warning("head 2 countryID: "+countryId );
   	  }
+		if (srp.getHeading1()==COMPANY) {
+	  		  companyId2= srp.getDropdown1();
+	  		  logger.warning("head 1 companyID: "+companyId );
+	  	  }
+	  	  if (srp.getHeading2()==COMPANY) {
+	  		  companyId2= srp.getDropdown2();
+	  		  logger.warning("head 2 companyID: "+companyId );
+	  	  }
   	  if (srp.getHeading1()==PRODUCT) {
   		  productId2= srp.getDropdown1();
   		  logger.warning("head 1 productID: "+productId );
@@ -76,9 +87,10 @@ public class ReplaceDropsWithFilterValues  implements DropdownInterface {
 		if (products==null || products.length()<3) {
 			products="";
 		}
-		
-		
-		
+		if (companies==null || companies.length()<3) {
+			companies="";
+		}
+
 			 model.addAttribute("drop11","drop11");
 			 model.addAttribute("drop21","drop21");
 		
@@ -147,13 +159,41 @@ public class ReplaceDropsWithFilterValues  implements DropdownInterface {
 							 yearParam = fromYear;
 						 }
 
-					 
 					 StringBuilder sb3 = new StringBuilder();
 					 for (int i=fromYear;i<=toYear;i++) {
 						 sb3.append("<option value="+i+">"+i+" </option>");
 			    	  }
 				      model.addAttribute("years",sb3.toString());
+				      
+				      
+				      
+				      model.addAttribute("drop14","drop14");
+						 model.addAttribute("drop24","drop24");
+					
+				         String  query4 = "select b.id as id , b.name from Company b where b.id != 0 and b.access = '"+access+"' " +
+				         		companies +" order by b.name asc " ;
+				      
+				         logger.warning(query4);
 
+					      resultSet = statement.executeQuery(query4);
+					      StringBuilder sb4 = new StringBuilder();
+					      boolean first4 =true;
+					      while (resultSet.next()) {
+					    	  if (first4) {
+					    		  this.companyId = Integer.parseInt(resultSet.getString("id"));  
+					    		  first4 = false;
+					    	  }
+					    	  sb4.append("<option value="+resultSet.getString("id")+">"+resultSet.getString("name")+" </option>");
+					          if (Integer.parseInt(resultSet.getString("id"))==companyId2 ){
+					        	  this.companyId = Integer.parseInt(resultSet.getString("id"));
+					        	  logger.warning("found ID when should not");
+					          }
+					      }
+
+					      model.addAttribute("companies",sb4.toString());
+					      
+						 
+						 
 	}
 	
 	public ModelMap getModel() {
@@ -167,6 +207,9 @@ public class ReplaceDropsWithFilterValues  implements DropdownInterface {
 	}
 	public int getProductId() {
 		return productId;
+	}
+	public int getCompanyId() {
+		return companyId;
 	}
 	public int getYearParam() {
 		return yearParam;

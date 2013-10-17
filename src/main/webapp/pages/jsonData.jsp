@@ -36,6 +36,18 @@
 </div>
 
 
+<div id="${drop14}_IN" class="showornot1 viewable1" style="display:block;">
+<select class="dropdown1" id="drop14s" style="width:180px;margin:10px">
+ ${companies}
+</select>
+</div>
+
+<div id="${drop24}_IN" class="showornot2 viewable2" style="display:block;">
+<select class="dropdown2" id="drop24s" style="width:180px;margin:10px">
+ ${companies}
+</select>
+</div>
+
 <div id="myOldHeadings">${myOldHeadings}</div>
 <div id="myDropValue1" style="display:none">${myDropValue1}</div>
 <div id="myDropValue2" style="display:none">${myDropValue2}</div>

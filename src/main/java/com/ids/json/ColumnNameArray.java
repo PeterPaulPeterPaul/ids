@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.ids.businessLogic.DropdownInterface;
+import com.ids.businessLogic.StoreRequestParameters;
 
 public class ColumnNameArray implements DropdownInterface {
 
@@ -17,7 +18,7 @@ public class ColumnNameArray implements DropdownInterface {
 	
 	JSONObject columnNameObject = new JSONObject();
 	
-	public ColumnNameArray(Statement statement, String topRow, int dimension1, int fromYear, int toYear, 
+	public ColumnNameArray(StoreRequestParameters srp, Statement statement, String topRow, int dimension1, int fromYear, int toYear, 
 			   String access, String total, String percent) throws SQLException  {
 		
 	      try {
@@ -54,7 +55,9 @@ public class ColumnNameArray implements DropdownInterface {
 	          
 	          if (topRow.equals("product shortname")) {
 	        	  
-	        	  query = "select distinct shortname from Product where access = '"+access+"' order by shortname asc";
+	        	  query = "select distinct d.shortname from Product d where d.access = '"+access+"'" +
+	        	  srp.getIncExProducts()+
+	        	  		" order by d.shortname asc";
 	        	  resultSet = statement.executeQuery(query);
 
 	        	  while (resultSet.next()) {
@@ -68,7 +71,9 @@ public class ColumnNameArray implements DropdownInterface {
 	          }
 	          if (topRow.equals("country shortname")) {
 	        	  
-	        	  query = "select distinct shortname from Country where shortname != 'ALLY' and access = '"+access+"'  order by shortname asc";
+	        	  query = "select distinct c.shortname from Country c where c.shortname != 'ALLY' and c.access = '"+access+"' " +
+	        			  srp.getIncExCountries()+
+	        	  		" order by shortname asc";
 	        	  resultSet = statement.executeQuery(query);
 	        	  
 	        	  while (resultSet.next()) {
@@ -82,7 +87,9 @@ public class ColumnNameArray implements DropdownInterface {
 	          }
 	          if (topRow.equals("country")) {
 	        	  
-	        	  query = "select distinct country as name from Country where shortname != 'ALLY'  and access = '"+access+"' order by shortname asc";
+	        	  query = "select distinct c.country as name from Country c where c.shortname != 'ALLY'  and access = '"+access+"' " +
+	        			  srp.getIncExCountries()+
+	        			  " order by c.shortname asc";
 	        	  resultSet = statement.executeQuery(query);
 	        	  
 	        	  while (resultSet.next()) {
