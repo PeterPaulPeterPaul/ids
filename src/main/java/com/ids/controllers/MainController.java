@@ -218,7 +218,20 @@ public class MainController implements DropdownInterface {
 		    		
 		      }
 		    	
+			 Enumeration keys = request.getParameterNames(); 
+			 while (keys.hasMoreElements() )  
+      	   {  
+      		   longStringCompanies = (String)keys.nextElement();  
+      	      
+      	      if ( longStringCompanies.contains("includedCompanies")) {
+      	    	  longStringCompanies= longStringCompanies.replace("{\"includedCompanies\":\"","");
+      	    	  longStringCompanies= longStringCompanies.replace("}","");
+       	    	  longStringCompanies = longStringCompanies.replace("\"","");
+      	    	  logger.warning(longStringCompanies); 
+      	    	  break;
+      	      }
 
+      	   }  
 
 
 		    	  StoreRequestParameters srp = new   StoreRequestParameters(request,myYear,longStringCompanies);
@@ -471,7 +484,7 @@ public class MainController implements DropdownInterface {
 
 		    		  SQL4 sql4 =  new SQL4(srp.getSalesOrProduct(),
 		    			rd.getCountryId(), 
-		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),srp.getSwap(),
+		    		   rd.getCompanyId(), srp.getFromDate(), srp.getToDate(),srp.getSwap(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
 		    		    ,srp.getDateParm(),access);
 
@@ -536,7 +549,7 @@ public class MainController implements DropdownInterface {
 
 		    		  SQL5 sql5 =  new SQL5(srp.getSalesOrProduct(),
 		    				  rd.getProductId(), 
-		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(),srp.getSwap(),
+		    		   rd.getCompanyId(), srp.getFromDate(), srp.getToDate(),srp.getSwap(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
 		    		    ,srp.getDateParm(),access);
 
@@ -597,7 +610,7 @@ public class MainController implements DropdownInterface {
 
 		    		  SQL6 sql6 =  new SQL6(srp.getSalesOrProduct(),
 		    				  rd.getYearParam(), 
-		    		    (srp.getHeading1()==COMPANY ? srp.getDropdown1(): srp.getDropdown2()), srp.getFromDate(), srp.getToDate(), srp.getSwap(),
+		    		    rd.getCompanyId(), srp.getFromDate(), srp.getToDate(), srp.getSwap(),
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
 		    		    ,srp.getDateParm(),access);
 

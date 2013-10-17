@@ -7,7 +7,7 @@ public class SQL1 {
 	public SQL1(int salesOrProduction, int productId, int years, int fromYear, int toYear, String incExCountries, String incExProducts
 			,String incExCompanies, String dateParm, String access) {
 		
-	      query = " select a.year, a.quantity, b.name as company, d.name as product, c.shortname as country from Facts_"+access+" a, Company b, Country c, Product d " +
+	      query = " select a.year, a.quantity, substr(b.name,1,20) as company, d.name as product, c.shortname as country from Facts_"+access+" a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  " and a.productId = "+ productId +

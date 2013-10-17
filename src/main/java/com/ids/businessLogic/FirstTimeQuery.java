@@ -242,7 +242,7 @@ public class FirstTimeQuery {
 
 
 			    		  
-			    		  query = " select distinct a.id, a.name from Company a  , Facts_"+access+" b " +
+			    		  query = " select distinct a.id, substr(a.name,1,20) as name from Company a  , Facts_"+access+" b " +
 			    		  		" where a.id != 0" +
 			    		  		" and b.companyid = a.id " +
 			    		  		" and b.access = '" + access +"' and " +

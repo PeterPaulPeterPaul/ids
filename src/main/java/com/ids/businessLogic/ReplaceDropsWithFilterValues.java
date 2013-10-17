@@ -42,6 +42,8 @@ public class ReplaceDropsWithFilterValues  implements DropdownInterface {
 		
 		countryFilter=false;
 		
+		companies = srp.getIncExCompanies();
+		logger.warning("companies: "+companies);
 		countries = srp.getIncExCountries();
 		products = srp.getIncExProducts();
 		yearParam = srp.getFromDate();
@@ -169,9 +171,12 @@ public class ReplaceDropsWithFilterValues  implements DropdownInterface {
 				      
 				      model.addAttribute("drop14","drop14");
 						 model.addAttribute("drop24","drop24");
-					
-				         String  query4 = "select b.id as id , b.name from Company b where b.id != 0 and b.access = '"+access+"' " +
-				         		companies +" order by b.name asc " ;
+						 
+					String query4=	 " select distinct b.id, substr(b.name,1,20) name from Company b " +
+		    		  		" where b.id != 0" +
+							companies +
+		    		  		" and b.access = '" + access + "' " +
+		    		  		" order by b.name asc " ;
 				      
 				         logger.warning(query4);
 

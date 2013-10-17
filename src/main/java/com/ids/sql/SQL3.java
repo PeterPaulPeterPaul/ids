@@ -12,11 +12,11 @@ public class SQL3 {
         String groupBy="";
 		if (countryId == -10) {
 			countryClause = " AND a.countryId NOT IN (20,21,0) ";
-			queryPart1 =  " select a.year, SUM(a.quantity) as quantity, b.name as company, d.name as product, 'EUROPE' as country ";
+			queryPart1 =  " select a.year, SUM(a.quantity) as quantity, substr(b.name,1,20) as company, d.name as product, 'EUROPE' as country ";
 			groupBy = " group by  a.year,  b.name, d.name, 'EUROPE'  ";
 		} else {
 			countryClause = " AND a.countryId = "+countryId;
-			queryPart1 =  " select a.year, a.quantity, b.name as company, d.name as product, c.country ";
+			queryPart1 =  " select a.year, a.quantity, substr(b.name,1,20) as company, d.name as product, c.country ";
 		}
 
 

@@ -494,27 +494,34 @@ To <select id="todate" name="todate" >
             	  $("#title1").val(  $.trim($("#accessTypeSelectBoxItText").text()) );
             	  $("#title2").val(  $.trim($("#drop31sSelectBoxItText").text()) );
             	  
-           	  if ($(".showornot11").css("display") === "block") {
-        		  var myId1= $(".showornot11").attr("id");
-        		  $("#title3").val( $("#"+myId1).text() );
-        	  } else {
-               	  if ($(".showornot111").css("display") === "block") {
-            		  var myId1= $(".showornot111").attr("id");
-            		  $("#title3").val( $("#"+myId1).text() );
-               	  } else {
-        		      var myId1= $(".viewable1").attr("id");
-        		      $("#title3").val( $.trim($("#"+myId1+" option:selected").text() ));
-               	  }
-        	  }
+            	  
+            	  var myId1="";
+                 	if ($('.showornot11').filter(function (index) {
+                 		myId1=$(this).attr("id");
+                      return $(this).css("display") === "block";
+                         }).length) {
+        		          $("#title3").val( $("#"+myId1).text() );
+        	        } else {
+        	        	
+        	        	if ($('.showornot111').filter(function (index) {
+                     		myId1=$(this).attr("id");
+                          return $(this).css("display") === "block";
+                             }).length) {
+            		             $("#title3").val( $("#"+myId1).text() );
+               	        } else {
+        		           myId1= $(".viewable1").attr("id");
+        		           $("#title3").val( $.trim($("#"+myId1+" option:selected").text() ));
+               	        }
+        	        }
 
-           	  var myId="";
+           	  var myId2="";
            	if ($('.showornot22').filter(function (index) {
-           		myId=$(this).attr("id");
+           		myId2=$(this).attr("id");
                 return $(this).css("display") === "block";
             }).length) {
-      		     $("#title4").val( $("#"+myId).text() );
+      		     $("#title4").val( $("#"+myId2).text() );
       	      } else {
-            	  var myId2= $(".viewable2").attr("id");
+            	  myId2= $(".viewable2").attr("id");
             	  $("#title4").val(  $.trim($("#"+myId2+" option:selected").text() ));
       	      }  
   		    	  $("#printer").submit();
@@ -526,26 +533,35 @@ To <select id="todate" name="todate" >
             	  $("#title11").val(  $.trim($("#accessTypeSelectBoxItText").text()) );
             	  $("#title22").val(  $.trim($("#drop31sSelectBoxItText").text()) );
             	  
-           	  if ($(".showornot11").css("display") === "block") {
-        		  var myId1= $(".showornot11").attr("id");
-        		  $("#title33").val( $("#"+myId1).text() );
-        	  } else {
-               	  if ($(".showornot111").css("display") === "block") {
-            		  var myId1= $(".showornot111").attr("id");
-            		  $("#title33").val( $("#"+myId1).text() );
-               	  } else {
-        		      var myId1= $(".viewable1").attr("id");
-        		      $("#title33").val( $.trim($("#"+myId1+" option:selected").text() ));
-               	  }
-        	  }
+            	  var myId1="";
+               	if ($('.showornot11').filter(function (index) {
+               		myId1=$(this).attr("id");
+                    return $(this).css("display") === "block";
+                       }).length) {
+      		          $("#title33").val( $("#"+myId1).text() );
+      	        } else {
+      	        	
+      	        	if ($('.showornot111').filter(function (index) {
+                   		myId1=$(this).attr("id");
+                        return $(this).css("display") === "block";
+                           }).length) {
+          		             $("#title33").val( $("#"+myId1).text() );
+             	        } else {
+      		           myId1= $(".viewable1").attr("id");
+      		           $("#title33").val( $.trim($("#"+myId1+" option:selected").text() ));
+             	        }
+      	        }
 
-           	  if ($(".showornot22").css("display") === "block") {
-      		     var myId1= $(".showornot22").attr("id");
-      		     $("#title44").val( $("#"+myId1).text() );
-      	      } else {
-            	  var myId2= $(".viewable2").attr("id");
-            	  $("#title44").val(  $.trim($("#"+myId2+" option:selected").text() ));
-      	      } 
+         	  var myId2="";
+         	if ($('.showornot22').filter(function (index) {
+         		myId2=$(this).attr("id");
+              return $(this).css("display") === "block";
+          }).length) {
+    		     $("#title44").val( $("#"+myId2).text() );
+    	      } else {
+          	  myId2= $(".viewable2").attr("id");
+          	  $("#title44").val(  $.trim($("#"+myId2+" option:selected").text() ));
+    	      } 
         		  $("#excel1").submit();
         		  return false;
         		});
