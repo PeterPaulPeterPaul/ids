@@ -10,6 +10,7 @@ public class StoreRequestParameters {
 	private int dropdown2;
 	private int heading1;
 	private int heading2;
+	private boolean doNewDrops = false;
 	private int oldHeading1;
 	private int oldHeading2;
 	private String justClicked="";
@@ -26,6 +27,11 @@ public class StoreRequestParameters {
 	
 	public StoreRequestParameters(HttpServletRequest request, int myYear, String longStringCompanies){
 		
+		if (request.getParameter("newDrops")!= null && request.getParameter("newDrops").equals("yes")){
+			doNewDrops = true;
+		} else {
+			doNewDrops = false;
+		}
 		this.myYear = myYear;
 		list = Integer.parseInt(request.getParameter("list"));
 		salesOrProduct = Integer.parseInt(request.getParameter("pors"));
@@ -197,4 +203,9 @@ public class StoreRequestParameters {
 	public int getSummary() {
 		return summary;
 	}
+	
+	public boolean getDoNewDrops() {
+		return doNewDrops;
+	}
+	
 }

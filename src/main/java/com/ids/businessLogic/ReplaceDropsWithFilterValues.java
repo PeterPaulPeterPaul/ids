@@ -93,6 +93,12 @@ public class ReplaceDropsWithFilterValues  implements DropdownInterface {
 			companies="";
 		}
 
+		if (!srp.getDoNewDrops()) {
+	  	    countryId = countryId2;
+	  		companyId = companyId2;
+	  		productId = productId2;
+			return;
+		}
 			 model.addAttribute("drop11","drop11");
 			 model.addAttribute("drop21","drop21");
 		
