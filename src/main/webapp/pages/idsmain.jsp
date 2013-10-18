@@ -121,11 +121,14 @@ International Database Service
 
 
    <div id="dialogFilter" title="Filter" style="z-index:1500">
-             <div style="width:800px;float:left">
+             <div style="width:900px;float:left">
            
 
                 <div id="dropa44" style="width:90px; float:left" >
 <input type="button" style="font-size:small;"  name="submit1" id="submit1"  value="Hide"/>
+    </div>
+                          <div id="dropa44a" style="width:90px; float:left" >
+<input type="button" style="font-size:small;"  name="submit2" id="submit2"  value="Submit"/>
     </div>
           
 <div id="dropa1"  style="width:230px; float:left; z-index:1500; margin-top:4px" >
@@ -266,7 +269,7 @@ To <select id="todate" name="todate" >
 
 
 <div style="text-align:center;float:none">
-<div style="margin-left:15%;float:left">
+<div style="margin-left:10%;float:left">
 
 
 
@@ -473,7 +476,7 @@ To <select id="todate" name="todate" >
           $(function(){
         	    var dialogOpts = {
         	        modal: true,
-        	        width: 800,
+        	        width: 900,
         	        height: 106,
         	        position: 'top',
         	        dialogClass: "noOverDialog",
@@ -489,6 +492,7 @@ To <select id="todate" name="todate" >
           
           $(document).ready(function(){
 
+        	  var newDropdowns = "no";
 
         	  $( "#two" ).on("click" , function() {
             	  $("#title1").val(  $.trim($("#accessTypeSelectBoxItText").text()) );
@@ -611,23 +615,24 @@ To <select id="todate" name="todate" >
         		  getGrid();
         	  });
 
+        	  
         	  $("#drop11as").dropdownchecklist({ firstItemChecksAll: true, emptyText: "Filter Countries...",  width:200, zIndex:100,maxDropHeight:400
          		 , onItemClick: function(checkbox, selector){ 
          			downloadExcel="no";
-        			 getGrid();
+        		//	 getGrid();
         		 }
         	  });
         	  
         	  $("#drop12as").dropdownchecklist({ firstItemChecksAll: true, emptyText: "Filter Products ...",  width:200, zIndex:100,maxDropHeight:400 
          		 , onItemClick: function(checkbox, selector){ 
          			downloadExcel="no";
-        			 getGrid();
+        		//	 getGrid();
         		 }
         	  });
         	  $("#drop14as").dropdownchecklist({ firstItemChecksAll: true, emptyText: "Filter Companies ...",  width:200, zIndex:100,maxDropHeight:400
         		 , onItemClick: function(checkbox, selector){ 
         			 downloadExcel="no";
-        			 getGrid();
+        		//	 getGrid();
         		 }
         	  
         	  });
@@ -787,6 +792,7 @@ To <select id="todate" name="todate" >
              $("#ddcl-drop14as").children("span").children(".ui-dropdownchecklist-text").children("span").remove();
              $("#ddcl-drop14as").children("span").children(".ui-dropdownchecklist-text").text("Filter Companies...");
              downloadExcel="no";
+             newDropdowns="yes";
              getGrid();
              
           alert("filters cleared");
@@ -794,6 +800,13 @@ To <select id="todate" name="todate" >
 	  });
 	  
 	  $("#submit1").on("click",function(){
+		  $("#dialogFilter").dialog("close");
+	  });
+	  
+	  $("#submit2").on("click",function(){
+          downloadExcel="no";
+          newDropdowns="yes";
+          getGrid();
 		  $("#dialogFilter").dialog("close");
 	  });
 	  
@@ -1128,6 +1141,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    	   
 				    	   $("#tempOldHeadings").text($("#tempStore #myOldHeadings").html() );
 
+				    	   if (newDropdowns=="yes") {
 				    		   $("#drop11").html($("#tempStore #drop11_IN").html());
 				    		   $("#drop21").html($("#tempStore #drop21_IN").html());
 				    		   
@@ -1139,8 +1153,10 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    		   
 				    		   $("#drop14").html($("#tempStore #drop14_IN").html());
 				    		   $("#drop24").html($("#tempStore #drop24_IN").html());
-
-
+				    		   
+				    	   }
+				    	   newDropdowns="no";
+				    	   
 	    			        $(".myrad2").prop('checked', false);
 		    				   $(".myrad3").prop('checked', false);
 		    				   
