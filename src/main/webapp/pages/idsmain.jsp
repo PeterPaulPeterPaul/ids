@@ -111,6 +111,7 @@ International Database Service
 </span>
 </div>
 
+<input type="hidden" id="changeFlag" value="no"/>
 
 <div style="float:right;width:18%;background-color:#FFFF00;height:100%;">
 <div>
@@ -493,6 +494,7 @@ To <select id="todate" name="todate" >
           $(document).ready(function(){
 
         	  var newDropdowns = "no";
+        	  $("#changeFlag").val("no");
 
         	  $( "#two" ).on("click" , function() {
             	  $("#title1").val(  $.trim($("#accessTypeSelectBoxItText").text()) );
@@ -793,6 +795,7 @@ To <select id="todate" name="todate" >
              $("#ddcl-drop14as").children("span").children(".ui-dropdownchecklist-text").text("Filter Companies...");
              downloadExcel="no";
              newDropdowns="yes";
+    	     $("#changeFlag").val("yes");
              getGrid();
              
           alert("filters cleared");
@@ -806,6 +809,7 @@ To <select id="todate" name="todate" >
 	  $("#submit2").on("click",function(){
           downloadExcel="no";
           newDropdowns="yes";
+    	  $("#changeFlag").val("yes");
           getGrid();
 		  $("#dialogFilter").dialog("close");
 	  });
@@ -1137,7 +1141,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    	   
 				    	   $("#tempOldHeadings").text($("#tempStore #myOldHeadings").html() );
 
-				    	   if (newDropdowns=="yes") {
+				    	   if ($("#changeFlag").val()=="yes") {
 				    		   $("#drop11").html($("#tempStore #drop11_IN").html());
 				    		   $("#drop21").html($("#tempStore #drop21_IN").html());
 				    		   
@@ -1394,7 +1398,7 @@ if (clickType=="drop22s") {
 								    		   $(".dropdown1").selectBoxIt();
 								    		   $(".dropdown2").selectBoxIt();
 								    		   
-								    		   if (newDropdowns=="yes") {
+								    		   if ( $("#changeFlag").val()=="yes") {
 								    		   $(".dropdown1").on("change",function(){
 								    				  clickType= $(this).attr('id');
 								    				  downloadExcel="no";
@@ -1407,8 +1411,9 @@ if (clickType=="drop22s") {
 								    				  downloadExcel="no";
 								    				  getGrid();
 								    			  });
-								    		   }
-								    		   newDropdowns=="no" 
+								    		   } 
+								    		   newDropdowns=="no"
+								    		  $("#changeFlag").val("no");
 								    			  $("body").removeClass("wait");	  
 
 					   },
