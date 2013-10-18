@@ -962,7 +962,6 @@ var mydropdown1 = $("#"+myId+" option:selected").val();
       if (clickType=="myrad2") {
            mydropdown1 = $("#drop1"+firstPartId+" option:selected").val();
        } 
-
 if 	(firstPartId == secondPartId && clickType=="myrad2" ){
 	$("#"+myId).removeClass("viewable2");
 	$("#drop2"+h1).addClass("viewable2");
@@ -985,7 +984,6 @@ $(".showornot22").fadeOut()
 
 var my_SorP = $('#drop31s').val();
 var accessType = $("#accessType").val();
-			
 $("body").toggleClass("wait");
 //$("#wholescreen").fadeOut();
 //$("#titleBar").fadeOut();
@@ -1037,8 +1035,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 						  }
 					   }
 				   }
-				   
-				   
+
 				//   alert('/ids/main?list=2&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
 				//			  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
 				//			  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue);
@@ -1100,7 +1097,6 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			       	              $("#clearfilter").fadeIn();
 			       		}
 
-
 					  $.ajax({
 					         type: 'POST',
 						  url: '/main?list=1&accessType='+accessType+'&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
@@ -1155,7 +1151,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    		   $("#drop24").html($("#tempStore #drop24_IN").html());
 				    		   
 				    	   }
-				    	   newDropdowns="no";
+				    	 //  newDropdowns="no";
 				    	   
 	    			        $(".myrad2").prop('checked', false);
 		    				   $(".myrad3").prop('checked', false);
@@ -1398,6 +1394,7 @@ if (clickType=="drop22s") {
 								    		   $(".dropdown1").selectBoxIt();
 								    		   $(".dropdown2").selectBoxIt();
 								    		   
+								    		   if (newDropdowns=="yes") {
 								    		   $(".dropdown1").on("change",function(){
 								    				  clickType= $(this).attr('id');
 								    				  downloadExcel="no";
@@ -1410,7 +1407,8 @@ if (clickType=="drop22s") {
 								    				  downloadExcel="no";
 								    				  getGrid();
 								    			  });
-
+								    		   }
+								    		   newDropdowns=="no" 
 								    			  $("body").removeClass("wait");	  
 
 					   },
