@@ -1105,7 +1105,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 					         type: 'POST',
 						  url: '/main?list=1&accessType='+accessType+'&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
 				  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
-								  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue+"&newDrops="newDropdowns
+								  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue+"&newDrops="+newDropdowns
 								  +countriesParm+countriesList+productsParm+productsList+
 								  fromDate+toDate+"&excelDownload="+downloadExcel+
 								  "&rowTotal="+rowTotal+"&percent="+percents+dateParm,
