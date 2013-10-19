@@ -1059,8 +1059,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
   
 	 $("#printTotalJson").val(JSON.stringify(totals));
 
-  
-  alert(JSON.stringify(data));
+
 	   var myTabData = data.tabData;
 		var cols= myTabData[1].columns;
 	    var colModels=myTabData[0].columnModels;
