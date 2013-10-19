@@ -61,12 +61,12 @@ import com.ids.sql.SQL6;
 import com.ids.user.User;
 
 @Controller
-@RequestMapping(value="/getAccess")
-public class GetAccessRightsController implements DropdownInterface {
+@RequestMapping(value="/addcompany")
+public class AddCompanyController implements DropdownInterface {
 
 	private Connection con;
 
-   	private final static Logger logger = Logger.getLogger(GetAccessRightsController.class.getName()); 
+   	private final static Logger logger = Logger.getLogger(AddController.class.getName()); 
        
     //   HashMap<Integer,Integer> totalLine = null;
        HashMap<String,Integer> totalLine2 = null;
@@ -80,51 +80,72 @@ public class GetAccessRightsController implements DropdownInterface {
 			ModelMap model) {	   
 
 		 try{
+		 logger.warning("Entering Add Company");
 
-			 GetBeansFromContext gcfc = new GetBeansFromContext();
-			 con = gcfc.myConnection();
-		  con.setAutoCommit(false);
-			 
-			 
-			 
+		 
+		 GetBeansFromContext gcfc = new GetBeansFromContext();
+		 con = gcfc.myConnection();
+		  
+		  
 	      Statement statement = con.createStatement();
 
 	      ResultSet resultSet = null;
-	      String query = "select world, china, india from ids_users where userId = '"+request.getParameter("myUserId")+"'";
-logger.warning("query: "+query);
+	      HttpSession session = request.getSession(true);
+	      User user = (User) session.getAttribute("myUser");
+	 		 if (user==null ) {
+	   		      model.addAttribute("errortext","You must logon before you can access IDS");
 
-		  String world="";
-		  String china="";
-		  String india="";
+	   		   	  return "login";
+	   		 }
+	      
+	 		 if (request.getParameter("exit")!= null ){
+	 			 if (session.getAttribute("myUser") != null) {
+	 			    session.setAttribute("myUser",null);
+	 			 }
 
-		  resultSet = statement.executeQuery(query);
-		   while (resultSet.next()) {
-			  if (resultSet.getString("world").equals("1")){
-				  world="checked";
-			  }
-			  if (resultSet.getString("china").equals("1")){
-				  china="checked";
-			  }
-			  if (resultSet.getString("india").equals("1")){
-				  india="checked";
-			  }
-		   }
+	 			return "login"; 
+	 		 }
+	 		 
 
-			  String checked = "<div style='width:99%'>IDS: <input class='myrad2' type='checkbox' name='world' id='a1world'  value='w' "+world+" />"+
-		                " CDS: <input class='myrad2' type='checkbox' name='china' id='a1china'  value='c' "+china+" />"+
-		                " INDS: <input class='myrad2' type='checkbox' name='india' id='a1india'  value='i' "+india+" /></div>";
-			  
-		   model.addAttribute("mycheckboxes",checked);
-		   
+	 		 
+	 		String      query = " select 'found' as found from ids_users where userId = '"+user.getUserName()
+					  +"' and passwordId = '"+user.getPassword()+"'";
+
+			 resultSet = statement.executeQuery(query);
+
+	           boolean found = false;
+			   while (resultSet.next()) {
+				   if (resultSet.getString("found").equals("found")) {
+					   found = true;
+					   break;
+				   }
+				   break;
+			   }
+			   if (!found) {
+		   		      model.addAttribute("errortext","Invalid user credentials");
+
+		   		   	  return "login";
+			   }
+			   
+			   model.addAttribute("openOrClose","close");
+			   
 
 
 
-                con.commit();
+            	   String newSQL = "Insert into Company ( name, shortname, access, id) " +
+            	   		" values ('"+request.getParameter("company")+"','"+request.getParameter("accessType")+"','"+
+            	   		request.getParameter("company").replace(" ", "").substring(0,3).toUpperCase()+"',max(id)+1) " ;
+            	   logger.warning("InsertSQL: "+newSQL);
+            	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
+            	   int retval = statement2.executeUpdate();
+
+           //     con.commit();
 
 		 }catch(Exception e) {
 			 logger.log(Level.SEVERE,"Error",e);
 		 }
-		 return "checkedOptions";
+
+		 return "createUser";
 	 }
 	 
 	 @Transactional
@@ -145,3 +166,4 @@ logger.warning("query: "+query);
 	 
 	
 }
+

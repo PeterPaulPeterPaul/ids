@@ -174,20 +174,7 @@ public class LoginController {
 
 	        
 			 GetBeansFromContext gcfc = new GetBeansFromContext();
-		     gcfc = new GetBeansFromContext();
-			 DriverManager.registerDriver(new AppEngineDriver());
-			 con = DriverManager.getConnection(gcfc.myURL(),gcfc.myUserId(),gcfc.myPassword());
-			 
-	  //        DriverManager.registerDriver(new AppEngineDriver());
-	   //       con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","123smiggles321","Wednesday");
-	         
-	      //    GetBeansFromContext gcfc = new GetBeansFromContext();
-	 	//	 con = gcfc.myConnection();
-	          
-		//	 GetBeansFromContext gcfc = null;
-		//	 gcfc = new GetBeansFromContext();
-
-			// con = gcfc.myConnection();
+			 con = gcfc.myConnection();
 
 			 
 		      Statement statement = con.createStatement();

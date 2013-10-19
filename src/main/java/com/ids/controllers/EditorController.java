@@ -114,16 +114,7 @@ public class EditorController implements DropdownInterface {
 		 logger.warning("excelDownload: "+request.getParameter("excelDownload"));
 		 
 		 GetBeansFromContext gcfc = new GetBeansFromContext();
-	     gcfc = new GetBeansFromContext();
-		 DriverManager.registerDriver(new AppEngineDriver());
-		 con = DriverManager.getConnection(gcfc.myURL(),gcfc.myUserId(),gcfc.myPassword());
-		 //	 GetBeansFromContext gcfc = new GetBeansFromContext();
-     //    gcfc = new GetBeansFromContext();
-	// con = gcfc.myConnection();
-		 
-      //   DriverManager.registerDriver(new AppEngineDriver());
-      //   con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","user","password");
-       
+		 con = gcfc.myConnection();
 		 
 	      Statement statement = con.createStatement();
 

@@ -488,6 +488,12 @@ To <select id="todate" name="todate" >
 </div>
 </div>
 
+<div style="float:left;margin-left:5px">
+<div  style="display:block">
+     <input id="addcosub" class="k-button" type="submit" name="submitBtn" value="Add new Company" />
+</div>
+</div>
+
  </div>
  
 
@@ -548,6 +554,10 @@ To <select id="todate" name="todate" >
     <p id="pp44" >You have outstanding "EDIT" changes. To save to production press the RED save button</p>
  </div>
  
+     <div id="dialogAddCompany" title="Add new Company">
+     <p id="pap33" >Add new company name then submit</p>
+     <input id="companyName" type="text" value="" />
+    </div>
  
      <div id="dialogAdd" title="Add new row">
     <p id="pp33" >(You need to add the first quantity here before you can perform the normal row editing functions)</p>

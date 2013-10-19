@@ -74,11 +74,8 @@ public class SetupController {
 		 if (user==null || !user.getAccess().equals("a")) {
 			 return "redirect:/login";
 		 }
-    	
 		 GetBeansFromContext gcfc = new GetBeansFromContext();
-	     gcfc = new GetBeansFromContext();
-		 DriverManager.registerDriver(new AppEngineDriver());
-		 con = DriverManager.getConnection(gcfc.myURL(),gcfc.myUserId(),gcfc.myPassword());
+		 con = gcfc.myConnection();
 		 con.setAutoCommit(false);
 		 
 		 

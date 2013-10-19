@@ -20,17 +20,59 @@
         		    $("#dialog").dialog(dialogOpts2);
         		    $("#dialog44").dialog(dialogOpts2);
         		    $("#dialogAdd").dialog(dialogOpts2);
+        		    
         		
         		    $("#dialogDel").dialog(dialogOpts2);
 
+        	          var dialogOpts3333 = {
+        	      			 modal: true,
+        	  	            width: 500,
+        	  	            height: 300,
+        	  	            buttons: [{
+        	  	                text: "Create Company",
+        	  	                click : function() {    
+        	  	                	 $.ajax({
+        						         type: 'GET',
+        							  url: "/addcompany?company="+$("#companyName").val()+"&accessType="+$("#accessType").val(), 
+        					       processData: false,
+        					       dataType: 'html',
+        					       success: function(data) {  
+        					    	  
+        					    	   $("#dialogAddCompany").dialog("close");
+        					    	   alert("done!");
+        					       },
+        						    error: function (xhr, ajaxOptions, thrownError) {
+        						        alert(xhr.status);
+        						        alert(thrownError);
+        						      }
 
+        						     
+        						     
+        						  });
+        					   
+        	  	                	
+        	  	                	 return false;
+        	 	                	
+        	  	   	    		
+        		                }
+
+        		                }, {
+        		                text: "Cancel",
+        		                click: function() {
+        		                  $( this ).dialog( "close" );
+        		                    $(this).dialog(dialogOpts3333).dialog("close"); //return false; 
+        		                    return false;
+        		                } 
+        		                
+        		                }]
+        	  	                };
+        	  	                
+
+        		    $("#dialogAddCompany").dialog(dialogOpts3333);
+        		    
         	});
           
-          
 
-    	  
-    	  
-          
           $(document).ready(function(){
         	  
         	  
@@ -60,6 +102,7 @@
         	
         	  $("#dialogAdd").dialog("close");
         	  $("#dialogDel").dialog("close");
+        	  $("#dialogAddCompany").dialog("close");
         	  
         	  $("#twosub").on("click",function(){
         		  $("body").toggleClass("wait");
@@ -67,6 +110,10 @@
         	  });
         	  
 
+        	  $("#addcosub").on("click",function(){ 
+        		  $("#dialogAddCompany").dialog("open");
+        	  });
+        	  
         	  $("#addsub").on("click",function(){ 
         		 
             	  var selectedKey="";

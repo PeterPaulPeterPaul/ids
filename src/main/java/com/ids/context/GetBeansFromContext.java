@@ -1,6 +1,7 @@
 package com.ids.context;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import org.slf4j.Logger;
@@ -8,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.apache.commons.dbcp.BasicDataSource;
+
+import com.google.appengine.api.rdbms.AppEngineDriver;
 
 public class GetBeansFromContext {
 
@@ -40,12 +43,27 @@ public class GetBeansFromContext {
            return acp.getUsername();
 	}
 	
-	public Connection myConnection() 
+	
+	public String myDataSourceName()
 	{
 		   ctx = AppContext.getApplicationContext(); 
-
-		     source = (DriverManagerDataSource) ctx.getBean("DataSource");
-
+		   ApplicationContextProvider acp = (ApplicationContextProvider) ctx.getBean("contextApplicationContextProvider");
+           return acp.getDataSourceName();
+	}
+	
+	
+	public Connection myConnection() throws SQLException 
+	{
+		   ctx = AppContext.getApplicationContext(); 
+		   
+		   
+			 DriverManager.registerDriver(new AppEngineDriver());
+			 GetBeansFromContext gcfc = new GetBeansFromContext();
+			 
+			 //If this is set to GOOGLE YOU ARE RUNNING ON THE APP ENGINE
+			 if (!gcfc.myDataSourceName().equals("GOOGLE")) {
+			 
+			 source = (DriverManagerDataSource) ctx.getBean("DataSource");
 
 
 		        try {
@@ -61,6 +79,15 @@ public class GetBeansFromContext {
 					e.printStackTrace();
 					logger.error( "failed!", e );
 				}
+		        
+			 } else {
+			 
+			 
+			 con = DriverManager.getConnection(gcfc.myURL(),gcfc.myUserId(),gcfc.myPassword());
+			 }
+
+		  
+
 		return con;
 	}
 	

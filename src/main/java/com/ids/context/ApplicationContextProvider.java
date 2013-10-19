@@ -23,10 +23,17 @@ public class ApplicationContextProvider implements ApplicationContextAware {
 	private String url ="";
 	private String username ="";
 	private String password ="";
+	private String dataSourceName = "";
+	
+
     public void setApplicationContext(ApplicationContext ctx) throws BeansException {
         // Wiring the ApplicationContext into a static method
         AppContext.setApplicationContext(ctx);
     }
+    
+    public String getDataSourceName(){
+    	return dataSourceName;
+   }
     
     public String getUrl(){
     	return url;
@@ -39,10 +46,13 @@ public class ApplicationContextProvider implements ApplicationContextAware {
     public String getUsername(){
     	return username;
    }
+    public void setDataSourceName(String dataSourceName) {
+    	this.dataSourceName = dataSourceName;
+    }
+    
     public void setUsername(String username) {
     	this.username = username;
     }
-    
     
     public String getPassword(){
     	return password;

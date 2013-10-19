@@ -32,6 +32,11 @@
 		<url-pattern>/addrow</url-pattern>
 	</servlet-mapping>
 	
+ 	<servlet-mapping>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<url-pattern>/addcompany</url-pattern>
+	</servlet-mapping>
+	
 	  	<servlet-mapping>
 		<servlet-name>mvc-dispatcher</servlet-name>
 		<url-pattern>/deleterow</url-pattern>

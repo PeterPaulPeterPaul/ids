@@ -74,9 +74,8 @@ public class UserController {
 	       User  user = null;	    
 
 			 GetBeansFromContext gcfc = new GetBeansFromContext();
-		     gcfc = new GetBeansFromContext();
-			 DriverManager.registerDriver(new AppEngineDriver());
-			 con = DriverManager.getConnection(gcfc.myURL(),gcfc.myUserId(),gcfc.myPassword());
+			 con = gcfc.myConnection();
+			 
 	        Statement statement = con.createStatement();
 	        
 			 con.setAutoCommit(false);

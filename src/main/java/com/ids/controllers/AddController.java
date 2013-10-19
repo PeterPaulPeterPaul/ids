@@ -84,9 +84,7 @@ public class AddController implements DropdownInterface {
 		 logger.warning("excelDownload: "+request.getParameter("excelDownload"));
 		 
 		 GetBeansFromContext gcfc = new GetBeansFromContext();
-	     gcfc = new GetBeansFromContext();
-		 DriverManager.registerDriver(new AppEngineDriver());
-		 con = DriverManager.getConnection(gcfc.myURL(),gcfc.myUserId(),gcfc.myPassword());
+		 con = gcfc.myConnection();
 		  
 		  
 	      Statement statement = con.createStatement();

@@ -42,11 +42,8 @@ public class SetupOtherFactColumn {
     	ServletOutputStream out = null;
     	
 		 try{
-logger.warning("HHHHHHHHHHHHHHHHHHHH");
-GetBeansFromContext gcfc = new GetBeansFromContext();
-gcfc = new GetBeansFromContext();
-DriverManager.registerDriver(new AppEngineDriver());
-con = DriverManager.getConnection(gcfc.myURL(),gcfc.myUserId(),gcfc.myPassword());
+			 GetBeansFromContext gcfc = new GetBeansFromContext();
+			 con = gcfc.myConnection();
 
 	      Statement statement2 = con.createStatement();
 	      Statement statement3 = con.createStatement();

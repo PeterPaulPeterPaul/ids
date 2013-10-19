@@ -83,9 +83,7 @@ public class SaveController implements DropdownInterface {
 		 
 		 logger.warning("Entering application via GEt");
 		 GetBeansFromContext gcfc = new GetBeansFromContext();
-	     gcfc = new GetBeansFromContext();
-		 DriverManager.registerDriver(new AppEngineDriver());
-		 con = DriverManager.getConnection(gcfc.myURL(),gcfc.myUserId(),gcfc.myPassword());
+		 con = gcfc.myConnection();
 	      Statement statement = con.createStatement();
 
 	      ResultSet resultSet = null;
