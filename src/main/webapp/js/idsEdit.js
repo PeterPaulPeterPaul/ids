@@ -39,7 +39,7 @@
             	  var mySS2 = $(".viewable2").children(".dropdown2").attr("id");
             	  $("#title1").val(  $.trim($("#accessType option:selected").text()) );
             	  $("#title2").val(  $.trim($("#drop31s option:selected").text()) );
-            	  alert( $.trim($("#"+mySS1+" option:first").text()));
+            	//  alert( $.trim($("#"+mySS1+" option:first").text()));
             	  $("#title3").val(  $.trim($("#"+mySS1+" option:first").text()) );
             	  $("#title4").val(  $.trim($("#"+mySS2+" option:first").text()) );
   		    	  $("#printer").submit();
@@ -405,22 +405,12 @@
         		 }
         	  
         	  });
-        	
-        	  
-        	  alert("JOHN");
-        	  alert(parm3openOrClose());
-        	 
-        	  
+
         	  $("#dialogFilter").dialog("close");
         	  
 		      $("body").removeClass("js");
-		      alert("1");
 		      $("#dialog44").dialog(parm4openOrClose());
-		      alert("2");
 		   	  $("#dialog").dialog(parm3openOrClose());
-		   	alert("1");
-        	  
-
         	  
         	  $("#closeit").on("click",function(){
         		  $("body").toggleClass("wait");
@@ -549,8 +539,8 @@
 	  $(".dropdown1").on("change",function(){
 		  clickType= $(this).attr('id');
 		  downloadExcel="no";
-		  alert("here");
-		  alert(clickType);
+		//  alert("here");
+		//  alert(clickType);
 		  getGrid();
 	  });
 	  
@@ -1057,14 +1047,11 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
   
   }  
-	  alert("aa");
-	
+
 	  var totals=parm1JsonTotal(); 
-	  alert("abb");
-  
+
   var data = parm2firstTimeFromServer();
-  alert("cc");
-  
+
   $("#dataJson").val(JSON.stringify(data));
   $("#printDataJson").val(JSON.stringify(data));
   
@@ -1073,7 +1060,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 	 $("#printTotalJson").val(JSON.stringify(totals));
 
   
-  
+  alert(JSON.stringify(data));
 	   var myTabData = data.tabData;
 		var cols= myTabData[1].columns;
 	    var colModels=myTabData[0].columnModels;

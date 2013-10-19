@@ -21,24 +21,24 @@
 <script src="js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script src="js/jquery.jqGrid.min.js" type="text/javascript"></script>
 
-
+         <script type="text/javascript" src="js/idsEdit.js"></script>
 <script type="text/javascript">
 
 function parm1JsonTotal() {
-    return "${jsonTotal}";
+    return ${jsonTotal};
 }
 function parm2firstTimeFromServer() {
-	return "${firstTimeFromServer}";
+	return ${firstTimeFromServer};
 }
 function parm3openOrClose() {
-    return "${openOrClose}";
+    return '${openOrClose}';
 }
 function parm4openOrClose() {
-	return "${openOrClose2}";
+	return '${openOrClose2}';
 }
 
 </script>
-<script type="text/javascript" src="js/idsEdit.js"></script>
+
 
 <title>IDS</title>
 <style>
@@ -670,6 +670,8 @@ First Quantity:
  </div>
           <div id="success2Text" style="color:white;font-size: large;text-align: center; vertical-align: middle;height:20px;display:none;background:blue">
          Database update now taking place</div>
+         
+
  </body>
   
 	
