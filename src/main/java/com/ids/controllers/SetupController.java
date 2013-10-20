@@ -489,15 +489,12 @@ return "setup";
 			   model.addAttribute("displaytype","none");
 			   model.addAttribute("displaytype2","none");
 			   model.addAttribute("fileType","facts");
-			   
-			   DriverManager.registerDriver(new AppEngineDriver());
-		        con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","123smiggles321","Wednesday");
-		      //  con = DriverManager.getConnection("jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb","user","password");
-		       
-
+ 
+				 GetBeansFromContext gcfc = new GetBeansFromContext();
+				 con = gcfc.myConnection();
 				 con.setAutoCommit(false);
 				 
-				 
+				   model.addAttribute("ajaxPrefix",gcfc.ajaxURLprefix());
 				 
 			      Statement statement = con.createStatement();
 

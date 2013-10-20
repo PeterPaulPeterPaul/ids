@@ -279,7 +279,7 @@ body.wait, body.wait *{
 						    
 						    $("#mySelUser").on("change", function(e) {
 						    	$.ajax({
-		    		       	          url: "/getAccess?myUserId="+$("#mySelUser").val()+
+		    		       	          url: "${ajaxPrefix}getAccess?myUserId="+$("#mySelUser").val()+
 		    		       	        		  "&randNum=" + new Date().getTime(),
 		    		       	        		  
 		    		       	          type: 'GET',
@@ -310,7 +310,7 @@ body.wait, body.wait *{
 								 $("#errorText").css("display","none");
 								 
 								 $.ajax({
-		    		       	          url: "/getAccess?myUserId="+$("#mySelUser").val()+
+		    		       	          url: "${ajaxPrefix}getAccess?myUserId="+$("#mySelUser").val()+
 		    		       	        		  "&randNum=" + new Date().getTime(),
 		    		       	        		  
 		    		       	          type: 'GET',
@@ -367,7 +367,7 @@ body.wait, body.wait *{
 											                	}
 								    			         
 								    				         $.ajax({
-								    		       	          url: "/upgrade?userId="+$("#mySelUser").val()+
+								    		       	          url: "${ajaxPrefix}upgrade?userId="+$("#mySelUser").val()+
 								    		       	        		  "&world="+world+
 								    		       	        		  "&china="+china+
 								    		       	        		  "&india="+india+
@@ -471,7 +471,7 @@ body.wait, body.wait *{
 									                	}
 						    			         
 						    				         $.ajax({
-						    		       	          url: "/user?theirUserName="+$("#theirUserName2").val()
+						    		       	          url: "${ajaxPrefix}user?theirUserName="+$("#theirUserName2").val()
 						    		       	        		  +"&theirId="+$("#theirId2").val()+"&theirPassword="+$("#theirPassword2").val()+
 						    		       	        		  "&access="+access+
 						    		       	        		  "&world="+world+
@@ -565,7 +565,7 @@ body.wait, body.wait *{
 						    				    	 
 						    			         
 						    				         $.ajax({
-						    		       	          url: "/user?newPass="+$("#newPass").val()
+						    		       	          url: "${ajaxPrefix}user?newPass="+$("#newPass").val()
 						    		       	        		  +"&userID="+$("#mySelUser2").val()+"&randNum=" + new Date().getTime(),
 						    		       	        		  
 						    		       	          type: 'GET',
@@ -652,9 +652,10 @@ body.wait, body.wait *{
 						                		locked="0";
 						                	}
 						                	
+						                	alert("${ajaxPrefix}user?lockedUserID="+$("#mySelUser2").val()+"&locked="+locked+"&randNum=" + new Date().getTime());
 						    			         
 						    				         $.ajax({
-						    		       	          url: "/user?lockedUserID="+$("#mySelUser2").val()+"&locked="+locked+"&randNum=" + new Date().getTime(),
+						    		       	          url: "${ajaxPrefix}user?lockedUserID="+$("#mySelUser2").val()+"&locked="+locked+"&randNum=" + new Date().getTime(),
 						    		       	        		  
 						    		       	          type: 'GET',
 						    		       	          contentType: 'application/html',
@@ -704,18 +705,18 @@ body.wait, body.wait *{
 						    $("#closeit").on("click",function(){
 						    	  $("body").toggleClass("wait");
 				        		  $.ajax({
-									  url: '/main?exit=yes',
+									  url: '${ajaxPrefix}main?exit=yes',
 							         type: 'GET',
 							       contentType: 'application/html',
 							       processData: false,
 							       dataType: 'html',
 							       success: function(data) {  
-							    	   window.location = '/login';
+							    	   window.location = '${ajaxPrefix}login';
 							       },
 								    error: function (xhr, ajaxOptions, thrownError) {
 								        alert(xhr.status);
 								        alert(thrownError);
-								        window.location = '/login';
+								        window.location = '${ajaxPrefix}login';
 								      }
 
 								  });

@@ -33,7 +33,7 @@
         	  	                click : function() {    
         	  	                	 $.ajax({
         						         type: 'GET',
-        							  url: "/addcompany?company="+$("#companyName").val()+"&accessType="+$("#accessType").val(), 
+        							  url: parm5AjaxPrefix()+"addcompany?company="+$("#companyName").val()+"&accessType="+$("#accessType").val(), 
         					       processData: false,
         					       dataType: 'html',
         					       success: function(data) {  
@@ -462,18 +462,18 @@
         	  $("#closeit").on("click",function(){
         		  $("body").toggleClass("wait");
         		  $.ajax({
-					  url: '/main?exit=yes',
+					  url: parm5AjaxPrefix()+'main?exit=yes',
 			         type: 'GET',
 			       contentType: 'application/html',
 			       processData: false,
 			       dataType: 'html',
 			       success: function(data) {  
-			    	   window.location = '/login';
+			    	   window.location = parm5AjaxPrefix()+'login';
 			       },
 				    error: function (xhr, ajaxOptions, thrownError) {
 				        alert(xhr.status);
 				        alert(thrownError);
-				        window.location = '/login';
+				        window.location = parm5AjaxPrefix()+'login';
 				      }
 
 				  });
@@ -796,7 +796,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			       		}
 			       		
 			       		
-			       		var saveURL = '/saverow?list=1&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
+			       		var saveURL = parm5AjaxPrefix()+'saverow?list=1&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
 						  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
 						  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue
 						  +countriesParm+countriesList+productsParm+productsList+
@@ -817,7 +817,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
 					  $.ajax({
 					         type: 'POST',
-						  url: '/editor?list=1&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
+						  url: parm5AjaxPrefix()+'editor?list=1&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
 				  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
 								  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue
 								  +countriesParm+countriesList+productsParm+productsList+
@@ -918,7 +918,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
 		 saveparameters = {
 				    successfunc : null,
-				    url : '/saverow',
+				    url : parm5AjaxPrefix()+'saverow',
 				    extraparam : {},
 				    aftersavefunc : function( response ) {
 				                          alert('saved');
@@ -1129,7 +1129,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
       	height: 350,
       	cellEdit : true,
     	cellsubmit : 'remote',
-    	cellurl :"/saverow",
+    	cellurl :parm5AjaxPrefix()+"saverow",
     	afterSaveCell: function(){
     		$("#saveButId").css("display","block");
     	},

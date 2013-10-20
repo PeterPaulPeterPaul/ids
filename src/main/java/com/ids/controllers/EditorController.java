@@ -116,6 +116,7 @@ public class EditorController implements DropdownInterface {
 		 GetBeansFromContext gcfc = new GetBeansFromContext();
 		 con = gcfc.myConnection();
 		 
+		   model.addAttribute("ajaxPrefix",gcfc.ajaxURLprefix());
 	      Statement statement = con.createStatement();
 
 	      ResultSet resultSet = null;

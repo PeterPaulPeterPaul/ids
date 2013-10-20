@@ -36,6 +36,9 @@ function parm3openOrClose() {
 function parm4openOrClose() {
 	return '${openOrClose2}';
 }
+function parm5AjaxPrefix() {
+	return '${ajaxPrefix}';
+}
 
 </script>
 

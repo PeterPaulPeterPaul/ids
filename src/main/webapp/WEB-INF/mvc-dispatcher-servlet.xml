@@ -24,7 +24,7 @@
         <property name="url" value="jdbc:google:rdbms://hypothetical-motion4:hypothetical-motion/mydb" />
         <property name="username" value="123smiggles321" />
         <property name="password" value="Wednesday" />
-        <property name="dataSourceName" value="GOOGLE" />
+        <property name="dataSourceName" value="notGOOGLE" />
 </bean>
 
 <bean id="DataSource"

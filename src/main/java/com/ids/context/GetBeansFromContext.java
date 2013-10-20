@@ -21,7 +21,13 @@ public class GetBeansFromContext {
 
 	static final Logger logger = LoggerFactory.getLogger(GetBeansFromContext.class);
 	
-	
+	public String ajaxURLprefix(){
+
+		   if (myDataSourceName().equals("GOOGLE")) {
+			  return "/"; 
+		   }
+        return "/ids/";
+	}
 	public String myURL()
 	{
 		   ctx = AppContext.getApplicationContext(); 
