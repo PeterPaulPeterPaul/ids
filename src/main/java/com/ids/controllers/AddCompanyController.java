@@ -127,19 +127,27 @@ public class AddCompanyController implements DropdownInterface {
 		   		   	  return "login";
 			   }
 			   
-			   model.addAttribute("openOrClose","close");
+		//	   model.addAttribute("openOrClose","close");
+			   
+				    query = " select MAX(id)+1 as maxy from Company where access = '"+request.getParameter("accessType")+"'";
+
+				 resultSet = statement.executeQuery(query);
+               int newId=0;
+                     while (resultSet.next()) {
+					   newId =  resultSet.getInt("maxy");
+				   }
+			   
 			   
 
 
-
-            	   String newSQL = "Insert into Company ( name, shortname, access, id) " +
+            	   String newSQL = "Insert into Company ( name,  access,shortname, id) " +
             	   		" values ('"+request.getParameter("company")+"','"+request.getParameter("accessType")+"','"+
-            	   		request.getParameter("company").replace(" ", "").substring(0,3).toUpperCase()+"',max(id)+1) " ;
+            	   		request.getParameter("company").replace(" ", "").substring(0,3).toUpperCase()+"',"+newId+") " ;
             	   logger.warning("InsertSQL: "+newSQL);
             	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
             	   int retval = statement2.executeUpdate();
 
-           //     con.commit();
+                con.commit();
 
 		 }catch(Exception e) {
 			 logger.log(Level.SEVERE,"Error",e);

@@ -212,11 +212,11 @@
     			dimension5Val = $("#"+selectedKey2).val();
 
     		  	  $("#"+selectedKey).on("change",function(){ 
-              		 dimension1Val = $("#"+selectedKey+" option:selected").text();
+              		 dimension1Val = $("#"+selectedKey+" option:selected").val();
               	  });
     		  	  
     		  	  $("#"+selectedKey2).on("change",function(){ 
-               		 dimension5Val = $("#"+selectedKey2+" option:selected").text();
+               		 dimension5Val = $("#"+selectedKey2+" option:selected").val();
                	  });
     			
     			var dialogOpts3 = {
