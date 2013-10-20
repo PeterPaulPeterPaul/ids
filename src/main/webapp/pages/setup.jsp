@@ -74,9 +74,9 @@ body.wait, body.wait *{
 
 <div>
 <br>
-<span style="margin-left:125px">IDS:</span><input type="radio" class="radIT" value="ids" name="radio1" id="rad111" checked />
-CDS: <input type="radio" class="radIT" value="cds" name="radio1" id="rad112"/>
-INDS: <input type="radio" class="radIT" value="inds" name="radio1" id="rad113"/>
+<span style="margin-left:125px">IDS:</span><input type="radio" class="radIT" value="w" name="radio1" id="rad111" checked />
+CDS: <input type="radio" class="radIT" value="c" name="radio1" id="rad112"/>
+INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"/>
 
  </div>
 <div>
@@ -216,7 +216,15 @@ INDS: <input type="radio" class="radIT" value="inds" name="radio1" id="rad113"/>
 		 $(".accessType").val( $('input[name=radio1]:checked' ).val()  );
 	 
 	      $(".radIT").on("change", function() {
-	    	  $(".accessType").val( $('input[name=radio1]:checked' ).val() );
+	    	  
+	    	  var accessIT =  $('input[name=radio1]:checked' ).val();
+	    	  $('#testUp11').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+	    	  $('#testUp21').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+	    	  $('#testUp31').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+	    	  $('#testUp41').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+	    	  $('#testUp66').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+	    	  $('#testUp666').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+	    	//  $(".accessType").val( $('input[name=radio1]:checked' ).val() );
 	      });
 
 	      
