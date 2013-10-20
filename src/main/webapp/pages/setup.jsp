@@ -86,9 +86,9 @@ INDS: <input type="radio" class="radIT" value="inds" name="radio1" id="rad113"/>
 
 
 <tr>
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp11" action="setup2?access=w" method="post" name="factsForm1" enctype="multipart/form-data"   >
+		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp11" action="setup2" method="post" name="factsForm1" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="facts" /> 
-     <input type="hidden" class="accessType" name="accessType" value="" /> 
+     <input type="hidden" class="accessType" name="access" value="" /> 
    <td>Fact:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my1file${rowCount}" id="myfile11"  type="file" /></td>
         <td>  <input id="one1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
