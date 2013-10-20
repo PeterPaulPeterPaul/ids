@@ -213,7 +213,13 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"/>
 	 $(document).ready(function(){
 						
 
-		 $(".accessType").val( $('input[name=radio1]:checked' ).val()  );
+		 var accessIT =  $('input[name=radio1]:checked' ).val();
+   	  $('#testUp11').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+   	  $('#testUp21').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+   	  $('#testUp31').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+   	  $('#testUp41').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+   	  $('#testUp66').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+   	  $('#testUp666').get(0).setAttribute('action', 'setup2?access='+accessIT); 
 	 
 	      $(".radIT").on("change", function() {
 	    	  

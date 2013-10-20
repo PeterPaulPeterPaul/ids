@@ -157,6 +157,7 @@ public class SetupController {
 
     	    	if (fileType.contains("facts")){
     	    	BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+    	    	
     	    	String sql = "INSERT INTO Facts_"+access+"  (companyId, countryid, productid, year, sales_production, quantity, flag, access) " +
     	    			" values (?"+multiplier+",?"+multiplier+",?"+multiplier+",?,?, ?, ?,?)";
     	    	logger.warning("current sql: "+sql);
@@ -183,7 +184,7 @@ public class SetupController {
     	    		commitCount+=1;
     	    		commitCount1+=1;
     	    		String[] parms = sCurrentLine.split("\t");
-    	    		
+    	    		logger.warning(sCurrentLine);
     	    		 statement.setString(1,  parms[0]);
     	             statement.setString(2,  parms[1]);
     	             statement.setInt(3,  Integer.parseInt(parms[2]));
