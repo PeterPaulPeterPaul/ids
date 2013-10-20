@@ -31,12 +31,10 @@
     margin-left:100px;
 }
 .login .placeholder {
-    background: url("/quota/images/menubg.png") repeat-x scroll 0 0 transparent;
     height: 33px;
     white-space: nowrap;
 }
 .login .warning {
-    background: url("/quota/images/warning_left.gif") no-repeat scroll left top #FFF580;
     clear: both;
     color: #665E00;
     display: block;
@@ -46,13 +44,11 @@
     white-space: normal;
 }
 .login .warning span {
-    background: url("/quota/images/warning_right.gif") no-repeat scroll right top #FFF580;
     display: block;
     margin: 0;
     padding: 5px 10px 5px 0;
 }
 .login div h1 {
-    background: url("/quota/images/edge_header_left.gif") no-repeat scroll left top #DDDDDD;
     color: #003366;
     display: inline;
     font-size: 14pt;
@@ -60,7 +56,6 @@
     padding: 0 0 4px 6px;
 }
 .login div h1 span {
-    background: url("/quota/images/edge_header_right.gif") no-repeat scroll right top #DDDDDD;
     margin: 0;
     padding: 0 6px 0 0;
     white-space: nowrap;
@@ -114,7 +109,6 @@
     vertical-align: top;
 }
 .login input {
-    background: url("/quota/images/button_slice.gif") repeat-x scroll 0 0 transparent;
     border: 1px solid #999999;
     color: #003366;
     font-size: 9pt;
@@ -160,21 +154,18 @@
     width: 35%;
 }
 .headerdiv .leftdiv .mercedlogo div {
-    background: url("/quota/images/Nice_Logo.png") no-repeat scroll 0 0 transparent;
     height: 35px;
     margin-left: 20px;
     margin-top: 15px;
     width: 135px;
 }
 .headerdiv .rightdiv {
-    background: url("/quota/images/headeralpha.png") no-repeat scroll 0 0 #D1DFEC;
     display: inline-block;
     float: right;
     height: 58px;
     width: 50%;
 }
 .headerdiv .rightdiv .imageicon {
-    background: url("/quota/images/headersupport.png") no-repeat scroll 0 0 transparent;
     height: 58px;
     width: 156px;
 }
@@ -190,7 +181,6 @@
     position: relative;
 }
 .warningMsg .content, .warningMsg .t, .warningMsg .b, .warningMsg .b div {
-    background: url("/quota/images/warningBox.png") no-repeat scroll right top transparent;
     color: #666600;
 }
 .msgBox .t {
@@ -219,7 +209,6 @@
 }
 .warningMsg div.icon {
     background-color: transparent;
-    background-image: url("/quota/images/warningicon.png");
     background-position: center top;
     background-repeat: no-repeat;
     float: left;

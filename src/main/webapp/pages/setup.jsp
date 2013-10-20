@@ -7,9 +7,20 @@
    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <link rel="stylesheet" type="text/css" media="screen" href="css/chris.css" />
-<link rel="stylesheet" href="css/login.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="css/ids.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="css/ui.dropdownchecklist.themeroller.css" />
+
+          <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.8.0/jquery.selectBoxIt.css" />
+
 <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/ui.dropdownchecklist-1.4-min.js"></script>
+
+          <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.8.0/jquery.selectBoxIt.min.js"></script>
+
+<script src="js/i18n/grid.locale-en.js" type="text/javascript"></script>
+<script src="js/jquery.jqGrid.min.js" type="text/javascript"></script>
 <title>Login to IDS</title>
 
 	<script type="text/javascript">
@@ -62,6 +73,14 @@ body.wait, body.wait *{
 
 
 <div>
+<br>
+<span style="margin-left:125px">IDS:</span><input type="radio" class="radIT" value="ids" name="radio1" id="rad111" checked />
+CDS: <input type="radio" class="radIT" value="cds" name="radio1" id="rad112"/>
+INDS: <input type="radio" class="radIT" value="inds" name="radio1" id="rad113"/>
+
+ </div>
+<div>
+
 
 <table style="margin-left:120px;margin-top:10px;">
 
@@ -69,141 +88,65 @@ body.wait, body.wait *{
 <tr>
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp11" action="setup2?access=w" method="post" name="factsForm1" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="facts" /> 
-   <td>Fact IDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my1file${rowCount}" id="myfile11"  type="file" /></td>
+     <input type="hidden" class="accessType" name="accessType" value="" /> 
+   <td>Fact:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my1file${rowCount}" id="myfile11"  type="file" /></td>
         <td>  <input id="one1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
 </form>
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp12" action="setup2?access=c" method="post" name="factsForm2" enctype="multipart/form-data"   >
-     <input type="hidden" name="table" value="facts" /> 
-   <td>Fact CDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my2file${rowCount}" id="myfile12"  type="file" /></td>
-        <td>  <input id="one2" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
-
-</form>
+		
 </tr>
 
 <tr>
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp13" action="setup2?access=i" method="post" name="factsForm3" enctype="multipart/form-data"   >
-     <input type="hidden" name="table" value="facts" /> 
-   <td>Fact INDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my3file${rowCount}" id="myfile13"  type="file" /></td>
-        <td>  <input id="one3" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
-</form>
-
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp21" action="setup2?access=w" method="post" name="productsForm4" enctype="multipart/form-data"   >
+		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp21" action="setup2" method="post" name="productsForm4" enctype="multipart/form-data"   >
 
     <input type="hidden" name="table" value="products" /> 
-    <td>Products IDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my4file${rowCount}" id="myfile21"  type="file" /></td>
+    <input type="hidden" class="accessType" name="access" value="" /> 
+    <td>Products:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my4file${rowCount}" id="myfile21"  type="file" /></td>
         <td>  <input id="two1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
 </form>
 </tr>
-<tr>
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp22" action="setup2?access=c" method="post" name="productsForm5" enctype="multipart/form-data"   >
 
-    <input type="hidden" name="table" value="products" /> 
-    <td>Products CDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my5file${rowCount}" id="myfile22"  type="file" /></td>
-        <td>  <input id="two2" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
-</form>
-
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp23" action="setup2?access=i" method="post" name="productsForm6" enctype="multipart/form-data"   >
-
-    <input type="hidden" name="table" value="products" /> 
-    <td>Products INDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my6file${rowCount}" id="myfile23"  type="file" /></td>
-        <td>  <input id="two3" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
-
-</form>
-</tr>
 
     <tr>
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp31" action="setup2?access=w" method="post" name="countriesForm7" enctype="multipart/form-data"   >
+		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp31" action="setup2" method="post" name="countriesForm7" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="countries" /> 
-    <td>Countries IDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my7file${rowCount}" id="myfile31"  type="file" /></td>
+     <input type="hidden" class="accessType" name="access" value="" /> 
+    <td>Countries:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my7file${rowCount}" id="myfile31"  type="file" /></td>
        <td>   <input id="three1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
 </form>
 
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp32" action="setup2?access=c" method="post" name="countriesForm8" enctype="multipart/form-data"   >
-     <input type="hidden" name="table" value="countries" /> 
-    <td>Countries CDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my8file${rowCount}" id="myfile32"  type="file" /></td>
-       <td>   <input id="three2" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
-
-</form>
 </tr>
     <tr>
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp33" action="setup2?access=i" method="post" name="countriesForm9" enctype="multipart/form-data"   >
-     <input type="hidden" name="table" value="countries" /> 
-    <td>Countries INDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my9file${rowCount}" id="myfile33"  type="file" /></td>
-       <td>   <input id="three3" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
-</form>
-
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp41" action="setup2?access=w" method="post" name="companiesForm11" enctype="multipart/form-data"   >
+		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp41" action="setup2" method="post" name="companiesForm11" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="companies" /> 
-    <td>Companies IDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my11file${rowCount}" id="myfile41"  type="file" /></td>
+     <input type="hidden" class="accessType" name="access" value="" /> 
+    <td>Companies:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my11file${rowCount}" id="myfile41"  type="file" /></td>
       <td>    <input id="four1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
 </form>
 </tr>
- <tr>
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp42" action="setup2?access=c" method="post" name="companiesForm12" enctype="multipart/form-data"   >
-     <input type="hidden" name="table" value="companies" /> 
-    <td>Companies CDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my12file${rowCount}" id="myfile42"  type="file" /></td>
-      <td>    <input id="four2" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
-</form>
-
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp43" action="setup2?access=i" method="post" name="companiesForm13" enctype="multipart/form-data"   >
-     <input type="hidden" name="table" value="companies" /> 
-    <td>Companies INDS:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my13file${rowCount}" id="myfile43"  type="file" /></td>
-      <td>    <input id="four3" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
-
-</form>
-</tr>
+ 
 
 
 
   <tr>
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp66" action="setup3?access=w" method="post" name="testForm1"   > 
-    <td>Other download:</td><td>get IDS Data </td>
+		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp66" action="setup3" method="post" name="testForm1"   > 
+    <input type="hidden" class="accessType" name="access" value="" /> 
+    <td>Other download:</td><td>get Data </td>
       <td>    <input id="six" class="k-button" type="submit" name="submitBtn" value="test" /></td>
 
 </form>
 
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp666" action="setup2?access=w" method="post" name="othersForm2" enctype="multipart/form-data"   >
+		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp666" action="setup2" method="post" name="othersForm2" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="otherFacts" /> 
-    <td>Other IDS Load:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my14file${rowCount}" id="myfile5"  type="file" /></td>
-      <td>    <input id="six" class="k-button" type="submit" name="submitBtn" value="reupload data" /></td>
-
-</form>
-</tr>
-
- <tr>
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp77" action="setup3?access=c" method="post" name="testForm3"   > 
-    <td>Other download:</td><td>get CDS Data </td>
-      <td>    <input id="six" class="k-button" type="submit" name="submitBtn" value="test" /></td>
-
-</form>
-
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp777" action="setup2?access=c" method="post" name="othersForm4" enctype="multipart/form-data"   >
-     <input type="hidden" name="table" value="otherFacts" /> 
-    <td>Other CDS Load:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my15file${rowCount}" id="myfile5"  type="file" /></td>
-      <td>    <input id="six" class="k-button" type="submit" name="submitBtn" value="reupload data" /></td>
-
-</form>
-</tr>
-
-
- <tr>
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp88" action="setup3?access=i" method="post" name="testForm5"   > 
-    <td>Other download:</td><td>get INDS Data </td>
-      <td>    <input id="six" class="k-button" type="submit" name="submitBtn" value="test" /></td>
-
-</form>
-
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp888" action="setup2?access=i" method="post" name="othersForm6" enctype="multipart/form-data"   >
-     <input type="hidden" name="table" value="otherFacts" /> 
-    <td>Other INDS Load:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my16file${rowCount}" id="myfile5"  type="file" /></td>
+    <input type="hidden" class="accessType" name="access" value="" /> 
+    <td>Other reLoad data:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my14file${rowCount}" id="myfile5"  type="file" /></td>
       <td>    <input id="six" class="k-button" type="submit" name="submitBtn" value="reupload data" /></td>
 
 </form>
@@ -270,7 +213,13 @@ body.wait, body.wait *{
 	 $(document).ready(function(){
 						
 
-						    
+		 $(".accessType").val( $('input[name=radio1]:checked' ).val()  );
+	 
+	      $(".radIT").on("change", function() {
+	    	  $(".accessType").val( $('input[name=radio1]:checked' ).val() );
+	      });
+
+	      
 						    $("#dialog").dialog("close");
 						    $("#dialog2").dialog("close");
 						    $("#dialog2a").dialog("close");
@@ -651,9 +600,7 @@ body.wait, body.wait *{
 						                	if($('#lock2').is(':checked')){
 						                		locked="0";
 						                	}
-						                	
-						                	alert("${ajaxPrefix}user?lockedUserID="+$("#mySelUser2").val()+"&locked="+locked+"&randNum=" + new Date().getTime());
-						    			         
+  
 						    				         $.ajax({
 						    		       	          url: "${ajaxPrefix}user?lockedUserID="+$("#mySelUser2").val()+"&locked="+locked+"&randNum=" + new Date().getTime(),
 						    		       	        		  
