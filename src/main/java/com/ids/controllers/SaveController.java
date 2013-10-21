@@ -120,13 +120,13 @@ public class SaveController implements DropdownInterface {
 			   
 			   model.addAttribute("openOrClose","close");
 			   
-			    
+			    String access = request.getParameter("access");
 				   
 			   
 			   if (request.getParameter("save")!= null ) {
-				   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Delete from Facts_w");
+				   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Delete from Facts_"+access);
 				   statement2.executeUpdate();
-				   statement2 = (PreparedStatement) con.prepareStatement("insert into Facts_w select * from FactsEdit_w ");
+				   statement2 = (PreparedStatement) con.prepareStatement("insert into Facts_"+access+" select * from FactsEdit_"+access);
 				   statement2.executeUpdate();
 				   statement2 = (PreparedStatement) con.prepareStatement("update editing set flag = '0' ");
 				   statement2.executeUpdate();
@@ -279,25 +279,25 @@ public class SaveController implements DropdownInterface {
                }
                if (quant==0) {
             	   
-            	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Delete from FactsEdit_w where "+
-                		    " productId = "+productId + " and year = "+year+ " and access = 'w' "+
+            	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Delete from FactsEdit_"+access+" where "+
+                		    " productId = "+productId + " and year = "+year+ " and access = '"+access+"' "+
                 		   " and companyId = "+companyId + " and countryId = "+countryId+ " and sales_production = "+PorS);
                    int retval = statement2.executeUpdate();
             	   
                }else {
 			    
-               PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Update FactsEdit_w set quantity = "+
-            		   request.getParameter("FactVal")+ " where productId = "+productId + " and access= 'w' and year = "+year+
+               PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Update FactsEdit_"+access+" set quantity = "+
+            		   request.getParameter("FactVal")+ " where productId = "+productId + " and access= '"+access+"' and year = "+year+
             		   " and companyId = "+companyId + " and countryId = "+countryId+ " and sales_production = "+PorS);
-               logger.warning("SQL: "+"Update FactsEdit_w set quantity = "+
-            		   request.getParameter("FactVal")+ " where productId = "+productId + " and access= 'w' and year = "+year+
+               logger.warning("SQL: "+"Update FactsEdit_"+access+" set quantity = "+
+            		   request.getParameter("FactVal")+ " where productId = "+productId + " and access= '"+access+"' and year = "+year+
             		   " and companyId = "+companyId + " and countryId = "+countryId+ " and sales_production = "+PorS);
                int retval = statement2.executeUpdate();
                
                if (retval==0) {
-            	   String newSQL = "Insert into FactsEdit_w (quantity, productId, year, companyId, countryId," +
+            	   String newSQL = "Insert into FactsEdit_"+access+" (quantity, productId, year, companyId, countryId," +
             	   		" sales_production, access) values ("+request.getParameter("FactVal")+","+productId
-            	   		+","+year+","+companyId+","+countryId+","+PorS+",'w')";
+            	   		+","+year+","+companyId+","+countryId+","+PorS+",'"+access+"')";
             	   logger.warning("InsertSQL: "+newSQL);
             	   statement2 = (PreparedStatement) con.prepareStatement(newSQL);
             	   retval = statement2.executeUpdate();

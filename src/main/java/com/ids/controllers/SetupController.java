@@ -80,6 +80,7 @@ public class SetupController {
 		 
 		 
 		 String access = request.getParameter("access");
+		 logger.warning("access: " + access);
 		 
 	    	String multiplier="";
 	    	if (access.equals("c")) {
@@ -112,6 +113,7 @@ public class SetupController {
     	    if (name.equals("submitBtn")){
     	    	fileType="none";
     	    }
+    	    logger.warning("name: "+name);
     	    InputStream stream = item.openStream();
     	    if (!fileTypeFound)
     	     {
@@ -119,7 +121,7 @@ public class SetupController {
     	    //        + Streams.asString(stream) + " detected.");
     	    	fileTypeFound=true;
     	    	fileType = Streams.asString(stream);
-    	    	
+    	    	/*
     	    	if (fileType.equals("resetOthers")){
     	    		
     	    		PreparedStatement statement = (PreparedStatement) con.prepareStatement("DELETE FROM " +
@@ -144,18 +146,18 @@ public class SetupController {
      			   return  "setup";
     	    		
     	    	}
-    	    	if (fileType.equals("facts")) { 
-    	    		map.addAttribute("fileType","factsPARTDONE");
+    	    	//if (fileType.equals("facts")) { 
+    	    	//.addAttribute("fileType","factsPARTDONE");
     	    		
     	        
     	    		
-    	    		PreparedStatement statement = (PreparedStatement) con.prepareStatement("DELETE FROM Facts_"+access+"   where access='"+request.getParameter("access")+"' ");
-    	    		statement.executeUpdate();
-    	    		con.commit();
-    	     }
+    	    	//	PreparedStatement statement = (PreparedStatement) con.prepareStatement("DELETE FROM Facts_"+access+"   where access='"+request.getParameter("access")+"' ");
+    	    	//	statement.executeUpdate();
+    	    	//	con.commit();
+    	    // }*/
     	    } else {
 
-    	    	if (fileType.contains("facts")){
+    	    	if (fileType.contains("facts") && !fileType.contains("otherFacts")){
     	    	BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
     	    	
     	    	String sql = "INSERT INTO Facts_"+access+"  (companyId, countryid, productid, year, sales_production, quantity, flag, access) " +
@@ -177,14 +179,14 @@ public class SetupController {
     	    		
     	    		readToTotalCount+=1;
     	    		
-    	    		if ( totalCount >=readToTotalCount ) {
+    	    	//	if ( totalCount >=readToTotalCount ) {
     	    			
-    	    		}else{
+    	    	//	}else{
     	    		
     	    		commitCount+=1;
     	    		commitCount1+=1;
     	    		String[] parms = sCurrentLine.split("\t");
-    	    		logger.warning(sCurrentLine);
+    	    //		logger.warning(sCurrentLine);
     	    		 statement.setString(1,  parms[0]);
     	             statement.setString(2,  parms[1]);
     	             statement.setInt(3,  Integer.parseInt(parms[2]));
@@ -210,17 +212,19 @@ public class SetupController {
 
     	    			
     	    		}
-    	    		} //end of silly else
+    	    	//	} //end of silly else
     	    		
     			 
     	    	}
     	    	map.addAttribute("displaytype2","block");
     	    	map.addAttribute("displaytype","none");
  			   map.addAttribute("done",commitCount);
- 			  map.addAttribute("fileType","factsPARTDONE");
+ 		//	  map.addAttribute("fileType","factsPARTDONE");
  			   map.addAttribute("successtext"," records committed. LOAD COMPLETE!");
  			  statement.executeBatch();
     	    	con.commit();
+ 	    	   return  "setup";
+
     	        // Process the input stream
     	    	}
     	    	
@@ -230,20 +234,21 @@ public class SetupController {
     	    	
     	    	if (fileType.contains("otherFacts")){
     	    		
-    	    		String sql = "INSERT INTO Company (name, shortname, Id, access) values ('[Others]','OTH',-1"+multiplier+",'"+access+"') ";
-        	    	Statement statement11 = con.createStatement();
-    	    		statement11.executeUpdate(sql);
-    	    		
-        	    	BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+    	    		logger.warning("here1");
+    	    		//String sql = "INSERT INTO Company (name, shortname, Id, access) values ('[Others]','OTH',-1"+multiplier+",'"+access+"') ";
+        	    	//Statement statement11 = con.createStatement();
+    	    		//statement11.executeUpdate(sql);
+    	    		//logger.warning("here2");
+    	    		BufferedReader br3 = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
 
         	    	
-        	    	
-        	    	 sql = "INSERT INTO Facts_"+access+"  (companyId, countryid, productid, year, sales_production, quantity, flag, access) " +
+        	    	logger.warning("here3");
+        	    	 String sql = "INSERT INTO Facts_"+access+"  (companyId, countryid, productid, year, sales_production, quantity, flag, access) " +
         	    			" values (?"+multiplier+",?"+multiplier+",?"+multiplier+",?,?, ?, ?, ?)";
         	    //	String sql = "INSERT INTO Product (Name, Shortname, Id, SortOrder ) values (? , ? , ? ,? ) ";
                     PreparedStatement statement = (PreparedStatement) con.prepareStatement(sql);
 
-
+                    logger.warning("here4");
         	    	
         	    	//String query1 = item.getName();
         	    	String sCurrentLine= null;
@@ -252,8 +257,8 @@ public class SetupController {
         	        int upTo10K =0;
         	        int readToTotalCount=0;
         	        int commitCount1=0;
-        	    	while ((sCurrentLine = br.readLine()) != null) {
-        	    		
+        	        logger.warning("here5");
+        	    	while ((sCurrentLine = br3.readLine()) != null) {
         	    		readToTotalCount+=1;
         	    		
         	    	//	if ( totalCount >=readToTotalCount ) {
@@ -275,11 +280,11 @@ public class SetupController {
         	             } else {
         	            	 statement.setString(7,  " "); 
         	             }
-        	             statement.setString(8," ");
+        	             statement.setString(8,access);
         	             statement.addBatch();
         	             
         	    	//	statement.executeUpdate();
-        	    		if (commitCount1>=3000) {
+        	    		if (commitCount1>=1000) {
         	    			statement.executeBatch();
         	    			con.commit();
         	    			commitCount1=0;
@@ -292,13 +297,16 @@ public class SetupController {
         	    		
         			 
         	    	}
+
+       			  statement.executeBatch();
+      	    	con.commit();
+      	    	
         	    	map.addAttribute("displaytype2","block");
         	    	map.addAttribute("displaytype","none");
      			   map.addAttribute("done",commitCount);
      			  map.addAttribute("fileType","factsPARTDONE");
      			   map.addAttribute("successtext"," records committed. LOAD COMPLETE!");
-     			  statement.executeBatch();
-        	    	con.commit();
+
         	    	
         	    	   return  "setup";
         	        // Process the input stream
@@ -413,9 +421,7 @@ public class SetupController {
 
     	    	int count=0;
     	    	while ((sCurrentLine = br.readLine()) != null) {
-    	    		logger.warning("curr line: "+sCurrentLine);
     	    		String[] parms = sCurrentLine.split("\t");
-    	    		logger.warning("length: "+parms.length);
     	    		if (parms.length==0)
     	    			continue;
     	    		 statement.setString(1,  parms[0]);

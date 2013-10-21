@@ -88,7 +88,6 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"/>
 <tr>
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp11" action="setup2" method="post" name="factsForm1" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="facts" /> 
-     <input type="hidden" class="accessType" name="access" value="" /> 
    <td>Fact:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my1file${rowCount}" id="myfile11"  type="file" /></td>
         <td>  <input id="one1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
@@ -101,7 +100,6 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"/>
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp21" action="setup2" method="post" name="productsForm4" enctype="multipart/form-data"   >
 
     <input type="hidden" name="table" value="products" /> 
-    <input type="hidden" class="accessType" name="access" value="" /> 
     <td>Products:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my4file${rowCount}" id="myfile21"  type="file" /></td>
         <td>  <input id="two1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
@@ -113,7 +111,6 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"/>
     <tr>
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp31" action="setup2" method="post" name="countriesForm7" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="countries" /> 
-     <input type="hidden" class="accessType" name="access" value="" /> 
     <td>Countries:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my7file${rowCount}" id="myfile31"  type="file" /></td>
        <td>   <input id="three1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
@@ -124,7 +121,6 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"/>
 
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp41" action="setup2" method="post" name="companiesForm11" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="companies" /> 
-     <input type="hidden" class="accessType" name="access" value="" /> 
     <td>Companies:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my11file${rowCount}" id="myfile41"  type="file" /></td>
       <td>    <input id="four1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
@@ -145,8 +141,7 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"/>
 
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp666" action="setup2" method="post" name="othersForm2" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="otherFacts" /> 
-    <input type="hidden" class="accessType" name="access" value="" /> 
-    <td>Other reLoad data:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my14file${rowCount}" id="myfile5"  type="file" /></td>
+    <td>Other reLoad data:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my14filexxxx" id="myfile5xxxx"  type="file" /></td>
       <td>    <input id="six" class="k-button" type="submit" name="submitBtn" value="reupload data" /></td>
 
 </form>
@@ -218,7 +213,7 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"/>
    	  $('#testUp21').get(0).setAttribute('action', 'setup2?access='+accessIT); 
    	  $('#testUp31').get(0).setAttribute('action', 'setup2?access='+accessIT); 
    	  $('#testUp41').get(0).setAttribute('action', 'setup2?access='+accessIT); 
-   	  $('#testUp66').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+   	  $('#testUp66').get(0).setAttribute('action', 'setup3?access='+accessIT); 
    	  $('#testUp666').get(0).setAttribute('action', 'setup2?access='+accessIT); 
 	 
 	      $(".radIT").on("change", function() {
@@ -228,7 +223,7 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"/>
 	    	  $('#testUp21').get(0).setAttribute('action', 'setup2?access='+accessIT); 
 	    	  $('#testUp31').get(0).setAttribute('action', 'setup2?access='+accessIT); 
 	    	  $('#testUp41').get(0).setAttribute('action', 'setup2?access='+accessIT); 
-	    	  $('#testUp66').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+	    	  $('#testUp66').get(0).setAttribute('action', 'setup3?access='+accessIT); 
 	    	  $('#testUp666').get(0).setAttribute('action', 'setup2?access='+accessIT); 
 	    	//  $(".accessType").val( $('input[name=radio1]:checked' ).val() );
 	      });

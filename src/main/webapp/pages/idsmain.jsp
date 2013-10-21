@@ -232,7 +232,7 @@ To <select id="todate" name="todate" >
 <div style="float:left;">
 
 
-<form  id="excel1" action="/cron/down" method="post" name="factsForm1"   > 
+<form  id="excel1" action="${ajaxPrefix}cron/down" method="post" name="factsForm1"   > 
  <input id="dataJson"  type="hidden" name="jsonStuff" value="" />
   <input id="totalsJson"  type="hidden" name="jsonTotals" value="" />
       <input id="title11" type="hidden" name="title1" value=""/>
@@ -241,7 +241,7 @@ To <select id="todate" name="todate" >
   <input id="title44" type="hidden" name="title4" value=""/>
 </form>
 
-<form  target="_blank"  id="printer" action="/print" method="post" name="factsForm2"   > 
+<form  target="_blank"  id="printer" action="${ajaxPrefix}print" method="post" name="factsForm2"   > 
  <input id="printDataJson"  type="hidden" name="jsonStuff" value="" />
   <input id="printTotalJson"  type="hidden" name="jsonTotals" value="" />
     <input id="title1" type="hidden" name="title1" value=""/>
@@ -458,7 +458,7 @@ To <select id="todate" name="todate" >
  
 </div>
 <div style="display:none">
-<form id="accessform3" action="/login" method="post">
+<form id="accessform3" action="${ajaxPrefix}login" method="post">
    <input type="hidden" id="fromMain" name="currentAccess" value="populated" />
    <input id='submitLogin' type="submit" value="Login">
 </form>

@@ -80,7 +80,7 @@ public class SetupOtherFactColumn {
 	      
 	      statement2.executeUpdate("insert into Others_"+access+"  select productId, countryId, sales_production," +
 	      		" flag, year, sum(quantity) quantity from Facts_"+access+ " where companyID != 11"+multiplier+
-	      				" group by productId, countryId, sales_production," +
+	      				" group by productId, countryId, year, sales_production," +
 	      		" flag, year");
 	      
 	      logger.warning("below delete");

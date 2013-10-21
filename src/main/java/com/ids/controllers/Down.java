@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 
 public class Down extends HttpServlet {
 	
-	private final static Logger logger = Logger.getLogger(MainController.class.getName()); 
+	private final static Logger logger = Logger.getLogger(Down.class.getName()); 
 	
   public void doGet(HttpServletRequest request,
                     HttpServletResponse resp)

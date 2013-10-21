@@ -75,6 +75,8 @@
 
           $(document).ready(function(){
         	  
+        	  $("#accessCurrx").val( $("#accessType").val()   );
+        //	  alert( $("#accessType").val());
         	  
         	  $( "#two" ).on("click" , function() {
             	  var mySS1 = $(".viewable1").children(".dropdown1").attr("id");
