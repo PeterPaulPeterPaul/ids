@@ -39,7 +39,9 @@
         					       success: function(data) {  
         					    	  
         					    	   $("#dialogAddCompany").dialog("close");
-        					    	   alert("done!");
+        					    	   alert("done! (when this msg is closed the page will" +
+        					    	   		"  reload allowing you to pick this company from the drop down list)");
+        					    	   location.reload();
         					       },
         						    error: function (xhr, ajaxOptions, thrownError) {
         						        alert(xhr.status);
@@ -800,7 +802,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			       		
 			       		var saveURL = parm5AjaxPrefix()+'saverow?list=1&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
 						  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
-						  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue
+						  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue+"&access="+$("#accessType").val()
 						  +countriesParm+countriesList+productsParm+productsList+
 			       		  companiesParm+companiesList+fromDate+toDate+"&excelDownload="+downloadExcel+
 						  "&rowTotal="+rowTotal+dateParm;
@@ -920,7 +922,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
 		 saveparameters = {
 				    successfunc : null,
-				    url : parm5AjaxPrefix()+'saverow',
+				    url : parm5AjaxPrefix()+'saverow?access='+$("#accessType").val(),
 				    extraparam : {},
 				    aftersavefunc : function( response ) {
 				                          alert('saved');
@@ -1014,7 +1016,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
 					    			        	     if(id && id!==lastSel){ 
 					    			        	    	 
-					    			        	    	 jQuery('#list47').jqGrid('saveRow',id ,saveparameters);
+					    			        	    	 jQuery('#list47').jqGrid('saveRow?access='+ $("#accessType").val(),id ,saveparameters);
 
 					    			        	        lastSel=id; 
 					    			        	     }
@@ -1131,7 +1133,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
       	height: 350,
       	cellEdit : true,
     	cellsubmit : 'remote',
-    	cellurl :parm5AjaxPrefix()+"saverow",
+    	cellurl :parm5AjaxPrefix()+"saverow?access="+$("#accessType").val(),
     	afterSaveCell: function(){
     		$("#saveButId").css("display","block");
     	},

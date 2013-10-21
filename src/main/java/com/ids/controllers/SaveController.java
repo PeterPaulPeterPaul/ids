@@ -121,6 +121,7 @@ public class SaveController implements DropdownInterface {
 			   model.addAttribute("openOrClose","close");
 			   
 			    String access = request.getParameter("access");
+			    logger.warning("access: "+access);
 				   
 			   
 			   if (request.getParameter("save")!= null ) {
