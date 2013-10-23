@@ -6,13 +6,13 @@
 <head>
    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<link rel="stylesheet" type="text/css" media="screen" href="css/chris.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="css/ids.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="css/ui.dropdownchecklist.themeroller.css" />
 
-          <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.8.0/jquery.selectBoxIt.css" />
-
+ <link rel="stylesheet" type="text/css" media="screen" href="css/jquery.selectboxit.css" />
+          
+<link rel="stylesheet" type="text/css" media="screen" href="css/IDS-YELLOW/jquery-ui-1.10.3.custom.min.css" />
 <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="js/ui.dropdownchecklist-1.4-min.js"></script>
@@ -28,73 +28,6 @@ background-color:#FFFF00;
 }
 body.wait, body.wait *{
  cursor: wait !important;   
-}
-.js {display: none;}
-.colorWhite {
-            background-color: white !important;
-        }
-.colorGrey {
-            background-color: grey !important;
-        }
-.colorPink {
-            background-color: #f6a828 !important;
-        }
-.colorLightPink {
-            background-color: pink !important;
-        }
- .filter {
- border-color: gray;
-border-bottom: 2px solid;
-border-right: 2px solid;
- }
- .printerIcon {
- background-image: url(images/exit.bmp);
-background-repeat: no-repeat;
-background-position:left;
-padding-left: 3px;
- }
- .footrow td
-{
-color:#1c94c4;
-}       
-.titleFont{
-background:silver;
-}
-
-
-div.box{
-background: url(images/yellow.png) center center fixed; 
--webkit-background-size: cover;
--moz-background-size: cover;
-background-size: cover;
-border-style:solid;
-border-width:1px;
-border-color:grey;
-width:100%;
-height:56px;
-}
-.IDSheader{
-margin-top:15px;
-font-family:Arial,Helvetica,sans-serif;
-font-weight:normal;
-font-size:30px;
-position:relative;
-top:10px;
-}
-.leftLogo{
-float:left;
-margin-top:3px;
-margin-left:3px;
-margin-right:20px;
-}
-.noOverlayDialog{
-opacity:0.2;
-}
-.rightLogo{
-float:right;
-margin-top:3px;
-margin-left:10px;
-margin-right:3px;
 }
 </style>
 
@@ -118,7 +51,6 @@ International Database Service
 
 <div id="tempStore" style="display:none"></div>
 <div id="tempOldHeadings" style="display:none">12</div>
-
 
 
    <div id="dialogFilter" title="Filter" style="z-index:1500">
@@ -191,13 +123,13 @@ To <select id="todate" name="todate" >
 
 
 <div style="margin-left:15px;text-align:center"><br><br>
-  <input type="image" name="filter" class="filter" id="filter"   src="images/filter.png" />
-   <input type="button" style="font-size:x-small;display:none"  id="clearfilter"  value="Clear Filter"/>
+  <input type="image" name="filter" class="filter" id="filter"   src="images/filter-add-icon-32.png" />
+  <input type="button" style="font-size:x-small;display:none"  id="clearfilter"  value="Clear Filter"/>
   <input type="button" style="font-size:x-small;display:none" class="swap" name="swap1" id="swap1"  value="Swap cols/rows"/>
 </div>
-<div style="float:left;width:90%;margin-right:5%;margin-top:5%;">
-<fieldset style="background-color:#FFFF00;margin-left: 10px;">
-<legend>Header 1</legend>
+<div class="idsdefault" style="float:left;width:90%;margin-right:5%;margin-top:5%;">
+<fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 10px;">
+<legend style="font-size:medium;"  >Header 1</legend>
 <input type="button" style="font-size:x-small;" class="nosum" name="summary" id="summary" value="Summary"/>
 <input type="button" style="font-size:x-small;" class="nosum" name="grpsum" id="grpsum" value="Group Sum"/><br>
 <input class="myrad2" type="radio" name="horiz" id="a1"  value="1" checked >Country<br>
@@ -207,9 +139,9 @@ To <select id="todate" name="todate" >
 
 </fieldset>
 </div>
-<div style="float:left;width:90%;margin-right:5%;margin-top:15%">
-<fieldset style="background-color:#FFFF00;margin-left: 10px;">
-<legend>Header 2</legend>
+<div class="idsdefault"  style="float:left;width:90%;margin-right:5%;margin-top:15%">
+<fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 10px;">
+<legend style="font-size:medium;" >Header 2</legend>
 <input type="button" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum"/><br>
 <input class="myrad3" type="radio" id="z1" name="verti" value="1"  >Country<br>
 <input class="myrad3" type="radio"  id="z2" name="verti" value="2" checked >Product<br>
@@ -228,11 +160,11 @@ To <select id="todate" name="todate" >
 
 
 
-<div id="titleBar" style="float:left;width:82%;height:40%;padding-top:1%;">
-<div style="float:left;">
+<div id="titleBar" style="float:left;width:82%;height:40%;padding-top:1%;margin-top:5px">
+<div style="float:left; margin-left:5px;">
 
 
-<form  id="excel1" action="${ajaxPrefix}cron/down" method="post" name="factsForm1"   > 
+<form  id="excel1" action="/cron/down" method="post" name="factsForm1"   > 
  <input id="dataJson"  type="hidden" name="jsonStuff" value="" />
   <input id="totalsJson"  type="hidden" name="jsonTotals" value="" />
       <input id="title11" type="hidden" name="title1" value=""/>
@@ -241,7 +173,7 @@ To <select id="todate" name="todate" >
   <input id="title44" type="hidden" name="title4" value=""/>
 </form>
 
-<form  target="_blank"  id="printer" action="${ajaxPrefix}print" method="post" name="factsForm2"   > 
+<form  target="_blank"  id="printer" action="/print" method="post" name="factsForm2"   > 
  <input id="printDataJson"  type="hidden" name="jsonStuff" value="" />
   <input id="printTotalJson"  type="hidden" name="jsonTotals" value="" />
     <input id="title1" type="hidden" name="title1" value=""/>
@@ -250,16 +182,11 @@ To <select id="todate" name="todate" >
   <input id="title4" type="hidden" name="title4" value=""/>
 </form>
 
- <input id="one" style="font-size:x-small" type="button" name="submitBtn" value="Download Excel" />
-  <input id="two"  style="font-size:x-small" type="button" name="two" value="Print Preview" /><br>
-   <input id="toggleRowTotal"  style="font-size:x-small" type="button" name="toggleRowTotal" value="Remove row total" />
-  <input id="togglePercent"  style="font-size:x-small" type="button" name="togglePercent" value="Add Percentages" />
-  
-  
-<input type="image" name="close" id="closeit"  src="images/exit.bmp" />
-
-
-
+  <input id="two"  style="font-size:x-small" type="image" src="images/print-icon-32.png"  name="two" value="Print Preview" />
+  <input id="one" style="font-size:x-small" type="image" src="images/table-excel-icon-32.png" name="submitBtn" value="Download Excel" />
+  <input id="toggleRowTotal" style="font-size:x-small" type="image" src="images/table-sum-icon-32.png" name="toggleRowTotal" value="Remove row total" />
+  <input id="togglePercent"  style="font-size:x-small" type="image"  src="images/percent-icon-32.png" name="togglePercent" value="Add Percentages" />  
+  <input type="image" name="close" id="closeit"  src="images/deletered-32.png" />
 
 </div>
 
@@ -458,7 +385,7 @@ To <select id="todate" name="todate" >
  
 </div>
 <div style="display:none">
-<form id="accessform3" action="${ajaxPrefix}login" method="post">
+<form id="accessform3" action="/login" method="post">
    <input type="hidden" id="fromMain" name="currentAccess" value="populated" />
    <input id='submitLogin' type="submit" value="Login">
 </form>
@@ -471,6 +398,7 @@ To <select id="todate" name="todate" >
 <div id="plist47"></div>
 </div>
           <script type="text/javascript">
+          
           
           
           
@@ -1382,6 +1310,7 @@ if (clickType=="drop22s") {
 					    		         		  } else {
 					    		         			  $("#toggleRowTotal").val("Add row total");
 					    		         		  }
+				    		        		  
 				    		        		  
 				    		        		  if ($("#list47_PPC1").length) {
 					    		         		     $("#togglePercent").val("Remove Percentages");
