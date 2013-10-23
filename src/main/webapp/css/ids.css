@@ -1,9 +1,72 @@
 .idsdefault {
     font-family: Arial,Helvetica,sans-serif;
 }
- }
+ 
  .footrow td
 {
 color:#000000;
-}       
+}
 
+.titleFont{
+background:silver;
+}
+
+.js {display: none;}
+.colorWhite {
+            background-color: white !important;
+        }
+.colorGrey {
+            background-color: grey !important;
+        }
+.colorPink {
+            background-color: #f6a828 !important;
+        }
+.colorLightPink {
+            background-color: pink !important;
+        }
+ .filter {
+ border-color: gray;
+border-bottom: 2px solid;
+border-right: 2px solid;
+ }
+ 
+ .printerIcon {
+ background-image: url(images/exit.bmp);
+background-repeat: no-repeat;
+background-position:left;
+padding-left: 3px;
+ }
+
+
+div.box{
+background-color:#FFFFFF	; 
+border-style:solid;
+border-width:1px;
+border-color:grey;
+width:100%;
+height:56px;
+}
+
+.IDSheader{
+margin-top:15px;
+font-family:Arial,Helvetica,sans-serif;
+font-weight:normal;
+font-size:30px;
+position:relative;
+top:10px;
+}
+.leftLogo{
+float:left;
+margin-top:3px;
+margin-left:3px;
+margin-right:20px;
+}
+.noOverlayDialog{
+opacity:0.2;
+}
+.rightLogo{
+float:right;
+margin-top:3px;
+margin-left:10px;
+margin-right:3px;
+}
