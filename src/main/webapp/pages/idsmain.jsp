@@ -164,7 +164,7 @@ To <select id="todate" name="todate" >
 <div style="float:left; margin-left:5px;">
 
 
-<form  id="excel1" action="/cron/down" method="post" name="factsForm1"   > 
+<form  id="excel1" action="${ajaxPrefix}cron/down" method="post" name="factsForm1"   > 
  <input id="dataJson"  type="hidden" name="jsonStuff" value="" />
   <input id="totalsJson"  type="hidden" name="jsonTotals" value="" />
       <input id="title11" type="hidden" name="title1" value=""/>
@@ -173,7 +173,7 @@ To <select id="todate" name="todate" >
   <input id="title44" type="hidden" name="title4" value=""/>
 </form>
 
-<form  target="_blank"  id="printer" action="/print" method="post" name="factsForm2"   > 
+<form  target="_blank"  id="printer" action="${ajaxPrefix}print" method="post" name="factsForm2"   > 
  <input id="printDataJson"  type="hidden" name="jsonStuff" value="" />
   <input id="printTotalJson"  type="hidden" name="jsonTotals" value="" />
     <input id="title1" type="hidden" name="title1" value=""/>
@@ -385,7 +385,7 @@ To <select id="todate" name="todate" >
  
 </div>
 <div style="display:none">
-<form id="accessform3" action="/login" method="post">
+<form id="accessform3" action="${ajaxPrefix}login" method="post">
    <input type="hidden" id="fromMain" name="currentAccess" value="populated" />
    <input id='submitLogin' type="submit" value="Login">
 </form>
@@ -430,29 +430,35 @@ To <select id="todate" name="todate" >
             	  
             	  
             	  var myId1="";
-                 	if ($('.showornot11').filter(function (index) {
-                 		myId1=$(this).attr("id");
-                      return $(this).css("display") === "block";
-                         }).length) {
+                 	$('.showornot11').each(function (index) {
+                   		if ( $(this).css("display") === "block") {
+                   			myId1=$(this).attr("id");
+                   		}
+                    });
+                 	if (myId1 != "" ){
         		          $("#title3").val( $("#"+myId1).text() );
         	        } else {
         	        	
-        	        	if ($('.showornot111').filter(function (index) {
-                     		myId1=$(this).attr("id");
-                          return $(this).css("display") === "block";
-                             }).length) {
-            		             $("#title3").val( $("#"+myId1).text() );
-               	        } else {
+                     	$('.showornot111').each(function (index) {
+                       		if ( $(this).css("display") === "block") {
+                       			myId1=$(this).attr("id");
+                       		}
+                        });
+                     	if (myId1 != "" ){
+          		          $("#title3").val( $("#"+myId1).text() );
+          	        } else {
         		           myId1= $(".viewable1").attr("id");
         		           $("#title3").val( $.trim($("#"+myId1+" option:selected").text() ));
                	        }
         	        }
 
            	  var myId2="";
-           	if ($('.showornot22').filter(function (index) {
-           		myId2=$(this).attr("id");
-                return $(this).css("display") === "block";
-            }).length) {
+           	$('.showornot22').each(function (index) {
+           		if ( $(this).css("display") === "block") {
+           			myId2=$(this).attr("id");
+           		}
+            });
+           	 if (myId2 != "" ){
       		     $("#title4").val( $("#"+myId2).text() );
       	      } else {
             	  myId2= $(".viewable2").attr("id");
@@ -468,17 +474,22 @@ To <select id="todate" name="todate" >
             	  $("#title22").val(  $.trim($("#drop31sSelectBoxItText").text()) );
             	  
             	  var myId1="";
-               	if ($('.showornot11').filter(function (index) {
-               		myId1=$(this).attr("id");
-                    return $(this).css("display") === "block";
-                       }).length) {
+               	  var myId1="";
+               	$('.showornot11').each(function (index) {
+                 		if ( $(this).css("display") === "block") {
+                 			myId1=$(this).attr("id");
+                 		}
+                  });
+               	if (myId1 != "" ){
       		          $("#title33").val( $("#"+myId1).text() );
       	        } else {
-      	        	
-      	        	if ($('.showornot111').filter(function (index) {
-                   		myId1=$(this).attr("id");
-                        return $(this).css("display") === "block";
-                           }).length) {
+
+               	$('.showornot111').each(function (index) {
+                 		if ( $(this).css("display") === "block") {
+                 			myId1=$(this).attr("id");
+                 		}
+                  });
+               	if (myId1 != "" ){
           		             $("#title33").val( $("#"+myId1).text() );
              	        } else {
       		           myId1= $(".viewable1").attr("id");
@@ -487,10 +498,12 @@ To <select id="todate" name="todate" >
       	        }
 
          	  var myId2="";
-         	if ($('.showornot22').filter(function (index) {
-         		myId2=$(this).attr("id");
-              return $(this).css("display") === "block";
-          }).length) {
+         	 	$('.showornot22').each(function (index) {
+               		if ( $(this).css("display") === "block") {
+               			myId2=$(this).attr("id");
+               		}
+                });
+               	 if (myId2 != "" ){
     		     $("#title44").val( $("#"+myId2).text() );
     	      } else {
           	  myId2= $(".viewable2").attr("id");
@@ -499,7 +512,7 @@ To <select id="todate" name="todate" >
         		  $("#excel1").submit();
         		  return false;
         		});
-        	  
+           	  
         	  
 
 
@@ -578,7 +591,7 @@ To <select id="todate" name="todate" >
         	  $("#closeit").on("click",function(){
         		  $("body").toggleClass("wait");
         		  $.ajax({
-					  url: '/main?exit=yes',
+					  url: '${ajaxPrefix}main?exit=yes',
 			         type: 'GET',
 			       contentType: 'application/html',
 			       processData: false,
@@ -1031,7 +1044,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
 					  $.ajax({
 					         type: 'POST',
-						  url: '/main?list=1&accessType='+accessType+'&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
+						  url: '${ajaxPrefix}main?list=1&accessType='+accessType+'&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
 				  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
 								  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue+"&newDrops="+newDropdowns
 								  +countriesParm+countriesList+productsParm+productsList+
