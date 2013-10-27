@@ -161,7 +161,7 @@ To <select id="todate" name="todate" >
 
 
 <div id="titleBar" style="float:left;width:82%;height:40%;padding-top:1%;margin-top:5px">
-<div style="float:left; margin-left:5px;">
+<div style="float:right; margin-left:5px;">
 
 
 <form  id="excel1" action="${ajaxPrefix}cron/down" method="post" name="factsForm1"   > 
