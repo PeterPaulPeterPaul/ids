@@ -123,7 +123,7 @@ To <select id="todate" name="todate" >
 
 
 <div style="margin-left:15px;text-align:top">
-  <input type="image" name="filter" class="filter" id="filter"   src="images/filter-add-icon-32.png" />
+  <input type="image" name="filter" class="filter" id="filter"   src="images/filter-add-icon-32.png" title="IDS Filter"/>
   <input type="button" style="font-size:x-small;display:none"  id="clearfilter"  value="Clear Filter"/>
   <input type="button" style="font-size:x-small;display:none" class="swap" name="swap1" id="swap1"  value="Swap cols/rows"/>
 </div>
@@ -182,10 +182,10 @@ To <select id="todate" name="todate" >
   <input id="title4" type="hidden" name="title4" value=""/>
 </form>
 
-  <input id="two"  style="font-size:x-small" type="image" src="images/print-icon-32.png"  name="two" value="Print Preview" />
-  <input id="one" style="font-size:x-small" type="image" src="images/table-excel-icon-32.png" name="submitBtn" value="Download Excel" />
-  <input id="toggleRowTotal" style="font-size:x-small" type="image" src="images/table-sum-icon-32.png" name="toggleRowTotal" value="Remove row total" />
-  <input id="togglePercent"  style="font-size:x-small" type="image"  src="images/percent-icon-32.png" name="togglePercent" value="Add Percentages" />  
+  <input id="two"  style="font-size:x-small" type="image" src="images/print-icon-32.png"  name="two" value="Print Preview" title="Print Preview" />
+  <input id="one" style="font-size:x-small" type="image" src="images/table-excel-icon-32.png" name="submitBtn" value="Download Excel" title="Download to Excel" />
+  <input id="toggleRowTotal" style="font-size:x-small" type="image" src="images/table-sum-icon-32.png" name="toggleRowTotal" value="Remove row total" title="Remove row Total" />
+  <input id="togglePercent"  style="font-size:x-small" type="image"  src="images/percent-icon-32.png" name="togglePercent" value="Add Percentages" title="Add Percentages"/>  
   <input type="image" name="close" id="closeit"  src="images/deletered-32.png" />
 
 </div>
@@ -421,6 +421,8 @@ To <select id="todate" name="todate" >
           
           $(document).ready(function(){
 
+        	  $("input:image").tooltip();
+        	  
         	  var newDropdowns = "no";
         	  $("#changeFlag").val("no");
 
@@ -1318,17 +1320,27 @@ if (clickType=="drop22s") {
 				    						  
 
 				    						//  $("#titleBar").fadeIn();
+	//  $("#titleBar").fadeIn();
 				    		        		  if ($("#list47_TOTAL").length) {
 					    		         		     $("#toggleRowTotal").val("Remove row total");
+					    		         		    $("#toggleRowTotal").attr("title","Remove row total");
+					    		         		   $("#toggleRowTotal").tooltip( "option", "content","Remove row total" );
+					    		         		   
 					    		         		  } else {
 					    		         			  $("#toggleRowTotal").val("Add row total");
+					    		         			 $("#toggleRowTotal").attr("title","Add row total");
+					    		         			  $("#toggleRowTotal").tooltip( "option", "content","Add row total" );
 					    		         		  }
 				    		        		  
 				    		        		  
 				    		        		  if ($("#list47_PPC1").length) {
 					    		         		     $("#togglePercent").val("Remove Percentages");
+					    		         		    $("#togglePercent").attr("title","Remove Percentages");
+					    		         		   $("#togglePercent").tooltip( "option", "content","Remove Percentages" );
 					    		         		  } else {
 					    		         			  $("#togglePercent").val("Add Percentages");
+					    		         			 $("#togglePercent").attr("title","Add Percentages");
+					    		         			  $("#togglePercent").tooltip( "option", "content","Add Percentages" );
 					    		         	  }
 				    		        		  
 				    		        		  $('div[id^="jqgh_list47_PPC"]').each(function() {
