@@ -186,7 +186,7 @@ To <select id="todate" name="todate" >
   <input id="one" style="font-size:x-small" type="image" src="images/table-excel-icon-32.png" name="submitBtn" value="Download Excel" title="Download to Excel" />
   <input id="toggleRowTotal" style="font-size:x-small" type="image" src="images/table-sum-icon-32.png" name="toggleRowTotal" value="Remove row total" title="Remove row Total" />
   <input id="togglePercent"  style="font-size:x-small" type="image"  src="images/percent-icon-32.png" name="togglePercent" value="Add Percentages" title="Add Percentages"/>  
-  <input type="image" name="close" id="closeit"  src="images/deletered-32.png" />
+  <input type="image" name="close" id="closeit"  src="images/deletered-32.png" title="Exit IDS"/>
 
 </div>
 
