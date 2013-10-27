@@ -46,7 +46,7 @@ International Database Service
 
 <input type="hidden" id="changeFlag" value="no"/>
 
-<div style="float:right;width:18%;background-color:#FFFF00;height:100%;">
+<div style="float:right;width:18%;background-color:#FFFF00;height:100%;padding-top:1%;margin-top:3px;">
 <div>
 
 <div id="tempStore" style="display:none"></div>
@@ -122,14 +122,14 @@ To <select id="todate" name="todate" >
 </div>
 
 
-<div style="margin-left:15px;text-align:center"><br><br>
+<div style="margin-left:15px;text-align:top">
   <input type="image" name="filter" class="filter" id="filter"   src="images/filter-add-icon-32.png" />
   <input type="button" style="font-size:x-small;display:none"  id="clearfilter"  value="Clear Filter"/>
   <input type="button" style="font-size:x-small;display:none" class="swap" name="swap1" id="swap1"  value="Swap cols/rows"/>
 </div>
 <div class="idsdefault" style="float:left;width:90%;margin-right:5%;margin-top:5%;">
 <fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 10px;">
-<legend style="font-size:medium;"  >Header 1</legend>
+<legend style="font-size:large;"  >Header 1</legend>
 <input type="button" style="font-size:x-small;" class="nosum" name="summary" id="summary" value="Summary"/>
 <input type="button" style="font-size:x-small;" class="nosum" name="grpsum" id="grpsum" value="Group Sum"/><br>
 <input class="myrad2" type="radio" name="horiz" id="a1"  value="1" checked >Country<br>
@@ -141,7 +141,7 @@ To <select id="todate" name="todate" >
 </div>
 <div class="idsdefault"  style="float:left;width:90%;margin-right:5%;margin-top:15%">
 <fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 10px;">
-<legend style="font-size:medium;" >Header 2</legend>
+<legend style="font-size:large;" >Header 2</legend>
 <input type="button" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum"/><br>
 <input class="myrad3" type="radio" id="z1" name="verti" value="1"  >Country<br>
 <input class="myrad3" type="radio"  id="z2" name="verti" value="2" checked >Product<br>
@@ -197,7 +197,7 @@ To <select id="todate" name="todate" >
 
 
 <div style="text-align:center;float:none">
-<div style="margin-left:10%;float:left">
+<div style="margin-left:17%;float:left">
 
 
 
