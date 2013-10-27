@@ -159,7 +159,7 @@ To <select id="todate" name="todate" >
 </div>
 
 
-
+ 
 <div id="titleBar" style="float:left;width:82%;height:40%;padding-top:1%;margin-top:5px">
 <div style="float:right; margin-left:5px;">
 
