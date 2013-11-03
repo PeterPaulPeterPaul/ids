@@ -63,7 +63,6 @@ import com.ids.user.User;
 @Controller
 @RequestMapping(value="/addcompany")
 public class AddCompanyController implements DropdownInterface {
-
 	
 	private Connection con;
 
