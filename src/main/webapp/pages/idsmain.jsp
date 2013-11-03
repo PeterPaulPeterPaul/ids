@@ -33,7 +33,7 @@ body.wait, body.wait *{
 
 </head>
 
-<body class="jss">
+<body class="js">
 <div id="wholescreen" style="width:100%;height:100%">
 
 <div class="box">
@@ -422,6 +422,8 @@ To <select id="todate" name="todate" >
           $(document).ready(function(){
 
         	  $("input:image").tooltip();
+        	  
+        	  $("body").removeClass("js");
         	  
         	  var newDropdowns = "no";
         	  $("#changeFlag").val("no");

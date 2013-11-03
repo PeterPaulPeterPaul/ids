@@ -157,7 +157,17 @@ public class DeleteController implements DropdownInterface {
             	   year =  request.getParameter("dimension1Val");
                } else {
             	   
+            	   boolean comp = false;
             	   if (value.equals("Company")) {
+            	   try {
+            		   
+            		   Integer.parseInt(request.getParameter("dimension1Val"));
+            		   comp =true;
+            	   } catch(Exception e) {
+            		   
+            	   }
+            	   }
+            	  if (comp) {
          			  companyId=request.getParameter("dimension1Val");
             	   }  else{
             	   

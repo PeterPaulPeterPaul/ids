@@ -124,7 +124,7 @@ margin-right:3px;
 </style>
 </head>
 
-<body class="jss">
+<body class="js">
 <div id="wholescreen" style="width:100%;height:100%">
 
 <div class="box">
