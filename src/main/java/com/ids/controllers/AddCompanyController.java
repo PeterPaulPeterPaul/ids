@@ -64,6 +64,7 @@ import com.ids.user.User;
 @RequestMapping(value="/addcompany")
 public class AddCompanyController implements DropdownInterface {
 
+	
 	private Connection con;
 
    	private final static Logger logger = Logger.getLogger(AddController.class.getName()); 
