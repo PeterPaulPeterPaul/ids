@@ -68,6 +68,7 @@ public class AddCompanyController implements DropdownInterface {
 
    	private final static Logger logger = Logger.getLogger(AddController.class.getName()); 
        
+   	
     //   HashMap<Integer,Integer> totalLine = null;
        HashMap<String,Integer> totalLine2 = null;
    //    HashMap<Integer,Integer> otherLine = null;
