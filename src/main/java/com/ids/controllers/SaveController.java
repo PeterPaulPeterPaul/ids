@@ -133,27 +133,35 @@ public class SaveController implements DropdownInterface {
 				   		" select * from FactsEdit_"+access + " WHERE flag ='I' ");
 				   statement2.executeUpdate();
 				   
-				   statement2 = (PreparedStatement) con.prepareStatement("delete from Facts_"+access+" bb " +
-						   " INNER JOIN FactsEdit_"+access+" cc " +
-					   		 " on (  cc.year= bb.year and cc.countryId = bb.countryId and cc.companyId = bb.companyId " +
-					   		" and cc.sales_production = bb.sales_production and bb.productId = cc.productId ) "+
-				" where cc.flag = 'X' ");
+				   statement2 = (PreparedStatement) con.prepareStatement("delete from Facts_"+access+"  " +
+					   		" where exists (select 1 from  FactsEdit_"+access+" cc " +
+					   		 " where  cc.year= Facts_"+access+".year and cc.countryId = Facts_"+access+".countryId and cc.companyId = Facts_"+access+".companyId " +
+					   		" and cc.sales_production = Facts_"+access+".sales_production and Facts_"+access+".productId = cc.productId  " +
+					   		" and cc.flag = 'X' ) ");
 				
-				   logger.warning("delete from Facts_"+access+" bb " +
-					   		" INNER JOIN FactsEdit_"+access+" cc " +
-					   		 " on (  cc.year= bb.year and cc.countryId = bb.countryId and cc.companyId = bb.companyId " +
-					   		" and cc.sales_production = bb.sales_production and bb.productId = cc.productId ) " +
-					   		" where cc.flag = 'X' ");
+				   logger.warning("delete from Facts_"+access+"  " +
+					   		" where exists (select 1 from  FactsEdit_"+access+" cc " +
+					   		 " where  cc.year= Facts_"+access+".year and cc.countryId = Facts_"+access+".countryId and cc.companyId = Facts_"+access+".companyId " +
+					   		" and cc.sales_production = Facts_"+access+".sales_production and Facts_"+access+".productId = cc.productId " +
+					   		" and cc.flag = 'X') ");
 				   
 					   statement2.executeUpdate();
 					   
 					   statement2 = (PreparedStatement) con.prepareStatement("update Facts_"+access +" aa INNER JOIN " +
-					      " FactsEdit bb ON ( aa.year= bb.year and aa.countryId = bb.countryId and aa.companyId = aa.companyId " +
+					      " FactsEdit_"+access+" bb ON ( aa.year= bb.year and aa.countryId = bb.countryId and aa.companyId = aa.companyId " +
 					   		" and aa.sales_production = bb.sales_production and bb.productId = aa.productId) " +
 					   		" set aa.quantity = bb.quantity " +
 				            " WHERE bb.flag = 'U'");  
 					   
+	
 					   statement2.executeUpdate();
+					   con.commit();
+					   statement2 = (PreparedStatement) con.prepareStatement("delete from FactsEdit_"+access+" where flag = 'X' ");
+						   statement2.executeUpdate();
+						  
+						   statement2 = (PreparedStatement) con.prepareStatement("update FactsEdit_"+access+" set flag = '' where flag in ( 'I','D','U' ) " ) ;
+						   statement2.executeUpdate();   
+						 
 					   
 				   statement2 = (PreparedStatement) con.prepareStatement("update editing set flag = '0' ");
 				   statement2.executeUpdate();
