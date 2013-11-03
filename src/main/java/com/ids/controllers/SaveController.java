@@ -21,6 +21,8 @@ import javax.servlet.http.HttpSession;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.seleniumhq.jetty7.util.log.Log;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
@@ -125,10 +127,34 @@ public class SaveController implements DropdownInterface {
 				   
 			   
 			   if (request.getParameter("save")!= null ) {
-				   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Delete from Facts_"+access);
+				  // PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Delete from Facts_"+access);
+				 //  statement2.executeUpdate();
+				   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("insert into Facts_"+access+" " +
+				   		" select * from FactsEdit_"+access + " WHERE flag ='I' ");
 				   statement2.executeUpdate();
-				   statement2 = (PreparedStatement) con.prepareStatement("insert into Facts_"+access+" select * from FactsEdit_"+access);
-				   statement2.executeUpdate();
+				   
+				   statement2 = (PreparedStatement) con.prepareStatement("delete from Facts_"+access+" bb " +
+						   " INNER JOIN FactsEdit_"+access+" cc " +
+					   		 " on (  cc.year= bb.year and cc.countryId = bb.countryId and cc.companyId = bb.companyId " +
+					   		" and cc.sales_production = bb.sales_production and bb.productId = cc.productId ) "+
+				" where cc.flag = 'X' ");
+				
+				   logger.warning("delete from Facts_"+access+" bb " +
+					   		" INNER JOIN FactsEdit_"+access+" cc " +
+					   		 " on (  cc.year= bb.year and cc.countryId = bb.countryId and cc.companyId = bb.companyId " +
+					   		" and cc.sales_production = bb.sales_production and bb.productId = cc.productId ) " +
+					   		" where cc.flag = 'X' ");
+				   
+					   statement2.executeUpdate();
+					   
+					   statement2 = (PreparedStatement) con.prepareStatement("update Facts_"+access +" aa INNER JOIN " +
+					      " FactsEdit bb ON ( aa.year= bb.year and aa.countryId = bb.countryId and aa.companyId = aa.companyId " +
+					   		" and aa.sales_production = bb.sales_production and bb.productId = aa.productId) " +
+					   		" set aa.quantity = bb.quantity " +
+				            " WHERE bb.flag = 'U'");  
+					   
+					   statement2.executeUpdate();
+					   
 				   statement2 = (PreparedStatement) con.prepareStatement("update editing set flag = '0' ");
 				   statement2.executeUpdate();
 				   con.commit();
@@ -280,7 +306,7 @@ public class SaveController implements DropdownInterface {
                }
                if (quant==0) {
             	   
-            	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Delete from FactsEdit_"+access+" where "+
+            	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Update FactsEdit_"+access+" set flag='X' where "+
                 		    " productId = "+productId + " and year = "+year+ " and access = '"+access+"' "+
                 		   " and companyId = "+companyId + " and countryId = "+countryId+ " and sales_production = "+PorS);
                    int retval = statement2.executeUpdate();
@@ -288,7 +314,7 @@ public class SaveController implements DropdownInterface {
                }else {
 			    
                PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Update FactsEdit_"+access+" set quantity = "+
-            		   request.getParameter("FactVal")+ " where productId = "+productId + " and access= '"+access+"' and year = "+year+
+            		   request.getParameter("FactVal")+ ",flag='U' where productId = "+productId + " and access= '"+access+"' and year = "+year+
             		   " and companyId = "+companyId + " and countryId = "+countryId+ " and sales_production = "+PorS);
                logger.warning("SQL: "+"Update FactsEdit_"+access+" set quantity = "+
             		   request.getParameter("FactVal")+ " where productId = "+productId + " and access= '"+access+"' and year = "+year+
@@ -297,8 +323,8 @@ public class SaveController implements DropdownInterface {
                
                if (retval==0) {
             	   String newSQL = "Insert into FactsEdit_"+access+" (quantity, productId, year, companyId, countryId," +
-            	   		" sales_production, access) values ("+request.getParameter("FactVal")+","+productId
-            	   		+","+year+","+companyId+","+countryId+","+PorS+",'"+access+"')";
+            	   		" sales_production, access,flag) values ("+request.getParameter("FactVal")+","+productId
+            	   		+","+year+","+companyId+","+countryId+","+PorS+",'"+access+"','I')";
             	   logger.warning("InsertSQL: "+newSQL);
             	   statement2 = (PreparedStatement) con.prepareStatement(newSQL);
             	   retval = statement2.executeUpdate();

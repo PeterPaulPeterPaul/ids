@@ -277,8 +277,8 @@ public class AddController implements DropdownInterface {
 
 
             	   String newSQL = "Insert into FactsEdit_"+request.getParameter("accessCurr")+" (quantity, productId, year, companyId, countryId," +
-            	   		" sales_production, access) values ("+request.getParameter("quantAmt")+","+productId
-            	   		+","+year+","+companyId+","+countryId+","+PorS+",'"+request.getParameter("accessCurr")+"')";
+            	   		" sales_production, access,flag) values ("+request.getParameter("quantAmt")+","+productId
+            	   		+","+year+","+companyId+","+countryId+","+PorS+",'"+request.getParameter("accessCurr")+"','I')";
             	   logger.warning("InsertSQL: "+newSQL);
             	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
             	   int retval = statement2.executeUpdate();
