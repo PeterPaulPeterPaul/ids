@@ -17,7 +17,7 @@
         		        modal: true,
         		        autoOpen: false
         		   };
-        		    $("#dialog").dialog(dialogOpts2);
+        		//    $("#dialog").dialog(dialogOpts2);
         		    $("#dialog44").dialog(dialogOpts2);
         		    $("#dialogAdd").dialog(dialogOpts2);
         		    
