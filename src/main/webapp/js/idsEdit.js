@@ -461,7 +461,7 @@
         	  
 		      $("body").removeClass("js");
 		      $("#dialog44").dialog(parm4openOrClose());
-		   	  $("#dialog").dialog(parm3openOrClose());
+		 //  	  $("#dialog").dialog(parm3openOrClose());
         	  
         	  $("#closeit").on("click",function(){
         		  $("body").toggleClass("wait");
