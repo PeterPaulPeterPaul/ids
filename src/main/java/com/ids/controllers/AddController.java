@@ -284,6 +284,12 @@ public class AddController implements DropdownInterface {
             	   int retval = statement2.executeUpdate();
 
                 con.commit();
+                
+         	   newSQL = "update editing set flag = '1' ";
+         	   PreparedStatement statement3 = (PreparedStatement) con.prepareStatement(newSQL);
+            	   statement3.executeUpdate();
+                
+                 con.commit();
 
 		 }catch(Exception e) {
 			 logger.log(Level.SEVERE,"Error",e);

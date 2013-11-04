@@ -380,7 +380,9 @@ public class DeleteController implements DropdownInterface {
               	   
                    }
 
-
+             	   newSQL = "update editing set flag = '1' ";
+             	   PreparedStatement statement3 = (PreparedStatement) con.prepareStatement(newSQL);
+                	   statement3.executeUpdate();
 
                 con.commit();
 
