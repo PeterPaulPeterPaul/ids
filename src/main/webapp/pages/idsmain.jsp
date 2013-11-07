@@ -36,13 +36,13 @@ body.wait, body.wait *{
 <body class="js">
 <div id="wholescreen" style="width:100%;height:100%">
 
-<div class="box">
-<span class="IDSheader"> 
-<img class="leftLogo" src="images/IDS-Logo.png" width="50px" height="50px">
-International Database Service 
-<img class="rightLogo" src="images/OHR-logo.png"  >
-</span>
-</div>
+	<div class="box">
+	<span class="IDSheader"> 
+	<img class="leftLogo" src="images/IDS-Logo.png" width="50px" height="50px">
+	International Database Service 
+	<img class="rightLogo" src="images/OHRLOGO-BnW.png"  >
+	</span>
+	</div>
 
 <input type="hidden" id="changeFlag" value="no"/>
 
@@ -53,15 +53,18 @@ International Database Service
 <div id="tempOldHeadings" style="display:none">12</div>
 
 
-   <div id="dialogFilter" title="Filter" style="z-index:1500">
-             <div style="width:900px;float:left">
+   <div id="dialogFilter" title="Filter" style="z-index:1500; border-style: none;  ">
+             <div style="width:800px;float:left; margin-top:2%; margin-left:6%  ">
            
 
-                <div id="dropa44" style="width:90px; float:left" >
-<input type="button" style="font-size:small;"  name="submit1" id="submit1"  value="Hide"/>
+                <div id="dropa44" style="width:40px; float:right" >
+<%-- Comment <input type="button" style="font-size:small;"  name="submit1" id="submit1"  value="Hide"/>  --%>
+<input type="image" name="close" id="submit1"  src="images/deletered-32.png" />
+
     </div>
-                          <div id="dropa44a" style="width:90px; float:left" >
-<input type="button" style="font-size:small;"  name="submit2" id="submit2"  value="Submit"/>
+                          <div id="dropa44a" style="width:40px; float:right" >
+<%-- Comment <input type="button" style="font-size:small;"  name="submit2" id="submit2"  value="Submit"/> --%>
+<input type="image" name="close" id="submit2"  src="images/greengo-32.png" />
     </div>
           
 <div id="dropa1"  style="width:230px; float:left; z-index:1500; margin-top:4px" >
@@ -427,6 +430,8 @@ To <select id="todate" name="todate" >
         	  
         	  var newDropdowns = "no";
         	  $("#changeFlag").val("no");
+        	  
+          	$("body").removeClass("js");
 
         	  $( "#two" ).on("click" , function() {
             	  $("#title1").val(  $.trim($("#accessTypeSelectBoxItText").text()) );
@@ -628,7 +633,7 @@ To <select id="todate" name="todate" >
         	var swapValue="0";
         	var summary=0;
         	
-        //	$("body").removeClass("js");
+
 
   
 	$(".swap").on("click",function(){

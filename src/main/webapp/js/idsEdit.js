@@ -78,7 +78,8 @@
           $(document).ready(function(){
         	  
         	  $("#accessCurrx").val( $("#accessType").val()   );
-        //	  alert( $("#accessType").val());
+        	  
+        	  $("body").removeClass("js");
         	  
         	  $( "#two" ).on("click" , function() {
             	  var mySS1 = $(".viewable1").children(".dropdown1").attr("id");
@@ -459,7 +460,7 @@
 
         	  $("#dialogFilter").dialog("close");
         	  
-		      $("body").removeClass("js");
+		    //  $("body").removeClass("js");
 		      $("#dialog44").dialog(parm4openOrClose());
 		 //  	  $("#dialog").dialog(parm3openOrClose());
         	  

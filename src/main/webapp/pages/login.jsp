@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <link rel="stylesheet" href="css/login.css" />
+<link rel="stylesheet" href="css/ids.css" />
 <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <title>Login to IDS</title>
@@ -31,24 +32,27 @@ background-color:#FFFF00;
 </style>
 
 <body class="login" style="margin:50px">
-	<div class="headerdiv" style="width:500px;">
+
+
+<!-- 	<div class="headerdiv" style="width:500px;">
 	<span style="font-size:250%">International Database Service</span><br>
 	<span style="font-size:150%">Off-Highway Research</span>
+	</div> -->
+	<div class="box">
+	<span class="IDSheader"> 
+	<img class="leftLogo" src="images/IDS-Logo.png" width="50px" height="50px">
+	International Database Service
+	<img class="rightLogo" src="images/OHRLOGO-BnW.png"  >
+	</span>
 	</div>
 
-
-	<div style="height:30px;background-color:yellow;width:100%"></div>
+	<div style="height:100px;background-color:yellow;width:100%"></div>
 
 	<div style="height: 25%"></div>
-	<br>
-	<br>
-	<br>
 	<div class="inner">
-	<div class="inner1" style="height:100%;float:left;width:20px"> </div>
-	<div class="inner2"> </div>
-		<br>
-		<br>
-		<br>
+<!--  	<div class="inner1" style="height:100%;float:left;width:20px"> </div> -->
+
+
 		<form id="territoryform" action="login" method="post">
 		<table>
 			<tr>
@@ -84,9 +88,9 @@ background-color:#FFFF00;
     <div id="dialog" title="Invalid user credentials!">
     <p id="pp3" >The login credentials you have entered are invalid. Please enter valid credentials</p>
  </div>
- 
+ <div style="height:120px;background-color:yellow;width:100%"></div>
+<div class="box" id="banner" ></div> 
 
-	
 	<script type="text/javascript">
 	 $(document).ready(function(){
 						

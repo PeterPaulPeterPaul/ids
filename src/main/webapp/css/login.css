@@ -24,16 +24,22 @@
 }
 .login div.inner2 {
     background-color: white;
-    background-image: url(http://t0.gstatic.com/images?q=tbn:ANd9GcR9YNHo3bju9-O4WI3DPOR_2zN2V-k1kNvxIIXiHf4X8C5aaW5h8g);
     width: 246px;
-    height:200px;
+    height:90px;
     float:left;
-    margin-left:100px;
 }
 .login .placeholder {
     height: 33px;
     white-space: nowrap;
 }
+
+.login #banner {
+    text-align: center;
+    background-image:URL('/images/trucks.bmp');
+    background-repeat:repeat-x; 
+    background-position:left;
+}
+
 .login .warning {
     clear: both;
     color: #665E00;
@@ -62,7 +68,7 @@
 }
 .login table {
     clear: both;
-    margin: 120px auto auto;
+    margin: 35px auto auto;
 }
 .login table b {
     font-weight: bold;
@@ -122,7 +128,7 @@
     width: 220px;
 }
 .login #usernamePrompt {
-    width: 200px;
+    width: 90px;
 }
 .login .footer {
     bottom: 0;
@@ -200,7 +206,7 @@
     padding: 0;
 }
 .msgBox .wrapper {
-    max-height: 200px;
+    max-height: 90px;
     overflow: auto;
     position: static;
 }

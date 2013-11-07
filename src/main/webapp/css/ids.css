@@ -86,4 +86,10 @@ float:right;
 margin-top:3px;
 margin-left:10px;
 margin-right:3px;
+padding-bottom: 0px;
+border-bottom-width: 3px;
+margin-bottom: 0px;
+height: 30px;
+border-right-width: 5px;
+margin-right: 5px;
 }
