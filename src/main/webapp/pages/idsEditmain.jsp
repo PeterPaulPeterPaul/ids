@@ -124,7 +124,7 @@ margin-right:3px;
 </style>
 </head>
 
-<body class="js">
+<body class="jss">
 <div id="wholescreen" style="width:100%;height:100%">
 
 <div class="box">
@@ -249,7 +249,7 @@ To <select id="todate" name="todate" >
 <div style="float:left;">
 
 
-<form  id="excel1" action="/cron/down" method="post" name="factsForm"   > 
+<form  id="excel1" action="${ajaxPrefix}cron/down" method="post" name="factsForm"   > 
  <input id="dataJson"  type="hidden" name="jsonStuff" value="" />
   <input id="totalsJson"  type="hidden" name="jsonTotals" value="" />
     <input id="title11" type="hidden" name="title1" value=""/>
@@ -260,7 +260,7 @@ To <select id="todate" name="todate" >
 
 </form>
 
-<form  target="_blank"  id="printer" action="/print" method="post" name="factsForm"   > 
+<form  target="_blank"  id="printer" action="${ajaxPrefix}print" method="post" name="factsForm"   > 
  <input id="printDataJson"  type="hidden" name="jsonStuff" value="" />
   <input id="printTotalJson"  type="hidden" name="jsonTotals" value="" />
   <input id="title1" type="hidden" name="title1" value=""/>
@@ -472,8 +472,9 @@ To <select id="todate" name="todate" >
 
 <div id="saveButId" style="float:left;margin-left:20px;display:${saveBut}">
 <div  style="display:block">
-<form  id="saving" action="/saverow" method="get" name="saveForm"   > 
+<form  id="saving" action="${ajaxPrefix}saverow" method="post" name="saveForm"   > 
  <input  type="hidden" name="save" value="" />
+ <input type="hidden" name="access" id="accessCurrx" value="" >
           <input id="twosub" style="background-color:red" class="k-button" type="submit" name="submitBtn" value="Save to PRODUCTION database" />
 
 </form>
@@ -503,7 +504,7 @@ To <select id="todate" name="todate" >
  
 </div>
 <div style="display:none">
-<form id="accessform3" action="/login" method="post">
+<form id="accessform3" action="${ajaxPrefix}login" method="post">
    <input type="hidden" id="fromMain" name="currentAccess" value="populated" />
    <input id='submitLogin' type="submit" value="Login">
 </form>
@@ -518,7 +519,7 @@ To <select id="todate" name="todate" >
 
 <div style="display:none">
 
-<form id="addrowForm" action="/addrow">
+<form id="addrowForm" action="${ajaxPrefix}addrow">
 <input type="text" name="dimension1Val" id="dimension1Val">
 <input type="text" name="dimension1Name" id="dimension1Name">
 <input type="text" name="dimension2Val" id="dimension2Val">
@@ -536,7 +537,7 @@ To <select id="todate" name="todate" >
 
 <div style="display:none">
 
-<form id="deleterowForm" action="/deleterow">
+<form id="deleterowForm" action="${ajaxPrefix}deleterow">
 <input type="text" name="dimension1Val" id="dimension11Val">
 <input type="text" name="dimension1Name" id="dimension11Name">
 <input type="text" name="dimension2Val" id="dimension22Val">
