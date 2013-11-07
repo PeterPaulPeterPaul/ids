@@ -341,7 +341,7 @@ public class DeleteController implements DropdownInterface {
               	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
               	   int retval = statement2.executeUpdate();
               	   
-                   newSQL = "delete from  FactsEdit_"+request.getParameter("accessCurr")+" " +
+                   newSQL = "delete from  Facts_"+request.getParameter("accessCurr")+" " +
                  		" where productId = "+productId+
               		   " and year = "+year+
               		   " and countryId = "+countryId+
@@ -366,7 +366,7 @@ public class DeleteController implements DropdownInterface {
               	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
               	   int retval = statement2.executeUpdate();
               	   
-                   newSQL = "delete  from FactsEdit_"+request.getParameter("accessCurr")+" " +
+                   newSQL = "delete  from Facts_"+request.getParameter("accessCurr")+" " +
                  		" where productId = "+productId+
               		   " and year = "+year+
               		   " and companyId = "+companyId+
