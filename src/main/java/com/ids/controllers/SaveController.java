@@ -159,7 +159,7 @@ public class SaveController implements DropdownInterface {
 					   statement2 = (PreparedStatement) con.prepareStatement("delete from FactsEdit_"+access+" where flag = 'X' ");
 						   statement2.executeUpdate();
 						  
-						   statement2 = (PreparedStatement) con.prepareStatement("update FactsEdit_"+access+" set flag = '' where flag in ( 'I','D','U' ");
+						   statement2 = (PreparedStatement) con.prepareStatement("update FactsEdit_"+access+" set flag = '' where flag in ( 'I','D','U' )");
 						   statement2.executeUpdate();   
 						 
 					   
