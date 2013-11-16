@@ -297,7 +297,7 @@ public class MainController implements DropdownInterface {
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
 
-		    		    logger.warning(sql1.getQuery());
+		    		    logger.warning("sql1: "+ sql1.getQuery());
 
 		    	  List <JSONObject> l = getObj5Summary(resultSet, statement, sql1.getQuery(),sql1.getONE() ,sql1.getTWO(),
 		    			  colHeading,columnModel, cna.getColumnNameObject(), srp.getSalesOrProduct(), false);
@@ -370,7 +370,7 @@ public class MainController implements DropdownInterface {
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());
 
 
-		    		    logger.warning(sql1.getQuery());
+		    		    logger.warning("sql1a: "+ sql1.getQuery());
 
 		    		    boolean All = false;
 		    		    if (srp.getHeading2()==COMPANY ){
@@ -418,8 +418,7 @@ public class MainController implements DropdownInterface {
 		    		    srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
 		    		    ,srp.getDateParm(),access);
 
-
-			    		    logger.warning(sql1.getQuery());
+			    		    logger.warning("sql1b: "+ sql1.getQuery());
 
 			    	  List<JSONObject> l = getObj5(resultSet, statement, sql1.getQuery(),"company" ,"country","product","year",
 			    			  colHeading,columnModel, cna.getColumnNameObject(), srp.getSalesOrProduct(), true);
@@ -482,7 +481,7 @@ public class MainController implements DropdownInterface {
 		    		    ,srp.getDateParm(),access);
 
 
-			    		    logger.warning(sql4.getQuery());
+			    		    logger.warning("sql4: "+ sql4.getQuery());
 
 			    	  List <JSONObject> l = getObj5(resultSet, statement, sql4.getQuery(),colHeading ,colHead2,"company","country",
 			    			  colHeading,columnModel, cna.getColumnNameObject(), srp.getSalesOrProduct(), false);
@@ -547,7 +546,7 @@ public class MainController implements DropdownInterface {
 		    		    ,srp.getDateParm(),access);
 
 
-			    		    logger.warning(sql5.getQuery());
+			    		    logger.warning("sql5: "+ sql5.getQuery());
 
 			    	  List<JSONObject> l = getObj5(resultSet, statement, sql5.getQuery(),colHeading ,colHead2,"company","product",
 			    			  colHeading,columnModel, cna.getColumnNameObject(), srp.getSalesOrProduct(), false);
@@ -608,7 +607,7 @@ public class MainController implements DropdownInterface {
 		    		    ,srp.getDateParm(),access);
 
 
-			    		    logger.warning(sql6.getQuery());
+			    		    logger.warning("sql6: "+ sql6.getQuery());
 
 			    	  List <JSONObject> l = getObj5(resultSet, statement, sql6.getQuery(),colHeading ,colHead2,"company","year",
 			    			  colHeading,columnModel, cna.getColumnNameObject(), srp.getSalesOrProduct(), false);
@@ -658,7 +657,7 @@ public class MainController implements DropdownInterface {
 				    		    ,srp.getDateParm(),access);
 
 
-			    		    logger.warning(sql2.getQuery());
+			    		    logger.warning("sql22: "+ sql2.getQuery());
 			    		    resultSet = statement.executeQuery(sql2.getQuery());
 
 						   List <JSONObject> l = getObj5(resultSet, statement, sql2.getQuery(),"company" ,"product","country","year",
@@ -707,7 +706,7 @@ public class MainController implements DropdownInterface {
 		    				  srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
 		    				  ,srp.getDateParm(),access);		    		 
 
-		    		    logger.warning(sql3.getQuery());
+		    		    logger.warning("sql3: "+ sql3.getQuery());
 		    		    resultSet = statement.executeQuery(sql3.getQuery());
 
 						 List <JSONObject> l = getObj5(resultSet, statement, sql3.getQuery(),"company" ,"year","country","product",
