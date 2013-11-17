@@ -9704,6 +9704,8 @@ $.jgrid.extend({
 				$.jgrid.bindEv( elc, opt, $t);
 				window.setTimeout(function () { $(elc).focus();},0);
 				$("input, select, textarea",cc).bind("keydown",function(e) {
+					
+			        
 					if (e.keyCode === 27) {
 						if($("input.hasDatepicker",cc).length >0) {
 							if( $(".ui-datepicker").is(":hidden") )  { $($t).jqGrid("restoreCell",iRow,iCol); }
@@ -9730,6 +9732,7 @@ $.jgrid.extend({
 						if (iCol<= 1) {
 							return false;
 						}
+		                
 						if(!$t.grid.hDiv.loading ) {
 							$($t).jqGrid("prevCell",iRow,iCol);
 						} else {
@@ -9743,6 +9746,10 @@ $.jgrid.extend({
 						if (iRow<= 1) {
 							return false;
 						}
+				        e.preventDefault();
+				        e.stopPropagation();
+				        e.stopImmediatePropagation();
+		                
 						if(!$t.grid.hDiv.loading ) {
 							if (e.shiftKey) {$($t).jqGrid("prevCell",iRow,iCol);} //Shift TAb
 							else {$($t).jqGrid("nextCell",parseInt(iRow)-parseInt(1),parseInt(iCol)-parseInt(1));} //Tab
@@ -9758,7 +9765,9 @@ $.jgrid.extend({
 						if (iRow>= parseInt($t.rows.length) - parseInt(1)) {
 							return false;
 						}
-						
+				        e.preventDefault();
+				        e.stopPropagation();
+				        e.stopImmediatePropagation();
 					//	alert(iCol);
 						if(!$t.grid.hDiv.loading ) {
 							if (e.shiftKey) {$($t).jqGrid("prevCell",iRow,iCol);} //Shift TAb
