@@ -148,7 +148,7 @@ public class SaveController implements DropdownInterface {
 					   statement2.executeUpdate();
 					   
 					   statement2 = (PreparedStatement) con.prepareStatement("update Facts_"+access +" aa INNER JOIN " +
-					      " FactsEdit_"+access+" bb ON ( aa.year= bb.year and aa.countryId = bb.countryId and aa.companyId = aa.companyId " +
+					      " FactsEdit_"+access+" bb ON ( aa.year= bb.year and aa.countryId = bb.countryId and aa.companyId = bb.companyId " +
 					   		" and aa.sales_production = bb.sales_production and bb.productId = aa.productId) " +
 					   		" set aa.quantity = bb.quantity " +
 				            " WHERE bb.flag = 'U'");  
