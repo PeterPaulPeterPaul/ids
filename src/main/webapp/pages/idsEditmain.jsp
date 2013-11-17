@@ -19,7 +19,7 @@
           <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.6.0/jquery.selectBoxIt.min.js"></script>
 
 <script src="js/i18n/grid.locale-en.js" type="text/javascript"></script>
-<script src="js/jquery.jqGrid.min.js" type="text/javascript"></script>
+<script src="js/jquery.jqGrid.src.js" type="text/javascript"></script>
 
          <script type="text/javascript" src="js/idsEdit.js"></script>
 <script type="text/javascript">

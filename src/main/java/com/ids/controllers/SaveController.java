@@ -363,6 +363,29 @@ public class SaveController implements DropdownInterface {
 		 logger.warning("Entering application via POST");
 
 try{
+	
+	
+	 Enumeration keys = request.getParameterNames();  
+	   while (keys.hasMoreElements() )  
+	   {  
+	      String key = (String)keys.nextElement();  
+ 
+	   
+	      //To retrieve a single value  
+	      String value = request.getParameter(key);  
+	      System.out.println(value);  
+	   
+	      logger.warning("key: "+key+ "  value: "+value); 
+	      // If the same key has multiple values (check boxes)  
+	      String[] valueArray = request.getParameterValues(key);  
+	        
+	      for(int i = 0; i > valueArray.length; i++){  
+	    	  logger.warning("VALUE ARRAY" + valueArray[i]);  
+	      }  
+	   }  
+	   
+	   
+	
 		 return getMethodOne(
 		            response,
 					request,

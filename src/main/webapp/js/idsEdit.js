@@ -77,6 +77,10 @@
 
           $(document).ready(function(){
         	  
+              
+
+        	  
+        	  
         	  $("#accessCurrx").val( $("#accessType").val()   );
         	  
         	  $("body").removeClass("js");
@@ -1125,7 +1129,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 	
 	var colModels2 = JSON.stringify(colModels);
 	  colModels2 = colModels2.replace(/\"formatter\":\"number\"/g,"\"formatter\":\"number\",\"formatoptions\":{\"decimalPlaces\":0,\"defaultValue\":\"0\"}");
-	 var  colModels3 = JSON.parse(colModels2);
+	  var  colModels3 = JSON.parse(colModels2);
 	// $("#wholescreen").fadeIn();
 
       jQuery("#list47").jqGrid({
@@ -1204,7 +1208,8 @@ if (dateParm=="todate must be greater or equal to fromdate") {
          	hidegrid:false,
          	footerrow: true, 
          	 ignoreCase:true,
-         	userDataOnFooter: true
+         	userDataOnFooter: true,
+         	scrollingRows:false
       });
       
       jQuery("#list47").jqGrid('navGrid','#plist47',{edit:true,add:false,del:false});
@@ -1235,33 +1240,6 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 	   $('#list47').fadeIn();
 
 
-/*
-	   $("#gbox_list47").closest("div.ui-jqgrid-view")
-	    .children("div.ui-jqgrid-titlebar")
-	    .css("text-align", "center")
-	    .children("span.ui-jqgrid-title")
-	    .css("float", "none");
-	   
-	   $("#list47").closest("div.ui-jqgrid-view")
-	    .children("div.ui-jqgrid-titlebar")
-	    .css("text-align", "center")
-	    .children("span.ui-jqgrid-title")
-	    .css("float", "none");
-	   $(".ui-jqgrid-titlebar").css("color","black");
-
-
-			*/
-			
-  		 //   var newHeight = $(window).height() + "px";
-		 //   $("body").css("height", newHeight);
-		    
-	//Every resize of window
-//$(window).resize(function() {
- //   var newHeight =$(window).height()  + "px";
- //   $("body").css("height", newHeight);
-//});
-	
-	
 	
 			
 			$("#list47").jqGrid('footerData', 'set', 
@@ -1292,7 +1270,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				  
 				});
 
-
+			  
 		     	 function validateDates() {
 		     		 var testing ="";
 		     		 if ($("#fromdate").val()=="-1" && $("#todate").val()=="-1"){
@@ -1320,9 +1298,8 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 		    		 return testing;
 		    	}
 		     	 
-		     	 
 
 		     	 
-			
+		
   });
   

@@ -3483,6 +3483,8 @@ $.jgrid.extend({
 				var target = $($t).find('tr[tabindex=0]')[0], id, r, mind,
 				expanded = $t.p.treeReader.expanded_field;
 				//check for arrow keys
+				
+				
 				if(target) {
 					mind = $t.p._index[target.id];
 					if(event.keyCode === 37 || event.keyCode === 38 || event.keyCode === 39 || event.keyCode === 40){
@@ -9715,10 +9717,52 @@ $.jgrid.extend({
 						// Prevent default action
 						return false;
 					} //Enter
-					if (e.keyCode === 9)  {
+					if (e.keyCode === 9 || e.keyCode === 39)  {
 						if(!$t.grid.hDiv.loading ) {
 							if (e.shiftKey) {$($t).jqGrid("prevCell",iRow,iCol);} //Shift TAb
 							else {$($t).jqGrid("nextCell",iRow,iCol);} //Tab
+						} else {
+							return false;
+						}
+					}
+					if (e.keyCode === 37)  {
+						
+						if (iCol<= 1) {
+							return false;
+						}
+						if(!$t.grid.hDiv.loading ) {
+							$($t).jqGrid("prevCell",iRow,iCol);
+						} else {
+							return false;
+						}
+					}
+					if (e.keyCode === 38)  {
+					//	alert("38");
+					//	alert(iRow);
+					//	alert(iCol);
+						if (iRow<= 1) {
+							return false;
+						}
+						if(!$t.grid.hDiv.loading ) {
+							if (e.shiftKey) {$($t).jqGrid("prevCell",iRow,iCol);} //Shift TAb
+							else {$($t).jqGrid("nextCell",parseInt(iRow)-parseInt(1),parseInt(iCol)-parseInt(1));} //Tab
+						} else {
+							return false;
+						}
+					}
+					if (e.keyCode === 40)  {
+					//	alert("40");
+					//	alert(iRow);
+					//	alert(parseInt($t.rows.length) - parseInt(2);
+						
+						if (iRow>= parseInt($t.rows.length) - parseInt(1)) {
+							return false;
+						}
+						
+					//	alert(iCol);
+						if(!$t.grid.hDiv.loading ) {
+							if (e.shiftKey) {$($t).jqGrid("prevCell",iRow,iCol);} //Shift TAb
+							else {$($t).jqGrid("nextCell",parseInt(iRow)+parseInt(1),parseInt(iCol)-parseInt(1) );} //Tab
 						} else {
 							return false;
 						}

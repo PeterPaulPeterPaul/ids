@@ -182,7 +182,7 @@ public class FirstTimeEdQuery {
  		
 
 			    	  
-				      query = "select id, country from Country where id != 0 and access = '"+access+"' order by country asc " ;
+				      query = "select id, country from Country where id not in (-10,0) and access = '"+access+"' order by country asc " ;
 				      
 				         List<Country> countries = new ArrayList<Country>();
 
