@@ -9740,9 +9740,6 @@ $.jgrid.extend({
 						}
 					}
 					if (e.keyCode === 38)  {
-					//	alert("38");
-					//	alert(iRow);
-					//	alert(iCol);
 						if (iRow<= 1) {
 							return false;
 						}
@@ -9759,8 +9756,6 @@ $.jgrid.extend({
 					}
 					if (e.keyCode === 40)  {
 					//	alert("40");
-					//	alert(iRow);
-					//	alert(parseInt($t.rows.length) - parseInt(2);
 						
 						if (iRow>= parseInt($t.rows.length) - parseInt(1)) {
 							return false;
@@ -9768,7 +9763,6 @@ $.jgrid.extend({
 				        e.preventDefault();
 				        e.stopPropagation();
 				        e.stopImmediatePropagation();
-					//	alert(iCol);
 						if(!$t.grid.hDiv.loading ) {
 							if (e.shiftKey) {$($t).jqGrid("prevCell",iRow,iCol);} //Shift TAb
 							else {$($t).jqGrid("nextCell",parseInt(iRow)+parseInt(1),parseInt(iCol)-parseInt(1) );} //Tab
