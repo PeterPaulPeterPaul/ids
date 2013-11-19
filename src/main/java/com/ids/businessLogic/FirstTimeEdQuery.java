@@ -86,7 +86,8 @@ public class FirstTimeEdQuery {
 
 
     	  
-	      String query2 = " select a.year, a.quantity, b.name from FactsEdit_"+access+" a, Company b, Country c " +
+	      String query2 = " select a.year, a.quantity,  CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+	       " ELSE substr(b.name,1,20) END as name  from FactsEdit_"+access+" a, Company b, Country c " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.countryid=c.id " + 
 	    		  " and c.id="+countryId  + 
@@ -95,7 +96,8 @@ public class FirstTimeEdQuery {
 	    		  " and a.productid=1"+multiplier  + 
 	    		  " and a.access = '" + access + "' " +
 	    	//	  " and b.name!='ALL COMPANIES' " +
-	    		  " order by b.name , a.year asc";
+	    		  " order by  CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+	       " ELSE substr(b.name,1,20) END , a.year asc";
 
     	  
     	  resultSet = statement.executeQuery(query2);
@@ -222,7 +224,8 @@ public class FirstTimeEdQuery {
 	       " ELSE substr(b.name,1,20) END as name from Company b " +
 			    		  		" where b.access = '" + access + "' " +
 			    		//  		" and b.year between "+(curYear - 5)+" and "+(curYear+5)+
-			    		  		" order by b.name asc " ;
+			    		  		" order by   CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+	       " ELSE substr(b.name,1,20) END asc " ;
 					    
 			    		  logger.warning(query);
 			    		  	
