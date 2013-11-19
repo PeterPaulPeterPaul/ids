@@ -94,7 +94,7 @@ public class FirstTimeEdQuery {
 	    		  " and a.sales_production= 1" + 
 	    		  " and a.productid=1"+multiplier  + 
 	    		  " and a.access = '" + access + "' " +
-	    		  " and b.name!='ALL COMPANIES' " +
+	    	//	  " and b.name!='ALL COMPANIES' " +
 	    		  " order by b.name , a.year asc";
 
     	  

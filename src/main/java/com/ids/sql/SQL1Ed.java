@@ -7,13 +7,14 @@ public class SQL1Ed {
 	public SQL1Ed(int salesOrProduction, int productId, int years, int fromYear, int toYear, String incExCountries, String incExProducts
 			,String incExCompanies, String dateParm, String access) {
 		
-	      query = " select a.year, a.quantity, b.name as company, d.name as product, c.shortname as country from FactsEdit_"+access+" a, Company b, Country c, Product d " +
+	      query = " select a.year, a.quantity, CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+	       " ELSE substr(b.name,1,20) END as company, d.name as product, c.shortname as country from FactsEdit_"+access+" a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  " and a.productId = "+ productId +
 	    		  " and a.year = " + years+
 	    		  " and a.access = '" + access + "' " +
-	    		  " and b.name != 'ALL COMPANIES' " +
+	    	//	  " and b.name != 'ALL COMPANIES' " +
 	    		  incExCountries +
 	    		  incExProducts+
 	    		  incExCompanies+

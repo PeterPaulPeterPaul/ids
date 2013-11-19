@@ -23,7 +23,8 @@ public class SQL4Ed {
 			incExCountries = "";
 		} else {
 			countryClause = " AND a.countryId = "+countryId;
-			queryPart1 =  " select a.year, a.quantity, substr(b.name,1,20) as company, "+product+" as product, c.country ";
+			queryPart1 =  " select a.year, a.quantity,  CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+	       " ELSE substr(b.name,1,20) END as company, "+product+" as product, c.country ";
 		}
 		
 	      query  = queryPart1 +
@@ -37,7 +38,7 @@ public class SQL4Ed {
     		  incExProducts+
     		  incExCompanies+
     		  dateParm+
-    		   " and b.name != 'ALL COMPANIES' " +
+    	//	   " and b.name != 'ALL COMPANIES' " +
     		  " and a.year between "+fromYear+" and "+toYear+" " +
     		  " and d.id = a.productId " +
     		  " and a.countryId = c.id" +

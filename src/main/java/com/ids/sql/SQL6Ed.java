@@ -17,13 +17,14 @@ public class SQL6Ed {
 		}
 		
 		
-	      query = " select a.year, a.quantity, b.name as company, "+product+" as product, "+country+" as country " +
+	      query = " select a.year, a.quantity,  CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+	       " ELSE substr(b.name,1,20) END as company, "+product+" as product, "+country+" as country " +
 	      		" from FactsEdit_"+access+" a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  " and a.year = " + years+
 	    		  " and a.companyId = " +companyId+
-	    		   " and b.name != 'ALL COMPANIES' " +
+	    		//   " and b.name != 'ALL COMPANIES' " +
 	    		   " and a.access = '" + access + "' " +
 	    		   incExCountries +
 	    		   incExProducts +

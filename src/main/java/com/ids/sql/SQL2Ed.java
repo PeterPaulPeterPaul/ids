@@ -19,7 +19,8 @@ public class SQL2Ed {
 			incExCountries = "";
 		} else {
 			countryClause = " AND a.countryId = "+countryId;
-			queryPart1 =  " select a.year, a.quantity, substr(b.name,1,20) as company, d.shortname as product, c.country ";
+			queryPart1 =  " select a.year, a.quantity,  CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+	       " ELSE substr(b.name,1,20) END as company, d.shortname as product, c.country ";
 		}
 
 		
@@ -33,7 +34,7 @@ public class SQL2Ed {
 	    		  incExProducts+
 	    		  incExCompanies+
 	    		  dateParm+
-	    		   " and b.name != 'ALL COMPANIES' " +
+	    //		   " and b.name != 'ALL COMPANIES' " +
 	    		  " and a.year between "+fromYear+" and "+toYear+" " +
 	    		  " and a.access = '" + access + "' " +
 	    		  " and d.id = a.productId " +
