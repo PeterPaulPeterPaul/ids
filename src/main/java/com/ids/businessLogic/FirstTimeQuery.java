@@ -247,7 +247,7 @@ public class FirstTimeQuery {
 			    		  		" and b.companyid = a.id " +
 			    		  		" and b.access = '" + access +"' and " +
 			    		  		" a.access = '" + access + "' " +
-			    		  		" and b.name != 'ALL COMPANIES' " +
+			    		  		" and a.name != 'ALL COMPANIES' " +
 			    		  	//	" and b.year between "+(curYear - 5)+" and "+(curYear+5)+
 			    		  		" order by a.name asc " ;
 					    
