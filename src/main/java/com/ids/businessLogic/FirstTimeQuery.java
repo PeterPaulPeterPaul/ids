@@ -85,7 +85,7 @@ public class FirstTimeQuery {
     	  String query2="";
 
     	  if (access.equals("w")) {
-    	   query2 = " select a.year, SUM(a.quantity) as quantity, substr(b.name,1,20) as company " +
+    	   query2 = " select a.year, SUM(a.quantity) as quantity, substr(b.name,1,20) as name " +
     			  " from Facts_w a, Company b, Country c, Product d  "+
     			  "  where a.companyid=b.id  and a.sales_production=1 AND a.countryId NOT IN (20,21,0) "+
     			  "  and a.productId = 1 and a.year >=2008 and b.name != 'ALL COMPANIES'  "+
