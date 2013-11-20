@@ -82,10 +82,19 @@ public class FirstTimeQuery {
     	  YearArray yearArray = new YearArray("Company",years,"TOTAL");
     	  
     	  ColumnModel columnModel = new ColumnModel(yearArray.getJsonYearArray());
+    	  String query2="";
 
-
-    	  
-	      String query2 = " select a.year, a.quantity, b.name from Facts_"+access+" a, Company b, Country c " +
+    	  if (access.equals("w")) {
+    	   query2 = " select a.year, SUM(a.quantity) as quantity, substr(b.name,1,20) as company, d.name as product, 'EUROPE' as country "+
+    			  " from Facts_w a, Company b, Country c, Product d  "+
+    			  "  where a.companyid=b.id  and a.sales_production=1 AND a.countryId NOT IN (20,21,0) "+
+    			  "  and a.productId = 1 and a.year >=2008 and b.name != 'ALL COMPANIES'  "+
+    			  " and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
+    			  "  and d.id = a.productId  and a.access = 'w'  and a.countryId = c.id "+
+    			  "  group by  a.year,  b.name, d.name, 'EUROPE'   order by b.name , a.year asc ";
+    			  
+    	  }else {
+	       query2 = " select a.year, a.quantity, b.name from Facts_"+access+" a, Company b, Country c " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.countryid=c.id " + 
 	    		  " and c.id="+countryId  + 
@@ -95,7 +104,7 @@ public class FirstTimeQuery {
 	    		  " and a.access = '" + access + "' " +
 	    		  " and b.name!='ALL COMPANIES' " +
 	    		  " order by b.name , a.year asc";
-
+    	  }
     	  
     	  resultSet = statement.executeQuery(query2);
     	  String currentCompany="";

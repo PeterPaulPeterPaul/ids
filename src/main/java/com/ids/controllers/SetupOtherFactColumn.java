@@ -95,7 +95,8 @@ public class SetupOtherFactColumn {
 
 	    	  
 	    	  String query2 = "select  a.productid, a.countryId, a.sales_production, "+
-"a.flag , a.year, -1"+multiplier+" as companyI ,  (b.quantity -a.quantity) as quantity  from Others_"+access+" a, Facts_"+access+" b "+
+"a.flag , a.year, -1"+multiplier+" as companyI ,  (b.quantity -a.quantity) as quantity " +
+		" from Others_"+access+" a, Facts_"+access+" b "+
 "where a.productid = b.productid "+
  "and a.countryId = b.countryId "+
 " and a.sales_production = b.sales_production "+
