@@ -25,6 +25,7 @@ public class SQL4Ed {
 			countryClause = " AND a.countryId = "+countryId;
 			queryPart1 =  " select a.year, a.quantity,  CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
 	       " ELSE substr(b.name,1,20) END as company, "+product+" as product, c.country ";
+			groupBy = " ";
 		}
 		
 	      query  = queryPart1 +

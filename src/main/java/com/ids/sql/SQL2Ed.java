@@ -21,9 +21,9 @@ public class SQL2Ed {
 			countryClause = " AND a.countryId = "+countryId;
 			queryPart1 =  " select a.year, a.quantity,  CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
 	       " ELSE substr(b.name,1,20) END as company, d.shortname as product, c.country ";
-		}
+			groupBy = "";
 
-		
+		}
 	      query = queryPart1+
 	    		  " from FactsEdit_"+access+" a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +

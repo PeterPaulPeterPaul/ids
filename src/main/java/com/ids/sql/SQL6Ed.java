@@ -24,6 +24,7 @@ public class SQL6Ed {
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  " and a.year = " + years+
 	    		  " and a.companyId = " +companyId+
+	    		  	    		  " and c.shortname != 'EUR' " +
 	    		//   " and b.name != 'ALL COMPANIES' " +
 	    		   " and a.access = '" + access + "' " +
 	    		   incExCountries +

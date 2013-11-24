@@ -20,6 +20,7 @@ public class SQL5Ed {
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  " and a.productId = " + productId+
 	    		   " and a.access = '" + access + "' " +
+		    		  " and c.shortname != 'EUR' " +
 	              " and a.companyId = " +companyId+
 	         //      " and b.name != 'ALL COMPANIES' " +
 	               incExCountries+

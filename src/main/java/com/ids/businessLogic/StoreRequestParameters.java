@@ -25,7 +25,7 @@ public class StoreRequestParameters {
 	private int myYear=0;
 	
 	
-	public StoreRequestParameters(HttpServletRequest request, int myYear, String longStringCompanies){
+	public StoreRequestParameters(HttpServletRequest request, int myYear, String longStringCompanies, boolean edit){
 		
 		if (request.getParameter("newDrops")!= null && request.getParameter("newDrops").equals("yes")){
 			doNewDrops = true;
@@ -62,6 +62,12 @@ public class StoreRequestParameters {
 			}else{
 				incExCountries= " AND c.id NOT IN ("+incExCountries.replace("|", ",")+") ";
 			}
+		}
+		if (edit){
+			if (incExCountries==null ) {
+				incExCountries="";
+			}
+		    incExCountries +=" AND c.shortname != 'EUR' ";
 		}
 		
 		incExProducts = request.getParameter("excludedProducts");

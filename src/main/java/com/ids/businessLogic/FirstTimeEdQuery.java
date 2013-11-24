@@ -89,17 +89,19 @@ public class FirstTimeEdQuery {
 	      String query2 = " select a.year, a.quantity,  CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
 	       " ELSE substr(b.name,1,20) END as name  from FactsEdit_"+access+" a, Company b, Country c " +
 	    		  " where a.companyid=b.id " +
+	    		  " and b.access = '" + access + "' " +
 	    		  " and a.countryid=c.id " + 
+	    		  " and c.access =  '" + access + "' " +
 	    		  " and c.id="+countryId  + 
 	    		  " and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
 	    		  " and a.sales_production= 1" + 
 	    		  " and a.productid=1"+multiplier  + 
 	    		  " and a.access = '" + access + "' " +
-	    	//	  " and b.name!='ALL COMPANIES' " +
 	    		  " order by  CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
 	       " ELSE substr(b.name,1,20) END , a.year asc";
 
-    	  
+	      logger.warning(query2);
+	      
     	  resultSet = statement.executeQuery(query2);
     	  String currentCompany="";
         JSONObject obj2a = null;

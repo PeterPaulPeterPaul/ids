@@ -36,7 +36,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.google.appengine.api.rdbms.AppEngineDriver;
+//import com.google.appengine.api.rdbms.AppEngineDriver;
 import com.ids.businessLogic.AddJsonPercentage;
 import com.ids.businessLogic.AddJsonRowTotal;
 import com.ids.businessLogic.AddJsonTotalCell;
@@ -227,7 +227,7 @@ public class MainController implements DropdownInterface {
       	   }  
 
 
-		    	  StoreRequestParameters srp = new   StoreRequestParameters(request,myYear,longStringCompanies);
+		    	  StoreRequestParameters srp = new   StoreRequestParameters(request,myYear,longStringCompanies,false);
 
 		    	
 		    	  if (srp.getJustClicked().equals("heading1")) {

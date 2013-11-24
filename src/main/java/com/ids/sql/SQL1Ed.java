@@ -14,6 +14,7 @@ public class SQL1Ed {
 	    		  " and a.productId = "+ productId +
 	    		  " and a.year = " + years+
 	    		  " and a.access = '" + access + "' " +
+	    		  " and c.shortname != 'EUR' " +
 	    	//	  " and b.name != 'ALL COMPANIES' " +
 	    		  incExCountries +
 	    		  incExProducts+
