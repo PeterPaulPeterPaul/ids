@@ -10,7 +10,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -100,6 +102,20 @@ public class PrintPreviewController {
 		  
 		  
 		  StringBuffer sb = new StringBuffer();
+		  
+		  
+		  Date d = new Date();
+		  
+		  
+
+		  String myString = DateFormat.getDateInstance(DateFormat.LONG).format(d);
+
+	
+				  
+				  
+		  
+		  sb.append("Date: "+myString+"<br>");
+			
 
 		  sb.append("<h2 style='text-align:center'>" + request.getParameter("title1") + " " + request.getParameter("title2") + " "+
 				  request.getParameter("title3") + " " + request.getParameter("title4") + "</h2>" );
