@@ -89,18 +89,6 @@ public class PrintPreviewController {
 		}
 		  
 		  
-		  Enumeration keys = request.getParameterNames();  
-		   while (keys.hasMoreElements() )  
-		   {  
-		      String key = (String)keys.nextElement();  
-		   
-		      //To retrieve a single value  
-		      String value = request.getParameter(key);  
-		      logger.warning("key: "+key+" value: "+value);    
-		   
-  
-		   } 
-		  
 		  
 		  StringBuffer sb = new StringBuffer();
 		  
@@ -128,25 +116,20 @@ public class PrintPreviewController {
 		  
 			if(myData.has("tabData")){
 				try {
-					logger.warning("it has tabData");
 
 					JSONArray clobArray = myData.getJSONArray("tabData");
 				
 
 					JSONObject jo1 = clobArray.getJSONObject(1);
-					logger.warning("size1 is: "+clobArray.length());
 
 					List<String> columnHeaders = new ArrayList<String>();
 					JSONArray myArray = null;
 					if (jo1.has("columns")){
 						
 						int pageSize = 0;
-						
-						
-						logger.warning("it has myData");
+
 						 myArray = jo1.getJSONArray("columns");
-						logger.warning("myArray size: "+myArray.length());
-						
+
 						sb.append("<table  style='width:100%; border:1px solid black;margin: 0px auto;'><tr>");
 						for (int i = 0; i < myArray.length();i++){
 							   sb.append("<td>"+myArray.getString(i)+"</td>");
@@ -161,9 +144,8 @@ public class PrintPreviewController {
 					logger.warning("size2 is: "+jo2.length());
 
 					if (jo2.has("myData")){
-						logger.warning("it has myData");
 						JSONArray myDataArray = jo2.getJSONArray("myData");
-						logger.warning("myData size: "+myDataArray.length());
+
 						sb.append("<tr>");
 		
 						int pageSize = 0;
