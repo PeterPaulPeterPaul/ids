@@ -23,7 +23,20 @@ border:1px solid black;
 }
 </style>
 
-<style type="text/css" media="print"> .noprint {visibility: hidden;} </style>
+<style type="text/css" media="print">
+      .noprint {visibility: hidden;}
+     .pagebreak {page-break-before: always}
+     td {font-family: Verdana,Arial,sans-serif;
+           font-size:11px;border: 1px solid black;
+           display: table-cell;
+vertical-align: inherit;
+     }
+     table{
+border-collapse:collapse;
+border:1px solid black;
+}
+
+ </style>
 
 </head>
 <body>
@@ -31,12 +44,6 @@ border:1px solid black;
 <input class='noprint' type="image" onClick="window.print()" name="printer"  src="images/printer.jpg" />
 <input class='noprint' type="image" name="close" id="closeit"  src="images/exit.bmp" />
 <br>
-<div class="box"><span class="IDSheader">
-<p style="text-align:center; margin-top:10px">
-		    <img src="images/OHR-logo.png" alt="Off-Highway Research">
-		    </p>  
-			</span>
-			</div>
 
 ${printTable}
 
