@@ -21,7 +21,12 @@ public class SQL1Summary implements DropdownInterface {
 		switch(heading2){
 		case(COUNTRY): {
 			if (summary!=4) {
-			   andClause = " and a.countryId = "+ dropdown2;
+			
+				if (dropdown2 == -10) {
+					 andClause = " AND a.countryId NOT IN (20,21,-10,0) ";
+				} else {
+			         andClause = " and a.countryId = "+ dropdown2;
+				}
 			}
             if (heading1==PRODUCT) {
             	TWO="year";
