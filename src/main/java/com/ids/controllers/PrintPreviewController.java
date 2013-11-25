@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
@@ -110,15 +111,19 @@ public class PrintPreviewController {
 
 		  String myString = DateFormat.getDateInstance(DateFormat.LONG).format(d);
 
-	
-				  
-				  
-		  
-		  sb.append("Date: "+myString+"<br>");
-			
+		  String header = "<div class=\"box\"><span class=\"IDSheader\"> "+
+		" <p style=\"text-align:center; margin-top:10px\">"+
+		" <img src=\"images/OHR-logo.png\" alt=\"Off-Highway Research\">"+
+		"</p>  "+
 
-		  sb.append("<h2 style='text-align:center'>" + request.getParameter("title1") + " " + request.getParameter("title2") + " "+
-				  request.getParameter("title3") + " " + request.getParameter("title4") + "</h2>" );
+		"</span>"+
+		 "<p style='text-align:center'> Date: "+myString +"</p>"+
+		"<h2 style='text-align:center'>" + request.getParameter("title1") + " " + request.getParameter("title2") + " "+
+		  request.getParameter("title3") + " " + request.getParameter("title4") + "</h2>" +
+		"</div>";
+			
+		  sb.append(header);
+
 		  
 		  
 			if(myData.has("tabData")){
@@ -132,12 +137,17 @@ public class PrintPreviewController {
 					logger.warning("size1 is: "+clobArray.length());
 
 					List<String> columnHeaders = new ArrayList<String>();
+					JSONArray myArray = null;
 					if (jo1.has("columns")){
+						
+						int pageSize = 0;
+						
+						
 						logger.warning("it has myData");
-						JSONArray myArray = jo1.getJSONArray("columns");
+						 myArray = jo1.getJSONArray("columns");
 						logger.warning("myArray size: "+myArray.length());
 						
-						sb.append("<table  style='border-collapse:collapse;border:1px solid black;margin: 0px auto;'><tr>");
+						sb.append("<table  style='width:100%; border:1px solid black;margin: 0px auto;'><tr>");
 						for (int i = 0; i < myArray.length();i++){
 							   sb.append("<td>"+myArray.getString(i)+"</td>");
 							columnHeaders.add(myArray.getString(i));
@@ -155,14 +165,44 @@ public class PrintPreviewController {
 						JSONArray myDataArray = jo2.getJSONArray("myData");
 						logger.warning("myData size: "+myDataArray.length());
 						sb.append("<tr>");
+		
+						int pageSize = 0;
 						for (int i = 0; i < myDataArray.length();i++){
 							
-							sb.append("<tr>");
+							pageSize+=1;
+							if (pageSize>= 20) {
+
+                                    pageSize=0; 
+                                 
+                                    sb.append("</table>");
+                                    sb.append("<div class=\"pagebreak\">&nbsp</div>");
+                                    sb.append(header);
+
+                                    
+									sb.append("<table  style='width:100%; border:1px solid black;margin: 0px auto;'><tr style='width:100%'>");
+
+									for (int j = 0; j < myArray.length();j++){
+										   sb.append("<td>"+myArray.getString(j)+"</td>");
+
+
+									}
+
+							        sb.append("</tr>");
+
+							}
+							
+							sb.append("<tr style='width:100%'>");
 							 int j=0;
+							NumberFormat nf = NumberFormat.getInstance();
+							
 							for (String s : columnHeaders){
 								   j+=1;
 							   try{
+								   if (j==1) {
 									   sb.append("<td>"+myDataArray.getJSONObject(i).getString(s).trim().replaceAll(",","")+"</td>");
+								   }else{
+									   sb.append("<td>"+nf.format(Integer.parseInt(myDataArray.getJSONObject(i).getString(s).trim().replaceAll(",","")))+"</td>");  
+								   }
 							   }catch(Exception e){
 								   sb.append("<td>0</td>");
 							   }
@@ -175,7 +215,7 @@ public class PrintPreviewController {
 
 						
 						 int j=0;
-						 sb.append("<tr>");
+						 sb.append("<tr  style='width:100%'>");
 							for (String s : columnHeaders){
 								   j+=1;
 							   try{
