@@ -422,6 +422,11 @@ To <select id="todate" name="todate" >
 
         	});
           
+          var summary=0;
+    	  var downloadExcel="no";
+          var clickType="";
+    	  var swapValue="0";
+          
           $(document).ready(function(){
 
         	  $("input:image").tooltip();
@@ -498,6 +503,9 @@ To <select id="todate" name="todate" >
                  			myId1=$(this).attr("id");
                  		}
                   });
+               	
+               	
+               	
                	if (myId1 != "" ){
           		             $("#title33").val( $("#"+myId1).text() );
              	        } else {
@@ -540,7 +548,7 @@ To <select id="todate" name="todate" >
     		   
     		   
     		   
-        	  var downloadExcel="no";
+        	  downloadExcel="no";
         	  var rowTotal="on";
         	  var percents="off";
         	  
@@ -617,11 +625,16 @@ To <select id="todate" name="todate" >
 				  });
         	  });
         	  
-       	  $(".dropdown1").selectBoxIt();
+       	  $(".dropdown1").selectBoxIt({
+       		  
+       		  unselectable: "off"
+       	  });
         	  $(".dropdown2").selectBoxIt();
         	  $(".dropdown3").selectBoxIt();
         	  $(".dropdown33").selectBoxIt();
         	  
+        	  
+
         	  
         	  $( "input:button" ).button();
         	  
@@ -629,9 +642,8 @@ To <select id="todate" name="todate" >
         	  $(".dropdown2").css("width","182px");
 
 
-        	var clickType="";
-        	var swapValue="0";
-        	var summary=0;
+        	clickType="";
+        	swapValue="0";
         	
 
 
@@ -881,8 +893,6 @@ To <select id="todate" name="todate" >
 	  function getGrid()
 	  {
 
-
-		  
 var myId2= $(".viewable2").attr("id");
 var mydropdown2 = $("#"+myId2+" option:selected").val();
 
@@ -905,7 +915,8 @@ var mydropdown1 = $("#"+myId+" option:selected").val();
 	if 	(firstPartId == secondPartId && clickType=="myrad3" && (summary ==0 || h2 != "4")){
 		$("#"+myId).removeClass("viewable1");
 		$("#drop1"+h2).addClass("viewable1");
-		 mydropdown1 = $("#drop1"+h2+" option:selected").val();
+		
+		 mydropdown1 = $("#drop1"+h2+" option:selected").val();		
 		  $(".myrad2").prop('checked', false);
 		  $("#a"+h2).prop('checked', true);
 	}
@@ -1367,6 +1378,15 @@ if (clickType=="drop22s") {
 								    			  });
 								    		   
 				  		    				   
+								    		   
+								    		   
+								    		   
+
+
+
+								    		   
+								    		   
+								    		   
 								    			  $(".dropdown2").on("change",function(){
 								    				  clickType=$(this).attr('id');
 								    				  downloadExcel="no";
@@ -1375,15 +1395,160 @@ if (clickType=="drop22s") {
 								    		   } 
 								    		   newDropdowns=="no"
 								    		  $("#changeFlag").val("no");
-								    			  $("body").removeClass("wait");	  
+								    			  $("body").removeClass("wait");	
 
 					   },
 					    error: function (xhr, ajaxOptions, thrownError) {
 					        alert(xhr.status);
 					        alert(thrownError);
-					      }
+					      },
+					      
+					      
+					      complete: function () {
 
-					     
+					    	  if( $("#summary").hasClass("sum")){
+					    	     $('td[aria-describedby=list47_year]').css( 'cursor','pointer');
+					    	     $('td[aria-describedby=list47_product]').css( 'cursor','pointer');
+					    	     $('td[aria-describedby=list47_country]').css( 'cursor','pointer');
+					    	     
+					    	     $('td[aria-describedby=list47_year]').addClass( 'fontAnchorLook');
+					    	     $('td[aria-describedby=list47_product]').addClass( 'fontAnchorLook');
+					    	     $('td[aria-describedby=list47_country]').addClass( 'fontAnchorLook');
+					    	  }
+					    	  
+
+		    			  $('td[aria-describedby=list47_country]').on("click",function() {
+		    				  if( $("#summary").hasClass("sum")){
+		    					  
+		    					  $("#summary").removeClass("sum");
+		    					  $("#summary").addClass("nosum");
+		    					  $("#summary").val("Summary");
+		    					  $("#grpsum2").removeClass("sum");
+		    					  $("#grpsum2").addClass("nosum");
+		    					  $("#grpsum2").val("Group Sum");
+		    					  $("#box11").addClass("showornot11");
+		    					  $("#box11").css("display","none");
+		    					  $("#drop11").addClass("viewable1");
+		    					  $("#drop11").css("display","block");
+		    					  
+		    					  var ss = $(this).html();
+		    					  ss= ss+String.fromCharCode(160);		    					  
+		    					  $("#drop11s")[0].selectedIndex = -1;
+		    					  var myVal="";
+		    					  $("#drop11s option").each(function(idx){
+	    						     if ($(this).text() == ss)
+	    						     {
+	    						    	 myVal= $(this).val();
+		    						      $(this).prop("selected", "selected");
+		    						      $(this).attr("selected", "selected");
+		    						      $("#drop11s")[0].selectedIndex = idx;
+		    						  }
+		    					  });
+
+		    					  summary=0;
+		    					  clickType= "drop11";
+		    					  downloadExcel="no";
+
+		    					 var myTitle =  $("#drop11:nth-child(1)").children("span").children("span:nth-child(1)").children("span:eq(1)");
+		    					 var bb = myTitle.html();
+		    				     bb= ss;
+		    					 myTitle.html(bb);
+		    					 getGrid();
+		    				  }
+
+		    			  });
+		    			  
+		    			  
+		    			  $('td[aria-describedby=list47_year]').on("click",function() {
+		    				  if( $("#summary").hasClass("sum")){
+		    					  
+		    					  $("#summary").removeClass("sum");
+		    					  $("#summary").addClass("nosum");
+		    					  $("#summary").val("Summary");
+		    					  $("#grpsum2").removeClass("sum");
+		    					  $("#grpsum2").addClass("nosum");
+		    					  $("#grpsum2").val("Group Sum");
+		    					  $("#box13").addClass("showornot11");
+		    					  $("#box13").css("display","none");
+		    					  $("#drop13").addClass("viewable1");
+		    					  $("#drop13").css("display","block");
+		    					  
+		    					  var ss = $(this).html();
+		    					  ss= ss+String.fromCharCode(160);		    					  
+		    					  $("#drop13s")[0].selectedIndex = -1;
+		    					  var myVal="";
+		    		
+		    					  $("#drop13s option").each(function(idx){
+	    						     if ($(this).text() == ss)
+	    						     {
+	    						    	 myVal= $(this).val();
+		    						      $(this).prop("selected", "selected");
+		    						      $(this).attr("selected", "selected");
+		    						      $("#drop13s")[0].selectedIndex = idx;
+		    						  }
+		    					  });
+
+		    					  summary=0;
+		    					  clickType= "drop13";
+		    					  downloadExcel="no";
+		    					  
+
+
+		    					 $("#drop13").children("span:nth-child(2)").children("span:nth-child(1)").children("span:nth-child(2)").html(ss);
+
+		    					 
+		    					 getGrid();
+		    				  }
+		    			  });
+		    			  
+		    			  
+		    			  
+		    			  
+		    			  $('td[aria-describedby=list47_product]').on("click",function() {
+		    				  if( $("#summary").hasClass("sum")){
+		    					  
+		    					  $("#summary").removeClass("sum");
+		    					  $("#summary").addClass("nosum");
+		    					  $("#summary").val("Summary");
+		    					  $("#grpsum2").removeClass("sum");
+		    					  $("#grpsum2").addClass("nosum");
+		    					  $("#grpsum2").val("Group Sum");
+		    					  $("#box12").addClass("showornot11");
+		    					  $("#box12").css("display","none");
+		    					  $("#drop12").addClass("viewable1");
+		    					  $("#drop12").css("display","block");
+		    					  
+		    					  var ss = $(this).html();
+		    					  ss= ss+String.fromCharCode(160);		    					  
+		    					  $("#drop12s")[0].selectedIndex = -1;
+		    					  var myVal="";
+		    					  $("#drop12s option").each(function(idx){
+	    						     if ($(this).text() == ss)
+	    						     {
+	    						    	 myVal= $(this).val();
+		    						      $(this).prop("selected", "selected");
+		    						      $(this).attr("selected", "selected");
+		    						      $("#drop12s")[0].selectedIndex = idx;
+		    						  }
+		    					  });
+
+		    					  summary=0;
+		    					  clickType= "drop12";
+		    					  downloadExcel="no";
+
+		    					//  var myTitle =  $("#drop12").children("span:nth-child(2)").children("span:nth-child(1)").children("span:nth-child(2)").html();
+		    					// var myTitle =  $("#drop12:nth-child(1)").children("span").children("span:nth-child(1)").children("span:eq(1)");
+		    					// var bb = myTitle.html();
+		    				   //  bb= ss;
+		    					// myTitle.html(bb);
+		    					 
+		    					 $("#drop12").children("span:nth-child(2)").children("span:nth-child(1)").children("span:nth-child(2)").html(ss);
+		    					 
+		    					 getGrid();
+		    				  }
+		    			  });
+
+					      }
 					     
 					  });
 				   
@@ -1466,10 +1631,6 @@ if (clickType=="drop22s") {
       
 	   $('#gbox_list47').fadeIn();
 	   $('#list47').fadeIn();
-
-
-	
-	
 	
 			
 			$("#list47").jqGrid('footerData', 'set', 

@@ -19,6 +19,10 @@
     -webkit-box-shadow:0 0 10px #000;
 }
  
+ .fontAnchorLook {
+ color:blue;
+ text-decoration:underline;
+ }
  .footrow td
 {
 color:#000000;
