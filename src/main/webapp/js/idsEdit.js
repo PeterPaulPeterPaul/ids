@@ -1039,6 +1039,20 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			    						  
 				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:true,add:false,del:false});
 
+				    				     $("#list47").children("tbody").children("tr:nth-child(3)").children("td").each(function(index){
+				    				    	 $(this).removeClass("colorWhite");
+				    				    	 if (parseInt($(this).text()) < 0) {
+				    				    		 $(this).css("background-color","red"); 
+				    				    	 }else {
+				    				   	        $(this).css("background-color","#FFE0E0");
+				    				    	 }
+				    				      });
+
+
+				    				      $("#list47").children("tbody").children("tr:nth-child(3)").on("click",function(e){
+				    				    	  e.preventDefault();
+				    				    	  return false;
+				    				      });
 				    	
 				    			 	   $('#gbox_list47').fadeIn();
 				    				   $('#list47').fadeIn();
@@ -1236,12 +1250,28 @@ if (dateParm=="todate must be greater or equal to fromdate") {
  
     //  $("#wholescreen").fadeIn();
       
+      $("#2").css("background-color","#FF3232");
+      $("#2").children("td").children("input").attr("readonly","readonly");
+      
 	   $('#gbox_list47').fadeIn();
 	   $('#list47').fadeIn();
 
+	     $("#list47").children("tbody").children("tr:nth-child(3)").children("td").each(function(index){
+	    	 $(this).removeClass("colorWhite");
+	    	 if (parseInt($(this).text()) < 0) {
+	    		 $(this).css("background-color","red"); 
+	    	 }else {
+	   	        $(this).css("background-color","#FFE0E0");
+	    	 }
+	      });
 
-	
+
+	      $("#list47").children("tbody").children("tr:nth-child(3)").on("click",function(e){
+	    	  e.preventDefault();
+	    	  return false;
+	      });
 			
+	  
 			$("#list47").jqGrid('footerData', 'set', 
 					totals.myTotals[0]); 
 			
