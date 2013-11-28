@@ -1039,6 +1039,8 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			    						  
 				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:true,add:false,del:false});
 
+
+				      if ( $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").text()==" OTHER") {
 				    				     $("#list47").children("tbody").children("tr:nth-child(3)").children("td").each(function(index){
 				    				    	 $(this).removeClass("colorWhite");
 				    				    	 if (parseInt($(this).text()) < 0) {
@@ -1053,7 +1055,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    				    	  e.preventDefault();
 				    				    	  return false;
 				    				      });
-				    	
+				      }
 				    			 	   $('#gbox_list47').fadeIn();
 				    				   $('#list47').fadeIn();
 
@@ -1256,6 +1258,9 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 	   $('#gbox_list47').fadeIn();
 	   $('#list47').fadeIn();
 
+	      if ( $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").text()==" OTHER") {
+	    	  
+	     
 	     $("#list47").children("tbody").children("tr:nth-child(3)").children("td").each(function(index){
 	    	 $(this).removeClass("colorWhite");
 	    	 if (parseInt($(this).text()) < 0) {
@@ -1271,7 +1276,8 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 	    	  return false;
 	      });
 			
-	  
+	      }
+	      
 			$("#list47").jqGrid('footerData', 'set', 
 					totals.myTotals[0]); 
 			
