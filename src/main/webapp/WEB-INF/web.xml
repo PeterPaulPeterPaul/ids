@@ -21,6 +21,11 @@
 		<servlet-name>Down</servlet-name>
 		<servlet-class>com.ids.controllers.Down</servlet-class>
 	</servlet>
+	
+		<servlet>
+		<servlet-name>Db</servlet-name>
+		<servlet-class>com.ids.controllers.DownDataBaseController</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>mvc-dispatcher</servlet-name>
@@ -77,6 +82,10 @@
 		<url-pattern>/cron/down</url-pattern>
 	</servlet-mapping>
 	
+			<servlet-mapping>
+		<servlet-name>Db</servlet-name>
+		<url-pattern>/db</url-pattern>
+	</servlet-mapping>
 	
 		<servlet-mapping>
 		<servlet-name>mvc-dispatcher</servlet-name>
