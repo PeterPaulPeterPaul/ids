@@ -134,17 +134,13 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"/>
   <tr>
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp66" action="setup3" method="post" name="testForm1"   > 
     <input type="hidden" class="accessType" name="access" value="" /> 
-    <td>Other download:</td><td>get Data </td>
-      <td>    <input id="six" class="k-button" type="submit" name="submitBtn" value="test" /></td>
+    <td>Create Other Companies:</td>
+      <td colspan=2>    <input id="six" class="k-button" type="submit" name="submitBtn" value="Create" /></td>
 
 </form>
 
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp666" action="setup2" method="post" name="othersForm2" enctype="multipart/form-data"   >
-     <input type="hidden" name="table" value="otherFacts" /> 
-    <td>Other reLoad data:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my14filexxxx" id="myfile5xxxx"  type="file" /></td>
-      <td>    <input id="six" class="k-button" type="submit" name="submitBtn" value="reupload data" /></td>
 
-</form>
+
 </tr>
 
 

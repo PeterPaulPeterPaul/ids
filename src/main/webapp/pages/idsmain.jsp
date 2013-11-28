@@ -176,6 +176,10 @@ To <select id="todate" name="todate" >
   <input id="title44" type="hidden" name="title4" value=""/>
 </form>
 
+<form   target="_blank" id="db11" action="${ajaxPrefix}pages/${filePrefix}.csv" method="get" name="db1Form1"   > 
+<input id="myDB"  type="hidden" name="myDB" value="dummy" />
+</form>
+
 <form  target="_blank"  id="printer" action="${ajaxPrefix}print" method="post" name="factsForm2"   > 
  <input id="printDataJson"  type="hidden" name="jsonStuff" value="" />
   <input id="printTotalJson"  type="hidden" name="jsonTotals" value="" />
@@ -372,12 +376,21 @@ To <select id="todate" name="todate" >
 
 
 </div>
+
+
 <div style="float:left;margin-left:20px">
 
 <div id="drop41" style="display:block">
-<select name="accessType" class="dropdown3" id="accessType" style="width:180px;margin:10px">
+<select name="accessType" class="dropdown3" id="accessType" style="width:100px;margin:10px">
   ${accessoptions}
 </select>
+</div>
+</div>
+
+<div style="float:left;margin-left:20px">
+
+<div id="drop44" style="display:block">
+  <a id="whenPressed" href="#">${textPrefix} download</a>
 </div>
 </div>
 
@@ -429,14 +442,22 @@ To <select id="todate" name="todate" >
           
           $(document).ready(function(){
 
+        	  
+        	  
+        	  
         	  $("input:image").tooltip();
         	  
         	  $("body").removeClass("js");
         	  
+        	  
+        	  $("#whenPressed").on("click",function() {
+         		  $("#db11").submit();
+         		  return false;
+         	  });
+        	  
         	  var newDropdowns = "no";
         	  $("#changeFlag").val("no");
         	  
-          	$("body").removeClass("js");
 
         	  $( "#two" ).on("click" , function() {
             	  $("#title1").val(  $.trim($("#accessTypeSelectBoxItText").text()) );
