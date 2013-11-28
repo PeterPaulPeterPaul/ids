@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.appengine.api.rdbms.AppEngineDriver;
+import com.google.cloud.sql.jdbc.PreparedStatement;
 import com.ids.businessLogic.DropdownInterface;
 import com.ids.context.GetBeansFromContext;
 
@@ -45,20 +46,8 @@ public class SetupOtherFactColumn {
 			 GetBeansFromContext gcfc = new GetBeansFromContext();
 			 con = gcfc.myConnection();
 
-	      Statement statement2 = con.createStatement();
 	      Statement statement3 = con.createStatement();
-
-
-	      ResultSet resultSet2 = null;
-	      
-	      logger.warning("above response");
-
-	      response.setContentType("application/octet-stream");
-	      logger.warning("above response 1") ;
-	      response.setHeader("Content-Disposition","attachment;filename=otherFacts.txt");
-	      logger.warning("above response 2") ;
-			out = response.getOutputStream();
-			  logger.warning("created stream") ;
+;
 
 			 String access = request.getParameter("access");
 			  logger.warning("got request") ;
@@ -74,29 +63,18 @@ public class SetupOtherFactColumn {
 	      String query1 = "DELETE from Facts_"+access+" where companyId < 0";
 	      logger.warning("query: "+query1);
 	      statement3.executeUpdate(query1);
-	      query1 = "DELETE from Others_"+access;
-	      logger.warning("query: "+query1);
-	      statement3.executeUpdate(query1);
-	      
-	      statement2.executeUpdate("insert into Others_"+access+"  select productId, countryId, sales_production," +
-	      		" flag, year, sum(quantity) quantity from Facts_"+access+ " where companyID != 11"+multiplier+
-	      				" group by productId, countryId, year, sales_production," +
-	      		" flag, year");
-	      
-	      logger.warning("below delete");
-	//      query1 = "DELETE from company where id= -1";
-	  //    statement3.executeUpdate(query1);
-	      
-	 //     query1 = "INSERT INTO Company (name, shortname, id) values ('OTHER','OTH',-1) ";
-	  //    statement3.executeUpdate(query1);
-	    //  loop 0: Sales or Prod
-	      
 
-
-	    	  
-	    	  String query2 = "select  a.productid, a.countryId, a.sales_production, "+
-"a.flag , a.year, -1"+multiplier+" as companyI ,  (b.quantity -a.quantity) as quantity " +
-		" from Others_"+access+" a, Facts_"+access+" b "+
+	    	 String query2 = "INSERT INTO Facts_"+access+"  (companyId, countryid, productid, year, sales_production, quantity, flag, access) " +
+	    	 		" select -1"+multiplier+", a.countryId"+multiplier+",a.productid"+multiplier+",a.year,a.sales_production, " +
+	    			 "  (b.quantity -a.quantity) as quantity ,a.flag, '"+access+"' " +
+		" from  Facts_"+access+" b ,"+
+" ( " +
+" 		select productId, countryId, sales_production, " +
+" 	      		flag, year, sum(quantity) quantity from Facts_"+access+" where companyID != 11"+multiplier+" " +
+" 	      		and quantity > 0 " + 
+" 	      				group by productId, countryId, year, sales_production, " +
+" 	      		 flag, year " +
+" 		)  a " +
 "where a.productid = b.productid "+
  "and a.countryId = b.countryId "+
 " and a.sales_production = b.sales_production "+
@@ -106,35 +84,11 @@ public class SetupOtherFactColumn {
 " and b.quantity - a.quantity > 0 ";
 	    	  
 	    	  logger.warning(query2);
-	    	  resultSet2 = statement2.executeQuery(query2);
 
-	    	  int flusher=0;
-	    	  while (resultSet2.next()) {
-	    		  
-	    		  if (resultSet2.getString("quantity")==null) {
-	    			  continue;
-	    		  }
-  
-	    			  
-	    				out.print(resultSet2.getString("companyI")+"\t"+ resultSet2.getString("countryId")+"\t" + resultSet2.getString("productid")
-	    						+"\t"  + resultSet2.getString("year")+"\t" +
-	    						resultSet2.getString("sales_production")+ "\t"
-	    						+ resultSet2.getString("quantity")+"\t" + resultSet2.getString("flag")+"\r\n"); 
-	    				flusher+=1;
-	    				if (flusher> 200) {
-	    				out.flush();
-	    				flusher=0;
-	    			//	break;
-	    				}
-	    				
-
-	    		  }
-
-
-
-	      
-			out.flush();
-
+	    	    PreparedStatement statement = (PreparedStatement) con.prepareStatement(query2);
+	    	    statement.executeUpdate();
+	    	    
+	    	 
 con.close();   
 return "setup";
 		 
@@ -146,6 +100,7 @@ return "setup";
 			out.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
+			logger.warning("SQL ERROR OF SOME KIND");
 			e1.printStackTrace();
 		}
 		 return "setup";

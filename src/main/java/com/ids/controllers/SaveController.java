@@ -129,10 +129,65 @@ public class SaveController implements DropdownInterface {
 			   if (request.getParameter("save")!= null ) {
 				  // PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Delete from Facts_"+access);
 				 //  statement2.executeUpdate();
-				   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("insert into Facts_"+access+" " +
+				   
+				   
+				   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("DELETE from FactsEdit_"+access+"  Where companyId < 0 ");  // That removes all the current OTHER rows
+				   statement2.executeUpdate();
+				   con.commit();
+				   String multiplier="";
+			    	if (access.equals("c")) {
+			    		multiplier="*10000";
+			    	}
+			    	if (access.equals("i")) {
+			    		multiplier="*20000";
+			    	}
+
+				    statement2 = (PreparedStatement) con.prepareStatement(" INSERT INTO FactsEdit_"+access+" (companyId, countryid, productid, year, sales_production, quantity, flag, access)  "+
+				    		" select -1"+multiplier+", a.countryId"+multiplier+",a.productid"+multiplier+",a.year,a.sales_production, " +
+			    			 "  (b.quantity -a.quantity) as quantity ,'I' , '"+access+"' " +
+			    			 " from  FactsEdit_"+access+" b, " + 
+				    		 " (  select productId, countryId, sales_production,  flag, year, sum(quantity) quantity  "+
+				    		 " from FactsEdit_"+access+"  where companyID != 11"+multiplier+" " +
+				    		 "  and quantity > 0  	  "+     
+				    		 "  group by productId, countryId, year, sales_production,  "+
+				    		 " flag, year  "+
+				    		 " )  a  "+
+				    		 "  where a.productid = b.productid "+
+				    		 " and a.countryId = b.countryId   "+
+				    		 "  and a.sales_production = b.sales_production "+
+				    		// " and a.flag = b.flag " +
+				    		 " and a.year = b.year "+
+				    		 "  and b.companyid = 11"+multiplier+" " +
+				    		 " and b.quantity - a.quantity <> 0  ");
+				    
+				    logger.warning(" INSERT INTO FactsEdit_"+access+" (companyId, countryid, productid, year, sales_production, quantity, flag, access)  "+
+				    		" select -1"+multiplier+", a.countryId"+multiplier+",a.productid"+multiplier+",a.year,a.sales_production, " +
+			    			 "  (b.quantity -a.quantity) as quantity ,'I', '"+access+"' " +
+			    			 " from  FactsEdit_"+access+" b, " + 
+				    		 " (  select productId, countryId, sales_production, flag, year, sum(quantity) quantity  "+
+				    		 " from FactsEdit_"+access+"  where companyID != 11"+multiplier+" " +
+				    		 "  and quantity > 0  	  "+     
+				    		 "  group by productId, countryId, year, sales_production,  "+
+				    		 " flag, year  "+
+				    		 " )  a  "+
+				    		 "  where a.productid = b.productid "+
+				    		 " and a.countryId = b.countryId   "+
+				    		 "  and a.sales_production = b.sales_production "+
+				    		 "  and a.year = b.year "+
+				    		 "  and b.companyid = 11"+multiplier+" " +
+				    		 " and b.quantity - a.quantity <> 0  ");
+				    
+				    
+				    statement2.executeUpdate();
+				    con.commit();
+					   statement2 = (PreparedStatement) con.prepareStatement("Delete from Facts_"+access+"  Where companyId < 0 " );
+					   statement2.executeUpdate();
+
+					   con.commit();
+				   statement2 = (PreparedStatement) con.prepareStatement("insert into Facts_"+access+" " +
 				   		" select * from FactsEdit_"+access + " WHERE flag ='I' ");
 				   statement2.executeUpdate();
-				   
+				   con.commit();
 				   statement2 = (PreparedStatement) con.prepareStatement("delete from Facts_"+access+"  " +
 					   		" where exists (select 1 from  FactsEdit_"+access+" cc " +
 					   		 " where  cc.year= Facts_"+access+".year and cc.countryId = Facts_"+access+".countryId and cc.companyId = Facts_"+access+".companyId " +
@@ -146,7 +201,7 @@ public class SaveController implements DropdownInterface {
 					   		" and cc.flag = 'X') ");
 				   
 					   statement2.executeUpdate();
-					   
+					   con.commit();
 					   statement2 = (PreparedStatement) con.prepareStatement("update Facts_"+access +" aa INNER JOIN " +
 					      " FactsEdit_"+access+" bb ON ( aa.year= bb.year and aa.countryId = bb.countryId and aa.companyId = bb.companyId " +
 					   		" and aa.sales_production = bb.sales_production and bb.productId = aa.productId) " +
@@ -165,7 +220,9 @@ public class SaveController implements DropdownInterface {
 					   
 				   statement2 = (PreparedStatement) con.prepareStatement("update editing set flag = '0' ");
 				   statement2.executeUpdate();
+				   logger.warning("all the updates/deletes and inserts done");
 				   con.commit();
+				   logger.warning(".....and also commit");
 				   model.addAttribute("saveBut","none");
 				   model.addAttribute("openOrClose","open");
 				   
@@ -186,7 +243,11 @@ public class SaveController implements DropdownInterface {
             	   year =  request.getParameter("dimension1Val");
                } else {
             	   
-            	  SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension1Val") +"' ";
+            	   String convertIt = request.getParameter("dimension1Val");
+            	   if (convertIt.equals(" ALL COMPANIES")) {
+            		   convertIt = "ALL COMPANIES";
+            	   }
+            	  SQL = " select id from "+value+ " where name = '" +convertIt +"' ";
             	  logger.warning("SQL1: "+SQL);
             	  resultSet = statement.executeQuery(SQL);
             	  while (resultSet.next()) {
@@ -349,6 +410,12 @@ public class SaveController implements DropdownInterface {
                 catch(Exception e) {
                 	logger.log(Level.SEVERE,"error",e);
                 }
+		 
+		 
+		 
+		 
+		 
+		 
 			   
 			   return "login";
 	 }
@@ -362,27 +429,7 @@ public class SaveController implements DropdownInterface {
 		 
 		 logger.warning("Entering application via POST");
 
-try{
-	
-	
-	 Enumeration keys = request.getParameterNames();  
-	   while (keys.hasMoreElements() )  
-	   {  
-	      String key = (String)keys.nextElement();  
  
-	   
-	      //To retrieve a single value  
-	      String value = request.getParameter(key);  
-	      System.out.println(value);  
-	   
-	      logger.warning("key: "+key+ "  value: "+value); 
-	      // If the same key has multiple values (check boxes)  
-	      String[] valueArray = request.getParameterValues(key);  
-	        
-	      for(int i = 0; i > valueArray.length; i++){  
-	    	  logger.warning("VALUE ARRAY" + valueArray[i]);  
-	      }  
-	   }  
 	   
 	   
 	
@@ -390,10 +437,7 @@ try{
 		            response,
 					request,
 					model);
-}catch(Exception e){
-	logger.log(Level.SEVERE,"error",e);
-	return null;
-}
+
 	 }
 	 
 	
