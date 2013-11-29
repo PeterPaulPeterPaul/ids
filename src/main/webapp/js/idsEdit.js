@@ -1015,6 +1015,72 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			           	viewrecords: true,
 				    			           	caption: mylocalTitle,
 				    			         	footerrow: true, 
+				    			         	
+				    			         	loadComplete: function () {
+				    			         		/*
+				    			         		var other = $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").html();
+				    			         		if (other==" OTHER") {
+				    			         	    var $this = $(this),
+				    			         	        sum = $this.jqGrid("getCol", "amount", false, "sum"),
+				    			         	        $footerRow = $(this.grid.sDiv).find("tr.footrow"),
+				    			         	        localData = $this.jqGrid("getGridParam", "data"),
+				    			         	        totalRows = localData.length,
+				    			         	        totalSum = 0,
+				    			         	        $newFooterRow,
+				    			         	        i;
+
+				    			         	    $newFooterRow = $(this.grid.sDiv).find("tr.myfootrow");
+				    			         	    if ($newFooterRow.length === 0) {
+				    			         	        // add second row of the footer if it's not exist
+				    			         	        $newFooterRow = $footerRow.clone();
+				    			         	        $newFooterRow.removeClass("footrow")
+				    			         	            .addClass("myfootrow ui-widget-content");
+				    			         	        
+				    			         	        
+				    			         	        $newFooterRow.children("td").each(function (ind) {
+				    			         	            this.style.width = ""; // remove width from inline CSS
+
+				    			         	         var pea =   $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child("+(ind +1)+")").html();
+				    			         	            var myWidth =  $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child("+(ind +1)+")").width();
+				    			         	       $(this).width(myWidth);
+				    			         	      $(this).html(pea);
+				    			         	            if (parseInt(pea) < 0) {
+				    			       	    		 $(this).css("background-color","red"); 
+				    			       	    	 }else {
+				    			       	   	        $(this).css("background-color","#FFE0E0");
+				    			       	    	 }
+				    			                     //   $(this).css("padding-left","p2x");
+				    			 
+				    			                        $(this).removeClass("colorWhite");
+				    			                        $(this).css("font-weight","normal");
+				    			                        $(this).css("overflow","hidden");
+				    			                        $(this).css("white-space","pre");
+				    			                        $(this).css("height","22px");
+				    			                       $(this).css("padding"," 0 2px 0 2px");
+				    			                       $(this).css(" border-bottom-width","1px");
+				    			                       $(this).css(" border-bottom-color","inherit");
+				    			                    $(this).css(" border-bottom-style","solid");
+
+				    			         	        });
+				    			         	        $newFooterRow.insertAfter($footerRow);
+				    			         	       $("#list47").children("tbody").children("tr:nth-child(3)").css("display","none");
+				    			         	      $footerRow.css("display","none");
+				    			         	    } */
+				    			         	  //  $this.jqGrid("footerData", "set", {invdate: "Total (page):", amount: sum});
+
+				    			         	    // calculate the value for the second footer row
+				    			         	  //  for (i = 0; i < totalRows; i++) {
+				    			         	  //      totalSum += parseInt(localData[i].amount, 10);
+				    			         	  //  }
+				    			         	 //   $newFooterRow.find(">td[aria-describedby=" + this.id + "_invdate]")
+				    			         	 //       .text("Grand Total:");
+				    			         	 //   $newFooterRow.find(">td[aria-describedby=" + this.id + "_amount]")
+				    			         	 //       .text($.fmatter.util.NumberFormat(totalSum, $.jgrid.formatter.number));
+				    			         	//	}
+				    			         	},
+				    			         	
+				    			         	
+				    			         	
 				    			         	 ignoreCase:true,
 				    			         	userDataOnFooter: true,
 				    			        	   onSelectRow: function(id){
@@ -1039,7 +1105,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			    						  
 				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:true,add:false,del:false});
 
-
+/*
 				      if ( $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").text()==" OTHER") {
 				    				     $("#list47").children("tbody").children("tr:nth-child(3)").children("td").each(function(index){
 				    				    	 $(this).removeClass("colorWhite");
@@ -1055,10 +1121,11 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    				    	  e.preventDefault();
 				    				    	  return false;
 				    				      });
-				      }
+				      }*/
 				    			 	   $('#gbox_list47').fadeIn();
 				    				   $('#list47').fadeIn();
 
+				    				   
 
 				    					 var totals = JSON.parse($("#tempStore #myJsonTotals").html());
 				    					 $("#totalsJson").val($("#tempStore #myJsonTotals").html());
@@ -1074,10 +1141,22 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    						 
 				    						 
 				    						 $('#list47').setGridWidth($('#beans').width());
+				    						 
+				    						 
 				    						 $(window).resize(function() {
 				    							 $('#list47').setGridWidth($('#beans').width());
 				    							});
 				    					 
+				    						 
+						    			//	   $footerRow = $('#list47').grid.sDiv.find("tr.footrow");
+						    			//	   $footerRow.children("td").each(function (ind) {
+						    			//		   alert("does this happen");
+						    			//		   var myWidth =  $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child("+(ind +1)+")").width();
+						    			//		   $(this).width(myWidth);
+						    			//	   });
+						    				   
+						    				   
+						    				   
 				    						 
 				    						  if ($(".myrad2:checked").val()=="4"|| 
 				    								  $(".myrad3:checked").val()=="4"){
@@ -1086,12 +1165,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    						  
 				    						  $('.footrow').children("td").removeClass("colorWhite"); 
 				    						  
-				    						  $('.footrow').children('td').each(function( index ) {
-				    							  if ( $(this).text()==" " || $(this).text()=='\xa0'){
-				    								  $(this).text("0"); 
-				    							  }
-				    							  
-				    							});
+
 				    						  
 				    						  
 				    						  if ($("#list47_TOTAL").length) {
@@ -1101,11 +1175,61 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    		            		  }
 				    						  
 				    						  $("#titleBar").fadeIn();
+				    						  
+				    						  
+
+				    						  
 
 					   },
 					    error: function (xhr, ajaxOptions, thrownError) {
 					        alert(xhr.status);
 					        alert(thrownError);
+					      },
+					      
+					      complete: function () {
+					    	  
+    	
+								 var other = $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").html();
+						      		if (other==" OTHER") {
+						      	
+						      	     var newFooterRow =$("tr.footrow").clone();
+
+						      	        newFooterRow.removeClass("footrow");
+
+						      	        newFooterRow.children("td").each(function (ind) {
+						  
+						      	             var pea =   $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child("+(ind +1)+")").html();
+						      	            var myWidth =  $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child("+(ind +1)+")").width();
+
+						      	           $(this).html(pea);
+						      	            if (parseInt(pea) < 0) {
+						    	    		    $(this).css("background-color","red"); 
+						    	    	     }else {
+						    	   	            $(this).css("background-color","#FFE0E0");
+						    	    	     }
+
+						                     $(this).removeClass("colorWhite");
+						                     $(this).css("font-weight","normal");
+						                     $(this).css("overflow","hidden");
+						                     $(this).css("white-space","pre");
+						                     $(this).css("height","22px");
+						                    $(this).css("padding"," 0 2px 0 2px");
+						                    $(this).css(" border-bottom-width","1px");
+						                    $(this).css(" border-bottom-color","inherit");
+						                   $(this).css(" border-bottom-style","solid");
+
+						                   $(this).css("width",myWidth+"px");
+						                 
+						      	        });
+						                   
+						      	        newFooterRow.insertAfter($("tr.footrow"));
+						      	        $("#list47").children("tbody").children("tr:nth-child(3)").css("display","none");
+						      	      $("tr.footrow").css("display","none");
+
+						      		}
+						      		
+
+					    	  
 					      }
 
 					     
@@ -1130,7 +1254,6 @@ if (dateParm=="todate must be greater or equal to fromdate") {
   $("#totalsJson").val(JSON.stringify(totals));
   
 	 $("#printTotalJson").val(JSON.stringify(totals));
-
 
 	   var myTabData = data.tabData;
 		var cols= myTabData[1].columns;
@@ -1223,6 +1346,79 @@ if (dateParm=="todate must be greater or equal to fromdate") {
          	caption: mylocalTitle,
          	hidegrid:false,
          	footerrow: true, 
+         	
+         	loadComplete: function () {
+         		
+         		/*
+         		var other = $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").html();
+         		if (other==" OTHER") {
+         	    var $this = $(this),
+         	        sum = $this.jqGrid("getCol", "amount", false, "sum"),
+         	        $footerRow = $(this.grid.sDiv).find("tr.footrow"),
+         	        localData = $this.jqGrid("getGridParam", "data"),
+         	        totalRows = localData.length,
+         	        totalSum = 0,
+         	        $newFooterRow,
+         	        i;
+
+         	    $newFooterRow = $(this.grid.sDiv).find("tr.myfootrow");
+         	    if ($newFooterRow.length === 0) {
+         	        // add second row of the footer if it's not exist
+         	        $newFooterRow = $footerRow.clone();
+         	        $newFooterRow.removeClass("footrow");
+         	        
+         	        //    .addClass("myfootrow ui-widget-content");
+         	        
+         	        
+         	        $newFooterRow.children("td").each(function (ind) {
+         	          //  this.style.width = ""; // remove width from inline CSS
+
+         	         var pea =   $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child("+(ind +1)+")").html();
+         	            var myWidth =  $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child("+(ind +1)+")").width();
+         	     //  $(this).width(myWidth);
+         	       alert(pea);
+         	      $(this).html(pea);
+         	            if (parseInt(pea) < 0) {
+       	    		 $(this).css("background-color","red"); 
+       	    	 }else {
+       	   	        $(this).css("background-color","#FFE0E0");
+       	    	 }
+                     //   $(this).css("padding-left","p2x");
+ 
+                        $(this).removeClass("colorWhite");
+                        $(this).css("font-weight","normal");
+                        $(this).css("overflow","hidden");
+                        $(this).css("white-space","pre");
+                        $(this).css("height","22px");
+                       $(this).css("padding"," 0 2px 0 2px");
+                       $(this).css(" border-bottom-width","1px");
+                       $(this).css(" border-bottom-color","inherit");
+                    $(this).css(" border-bottom-style","solid");
+alert(myWidth);
+//alert()
+                    $(this).css("width",(myWidth+"px");
+                    
+         	        });
+         	        $newFooterRow.insertAfter($footerRow);
+         	       $("#list47").children("tbody").children("tr:nth-child(3)").css("display","none");
+         	      $footerRow.css("display","none");
+         	    }
+         	  //  $this.jqGrid("footerData", "set", {invdate: "Total (page):", amount: sum});
+
+         	    // calculate the value for the second footer row
+         	  //  for (i = 0; i < totalRows; i++) {
+         	  //      totalSum += parseInt(localData[i].amount, 10);
+         	  //  }
+         	 //   $newFooterRow.find(">td[aria-describedby=" + this.id + "_invdate]")
+         	 //       .text("Grand Total:");
+         	 //   $newFooterRow.find(">td[aria-describedby=" + this.id + "_amount]")
+         	 //       .text($.fmatter.util.NumberFormat(totalSum, $.jgrid.formatter.number));
+         		}
+         		
+         		*/
+         	},
+         	
+         	
          	 ignoreCase:true,
          	userDataOnFooter: true,
          	scrollingRows:false
@@ -1297,16 +1493,67 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			 
 			 
 			 
+			 
+			 
+			 
+			 var other = $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").html();
+      		if (other==" OTHER") {
+      	
+      	     var newFooterRow =$("tr.footrow").clone();
+
+      	        newFooterRow.removeClass("footrow");
+
+      	        newFooterRow.children("td").each(function (ind) {
+  
+      	             var pea =   $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child("+(ind +1)+")").html();
+      	            var myWidth =  $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child("+(ind +1)+")").width();
+
+      	           $(this).html(pea);
+      	            if (parseInt(pea) < 0) {
+    	    		    $(this).css("background-color","red"); 
+    	    	     }else {
+    	   	            $(this).css("background-color","#FFE0E0");
+    	    	     }
+
+                     $(this).removeClass("colorWhite");
+                     $(this).css("font-weight","normal");
+                     $(this).css("overflow","hidden");
+                     $(this).css("white-space","pre");
+                     $(this).css("height","22px");
+                    $(this).css("padding"," 0 2px 0 2px");
+                    $(this).css(" border-bottom-width","1px");
+                    $(this).css(" border-bottom-color","inherit");
+                   $(this).css(" border-bottom-style","solid");
+
+                   $(this).css("width",myWidth+"px");
+                 
+      	        });
+                   
+      	        newFooterRow.insertAfter($("tr.footrow"));
+      	        $("#list47").children("tbody").children("tr:nth-child(3)").css("display","none");
+      	      $("tr.footrow").css("display","none");
+
+      		}
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
 			  $('.footrow').children('td').each(function( index ) {
 
 
 				  if ( $(this).text()==" " || $(this).text()=='\xa0'){
 					  $(this).text("0"); 
 				  }
-				  
+   
 				});
 
-			  
+
 		     	 function validateDates() {
 		     		 var testing ="";
 		     		 if ($("#fromdate").val()=="-1" && $("#todate").val()=="-1"){
