@@ -1596,9 +1596,7 @@ if (clickType=="drop22s") {
   $("#totalsJson").val(JSON.stringify(totals));
   
 	 $("#printTotalJson").val(JSON.stringify(totals));
-  
-  
-	 alert(JSON.stringify(totals));
+
 	 
 	   var myTabData = data.tabData;
 		var cols= myTabData[1].columns;
