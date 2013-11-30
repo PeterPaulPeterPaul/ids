@@ -176,7 +176,7 @@ To <select id="todate" name="todate" >
   <input id="title44" type="hidden" name="title4" value=""/>
 </form>
 
-<form   target="_blank" id="db11" action="${ajaxPrefix}pages/${filePrefix}.csv" method="get" name="db1Form1"   > 
+<form   target="_blank" id="db11" action="${ajaxPrefix}pages/${filePrefix}.xls" method="get" name="db1Form1"   > 
 <input id="myDB"  type="hidden" name="myDB" value="dummy" />
 </form>
 

@@ -178,7 +178,7 @@ public class MainController implements DropdownInterface {
 	            	if (user.getWorld()==1) {
 	            		if (access.equals("w")) {
 	            			selected = "selected";
-		            		filePrefix = "world";
+		            		filePrefix = "ids";
 		            		textPrefix = "IDS";
 	            		} else {
 	            			selected = "";
@@ -189,7 +189,7 @@ public class MainController implements DropdownInterface {
 	            	if (user.getChina()==1) {
 	            		if (access.equals("c")) {
 	            			selected = "selected";
-		            		   filePrefix = "china";
+		            		   filePrefix = "cds";
 		            		   textPrefix = "CDS";
 	            		} else {
 	            			selected = "";
@@ -199,7 +199,7 @@ public class MainController implements DropdownInterface {
 	            	if (user.getIndia()==1) {
 	            		if (access.equals("i")) {
 	            			selected = "selected";
-		            		  filePrefix = "india";
+		            		  filePrefix = "inds";
 		            		  textPrefix = "INDS";
 	            		} else {
 	            			selected = "";
