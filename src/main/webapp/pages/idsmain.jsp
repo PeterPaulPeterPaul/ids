@@ -39,7 +39,7 @@ body.wait, body.wait *{
 	<div class="box">
 	<span class="IDSheader"> 
 	<img class="leftLogo" src="images/IDS-Logo.png" width="50px" height="50px">
-	International Database Service 
+	International Database Service XXX
 	<img class="rightLogo" src="images/OHRLOGO-BnW.png"  >
 	</span>
 	</div>
