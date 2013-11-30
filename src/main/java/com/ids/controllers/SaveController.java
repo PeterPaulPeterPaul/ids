@@ -143,7 +143,7 @@ public class SaveController implements DropdownInterface {
 			    	}
 
 				    statement2 = (PreparedStatement) con.prepareStatement(" INSERT INTO FactsEdit_"+access+" (id, companyId, countryid, productid, year, sales_production, quantity, flag, access)  "+
-				    		" select 0, -1"+multiplier+", a.countryId"+multiplier+",a.productid"+multiplier+",a.year,a.sales_production, " +
+				    		" select 0, -1"+multiplier+", a.countryId,a.productid,a.year,a.sales_production, " +
 			    			 "  (b.quantity -a.quantity) as quantity ,'I' , '"+access+"' " +
 			    			 " from  FactsEdit_"+access+" b, " + 
 				    		 " (  select productId, countryId, sales_production, 'I' flag, year, sum(quantity) quantity  "+
@@ -163,7 +163,7 @@ public class SaveController implements DropdownInterface {
 				    	//	 " and b.quantity - a.quantity <> 0  ");
 				    
 				    logger.warning(" INSERT INTO FactsEdit_"+access+" (id, companyId, countryid, productid, year, sales_production, quantity, flag, access)  "+
-				    		" select 0, -1"+multiplier+", a.countryId"+multiplier+",a.productid"+multiplier+",a.year,a.sales_production, " +
+				    		" select 0, -1"+multiplier+", a.countryId,a.productid,a.year,a.sales_production, " +
 			    			 "  (b.quantity -a.quantity) as quantity ,'I', '"+access+"' " +
 			    			 " from  FactsEdit_"+access+" b, " + 
 				    		 " (  select productId, countryId, sales_production, 'I' flag, year, sum(quantity) quantity  "+
@@ -255,7 +255,7 @@ public class SaveController implements DropdownInterface {
             	   if (convertIt.equals(" ALL COMPANIES")) {
             		   convertIt = "ALL COMPANIES";
             	   }
-            	  SQL = " select id from "+value+ " where name = '" +convertIt +"' ";
+            	  SQL = " select id from "+value+ " where name = '" +convertIt +"' and access= '"+access+"' ";
             	  logger.warning("SQL1: "+SQL);
             	  resultSet = statement.executeQuery(SQL);
             	  while (resultSet.next()) {
@@ -282,9 +282,11 @@ public class SaveController implements DropdownInterface {
             	   year =  request.getParameter("dimension2Val");
                } else {
             	   if (request.getParameter("dimension2Name").trim().equals("Country")){
-            		   SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension2Val").trim() +"' ";
+            		   SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension2Val").trim() +"'" +
+            		   		" and access= '"+access+"' ";
             	   } else {
-             	      SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension2Val").trim() +"' ";
+             	      SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension2Val").trim() +"'" +
+             	    		 " and access= '"+access+"' ";
             	   }
              	 logger.warning("SQL2: "+SQL);
              	logger.warning("value2: "+value);
@@ -318,9 +320,11 @@ public class SaveController implements DropdownInterface {
             	   year =  request.getParameter("dimension3Val");
                } else {
             	   if (value.equals("Country")) {
-            	       SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension3Val").trim() +"' ";
+            	       SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension3Val").trim() +"' " +
+            	    			 " and access= '"+access+"' ";
             	   }else{
-            		   SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension3Val").trim() +"' "; 
+            		   SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension3Val").trim() +"' " +
+            					 " and access= '"+access+"' ";
             	   }
               	  resultSet = statement.executeQuery(SQL);
               	  while (resultSet.next()) {
@@ -354,7 +358,8 @@ public class SaveController implements DropdownInterface {
                } else { 
 
             	   value = value.substring(0,value.indexOf(" "));
-            	   SQL = " select id from "+value+ " where shortname = '" +request.getParameter("dimension5Val") +"' ";
+            	   SQL = " select id from "+value+ " where shortname = '" +request.getParameter("dimension5Val") +"'" +
+            				 " and access= '"+access+"' ";
                	  resultSet = statement.executeQuery(SQL);
                	  while (resultSet.next()) {
                		  if (value.equals("Country")) {
