@@ -38,15 +38,22 @@ background-color:#FFFF00;
 	<span style="font-size:250%">International Database Service</span><br>
 	<span style="font-size:150%">Off-Highway Research</span>
 	</div> -->
-	<div class="box">
+<!-- 	<div class="box">
 	<span class="IDSheader"> 
 	<img class="leftLogo" src="images/IDS-Logo.png" width="50px" height="50px">
 	International Database Service
 	<img class="rightLogo" src="images/OHRLOGO-BnW.png"  >
 	</span>
+	</div> -->
+	<div class="box">
+	<span class="IDSheader"> 
+	<p style="text-align:center; margin-top:2px">
+    <img src="images/OHR-Logo-Medium.png" alt="Off-Highway Research"/>
+    </p>  
+	</span>
 	</div>
 
-	<div style="height:100px;background-color:yellow;width:100%"></div>
+	<div class="dbservicestyle" >Database Services</div>
 
 	<div style="height: 25%"></div>
 	<div class="inner">
