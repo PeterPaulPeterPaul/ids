@@ -93,6 +93,7 @@ public class SaveController implements DropdownInterface {
 	      User user = (User) session.getAttribute("myUser");
 	 		 if (user==null ) {
 	   		      model.addAttribute("errortext","You must logon before you can access IDS");
+	   		   con.close();
 	   		   	  return "login";
 	   		 }
 	      
@@ -100,6 +101,7 @@ public class SaveController implements DropdownInterface {
 	 			 if (session.getAttribute("myUser") != null) {
 	 			    session.setAttribute("myUser",null);
 	 			 }
+	 			 con.close();
 	 			return "login"; 
 	 		 }
 	 		String      query = " select 'found' as found from ids_users where userId = '"+user.getUserName()
@@ -117,6 +119,7 @@ public class SaveController implements DropdownInterface {
 			   }
 			   if (!found) {
 		   		      model.addAttribute("errortext","Invalid user credentials");
+		   		   con.close();
 		   		   	  return "login";
 			   }
 			   
@@ -241,6 +244,7 @@ public class SaveController implements DropdownInterface {
 				   model.addAttribute("saveBut","none");
 				   model.addAttribute("openOrClose","open");
 				   
+				   con.close();
 				   return "redirect:editor";
  
 			   }
@@ -432,16 +436,23 @@ public class SaveController implements DropdownInterface {
            	   statement3.executeUpdate();
                
                 con.commit();
+                con.close();
 		 }
                 catch(Exception e) {
                 	logger.log(Level.SEVERE,"error",e);
                 }
 		 
-		 
-		 
-		 
-		 
-		 
+	finally {
+		logger.warning("just before ending");
+		if (con  != null) {
+			try{
+	        con.close();
+			}
+	        catch(Exception e) {
+	        	logger.warning("weird error");
+	        }
+		}
+	      }
 			   
 			   return "login";
 	 }
