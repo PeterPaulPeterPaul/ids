@@ -188,6 +188,8 @@ public class SaveController implements DropdownInterface {
 				    statement2.executeUpdate();
 				    con.commit();
 					
+				    
+	     if (request.getParameter("other")== null ) {  
 				    statement2 = (PreparedStatement) con.prepareStatement("Delete from Facts_"+access+"  Where companyId < 0 " );
 				  statement2.executeUpdate();
 
@@ -233,6 +235,8 @@ public class SaveController implements DropdownInterface {
 				   statement2.executeUpdate();
 				   logger.warning("all the updates/deletes and inserts done");
 				   con.commit();  
+				   
+	     }
 				   logger.warning(".....and also commit");
 				   model.addAttribute("saveBut","none");
 				   model.addAttribute("openOrClose","open");

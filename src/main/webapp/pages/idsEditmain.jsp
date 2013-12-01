@@ -336,6 +336,19 @@ body.wait, body.wait *{
 </div>
 </div>
 
+
+<div id="saveOtherButId" style="float:left;margin-left:5px;display:block">
+<div  style="display:block">
+<form  id="saving1" action="${ajaxPrefix}saverow?other=1" method="post" name="saveForm"   > 
+ <input  type="hidden" name="save" value="" />
+ <input type="hidden" name="access" id="accessCurrx2" value="" >
+ <input id="twoothsub"  class="k-button" type="submit" name="submitBtn" value="Calc Others" />
+
+</form>
+</div>
+</div>
+
+
  </div>
  
 

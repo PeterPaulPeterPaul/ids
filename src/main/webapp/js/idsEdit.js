@@ -17,7 +17,7 @@
         		        modal: true,
         		        autoOpen: false
         		   };
-        		//    $("#dialog").dialog(dialogOpts2);
+        		    $("#dialog").dialog(dialogOpts2);
         		    $("#dialog44").dialog(dialogOpts2);
         		    $("#dialogAdd").dialog(dialogOpts2);
         		    
@@ -82,6 +82,7 @@
         	  
         	  
         	  $("#accessCurrx").val( $("#accessType").val()   );
+        	  $("#accessCurrx2").val( $("#accessType").val()   );
         	  
         	  $("body").removeClass("js");
         	  
@@ -115,6 +116,10 @@
         	  
         	  $("#twosub").on("click",function(){
         		  $("body").toggleClass("wait");
+        		  return true;
+        	  });
+        	  
+        	  $("#twoothsub").on("click",function(){
         		  return true;
         	  });
         	  
