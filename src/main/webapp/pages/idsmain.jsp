@@ -92,11 +92,12 @@ body.wait, body.wait *{
 
 <!-- XXX -->
 <div style="margin-left:1%;float:left">  <!-- Summary icons for header 1 -->
-<input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="summary" id="summary" value="Summary"/>
+<input type="image" src="images/go-up-icon-32.png" style="font-size:x-small;" class="nosum" name="summary" id="summary" value="Summary"/>
 <input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="grpsum" id="grpsum" value="Group Sum"/>
 </div>
 
-<div style="margin-left:1%;float:left"> <!-- Header1 dropdown -->
+<div style="margin-left:1px;float:left"> <!-- Header1 dropdown -->
+
 <div id="drop11" class="showornot1 viewable1" style="display:block;">  
 <select class="dropdown1" id="drop11s" style="width:180px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1a}">
@@ -188,7 +189,8 @@ body.wait, body.wait *{
 <input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum"/>
 </div>
 
-<div style="float:left;margin-left:20px">
+<div style="float:left;margin-left:1px">
+
 <div id="drop21" class="showornot2" style="display:none;">
 <select class="dropdown2" id="drop21s" style="width:180px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1a}">
@@ -256,7 +258,7 @@ body.wait, body.wait *{
 
 </div>
 
-<div style="float:left;margin-left:20px">
+<div style="float:left;margin-left:25px">
 
 <div id="drop31" style="display:block">
 <select name="s_or_p" class="dropdown3" id="drop31s" style="width:180px;margin:10px">
