@@ -4,24 +4,24 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-   <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<link rel="stylesheet" type="text/css" media="screen" href="css/chris.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="css/ui.dropdownchecklist.themeroller.css" />
 
-          <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.6.0/jquery.selectBoxIt.css" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+<link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="css/ids.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="css/ui.dropdownchecklist.themeroller.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="css/jquery.selectboxit.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="css/IDS-YELLOW/jquery-ui-1.10.3.custom.min.css" />
 
 <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="js/ui.dropdownchecklist-1.4-min.js"></script>
-
-          <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.6.0/jquery.selectBoxIt.min.js"></script>
-
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.8.0/jquery.selectBoxIt.min.js"></script>
 <script src="js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script src="js/jquery.jqGrid.src.js" type="text/javascript"></script>
-
-         <script type="text/javascript" src="js/idsEdit.js"></script>
+    
+<script type="text/javascript" src="js/idsEdit.js"></script>
 <script type="text/javascript">
 
 function parm1JsonTotal() {
@@ -42,7 +42,6 @@ function parm5AjaxPrefix() {
 
 </script>
 
-
 <title>IDS</title>
 <style>
 body { 
@@ -54,73 +53,7 @@ body.wait, body.wait *{
 body.wait, body.wait *{
  cursor: wait !important;   
 }
-.js {display: none;}
-.colorWhite {
-            background-color: white !important;
-        }
-.colorGrey {
-            background-color: grey !important;
-        }
-.colorPink {
-            background-color: #f6a828 !important;
-        }
-.colorLightPink {
-            background-color: pink !important;
-        }
- .filter {
- border-color: gray;
-border-bottom: 2px solid;
-border-right: 2px solid;
- }
- .printerIcon {
- background-image: url(images/exit.bmp);
-background-repeat: no-repeat;
-background-position:left;
-padding-left: 3px;
- }
- .footrow td
-{
-color:#1c94c4;
-}       
-.titleFont{
-color:#1c94c4;
-}
 
-
-div.box{
-background: url(images/yellow.png) center center fixed; 
--webkit-background-size: cover;
--moz-background-size: cover;
-background-size: cover;
-border-style:solid;
-border-width:1px;
-border-color:grey;
-width:100%;
-height:56px;
-}
-.IDSheader{
-margin-top:15px;
-font-family:Arial,Helvetica,sans-serif;
-font-weight:normal;
-font-size:30px;
-position:relative;
-top:10px;
-}
-.leftLogo{
-float:left;
-margin-top:3px;
-margin-left:3px;
-margin-right:20px;
-}
-.noOverlayDialog{
-opacity:0.2;
-}
-.rightLogo{
-float:right;
-margin-top:3px;
-margin-left:10px;
-margin-right:3px;
-}
 </style>
 </head>
 
@@ -129,124 +62,16 @@ margin-right:3px;
 
 <div class="box">
 <span class="IDSheader"> 
-<img class="leftLogo" src="images/IDS-Logo.png" width="50px" height="50px">
-International Database Service 
-<img class="rightLogo" src="images/OHR-logo.png"  >
+<p style="text-align:center; margin-top:2px">
+   <img src="images/OHR-Logo-Medium.png" alt="Off-Highway Research"/>
+</p>  
 </span>
-</div>
-
-
-<div style="float:right;width:18%;background-color:#FFFF00;height:100%;">
-<div>
-
-<div id="tempStore" style="display:none"></div>
-<div id="tempOldHeadings" style="display:none">12</div>
-
-
-
-   <div id="dialogFilter" title="Filter" style="z-index:1500">
-             <div style="width:800px;float:left">
-             
- 
-                <div id="dropa44" style="width:90px; float:left" >
-<input type="button" style="font-size:small;"  name="submit1" id="submit1"  value="Hide"/>
-    </div>
-          
-<div id="dropa1"  style="width:230px; float:left; z-index:1500;margin-top:4px"  >
-<select multiple="multiple" class="dropdown11" id="drop11as" style="font-family:Arial, Helvetica, sans-serif;">
-<option   class="drop11check" style="font-family:Arial, Helvetica, sans-serif;font-size:small;color:green"value="-1">Toggle clear/all &nbsp;</option>
- <c:forEach var="drop1" items="${dropdown1a}">
- <option class="drop11check"  style="font-family:Arial, Helvetica, sans-serif;font-size:small;" value="${drop1.id}">${drop1.name}&nbsp;</option>
-  </c:forEach>
-</select>
-</div>
-
-<div id="dropa2"  style="width:230px;float:left;margin-top:4px"   >
-<select multiple="multiple" class="dropdown11" id="drop12as">
-<option style="font-size:small;color:green" value="-1">Toggle clear/all&nbsp;</option>
- <c:forEach var="drop1" items="${dropdown1b}">
-  <option style="font-size:small;" value="${drop1.id}">${drop1.name}&nbsp;</option>
-  </c:forEach>
-</select>
-</div>
-
-
-
-<div id="dropa4"  style="width:230px;float:left;margin-top:4px"  >
-<select multiple="multiple" class="dropdown11" id="drop14as" >
-<option style="font-size:small;color:green"value="-1">Toggle clear/all&nbsp;</option>
- <c:forEach var="drop1" items="${dropdown1d}">
-  <option style="font-size:small;" value="${drop1.id}">${drop1.name}&nbsp;</option>
-  </c:forEach>
-</select>
-</div>
-
-
-
-</div>
-             <div style="width:800px;float:left">
-          <br><span style="margin-left:200px;float:left;font-family:Arial, Helvetica, sans-serif;font-size:small;"> Include only dates within selected range</span><br>   
-       <div style="margin-left:250px;width:150px;float:left;font-family:Arial, Helvetica, sans-serif;font-size:small;">   
-From <select  id="fromdate" name="fromdate" >
-</select>
-</div>
-
-       <div style="font-family:Arial, Helvetica, sans-serif;font-size:small;" >      
-To <select id="todate" name="todate" >
-</select>
-</div>
-
-
-</div>
-    </div>
-
-
-
-<div style="margin-left:15px;float:right;">
-
-
-
-
-</div>
-
-
-<div style="margin-left:15px;text-align:center"><br><br>
-  <input type="image" name="filter" class="filter" id="filter"   src="images/filter.png" />
-   <input type="button" style="font-size:x-small;display:none"  id="clearfilter"  value="Clear Filter"/>
-     <input type="button" style="font-size:x-small;display:none" class="swap" name="swap1" id="swap1"  value="Swap cols/rows"/>
-</div>
-<div style="float:left;width:90%;margin-right:5%;margin-top:5%;">
-<fieldset style="background-color:#FFFF00;margin-left: 10px;">
-<legend>Header 1</legend>
-<input class="myrad2" type="radio" name="horiz" id="a1"  value="1" checked >Country<br>
-<input class="myrad2" type="radio" name="horiz" id="a2"  value="2"  >Product<br>
-<input class="myrad2" type="radio" name="horiz" id="a3"  value="3"  >Years<br>
-<input class="myrad2" type="radio" name="horiz" id="a4"  value="4"  ><label id="a44">Company</label>
-
-</fieldset>
-</div>
-<div style="float:left;width:90%;margin-right:5%;margin-top:15%">
-<fieldset style="background-color:#FFFF00;margin-left: 10px;">
-<legend>Header 2</legend>
-<input class="myrad3" type="radio" id="z1" name="verti" value="1"  >Country<br>
-<input class="myrad3" type="radio"  id="z2" name="verti" value="2" checked >Product<br>
-<input class="myrad3" type="radio"  id="z3" name="verti" value="3"  >Years<br>
-<input class="myrad3" type="radio"  id="z4"  name="verti" value="4"  ><label id="z44">Company</label>
-
-
-
-</fieldset>
-</div>
-
-
-</div>
-
 </div>
 
 <div id="myDimensionHidden" style="display:none">Year</div>
 
-<div id="titleBar" style="float:left;width:82%;height:40%;padding-top:1%;">
-<div style="float:left;">
+<div id="titleBar" style="float:left;width:100%;height:55px;padding-top:1%;">
+<div style="float:right; margin-left:5px; margin-right:5px;"> <!-- action icons -->
 
 
 <form  id="excel1" action="${ajaxPrefix}cron/down" method="post" name="factsForm"   > 
@@ -271,25 +96,35 @@ To <select id="todate" name="todate" >
 
 </form>
 
- <input id="one" style="font-size:x-small" type="button" name="submitBtn" value="Download Excel" />
-  <input id="two"  style="font-size:x-small" type="button" name="two" value="Print Preview" /><br>
- <input id="toggleRowTotal"  style="font-size:x-small" type="button" name="toggleRowTotal" value="Add row total" />
+ <!-- <input id="one" style="font-size:x-small" type="button" name="submitBtn" value="Download Excel" /> -->
+ <input id="one" style="font-size:x-small" type="image" src="images/table-excel-icon-32.png" name="submitBtn" value="Download Excel" title="Download to Excel" />
+ 
+<!--  <input id="two"  style="font-size:x-small" type="button" name="two" value="Print Preview" /><br> -->
+ <input id="two"  style="font-size:x-small" type="image" src="images/print-icon-32.png"  name="two" value="Print Preview" title="Print Preview" />
+   
+<!--  <input id="toggleRowTotal"  style="font-size:x-small" type="button" name="toggleRowTotal" value="Add row total" /> -->
+ <input id="toggleRowTotal" style="font-size:x-small" type="image" src="images/table-sum-icon-32.png" name="toggleRowTotal" value="Remove row total" title="Remove row Total" />
+ 
+<!--  <input type="image" name="close" id="closeit"  src="images/exit.bmp" /> -->
+ <input type="image" name="close" id="closeit"  src="images/deletered-32.png" title="Exit IDS"/>
+ 
 
-<input type="image" name="close" id="closeit"  src="images/exit.bmp" />
+ <%--  <input id="togglePercent"  style="font-size:x-small" type="image"  src="images/percent-icon-32.png" name="togglePercent" value="Add Percentages" title="Add Percentages"/>  
+  <input type="image" name="Download all ${textPrefix} data as Excel file" id="whenPressed"  src="images/export-32.png" title="Download"/> 
+  --%>
+
+</div> <!-- end of action icons -->
+<!-- end of action icons -->
 
 
+<div style="text-align:center;float:none"> <!-- Div to hold the header drop downs -->
 
+<!-- <div style="margin-left:1%;float:left">  Summary icons for header 1
+<input type="image" src="images/go-up-icon-32.png" style="font-size:x-small;" class="nosum" name="summary" id="summary" value="Summary"/>
+<input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="grpsum" id="grpsum" value="Group Sum"/>
+</div> -->
 
-</div>
-
-
-
-
-
-
-
-<div style="text-align:center;float:none">
-<div style="margin-left:12%;float:left">
+<div style="margin-left:1%;float:left"> <!-- Header1 dropdown -->
 
 
 
@@ -378,7 +213,11 @@ To <select id="todate" name="todate" >
 
 </div>
 
-<div style="float:left;margin-left:15px">
+<!-- <div style="margin-left:1%;float:left">  Summary icon for header 2
+<input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum"/>
+</div> -->
+
+<div style="float:left;margin-left:15px"> <!-- Header2 dropdown -->
 
 <div id="drop21" class="showornot2" style="display:none;">
 <select class="dropdown2" id="drop21s" style="width:180px;margin:10px">
@@ -447,7 +286,6 @@ To <select id="todate" name="todate" >
 
 </div>
 
-
    
    <div style="float:left;margin-left:15px">
 
@@ -475,13 +313,13 @@ To <select id="todate" name="todate" >
 <form  id="saving" action="${ajaxPrefix}saverow" method="post" name="saveForm"   > 
  <input  type="hidden" name="save" value="" />
  <input type="hidden" name="access" id="accessCurrx" value="" >
-          <input id="twosub" style="background-color:red" class="k-button" type="submit" name="submitBtn" value="Save to PRODUCTION database" />
+ <input id="twosub" style="background-color:red" class="k-button" type="submit" name="submitBtn" value="Save to PRODUCTION database" />
 
 </form>
 </div>
 </div>
 
-<div style="float:left;margin-left:5px">
+<div style="float:left;margin-left:20px">
 <div  style="display:block">
      <input id="addsub" class="k-button" type="submit" name="submitBtn" value="Add new Row" />
 </div>
@@ -502,7 +340,120 @@ To <select id="todate" name="todate" >
  
 
  
+</div>  <!-- end of titlebar -->
+  <!-- end of titlebar -->
+  
+  
+<div style="float:right;width:18%;background-color:#FFFF00;height:100%;"> <!-- Right Nav --> 
+<div>
+
+<div id="tempStore" style="display:none"></div>
+<div id="tempOldHeadings" style="display:none">12</div>
+
+
+ <div id="dialogFilter" title="Filter" style="z-index:1500">
+ <div style="width:800px;float:left">
+             
+ 
+ <div id="dropa44" style="width:90px; float:left" >
+	<input type="button" style="font-size:small;"  name="submit1" id="submit1"  value="Hide"/>
+
 </div>
+          
+<div id="dropa1"  style="width:230px; float:left; z-index:1500;margin-top:4px"  >
+<select multiple="multiple" class="dropdown11" id="drop11as" style="font-family:Arial, Helvetica, sans-serif;">
+<option   class="drop11check" style="font-family:Arial, Helvetica, sans-serif;font-size:small;color:green"value="-1">Toggle clear/all &nbsp;</option>
+ <c:forEach var="drop1" items="${dropdown1a}">
+ <option class="drop11check"  style="font-family:Arial, Helvetica, sans-serif;font-size:small;" value="${drop1.id}">${drop1.name}&nbsp;</option>
+  </c:forEach>
+</select>
+</div>
+
+<div id="dropa2"  style="width:230px;float:left;margin-top:4px"   >
+<select multiple="multiple" class="dropdown11" id="drop12as">
+<option style="font-size:small;color:green" value="-1">Toggle clear/all&nbsp;</option>
+ <c:forEach var="drop1" items="${dropdown1b}">
+  <option style="font-size:small;" value="${drop1.id}">${drop1.name}&nbsp;</option>
+  </c:forEach>
+</select>
+</div>
+
+
+
+<div id="dropa4"  style="width:230px;float:left;margin-top:4px"  >
+<select multiple="multiple" class="dropdown11" id="drop14as" >
+<option style="font-size:small;color:green"value="-1">Toggle clear/all&nbsp;</option>
+ <c:forEach var="drop1" items="${dropdown1d}">
+  <option style="font-size:small;" value="${drop1.id}">${drop1.name}&nbsp;</option>
+  </c:forEach>
+</select>
+</div>
+
+
+
+</div>
+             <div style="width:800px;float:left">
+          <br><span style="margin-left:200px;float:left;font-family:Arial, Helvetica, sans-serif;font-size:small;"> Include only dates within selected range</span><br>   
+       <div style="margin-left:250px;width:150px;float:left;font-family:Arial, Helvetica, sans-serif;font-size:small;">   
+From <select  id="fromdate" name="fromdate" >
+</select>
+</div>
+
+       <div style="font-family:Arial, Helvetica, sans-serif;font-size:small;" >      
+To <select id="todate" name="todate" >
+</select>
+</div>
+
+
+</div>
+    </div>
+
+
+
+<div style="margin-left:15px;float:right;">
+
+
+
+
+</div>
+
+
+<div style="margin-left:15px;text-align:left"><br>
+<!--   <input type="image" name="filter" class="filter" id="filter"   src="images/filter.png" /> -->
+  <input type="image" name="filter" class="filter" id="filter"   src="images/filter-add-icon-32.png" title="IDS Filter"/>
+  <input type="button" style="font-size:x-small;display:none"  id="clearfilter"  value="Clear Filter"/>
+  <input type="button" style="font-size:x-small;display:none" class="swap" name="swap1" id="swap1"  value="Swap cols/rows"/>
+</div>
+<div class="idsdefault" style="float:left;width:90%;margin-right:5%;margin-top:5%;">
+<fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 10px;">
+<legend style="font-size:large;">Header 1</legend>
+<input class="myrad2" type="radio" name="horiz" id="a1"  value="1" checked >Country<br>
+<input class="myrad2" type="radio" name="horiz" id="a2"  value="2"  >Product<br>
+<input class="myrad2" type="radio" name="horiz" id="a3"  value="3"  >Years<br>
+<input class="myrad2" type="radio" name="horiz" id="a4"  value="4"  ><label id="a44">Company</label>
+
+</fieldset>
+</div>
+<div class="idsdefault"  style="float:left;width:90%;margin-right:5%;margin-top:15%">
+<fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 10px;">
+<legend style="font-size:large;" >Header 2</legend>
+<input class="myrad3" type="radio" id="z1" name="verti" value="1"  >Country<br>
+<input class="myrad3" type="radio"  id="z2" name="verti" value="2" checked >Product<br>
+<input class="myrad3" type="radio"  id="z3" name="verti" value="3"  >Years<br>
+<input class="myrad3" type="radio"  id="z4"  name="verti" value="4"  ><label id="z44">Company</label>
+
+
+
+</fieldset>
+</div>
+
+
+</div>
+
+</div> <!-- END OF RIGHT NAV -->
+<!-- END OF RIGHT NAV -->
+  
+
 <div style="display:none">
 <form id="accessform3" action="${ajaxPrefix}login" method="post">
    <input type="hidden" id="fromMain" name="currentAccess" value="populated" />

@@ -1,3 +1,15 @@
+
+.dbservicestyle {
+    background-color: #FFFF00;
+    font-family: times new roman;
+    font-size: 32pt;
+    height: 100px;
+    margin-top: inherit;
+    text-align: center;
+    width: 100%;
+}
+
+
 .login {
     background-position: 80% 55px;
     background-repeat: no-repeat;
@@ -7,6 +19,8 @@
     overflow: auto;
     text-align: left;
 }
+
+
 .login .inner {
     padding: 10px 0 0;
 }
