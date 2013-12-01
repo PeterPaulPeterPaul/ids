@@ -5,22 +5,20 @@
 <html>
 <head>
    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="css/ids.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="css/ui.dropdownchecklist.themeroller.css" />
-
- <link rel="stylesheet" type="text/css" media="screen" href="css/jquery.selectboxit.css" />
-          
+<link rel="stylesheet" type="text/css" media="screen" href="css/jquery.selectboxit.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="css/IDS-YELLOW/jquery-ui-1.10.3.custom.min.css" />
+
 <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="js/ui.dropdownchecklist-1.4-min.js"></script>
-
-          <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.8.0/jquery.selectBoxIt.min.js"></script>
-
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.8.0/jquery.selectBoxIt.min.js"></script>
 <script src="js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script src="js/jquery.jqGrid.min.js" type="text/javascript"></script>
+
 <title>IDS</title>
 <style>
 body { 
@@ -36,13 +34,6 @@ body.wait, body.wait *{
 <body class="js">
 <div id="wholescreen" style="width:100%;height:100%">
 
-<!-- 	<div class="box">
-	<span class="IDSheader"> 
-	<img class="leftLogo" src="images/IDS-Logo.png" width="50px" height="50px">
-	International Database Service XXX
-	<img class="rightLogo" src="images/OHRLOGO-BnW.png"  >
-	</span>
-	</div> -->
 	<div class="box">
 	<span class="IDSheader"> 
 	<p style="text-align:center; margin-top:2px">
@@ -54,7 +45,7 @@ body.wait, body.wait *{
 <input type="hidden" id="changeFlag" value="no"/>
  
 <div id="titleBar" style="float:left;width:100%;height:50px;padding-top:1%;margin-top:5px">
-<div style="float:right; margin-left:5px;">
+<div style="float:right; margin-left:5px; margin-right:5px;"> <!-- action icons -->
 
 
 <form  id="excel1" action="${ajaxPrefix}cron/down" method="post" name="factsForm1"   > 
@@ -83,16 +74,15 @@ body.wait, body.wait *{
   <input id="one" style="font-size:x-small" type="image" src="images/table-excel-icon-32.png" name="submitBtn" value="Download Excel" title="Download to Excel" />
   <input id="toggleRowTotal" style="font-size:x-small" type="image" src="images/table-sum-icon-32.png" name="toggleRowTotal" value="Remove row total" title="Remove row Total" />
   <input id="togglePercent"  style="font-size:x-small" type="image"  src="images/percent-icon-32.png" name="togglePercent" value="Add Percentages" title="Add Percentages"/>  
-<%--    \\<a id="whenPressed" href="#">${textPrefix} download</a> --%>
   <input type="image" name="Download all ${textPrefix} data as Excel file" id="whenPressed"  src="images/export-32.png" title="Download"/> 
   <input type="image" name="close" id="closeit"  src="images/deletered-32.png" title="Exit IDS"/>
 
-</div>
-
+</div> <!-- end of action icons -->
+<!-- end of action icons -->
 
 <div style="text-align:center;float:none"> <!-- Div to hold the header drop downs -->
 
-<!-- XXX -->
+
 <div style="margin-left:1%;float:left">  <!-- Summary icons for header 1 -->
 <input type="image" src="images/go-up-icon-32.png" style="font-size:x-small;" class="nosum" name="summary" id="summary" value="Summary"/>
 <input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="grpsum" id="grpsum" value="Group Sum"/>
@@ -186,12 +176,12 @@ body.wait, body.wait *{
 
 </div>
 
-<!-- ZZZZ -->
+
 <div style="margin-left:1%;float:left">  <!-- Summary icon for header 2 -->
 <input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum"/>
 </div>
 
-<div style="float:left;margin-left:1px">
+<div style="float:left;margin-left:1px"> <!-- Header2 dropdown -->
 
 <div id="drop21" class="showornot2" style="display:none;">
 <select class="dropdown2" id="drop21s" style="width:180px;margin:10px">
