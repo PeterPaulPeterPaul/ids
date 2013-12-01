@@ -83,6 +83,8 @@ body.wait, body.wait *{
   <input id="one" style="font-size:x-small" type="image" src="images/table-excel-icon-32.png" name="submitBtn" value="Download Excel" title="Download to Excel" />
   <input id="toggleRowTotal" style="font-size:x-small" type="image" src="images/table-sum-icon-32.png" name="toggleRowTotal" value="Remove row total" title="Remove row Total" />
   <input id="togglePercent"  style="font-size:x-small" type="image"  src="images/percent-icon-32.png" name="togglePercent" value="Add Percentages" title="Add Percentages"/>  
+<%--    \\<a id="whenPressed" href="#">${textPrefix} download</a> --%>
+  <input type="image" name="Download all ${textPrefix} data as Excel file" id="whenPressed"  src="images/export-32.png" title="Download"/> 
   <input type="image" name="close" id="closeit"  src="images/deletered-32.png" title="Exit IDS"/>
 
 </div>
@@ -282,9 +284,9 @@ body.wait, body.wait *{
 
 <div style="float:left;margin-left:20px">
 
-<div id="drop44" style="display:block">
+<%--  <div id="drop44" style="display:block">
   <a id="whenPressed" href="#">${textPrefix} download</a>
-</div>
+</div> --%>
 </div>
 
 
@@ -387,7 +389,7 @@ To <select id="todate" name="todate" >
  -->
 <!-- <input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="summary" id="summary" value="Summary"/>
 <input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="grpsum" id="grpsum" value="Group Sum"/> -->
- <br>
+ <!-- <br> -->
 <input class="myrad2" type="radio" name="horiz" id="a1"  value="1" checked >Country<br>
 <input class="myrad2" type="radio" name="horiz" id="a2"  value="2"  >Product<br>
 <input class="myrad2" type="radio" name="horiz" id="a3"  value="3"  >Years<br>
@@ -400,7 +402,7 @@ To <select id="todate" name="todate" >
 <legend style="font-size:large;" >Header 2</legend>
 <!-- <input type="button" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum"/> -->
 <!-- <input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum"/> -->
-<br>
+<!-- <br> -->
 <input class="myrad3" type="radio" id="z1" name="verti" value="1"  >Country<br>
 <input class="myrad3" type="radio"  id="z2" name="verti" value="2" checked >Product<br>
 <input class="myrad3" type="radio"  id="z3" name="verti" value="3"  >Years<br>
