@@ -44,7 +44,7 @@ body.wait, body.wait *{
 
 <input type="hidden" id="changeFlag" value="no"/>
  
-<div id="titleBar" style="float:left;width:100%;height:50px;padding-top:1%;margin-top:5px">
+<div id="titleBar" style="float:left;width:100%;height:30px;padding-top:1%;margin-top:10px">
 <div style="float:right; margin-left:5px; margin-right:5px;"> <!-- action icons -->
 
 
