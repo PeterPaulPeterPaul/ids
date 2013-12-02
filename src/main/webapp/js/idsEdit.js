@@ -1009,9 +1009,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
     			     dimension5Name:$("#myDimensionHidden").text(),
     			     FactVal:value
     		      } 
-				    			        	//	} 
-				    			        	//	else 
-				    			        	//	{ return {} } 
+
 				    			        		} ,
 				    			        	
 				    			        	rowNum: 30,
@@ -1025,66 +1023,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			         	footerrow: true, 
 				    			         	
 				    			         	loadComplete: function () {
-				    			         		/*
-				    			         		var other = $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").html();
-				    			         		if (other==" OTHER") {
-				    			         	    var $this = $(this),
-				    			         	        sum = $this.jqGrid("getCol", "amount", false, "sum"),
-				    			         	        $footerRow = $(this.grid.sDiv).find("tr.footrow"),
-				    			         	        localData = $this.jqGrid("getGridParam", "data"),
-				    			         	        totalRows = localData.length,
-				    			         	        totalSum = 0,
-				    			         	        $newFooterRow,
-				    			         	        i;
 
-				    			         	    $newFooterRow = $(this.grid.sDiv).find("tr.myfootrow");
-				    			         	    if ($newFooterRow.length === 0) {
-				    			         	        // add second row of the footer if it's not exist
-				    			         	        $newFooterRow = $footerRow.clone();
-				    			         	        $newFooterRow.removeClass("footrow")
-				    			         	            .addClass("myfootrow ui-widget-content");
-				    			         	        
-				    			         	        
-				    			         	        $newFooterRow.children("td").each(function (ind) {
-				    			         	            this.style.width = ""; // remove width from inline CSS
-
-				    			         	         var pea =   $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child("+(ind +1)+")").html();
-				    			         	            var myWidth =  $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child("+(ind +1)+")").width();
-				    			         	       $(this).width(myWidth);
-				    			         	      $(this).html(pea);
-				    			         	            if (parseInt(pea) < 0) {
-				    			       	    		 $(this).css("background-color","red"); 
-				    			       	    	 }else {
-				    			       	   	        $(this).css("background-color","#FFE0E0");
-				    			       	    	 }
-				    			                     //   $(this).css("padding-left","p2x");
-				    			 
-				    			                        $(this).removeClass("colorWhite");
-				    			                        $(this).css("font-weight","normal");
-				    			                        $(this).css("overflow","hidden");
-				    			                        $(this).css("white-space","pre");
-				    			                        $(this).css("height","22px");
-				    			                       $(this).css("padding"," 0 2px 0 2px");
-				    			                       $(this).css(" border-bottom-width","1px");
-				    			                       $(this).css(" border-bottom-color","inherit");
-				    			                    $(this).css(" border-bottom-style","solid");
-
-				    			         	        });
-				    			         	        $newFooterRow.insertAfter($footerRow);
-				    			         	       $("#list47").children("tbody").children("tr:nth-child(3)").css("display","none");
-				    			         	      $footerRow.css("display","none");
-				    			         	    } */
-				    			         	  //  $this.jqGrid("footerData", "set", {invdate: "Total (page):", amount: sum});
-
-				    			         	    // calculate the value for the second footer row
-				    			         	  //  for (i = 0; i < totalRows; i++) {
-				    			         	  //      totalSum += parseInt(localData[i].amount, 10);
-				    			         	  //  }
-				    			         	 //   $newFooterRow.find(">td[aria-describedby=" + this.id + "_invdate]")
-				    			         	 //       .text("Grand Total:");
-				    			         	 //   $newFooterRow.find(">td[aria-describedby=" + this.id + "_amount]")
-				    			         	 //       .text($.fmatter.util.NumberFormat(totalSum, $.jgrid.formatter.number));
-				    			         	//	}
 				    			         	},
 				    			         	
 				    			         	
@@ -1113,23 +1052,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			    						  
 				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:true,add:false,del:false});
 
-/*
-				      if ( $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").text()==" OTHER") {
-				    				     $("#list47").children("tbody").children("tr:nth-child(3)").children("td").each(function(index){
-				    				    	 $(this).removeClass("colorWhite");
-				    				    	 if (parseInt($(this).text()) < 0) {
-				    				    		 $(this).css("background-color","red"); 
-				    				    	 }else {
-				    				   	        $(this).css("background-color","#FFE0E0");
-				    				    	 }
-				    				      });
 
-
-				    				      $("#list47").children("tbody").children("tr:nth-child(3)").on("click",function(e){
-				    				    	  e.preventDefault();
-				    				    	  return false;
-				    				      });
-				      }*/
 				    			 	   $('#gbox_list47').fadeIn();
 				    				   $('#list47').fadeIn();
 
@@ -1137,9 +1060,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
 				    					 var totals = JSON.parse($("#tempStore #myJsonTotals").html());
 				    					 $("#totalsJson").val($("#tempStore #myJsonTotals").html());
-				    				//	 $("#printDataJson").val($("#tempStore #myJsonTotals").html());
-								    	   
-								    	   
+   
 				    					 
 				    						$("#list47").jqGrid('footerData', 'set', 
 				    								totals.myTotals[0]); 
@@ -1155,17 +1076,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    							 $('#list47').setGridWidth($('#beans').width());
 				    							});
 				    					 
-				    						 
-						    			//	   $footerRow = $('#list47').grid.sDiv.find("tr.footrow");
-						    			//	   $footerRow.children("td").each(function (ind) {
-						    			//		   alert("does this happen");
-						    			//		   var myWidth =  $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child("+(ind +1)+")").width();
-						    			//		   $(this).width(myWidth);
-						    			//	   });
-						    				   
-						    				   
-						    				   
-				    						 
+
 				    						  if ($(".myrad2:checked").val()=="4"|| 
 				    								  $(".myrad3:checked").val()=="4"){
 				    							  $(".swap").show();
@@ -1202,10 +1113,14 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 					    		  
 					    		  var newFooterRow1 =$("#list47").children("tbody").children("tr:nth-child(2)").clone();
 					    		  newFooterRow1.children("td:nth-child(1)").html("TOTAL");
+
+					    		  newFooterRow1.children("td").each(function (ind) {
+					    			  $(this).addClass("titleFont");
+					    		  });
 					    		  newFooterRow1.insertAfter($("tr.footrow"));
 					    		
 					    		  
-					    	  }
+					    	  
 								 var other = $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").html();
 
 						      		if (other==" OTHER") {
@@ -1247,7 +1162,12 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
 						      		}
 						      		
-
+						    		  newFooterRow1.addClass("footrow");
+						    		  newFooterRow1.addClass("footrow-ltr");
+						    		  newFooterRow1.removeClass("ui-widget-content");
+						    		  newFooterRow1.removeClass("jqgrow ui-row-ltr");
+						      		
+					    	  }
 					    	  
 					      }
 
@@ -1368,73 +1288,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
          	
          	loadComplete: function () {
          		
-         		/*
-         		var other = $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").html();
-         		if (other==" OTHER") {
-         	    var $this = $(this),
-         	        sum = $this.jqGrid("getCol", "amount", false, "sum"),
-         	        $footerRow = $(this.grid.sDiv).find("tr.footrow"),
-         	        localData = $this.jqGrid("getGridParam", "data"),
-         	        totalRows = localData.length,
-         	        totalSum = 0,
-         	        $newFooterRow,
-         	        i;
 
-         	    $newFooterRow = $(this.grid.sDiv).find("tr.myfootrow");
-         	    if ($newFooterRow.length === 0) {
-         	        // add second row of the footer if it's not exist
-         	        $newFooterRow = $footerRow.clone();
-         	        $newFooterRow.removeClass("footrow");
-         	        
-         	        //    .addClass("myfootrow ui-widget-content");
-         	        
-         	        
-         	        $newFooterRow.children("td").each(function (ind) {
-         	          //  this.style.width = ""; // remove width from inline CSS
-
-         	         var pea =   $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child("+(ind +1)+")").html();
-         	            var myWidth =  $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child("+(ind +1)+")").width();
-         	     //  $(this).width(myWidth);
-         	       alert(pea);
-         	      $(this).html(pea);
-         	            if (parseInt(pea) < 0) {
-       	    		 $(this).css("background-color","red"); 
-       	    	 }else {
-       	   	        $(this).css("background-color","#FFE0E0");
-       	    	 }
-                     //   $(this).css("padding-left","p2x");
- 
-                        $(this).removeClass("colorWhite");
-                        $(this).css("font-weight","normal");
-                        $(this).css("overflow","hidden");
-                        $(this).css("white-space","pre");
-                        $(this).css("height","22px");
-                       $(this).css("padding"," 0 2px 0 2px");
-                       $(this).css(" border-bottom-width","1px");
-                       $(this).css(" border-bottom-color","inherit");
-                    $(this).css(" border-bottom-style","solid");
-alert(myWidth);
-//alert()
-                    $(this).css("width",(myWidth+"px");
-                    
-         	        });
-         	        $newFooterRow.insertAfter($footerRow);
-         	       $("#list47").children("tbody").children("tr:nth-child(3)").css("display","none");
-         	      $footerRow.css("display","none");
-         	    }
-         	  //  $this.jqGrid("footerData", "set", {invdate: "Total (page):", amount: sum});
-
-         	    // calculate the value for the second footer row
-         	  //  for (i = 0; i < totalRows; i++) {
-         	  //      totalSum += parseInt(localData[i].amount, 10);
-         	  //  }
-         	 //   $newFooterRow.find(">td[aria-describedby=" + this.id + "_invdate]")
-         	 //       .text("Grand Total:");
-         	 //   $newFooterRow.find(">td[aria-describedby=" + this.id + "_amount]")
-         	 //       .text($.fmatter.util.NumberFormat(totalSum, $.jgrid.formatter.number));
-         		}
-         		
-         		*/
          	},
          	
          	
@@ -1455,12 +1309,7 @@ alert(myWidth);
     	  $(".ui-widget-header").css("color","black");
     	  $(".ui-widget-header").css("border","1px solid black");
     	  $(".ui-widget-header").css("font-weight","normal");
-       //   jQuery("#list47").jqGrid('searchGrid', 
-       	//       {sopt:['eq','ne','cn','bw','bn','gt','lt','the','ge','in','ni','en','ew','nc','noo','nn'], multipleSearch:true, ignoreCase:true}
-       //	);
-       
 
-    	  
     	  
       });
 
@@ -1510,20 +1359,23 @@ alert(myWidth);
 				 $('#list47').setGridWidth($('#beans').width());
 				});
 			 
-			 
-			 
-			 
+
+
 
 	    	  var allC = $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child(1)").html();
 	    	  if(allC==" ALL COMPANIES") {
 
 	    		  var newFooterRow1 =$("#list47").children("tbody").children("tr:nth-child(2)").clone();
+
 	    		  
 	    		  newFooterRow1.children("td:nth-child(1)").html("TOTAL");
+	    		  newFooterRow1.children("td").each(function (ind) {
+	    			  $(this).addClass("titleFont");
+	    		  });
 	    		  newFooterRow1.insertAfter($("tr.footrow"));
 
 	    		  
-	    	  }
+	    	 
 			 
 			 
 			 
@@ -1567,10 +1419,13 @@ alert(myWidth);
       		}
 			 
 			 
+  		  newFooterRow1.addClass("footrow");
+		  newFooterRow1.addClass("footrow-ltr");
+		  newFooterRow1.removeClass("ui-widget-content");
+		  newFooterRow1.removeClass("jqgrow ui-row-ltr");
 			 
 			 
-			 
-			 
+	    	  } 
 			 
 			 
 			 
