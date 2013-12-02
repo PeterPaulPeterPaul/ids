@@ -116,10 +116,13 @@
         	  
         	  $("#twosub").on("click",function(){
         		  $("body").toggleClass("wait");
+        		  $('#twosub').attr("disabled", true);
         		  return true;
         	  });
         	  
         	  $("#twoothsub").on("click",function(){
+        		  $("body").toggleClass("wait");
+        		  $('#twoothsub').attr("disabled", true);
         		  return true;
         	  });
         	  
