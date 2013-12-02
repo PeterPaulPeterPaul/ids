@@ -894,7 +894,6 @@ To <select id="todate" name="todate" >
 	  $(".myrad2").on("change",function(){
 		  $(".myrad2").prop('disabled', true);
 		  $(".myrad3").prop('disabled', true);
-		  $("#protect1").addClass("protecting");
 		  clickType="myrad2";
 		  if ($(".myrad2:checked").val()=="4"){
 
@@ -917,7 +916,6 @@ To <select id="todate" name="todate" >
 	  $(".myrad3").on("change",function(){
 		  $(".myrad2").prop('disabled', true);
 		  $(".myrad3").prop('disabled', true);
-		  $("#protect1").addClass("protecting");
 		  clickType="myrad3";
 
 		  if ($(".myrad2:checked").val()=="4"|| 
@@ -1140,8 +1138,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    	  $('#summary').prop("disabled", false);
 						  $(".myrad2").prop('disabled', false);
 						  $(".myrad3").prop('disabled', false);
-						  $("#protect1").removeClass("protecting");
-				    	
+
 				    	 
 				    //	   $("#titleBar").fadeOut();
 				    	   
