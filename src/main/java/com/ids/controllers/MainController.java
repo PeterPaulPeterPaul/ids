@@ -107,11 +107,13 @@ public class MainController implements DropdownInterface {
 			HttpServletRequest request,
 			ModelMap model) throws SQLException, JSONException, IOException {	   
 
+		 GetBeansFromContext gcfc = null;
 		 
 		 try{
 		 logger.warning("Entering application via GEt");
 		 logger.warning("excelDownload: "+request.getParameter("excelDownload"));
-		 GetBeansFromContext gcfc = new GetBeansFromContext();
+		 
+		 gcfc = new GetBeansFromContext();
 		 con = gcfc.myConnection();
 		 
 		 model.addAttribute("ajaxPrefix",gcfc.ajaxURLprefix());
@@ -762,9 +764,11 @@ public class MainController implements DropdownInterface {
 	
 		 } finally {
 				logger.warning("just before ending");
+				   gcfc.closeCon();
 				if (con  != null) {
 					try{
 			        con.close();
+
 					}
 			        catch(Exception e) {
 			        	logger.warning("weird error");
@@ -874,12 +878,6 @@ private List <JSONObject> getObj5GroupSummary( ResultSet resultSet, Statement st
    String titleCountry = ""; 
    String titleProduct ="";
 
-   if (con == null  ) {
-	   logger.warning("CONNECTION IS NULL");
-		 GetBeansFromContext gcfc = new GetBeansFromContext();
-		 con = gcfc.myConnection();
-		  statement = con.createStatement();
-   }
    logger.warning(query);
    resultSet = statement.executeQuery(query);
    String currentCo11="";

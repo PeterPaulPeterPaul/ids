@@ -81,10 +81,12 @@ public class SaveController implements DropdownInterface {
 			HttpServletRequest request,
 			ModelMap model)  {	   
 
+		 
+		 GetBeansFromContext gcfc =null;
 		 try{
 		 
 		 logger.warning("Entering application via GEt");
-		 GetBeansFromContext gcfc = new GetBeansFromContext();
+		  gcfc = new GetBeansFromContext();
 		 con = gcfc.myConnection();
 	      Statement statement = con.createStatement();
 
@@ -440,19 +442,22 @@ public class SaveController implements DropdownInterface {
 		 }
                 catch(Exception e) {
                 	logger.log(Level.SEVERE,"error",e);
-                }
+
 		 
-	finally {
-		logger.warning("just before ending");
-		if (con  != null) {
-			try{
-	        con.close();
+	 } finally {
+			logger.warning("just before ending");
+			   gcfc.closeCon();
+			if (con  != null) {
+				try{
+		        con.close();
+
+				}
+		        catch(Exception e) {
+		        	logger.warning("weird error");
+		        }
 			}
-	        catch(Exception e) {
-	        	logger.warning("weird error");
-	        }
-		}
-	      }
+	 }
+
 			   
 			   return "login";
 	 }

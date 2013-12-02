@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,8 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,7 +53,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class LoginController {
 
 
-       static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+	private final static Logger logger = Logger.getLogger(MainController.class.getName()); 
    	private Connection con;
 
 		 private boolean found = false;
@@ -87,12 +87,12 @@ public class LoginController {
 		   		 HttpSession session = request.getSession(true);
 			     User user2 = (User)  session.getAttribute("myUser");
 			     if (user2==null) {
-			    	 logger.debug("no user");
+
 			    	 return "redirect:login";
 			     }
 			     user2.setCurrentLocation(request.getParameter("currentAccess"));
 			     session.setAttribute("myUser", user2) ; 
-			     logger.debug("going to main");
+
 		        	model.remove("displaytype2");
 				    model.remove("passwordlab");
 				    if (user2.getAccess().equals("e")){
@@ -104,7 +104,7 @@ public class LoginController {
 	       }
 
 	    if (request.getParameter("fromJsp")==null || request.getParameter("fromJsp").equals("") ) {
-	    	  logger.debug("first time in JSP not called");
+
 		    	model.addAttribute("displaytype","none");
 	    	return "login";
 	    }
@@ -151,12 +151,7 @@ public class LoginController {
 	        	   if (b && m.find() && request.getParameter("secondNewPassword").length() > 6  &&  
 	        			   !request.getParameter("secondNewPassword").equals(request.getParameter("password")) ) {
 
-					try {
-						
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}	   
+	   
 	        		   
 	        		   
 
@@ -174,6 +169,8 @@ public class LoginController {
 
 	        
 			 GetBeansFromContext gcfc = new GetBeansFromContext();
+			 
+			 try {
 			 con = gcfc.myConnection();
 
 			 
@@ -206,7 +203,7 @@ public class LoginController {
 
   
 	        if (locked.equals("1")) {
-	        	logger.debug("user locked");
+
 		    	model.addAttribute("displaytype","block");
 		    	model.addAttribute("userId",request.getParameter("userId"));
 		    	model.addAttribute("errortext","UserId is locked - contact Administrator");
@@ -240,7 +237,7 @@ public class LoginController {
 			    
 			 if (!access.equals("a")){
 				 if (access.equals("e")) {
-					 logger.debug("going down the correct path");
+
 					 return "redirect:editor";
 				 } else {
 	        	    return "redirect:main";
@@ -248,15 +245,31 @@ public class LoginController {
 			 }else {
 				   return "redirect:setup2";
 			 }
+			 
+			 
 	        } 
 
 	        if (!found) {
-	        	logger.debug("user not found");
+
 		    	model.addAttribute("displaytype","block");
 		    	model.addAttribute("userId",request.getParameter("userId"));
 		    	model.addAttribute("errortext","invalid password or userId");
 	        	return "login";
 	        }
+	        
+			 } finally {
+					logger.warning("just before ending");
+					   gcfc.closeCon();
+					if (con  != null) {
+						try{
+				        con.close();
+
+						}
+				        catch(Exception e) {
+				        	logger.warning("weird error");
+				        }
+					}
+			 }
 
 		return "error";
 	}
@@ -271,8 +284,6 @@ public class LoginController {
 			HttpServletRequest request,
 			ModelMap model) throws IOException, JSONException, SQLException {
 		 
-		 logger.debug("Entering application via GET");
-
 
 		 try {
 			return getMethodOne(

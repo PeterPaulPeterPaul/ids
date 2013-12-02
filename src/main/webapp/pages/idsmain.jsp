@@ -693,6 +693,7 @@ To <select id="todate" name="todate" >
 	});
 	
 	  $("#summary").on("click",function(){
+		  $('#summary').attr("disabled", true);
 		  if( $(this).hasClass("nosum")){
 		     summary=1;
 		     $(this).val("Clear summary");
@@ -725,6 +726,7 @@ To <select id="todate" name="todate" >
 	  
 	  
 	  $("#grpsum").on("click",function(){
+		  $('#grpsum').attr("disabled", true);
 		  if ( $(this).hasClass("nosum")){
 			     summary=2;
 			     $("#a4").hide();
@@ -807,6 +809,7 @@ To <select id="todate" name="todate" >
 	  });
 	  
 	  $("#grpsum2").on("click",function(){
+		  $('#grpsum2').attr("disabled", true);
 		  if ( $(this).hasClass("nosum")){
 			     summary=3;
 			     $(this).val("Clr GrpSum");
@@ -1114,7 +1117,9 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    	$(".showornot22").fadeOut()
 				    	
 				    	
-				    	
+				    	$('#grpsum2').attr("disabled", false);
+				    	  $('#grpsum').attr("disabled", false);
+				    	  $('#summary').attr("disabled", false);
 				    	
 				    	 
 				    //	   $("#titleBar").fadeOut();

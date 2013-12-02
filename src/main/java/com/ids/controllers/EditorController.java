@@ -109,11 +109,12 @@ public class EditorController implements DropdownInterface {
 			HttpServletRequest request,
 			ModelMap model) throws SQLException, JSONException, IOException {	   
 
-		 
+		 GetBeansFromContext gcfc = null;
+		 try{
 		 logger.warning("Entering application via GEt");
 		 logger.warning("excelDownload: "+request.getParameter("excelDownload"));
 		 
-		 GetBeansFromContext gcfc = new GetBeansFromContext();
+		  gcfc = new GetBeansFromContext();
 		 con = gcfc.myConnection();
 		 
 		   model.addAttribute("ajaxPrefix",gcfc.ajaxURLprefix());
@@ -704,6 +705,20 @@ public class EditorController implements DropdownInterface {
 		    	  
 		    	  con.close();   
 		    	  model.addAttribute("openOrClose","close");
+		    	  
+		 } finally {
+				logger.warning("just before ending");
+				   gcfc.closeCon();
+				if (con  != null) {
+					try{
+			        con.close();
+
+					}
+			        catch(Exception e) {
+			        	logger.warning("weird error");
+			        }
+				}
+		 }
 	return "idsEditmain";
 }
 	 
