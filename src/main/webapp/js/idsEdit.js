@@ -116,13 +116,13 @@
         	  
         	  $("#twosub").on("click",function(){
         		  $("body").toggleClass("wait");
-        		  $('#twosub').attr("disabled", true);
+        		//  $('#twosub').attr("disabled", true);
         		  return true;
         	  });
         	  
         	  $("#twoothsub").on("click",function(){
-        		  $("body").toggleClass("wait");
-        		  $('#twoothsub').attr("disabled", true);
+        		//  $("body").toggleClass("wait");
+        		//  $('#twoothsub').attr("disabled", true);
         		  return true;
         	  });
         	  
@@ -1195,14 +1195,25 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 					      },
 					      
 					      complete: function () {
-					    	  
-    	
+
+					    	  var allC = $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child(1)").html();
+					    	 
+					    	  if(allC==" ALL COMPANIES") {
+					    		  
+					    		  var newFooterRow1 =$("#list47").children("tbody").children("tr:nth-child(2)").clone();
+					    		  newFooterRow1.children("td:nth-child(1)").html("TOTAL");
+					    		  newFooterRow1.insertAfter($("tr.footrow"));
+					    		
+					    		  
+					    	  }
 								 var other = $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").html();
+
 						      		if (other==" OTHER") {
 						      	
 						      	     var newFooterRow =$("tr.footrow").clone();
 
 						      	        newFooterRow.removeClass("footrow");
+						      	        
 
 						      	        newFooterRow.children("td").each(function (ind) {
 						  
@@ -1501,6 +1512,18 @@ alert(myWidth);
 			 
 			 
 			 
+			 
+
+	    	  var allC = $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child(1)").html();
+	    	  if(allC==" ALL COMPANIES") {
+
+	    		  var newFooterRow1 =$("#list47").children("tbody").children("tr:nth-child(2)").clone();
+	    		  
+	    		  newFooterRow1.children("td:nth-child(1)").html("TOTAL");
+	    		  newFooterRow1.insertAfter($("tr.footrow"));
+
+	    		  
+	    	  }
 			 
 			 
 			 
