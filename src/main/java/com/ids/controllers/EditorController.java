@@ -183,17 +183,25 @@ public class EditorController implements DropdownInterface {
             	
             	String accessoptions = "";
             	String selected = "";
+            	String textPrefix = "";
+            	String filePrefix = "";
+            	boolean set = false;
             	if (user.getWorld()==1) {
             		if (access.equals("w")) {
             			selected = "selected";
+	            		filePrefix = "ids";
+	            		textPrefix = "IDS";
             		} else {
             			selected = "";
             		}
-            		accessoptions+="<option value='w' "+selected+" >IDS</option>"; 
+            		accessoptions+="<option value='w' "+selected+" >IDS</option>";
+            		
             	}
             	if (user.getChina()==1) {
             		if (access.equals("c")) {
             			selected = "selected";
+	            		   filePrefix = "cds";
+	            		   textPrefix = "CDS";
             		} else {
             			selected = "";
             		}
@@ -202,12 +210,16 @@ public class EditorController implements DropdownInterface {
             	if (user.getIndia()==1) {
             		if (access.equals("i")) {
             			selected = "selected";
+	            		  filePrefix = "inds";
+	            		  textPrefix = "INDS";
             		} else {
             			selected = "";
             		}
             		accessoptions+="<option value='i' "+selected+" >INDS</option>";
             	}
             	  model.addAttribute("accessoptions",accessoptions);
+            	  model.addAttribute("filePrefix",filePrefix);
+            	  model.addAttribute("textPrefix",textPrefix);
             	
             
 		 if (request.getParameter("list") == null || !request.getParameter("list").equals("1")){

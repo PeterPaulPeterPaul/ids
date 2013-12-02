@@ -19,7 +19,7 @@
 <script src="js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script src="js/jquery.jqGrid.min.js" type="text/javascript"></script>
 
-<title>IDS</title>
+<title>${textPrefix}</title>
 <style>
 body { 
 background-color:#FFFF00; 

@@ -123,7 +123,8 @@ public class AddController implements DropdownInterface {
 		   		      model.addAttribute("errortext","Invalid user credentials");
 		   		   	  return "login";
 			   }
-			   
+			   String access = request.getParameter("accessCurr");
+					   
 			   model.addAttribute("openOrClose","close");
 			   
 
@@ -146,7 +147,8 @@ public class AddController implements DropdownInterface {
          			  companyId=request.getParameter("dimension1Val");
             	   }  else{
          			  
-            	  SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension1Val") +"' ";
+            	  SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension1Val") +"' " +
+            	  		" and access = '"+access+"' ";
             	  logger.warning("SQL1: "+SQL);
             	  resultSet = statement.executeQuery(SQL);
             	  while (resultSet.next()) {
@@ -176,9 +178,11 @@ public class AddController implements DropdownInterface {
             	   year =  request.getParameter("dimension2Val");
                } else {
             	   if (request.getParameter("dimension2Name").trim().equals("Country")){
-            		   SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension2Val").trim() +"' ";
+            		   SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension2Val").trim() +"'" +
+            				   " and access = '"+access+"' ";
             	   } else {
-             	      SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension2Val").trim() +"' ";
+             	      SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension2Val").trim() +"'" +
+             	    		 " and access = '"+access+"' ";
             	   }
              	 logger.warning("SQL2: "+SQL);
              	logger.warning("value2: "+value);
@@ -212,9 +216,11 @@ public class AddController implements DropdownInterface {
             	   year =  request.getParameter("dimension3Val");
                } else {
             	   if (value.equals("Country")) {
-            	       SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension3Val").trim() +"' ";
+            	       SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension3Val").trim() +"'" +
+            	    		   " and access = '"+access+"' ";
             	   }else{
-            		   SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension3Val").trim() +"' "; 
+            		   SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension3Val").trim() +"' " +
+            				   " and access = '"+access+"' ";
             	   }
             	   logger.warning("SQL3: "+SQL);
             	   logger.warning("value3: "+value);
@@ -278,7 +284,7 @@ public class AddController implements DropdownInterface {
 
             	   String newSQL = "Insert into FactsEdit_"+request.getParameter("accessCurr")+" (quantity, productId, year, companyId, countryId," +
             	   		" sales_production, access,flag) values ("+request.getParameter("quantAmt")+","+productId
-            	   		+","+year+","+companyId+","+countryId+","+PorS+",'"+request.getParameter("accessCurr")+"','I')";
+            	   		+","+year+","+companyId+","+countryId+","+PorS+",'"+access+"','I')";
             	   logger.warning("InsertSQL: "+newSQL);
             	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
             	   int retval = statement2.executeUpdate();

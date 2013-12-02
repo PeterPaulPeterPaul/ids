@@ -57,7 +57,7 @@ public class FirstTimeQuery {
 	      }
 	      if (access.equals("i")) {
 		    titleArray = new TitleArray("India","Agricultural Tractor", "sales" );
-		    countryId = 2000000;  //India
+		    countryId = 20000000;  //India
 		    multiplier="*200000";
 	      }
 		  
@@ -106,6 +106,7 @@ public class FirstTimeQuery {
 	    		  " order by b.name , a.year asc";
     	  }
     	  
+    	  logger.warning(query2);
     	  resultSet = statement.executeQuery(query2);
     	  String currentCompany="";
         JSONObject obj2a = null;
@@ -151,24 +152,6 @@ public class FirstTimeQuery {
     	  }   
     	  
 
-    	  /*
-	      JSONObject objTotal = new JSONObject();
-    	  objTotal.put("Company","TOTAL");
-    	  Iterator<Entry<String, Integer>> it = totalLine2.entrySet().iterator();
-    	   while (it.hasNext()) {
-    	        Entry<String, Integer> pairs = it.next();
-    	        objTotal.put(pairs.getKey(), pairs.getValue());
-    	    }
-    	   objTotal.put("Total", 0);
-    	   JSONArray array8 = new JSONArray(); 
-    	   
-	    	  if (objTotal != null) {
-		    	     array8.put(objTotal);
-		    	     JSONObject obj8 = new JSONObject();
-		       	     obj8.put("myTotals", array8);
-		    	     model.addAttribute("jsonTotal",obj8);
-		    	  }
-*/
     	  
     	  JSONObject obj7 = new JSONObject();
     	  obj7.put("myData", array7);

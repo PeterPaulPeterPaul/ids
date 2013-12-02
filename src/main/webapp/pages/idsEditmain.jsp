@@ -42,7 +42,7 @@ function parm5AjaxPrefix() {
 
 </script>
 
-<title>IDS</title>
+<title>${textPrefix}</title>
 <style>
 body { 
 background-color:#FFFF00; 
