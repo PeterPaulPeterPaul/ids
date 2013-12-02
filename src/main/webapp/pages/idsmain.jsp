@@ -288,7 +288,10 @@ body.wait, body.wait *{
 <!-- end of rght Titlebar -->
 
 <div style="float:right;width:18%;background-color:#FFFF00;height:100%;padding-top:1%;margin-top:3px;"> <!-- START of right NAV -->
+
 <div>
+
+
 
 <div id="tempStore" style="display:none"></div>
 <div id="tempOldHeadings" style="display:none">12</div>
@@ -371,7 +374,11 @@ To <select id="todate" name="todate" >
   <input type="button" style="font-size:x-small;display:none"  id="clearfilter"  value="Clear Filter"/>
   <input type="button" style="font-size:x-small;display:none" class="swap" name="swap1" id="swap1"  value="Swap cols/rows"/>
 </div>
+
+<div id="protect1" style="z-index:100;" >
 <div class="idsdefault" style="float:left;width:90%;margin-right:5%;margin-top:5%;">
+
+
 <fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 10px;">
 <legend style="font-size:large;"  >Header 1</legend>
 <!-- <input type="button" style="font-size:x-small;" class="nosum" name="summary" id="summary" value="Summary"/>
@@ -386,6 +393,9 @@ To <select id="todate" name="todate" >
 <input class="myrad2" type="radio" name="horiz" id="a4"  value="4"  ><label id="a44">Company</label>
 
 </fieldset>
+
+
+
 </div>
 <div class="idsdefault"  style="float:left;width:90%;margin-right:5%;margin-top:15%">
 <fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 10px;">
@@ -406,6 +416,8 @@ To <select id="todate" name="todate" >
 
 </div>
 
+
+</div>
 </div> 
 <!-- end of rght NAV -->
 
@@ -880,6 +892,9 @@ To <select id="todate" name="todate" >
 	  
 	  
 	  $(".myrad2").on("change",function(){
+		  $(".myrad2").prop('disabled', true);
+		  $(".myrad3").prop('disabled', true);
+		  $("#protect1").addClass("protecting");
 		  clickType="myrad2";
 		  if ($(".myrad2:checked").val()=="4"){
 
@@ -900,6 +915,9 @@ To <select id="todate" name="todate" >
 	  });
 	  
 	  $(".myrad3").on("change",function(){
+		  $(".myrad2").prop('disabled', true);
+		  $(".myrad3").prop('disabled', true);
+		  $("#protect1").addClass("protecting");
 		  clickType="myrad3";
 
 		  if ($(".myrad2:checked").val()=="4"|| 
@@ -1117,9 +1135,12 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    	$(".showornot22").fadeOut()
 				    	
 				    	
-				    	$('#grpsum2').attr("disabled", false);
-				    	  $('#grpsum').attr("disabled", false);
-				    	  $('#summary').attr("disabled", false);
+				    	$('#grpsum2').prop("disabled", false);
+				    	  $('#grpsum').prop("disabled", false);
+				    	  $('#summary').prop("disabled", false);
+						  $(".myrad2").prop('disabled', false);
+						  $(".myrad3").prop('disabled', false);
+						  $("#protect1").removeClass("protecting");
 				    	
 				    	 
 				    //	   $("#titleBar").fadeOut();
@@ -1735,6 +1756,7 @@ if (clickType=="drop22s") {
 
 
 </div>
+
 </body>
 
 
