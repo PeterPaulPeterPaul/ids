@@ -231,10 +231,10 @@ public class SaveController implements DropdownInterface {
 					   con.commit();
 					   statement2 = (PreparedStatement) con.prepareStatement("delete from FactsEdit_"+access+" where flag = 'X' ");
 						   statement2.executeUpdate();
-						  
+						   con.commit();
 						   statement2 = (PreparedStatement) con.prepareStatement("update FactsEdit_"+access+" set flag = '' where flag in ( 'I','D','U' )");
 						   statement2.executeUpdate();   
-						 
+						   con.commit();
 					   
 				   statement2 = (PreparedStatement) con.prepareStatement("update editing set flag = '0' ");
 				   statement2.executeUpdate();
