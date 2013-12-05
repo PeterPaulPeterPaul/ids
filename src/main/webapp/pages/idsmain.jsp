@@ -152,7 +152,7 @@ body.wait, body.wait *{
 <div id="box31"  class="showornot111" style="display:none">
 <span class="selectboxit-container">
 <span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 190px;">
-<span class="selectboxit-text" style="width: 180px;">Grp Sumary: All Countries</span>
+<span class="selectboxit-text" style="width: 180px;">Grp Summary: All Countries</span>
 </span>
 </span>
 </div>
@@ -219,7 +219,7 @@ body.wait, body.wait *{
 <div id="box21"  class="showornot22" style="display:none">
 <span class="selectboxit-container">
 <span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 190px;">
-<span class="selectboxit-text" style="width: 180px;">Grp Sumary: All Countries</span>
+<span class="selectboxit-text" style="width: 180px;">Grp Summary: All Countries</span>
 </span>
 </span>
 </div>
