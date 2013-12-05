@@ -7,7 +7,7 @@ public class SQL1 {
 	public SQL1(int salesOrProduction, int productId, int years, int fromYear, int toYear, String incExCountries, String incExProducts
 			,String incExCompanies, String dateParm, String access) {
 		
-	      query = " select a.year, a.quantity, substr(b.name,1,20) as company, d.name as product, c.shortname as country from Facts_"+access+" a, Company b, Country c, Product d " +
+	      query = " select a.year, a.quantity, CASE  WHEN substr(b.name,1,20) = '_OTHER' then '  OTHER' ELSE substr(b.name,1,20) END as company, d.name as product, c.shortname as country from Facts_"+access+" a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  " and a.productId = "+ productId +
@@ -21,7 +21,7 @@ public class SQL1 {
 	    		  " and a.year between "+fromYear+" and "+toYear+" " +
 	    		  " and d.id = a.productId " +
 	    		  " and a.countryId = c.id" +
-	    		  " order by b.name , c.shortname asc";
+	    		  " order by  CASE  WHEN substr(b.name,1,20) = '_OTHER' then '  OTHER' ELSE substr(b.name,1,20) END  , c.shortname asc";
 		
 	}
 	
