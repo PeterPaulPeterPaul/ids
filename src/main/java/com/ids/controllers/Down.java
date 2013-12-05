@@ -80,10 +80,10 @@ public class Down extends HttpServlet {
 			
 
 
-		    HSSFRow rowhead00 = worksheet.createRow((short)0);
+		//    HSSFRow rowhead00 = worksheet.createRow((short)0);
 		    
-			  HSSFCell cellHead00 = rowhead00.createCell((short) 1); 
-			  cellHead00.setCellValue(new HSSFRichTextString(" "));
+			//  HSSFCell cellHead00 = rowhead00.createCell((short) 1); 
+			//  cellHead00.setCellValue(new HSSFRichTextString(" "));
 			   HSSFCellStyle cellStyle1 = workbook.createCellStyle();  
 		        cellStyle1 = workbook.createCellStyle();  
 		        HSSFFont hSSFFont1 = workbook.createFont();  
@@ -92,7 +92,7 @@ public class Down extends HttpServlet {
 		        hSSFFont1.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);  
 		        hSSFFont1.setColor(HSSFColor.BLACK.index);  
 		        cellStyle1.setFont(hSSFFont1);
-		        cellHead00.setCellStyle(cellStyle1);
+		    //    cellHead00.setCellStyle(cellStyle1);
 			  
 			  
 	        
@@ -261,9 +261,9 @@ public class Down extends HttpServlet {
 						
 						
 						HSSFRow nextRow2 = worksheet.createRow((short) myDataArray.length()+8);
-						HSSFCell cellA = nextRow2.createCell((short) 0);
+						HSSFCell cellA = nextRow2.createCell((short) 1);
 						
-					      cellA.setCellValue("Source: Off-Highway Research ");
+					      cellA.setCellValue("  Source: Off-Highway Research ");
 							
 						   HSSFCellStyle cellStyleH = workbook.createCellStyle();  
 					        cellStyleH = workbook.createCellStyle();  
