@@ -83,7 +83,7 @@ public class Down extends HttpServlet {
 		    HSSFRow rowhead00 = worksheet.createRow((short)0);
 		    
 			  HSSFCell cellHead00 = rowhead00.createCell((short) 1); 
-			  cellHead00.setCellValue(new HSSFRichTextString("Off-Highway Research"));
+			  cellHead00.setCellValue(new HSSFRichTextString(" "));
 			   HSSFCellStyle cellStyle1 = workbook.createCellStyle();  
 		        cellStyle1 = workbook.createCellStyle();  
 		        HSSFFont hSSFFont1 = workbook.createFont();  
@@ -107,7 +107,7 @@ public class Down extends HttpServlet {
 			   HSSFCell cellHead = rowhead.createCell((short) 4);
  
 
-			   cellHead.setCellValue(new HSSFRichTextString(request.getParameter("title1") + " " + request.getParameter("title2") + " "+
+			   cellHead.setCellValue(new HSSFRichTextString(/*request.getParameter("title1") + " " +*/ request.getParameter("title2") + " : "+
 						  request.getParameter("title3") + " " + request.getParameter("title4")));
     		   
 			   
@@ -253,7 +253,26 @@ public class Down extends HttpServlet {
 							   logger.warning(e.getMessage());
 							   cellA.setCellValue(0);
 						   }
+						   
+						   
+						   
+						   
 						}
+						
+						
+						HSSFRow nextRow2 = worksheet.createRow((short) myDataArray.length()+8);
+						HSSFCell cellA = nextRow2.createCell((short) 0);
+						
+					      cellA.setCellValue("Source: Off-Highway Research ");
+							
+						   HSSFCellStyle cellStyleH = workbook.createCellStyle();  
+					        cellStyleH = workbook.createCellStyle();  
+					        HSSFFont hSSFFontH = workbook.createFont();  
+					        hSSFFontH.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);  
+					        cellStyleH.setFont(hSSFFontH);
+					        cellStyleH.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
+					        cellA.setCellStyle(cellStyleH);
+
 	
 					
 				}
