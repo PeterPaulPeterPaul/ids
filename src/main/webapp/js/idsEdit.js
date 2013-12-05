@@ -1013,8 +1013,8 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
 				    			        		} ,
 				    			        	
-				    			        	rowNum: 30,
-				    			        	rowList: [10,20,30],
+				    			        	rowNum: 40,
+				    			        	rowList: [10,20,40],
 				    			           	colNames:cols,
 				    			           	hidegrid:false,
 				    			           	colModel:colModels3,
@@ -1277,8 +1277,8 @@ if (dateParm=="todate must be greater or equal to fromdate") {
     	//	else 
     	//	{ return {} } 
     		} ,
-      	rowNum: 30,
-      	rowList: [10,20,30],
+      	rowNum: 40,
+      	rowList: [10,20,40],
          	colNames:cols,
          	colModel:colModels3,
          	pager: "#plist47",

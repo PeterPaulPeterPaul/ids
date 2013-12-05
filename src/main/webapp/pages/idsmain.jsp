@@ -1325,8 +1325,8 @@ if (clickType=="drop22s") {
 				    			        	data:mylocalData,
 				    			        	datatype: "local",
 				    			        	height: 350,
-				    			        	rowNum: 30,
-				    			        	rowList: [10,20,30],
+				    			        	rowNum: 40,
+				    			        	rowList: [10,20,40],
 				    			           	colNames:cols,
 				    			           	hidegrid:false,
 				    			           	colModel:colModels3,
@@ -1600,6 +1600,54 @@ if (clickType=="drop22s") {
 		    					 getGrid();
 		    				  }
 		    			  });
+		    			  
+		    			  
+		    			  
+		    			  
+		    				 
+		    				 var allC = $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child(1)").html();
+		    		    	  if(allC=="  OTHER") {
+
+		    		    		  var newFooterRow1 =$("#list47").children("tbody").children("tr:nth-child(2)").clone();
+
+		    		    		  newFooterRow1.children("td:nth-child(1)").html("OTHER");
+		    		    		  newFooterRow1.children("td").each(function (ind) {
+		    		    			  $(this).addClass("titleFont");
+
+		    		       	            var myWidth =  $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child("+(ind +1)+")").width();
+
+		    		        	          var myBack =  $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child("+(ind +1)+")").css("background-color");
+
+		    		        	            
+		    		        	          
+		    		       	         $(this).css("background-color",myBack);
+		    		                      $(this).removeClass("colorWhite");
+		    		                      $(this).css("font-weight","bold");
+		    		                      $(this).css("overflow","hidden");
+		    		                      $(this).css("white-space","pre");
+		    		                      $(this).css("height","22px");
+		    		                     $(this).css("padding"," 0 2px 0 2px");
+		    		                     $(this).css(" border-bottom-width","1px");
+		    		                     $(this).css(" border-bottom-color","inherit");
+		    		                    $(this).css(" border-bottom-style","solid");
+
+		    		                    $(this).css("width",myWidth+"px");
+		    		                  
+		    		       	        });
+		    		    			  
+		    		    			  
+		    		    			  
+		    		    		  newFooterRow1.insertBefore($("tr.footrow"));
+		    		    		  $("#list47").children("tbody").children("tr:nth-child(2)").css("display","none");
+		    		    		  
+		    		     		  newFooterRow1.addClass("footrow");
+		    		    		  newFooterRow1.addClass("footrow-ltr");
+		    		    		  newFooterRow1.removeClass("ui-widget-content");
+		    		    		  newFooterRow1.removeClass("jqgrow ui-row-ltr");
+
+		    		    	  }  
+		    			  
+		    			  
 
 					      }
 					     
@@ -1650,8 +1698,8 @@ if (clickType=="drop22s") {
       	data:mylocalData,
       	datatype: "local",
       	height: 350,
-      	rowNum: 30,
-      	rowList: [10,20,30],
+      	rowNum: 40,
+      	rowList: [10,20,40],
          	colNames:cols,
          	colModel:colModels3,
          	pager: "#plist47",
@@ -1700,6 +1748,64 @@ if (clickType=="drop22s") {
 			 $(window).resize(function() {
 				 $('#list47').setGridWidth($('#beans').width());
 				});
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 var allC = $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child(1)").html();
+	    	  if(allC=="  OTHER") {
+
+	    		  var newFooterRow1 =$("#list47").children("tbody").children("tr:nth-child(2)").clone();
+
+	    		  newFooterRow1.children("td:nth-child(1)").html("OTHER");
+	    		  newFooterRow1.children("td").each(function (ind) {
+	    			  $(this).addClass("titleFont");
+
+	       	            var myWidth =  $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child("+(ind +1)+")").width();
+
+	        	          var myBack =  $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child("+(ind +1)+")").css("background-color");
+
+	        	            
+	        	          
+	       	         $(this).css("background-color",myBack);
+	                      $(this).removeClass("colorWhite");
+	                      $(this).css("font-weight","bold");
+	                      $(this).css("overflow","hidden");
+	                      $(this).css("white-space","pre");
+	                      $(this).css("height","22px");
+	                     $(this).css("padding"," 0 2px 0 2px");
+	                     $(this).css(" border-bottom-width","1px");
+	                     $(this).css(" border-bottom-color","inherit");
+	                    $(this).css(" border-bottom-style","solid");
+
+	                    $(this).css("width",myWidth+"px");
+	                  
+	       	        });
+	    			  
+	    			  
+	    			  
+	    		  newFooterRow1.insertBefore($("tr.footrow"));
+	    		  $("#list47").children("tbody").children("tr:nth-child(2)").css("display","none");
+	    		  
+	     		  newFooterRow1.addClass("footrow");
+	    		  newFooterRow1.addClass("footrow-ltr");
+	    		  newFooterRow1.removeClass("ui-widget-content");
+	    		  newFooterRow1.removeClass("jqgrow ui-row-ltr");
+
+	    	  }  
+	    	 
+
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
 			 
 			 
 			 
