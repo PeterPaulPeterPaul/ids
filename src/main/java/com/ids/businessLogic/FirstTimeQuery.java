@@ -85,17 +85,17 @@ public class FirstTimeQuery {
     	  String query2="";
 
     	  if (access.equals("w")) {
-    	   query2 = " select a.year, SUM(a.quantity) as quantity, CASE WHEN substr(b.name,1,20) = '_OTHER' then '  OTHER' ELSE substr(b.name,1,20) END  as name " +
+    	   query2 = " select a.year, SUM(a.quantity) as quantity, substr(b.name,1,20)  as name " +
     			  " from Facts_w a, Company b, Country c, Product d  "+
     			  "  where a.companyid=b.id  and a.sales_production=1 AND a.countryId NOT IN (20,21,0) "+
     			  "  and a.productId = 1 and a.year >=2008 and b.name != 'ALL COMPANIES'  "+
     			  " and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
     			  "  and d.id = a.productId  and a.access = 'w'  and a.countryId = c.id "+
-    			  "  group by  a.year,  CASE WHEN substr(b.name,1,20) = '_OTHER' then '  OTHER' ELSE substr(b.name,1,20) END, d.name, 'EUROPE'  " +
-    			  " order by  CASE WHEN substr(b.name,1,20) = '_OTHER' then '  OTHER' ELSE substr(b.name,1,20) END , a.year asc ";
+    			  "  group by  a.year, substr(b.name,1,20), d.name, 'EUROPE'  " +
+    			  " order by  b.name , a.year asc ";
     			  
     	  }else {
-	       query2 = " select a.year, a.quantity, b.name from Facts_"+access+" a, Company b, Country c " +
+	       query2 = " select a.year, a.quantity, substr(b.name,1,20) from Facts_"+access+" a, Company b, Country c " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.countryid=c.id " + 
 	    		  " and c.id="+countryId  + 
@@ -235,14 +235,14 @@ public class FirstTimeQuery {
 
 
 			    		  
-			    		  query = " select distinct a.id, CASE WHEN substr(a.name,1,20) = '_OTHER' then '  OTHER' ELSE substr(a.name,1,20) END  as name from Company a  , Facts_"+access+" b " +
+			    		  query = " select distinct a.id, substr(a.name,1,20) as name from Company a  , Facts_"+access+" b " +
 			    		  		" where a.id != 0" +
 			    		  		" and b.companyid = a.id " +
 			    		  		" and b.access = '" + access +"' and " +
 			    		  		" a.access = '" + access + "' " +
 			    		  		" and a.name != 'ALL COMPANIES' " +
 			    		  	//	" and b.year between "+(curYear - 5)+" and "+(curYear+5)+
-			    		  		" order by  CASE WHEN substr(a.name,1,20) = '_OTHER' then 'AAOTHER' ELSE substr(a.name,1,20) END asc " ;
+			    		  		" order by  a.name  asc " ;
 					    
 			    		  logger.warning(query);
 			    		  	

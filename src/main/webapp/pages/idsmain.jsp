@@ -1606,7 +1606,7 @@ if (clickType=="drop22s") {
 		    			  
 		    				 
 		    				 var allC = $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child(1)").html();
-		    		    	  if(allC=="  OTHER") {
+		    		    	  if(allC==" OTHER") {
 
 		    		    		  var newFooterRow1 =$("#list47").children("tbody").children("tr:nth-child(2)").clone();
 
@@ -1756,7 +1756,7 @@ if (clickType=="drop22s") {
 			 
 			 
 			 var allC = $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child(1)").html();
-	    	  if(allC=="  OTHER") {
+	    	  if(allC==" OTHER") {
 
 	    		  var newFooterRow1 =$("#list47").children("tbody").children("tr:nth-child(2)").clone();
 
