@@ -81,10 +81,12 @@ public class SaveController implements DropdownInterface {
 			HttpServletRequest request,
 			ModelMap model)  {	   
 
+		 
+		 GetBeansFromContext gcfc =null;
 		 try{
 		 
 		 logger.warning("Entering application via GEt");
-		 GetBeansFromContext gcfc = new GetBeansFromContext();
+		  gcfc = new GetBeansFromContext();
 		 con = gcfc.myConnection();
 	      Statement statement = con.createStatement();
 
@@ -93,6 +95,7 @@ public class SaveController implements DropdownInterface {
 	      User user = (User) session.getAttribute("myUser");
 	 		 if (user==null ) {
 	   		      model.addAttribute("errortext","You must logon before you can access IDS");
+	   		   con.close();
 	   		   	  return "login";
 	   		 }
 	      
@@ -100,6 +103,7 @@ public class SaveController implements DropdownInterface {
 	 			 if (session.getAttribute("myUser") != null) {
 	 			    session.setAttribute("myUser",null);
 	 			 }
+	 			 con.close();
 	 			return "login"; 
 	 		 }
 	 		String      query = " select 'found' as found from ids_users where userId = '"+user.getUserName()
@@ -117,6 +121,7 @@ public class SaveController implements DropdownInterface {
 			   }
 			   if (!found) {
 		   		      model.addAttribute("errortext","Invalid user credentials");
+		   		   con.close();
 		   		   	  return "login";
 			   }
 			   
@@ -135,19 +140,22 @@ public class SaveController implements DropdownInterface {
 				   statement2.executeUpdate();
 				   con.commit();
 				   String multiplier="";
+				   String allCompanies="11";
 			    	if (access.equals("c")) {
 			    		multiplier="*10000";
+			    		allCompanies="11"+multiplier;
 			    	}
 			    	if (access.equals("i")) {
 			    		multiplier="*20000";
+			    		allCompanies="200600000";
 			    	}
 
 				    statement2 = (PreparedStatement) con.prepareStatement(" INSERT INTO FactsEdit_"+access+" (id, companyId, countryid, productid, year, sales_production, quantity, flag, access)  "+
-				    		" select 0, -1"+multiplier+", a.countryId"+multiplier+",a.productid"+multiplier+",a.year,a.sales_production, " +
+				    		" select 0, -1"+multiplier+", a.countryId,a.productid,a.year,a.sales_production, " +
 			    			 "  (b.quantity -a.quantity) as quantity ,'I' , '"+access+"' " +
 			    			 " from  FactsEdit_"+access+" b, " + 
 				    		 " (  select productId, countryId, sales_production, 'I' flag, year, sum(quantity) quantity  "+
-				    		 " from FactsEdit_"+access+"  where companyID != 11"+multiplier+" " +
+				    		 " from FactsEdit_"+access+"  where companyID != "+allCompanies+" " +
 				    		 "  and quantity > 0  	  "+  
                              "  and flag != 'X' "  +
 				    		 "  group by productId, countryId, year, sales_production,  "+
@@ -159,15 +167,15 @@ public class SaveController implements DropdownInterface {
 				    		// " and a.flag = b.flag " +
 				    		 " and a.year = b.year "+
 				    		 " and b.flag != 'X' " +
-				    		 "  and b.companyid = 11"+multiplier+" ");
+				    		 "  and b.companyid = "+allCompanies+" ");
 				    	//	 " and b.quantity - a.quantity <> 0  ");
 				    
 				    logger.warning(" INSERT INTO FactsEdit_"+access+" (id, companyId, countryid, productid, year, sales_production, quantity, flag, access)  "+
-				    		" select 0, -1"+multiplier+", a.countryId"+multiplier+",a.productid"+multiplier+",a.year,a.sales_production, " +
+				    		" select 0, -1"+multiplier+", a.countryId,a.productid,a.year,a.sales_production, " +
 			    			 "  (b.quantity -a.quantity) as quantity ,'I', '"+access+"' " +
 			    			 " from  FactsEdit_"+access+" b, " + 
 				    		 " (  select productId, countryId, sales_production, 'I' flag, year, sum(quantity) quantity  "+
-				    		 " from FactsEdit_"+access+"  where companyID != 11"+multiplier+" " +
+				    		 " from FactsEdit_"+access+"  where companyID != "+allCompanies+" " +
 				    		  "  and flag != 'X' "  +
 				    		 "  and quantity > 0  	  "+     
 				    		 "  group by productId, countryId, year, sales_production,  "+
@@ -178,13 +186,15 @@ public class SaveController implements DropdownInterface {
 				    		 "  and a.sales_production = b.sales_production "+
 				    		 "  and a.year = b.year "+
 				    		 " and b.flag != 'X' " +
-				    		 "  and b.companyid = 11"+multiplier+" ");
+				    		 "  and b.companyid = "+allCompanies+" ");
 				    		// " and b.quantity - a.quantity <> 0  ");
 				    
 				    
 				    statement2.executeUpdate();
 				    con.commit();
 					
+				    
+	     if (request.getParameter("other")== null ) {  
 				    statement2 = (PreparedStatement) con.prepareStatement("Delete from Facts_"+access+"  Where companyId < 0 " );
 				  statement2.executeUpdate();
 
@@ -221,19 +231,22 @@ public class SaveController implements DropdownInterface {
 					   con.commit();
 					   statement2 = (PreparedStatement) con.prepareStatement("delete from FactsEdit_"+access+" where flag = 'X' ");
 						   statement2.executeUpdate();
-						  
+						   con.commit();
 						   statement2 = (PreparedStatement) con.prepareStatement("update FactsEdit_"+access+" set flag = '' where flag in ( 'I','D','U' )");
 						   statement2.executeUpdate();   
-						 
+						   con.commit();
 					   
 				   statement2 = (PreparedStatement) con.prepareStatement("update editing set flag = '0' ");
 				   statement2.executeUpdate();
 				   logger.warning("all the updates/deletes and inserts done");
 				   con.commit();  
+				   
+	     }
 				   logger.warning(".....and also commit");
 				   model.addAttribute("saveBut","none");
 				   model.addAttribute("openOrClose","open");
 				   
+				   con.close();
 				   return "redirect:editor";
  
 			   }
@@ -252,11 +265,13 @@ public class SaveController implements DropdownInterface {
                } else {
             	   
             	   String convertIt = request.getParameter("dimension1Val");
+            	   convertIt = convertIt.replace("&amp;", "&");
             	   if (convertIt.equals(" ALL COMPANIES")) {
             		   convertIt = "ALL COMPANIES";
             	   }
-            	  SQL = " select id from "+value+ " where name = '" +convertIt +"' ";
+            	  SQL = " select id from "+value+ " where name = '" +convertIt +"' and access= '"+access+"' ";
             	  logger.warning("SQL1: "+SQL);
+            	  logger.warning("SQL4: "+SQL);
             	  resultSet = statement.executeQuery(SQL);
             	  while (resultSet.next()) {
             		  if (value.equals("Country")) {
@@ -269,6 +284,7 @@ public class SaveController implements DropdownInterface {
             		  }
             		  if (value.equals("Product")) {
             			  productId= resultSet.getString("id");
+            			  logger.warning("set but input: "+SQL);
             			  break;
             		  }
             	  }
@@ -282,16 +298,18 @@ public class SaveController implements DropdownInterface {
             	   year =  request.getParameter("dimension2Val");
                } else {
             	   if (request.getParameter("dimension2Name").trim().equals("Country")){
-            		   SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension2Val").trim() +"' ";
+            		   SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension2Val").trim() +"'" +
+            		   		" and access= '"+access+"' ";
             	   } else {
-             	      SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension2Val").trim() +"' ";
+             	      SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension2Val").trim() +"'" +
+             	    		 " and access= '"+access+"' ";
             	   }
              	 logger.warning("SQL2: "+SQL);
              	logger.warning("value2: "+value);
              	if (resultSet != null) {
              		resultSet.close();
              	}
-             	
+             	 logger.warning("SQL3: "+SQL);
              	  resultSet = statement.executeQuery(SQL);
              	  while (resultSet.next()) {
              		  logger.warning("got in here ok");
@@ -318,11 +336,14 @@ public class SaveController implements DropdownInterface {
             	   year =  request.getParameter("dimension3Val");
                } else {
             	   if (value.equals("Country")) {
-            	       SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension3Val").trim() +"' ";
+            	       SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension3Val").trim() +"' " +
+            	    			 " and access= '"+access+"' ";
             	   }else{
-            		   SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension3Val").trim() +"' "; 
+            		   SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension3Val").trim() +"' " +
+            					 " and access= '"+access+"' ";
             	   }
               	  resultSet = statement.executeQuery(SQL);
+              	 logger.warning("SQL2: "+SQL);
               	  while (resultSet.next()) {
               		  if (value.equals("Country")) {
               			  countryId= Integer.toString(resultSet.getInt("id"));
@@ -354,8 +375,11 @@ public class SaveController implements DropdownInterface {
                } else { 
 
             	   value = value.substring(0,value.indexOf(" "));
-            	   SQL = " select id from "+value+ " where shortname = '" +request.getParameter("dimension5Val") +"' ";
+            	   SQL = " select id from "+value+ " where shortname = '" +request.getParameter("dimension5Val") +"'" +
+            				 " and access= '"+access+"' ";
                	  resultSet = statement.executeQuery(SQL);
+               	  
+               	  logger.warning("SQL1: "+SQL);
                	  while (resultSet.next()) {
                		  if (value.equals("Country")) {
                			  countryId= resultSet.getString("id");
@@ -383,9 +407,14 @@ public class SaveController implements DropdownInterface {
                }
                if (quant==0) {
             	   
-            	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Update FactsEdit_"+access+" set flag='X' where "+
+            	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Update FactsEdit_"+access+" set quantity=0, flag='X' where "+
                 		    " productId = "+productId + " and year = "+year+ " and access = '"+access+"' "+
                 		   " and companyId = "+companyId + " and countryId = "+countryId+ " and sales_production = "+PorS);
+            	   
+            	   logger.warning("ZERO QUANT: "+"Update FactsEdit_"+access+" set quantity=0, flag='X' where "+
+                		    " productId = "+productId + " and year = "+year+ " and access = '"+access+"' "+
+                		   " and companyId = "+companyId + " and countryId = "+countryId+ " and sales_production = "+PorS);
+            	   
                    int retval = statement2.executeUpdate();
             	   
                }else {
@@ -396,6 +425,9 @@ public class SaveController implements DropdownInterface {
                logger.warning("SQL: "+"Update FactsEdit_"+access+" set quantity = "+
             		   request.getParameter("FactVal")+ " where productId = "+productId + " and access= '"+access+"' and year = "+year+
             		   " and companyId = "+companyId + " and countryId = "+countryId+ " and sales_production = "+PorS);
+
+        	   
+        	   
                int retval = statement2.executeUpdate();
                
                if (retval==0) {
@@ -414,16 +446,26 @@ public class SaveController implements DropdownInterface {
            	   statement3.executeUpdate();
                
                 con.commit();
+                con.close();
 		 }
                 catch(Exception e) {
                 	logger.log(Level.SEVERE,"error",e);
-                }
+
 		 
-		 
-		 
-		 
-		 
-		 
+	 } finally {
+			logger.warning("just before ending");
+			   gcfc.closeCon();
+			if (con  != null) {
+				try{
+		        con.close();
+
+				}
+		        catch(Exception e) {
+		        	logger.warning("weird error");
+		        }
+			}
+	 }
+
 			   
 			   return "login";
 	 }

@@ -15,14 +15,12 @@ public class SQL2Ed {
 		if (countryId == -10) {
 			countryClause = " AND a.countryId NOT IN (20,21,-10,0) ";
 			queryPart1 =  " select a.year, sum(a.quantity) as quantity,  CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
-	    		     "     WHEN substr(b.name,1,20) = '_OTHER' then ' OTHER' "+
 	       " ELSE substr(b.name,1,20) END  as company, d.shortname as product, 'EUROPE' as country ";
 			groupBy = " group by  a.year,  b.name , d.shortname, 'EUROPE'  ";
 			incExCountries = "";
 		} else {
 			countryClause = " AND a.countryId = "+countryId;
 			queryPart1 =  " select a.year, a.quantity,   CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
-	    		     "     WHEN substr(b.name,1,20) = '_OTHER' then ' OTHER' "+
 	       " ELSE substr(b.name,1,20) END  as company, d.shortname as product, c.country ";
 			groupBy = "";
 
@@ -43,9 +41,8 @@ public class SQL2Ed {
 	    		  " and d.id = a.productId " +
 	    		  " and a.countryId = c.id" +
 	    		  groupBy+
-	    		  " order by  CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
-	    		     "     WHEN substr(b.name,1,20) = '_OTHER' then ' OTHER' "+
-	       " ELSE substr(b.name,1,20) END ,  d.shortname asc";
+	    		  " order by  CASE WHEN b.name = 'ALL COMPANIES' then  '  ALL COMPANIES' "+
+	    		  " ELSE b.name END ,  d.shortname asc";
 		
 	}
 	

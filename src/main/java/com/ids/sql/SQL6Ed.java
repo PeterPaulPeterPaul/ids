@@ -18,7 +18,6 @@ public class SQL6Ed {
 		
 		
 	      query = " select a.year, a.quantity,   CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
-	    		     "     WHEN substr(b.name,1,20) = '_OTHER' then ' OTHER' "+
 	       " ELSE substr(b.name,1,20) END  as company, "+product+" as product, "+country+" as country " +
 	      		" from FactsEdit_"+access+" a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +

@@ -210,7 +210,7 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"/>
    	  $('#testUp31').get(0).setAttribute('action', 'setup2?access='+accessIT); 
    	  $('#testUp41').get(0).setAttribute('action', 'setup2?access='+accessIT); 
    	  $('#testUp66').get(0).setAttribute('action', 'setup3?access='+accessIT); 
-   	  $('#testUp666').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+   	 // $('#testUp666').get(0).setAttribute('action', 'setup2?access='+accessIT); 
 	 
 	      $(".radIT").on("change", function() {
 	    	  
@@ -220,7 +220,7 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"/>
 	    	  $('#testUp31').get(0).setAttribute('action', 'setup2?access='+accessIT); 
 	    	  $('#testUp41').get(0).setAttribute('action', 'setup2?access='+accessIT); 
 	    	  $('#testUp66').get(0).setAttribute('action', 'setup3?access='+accessIT); 
-	    	  $('#testUp666').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+	    //	  $('#testUp666').get(0).setAttribute('action', 'setup2?access='+accessIT); 
 	    	//  $(".accessType").val( $('input[name=radio1]:checked' ).val() );
 	      });
 

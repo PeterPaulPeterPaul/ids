@@ -21,7 +21,7 @@ public class SQL1 {
 	    		  " and a.year between "+fromYear+" and "+toYear+" " +
 	    		  " and d.id = a.productId " +
 	    		  " and a.countryId = c.id" +
-	    		  " order by b.name , c.shortname asc";
+	    		  " order by  b.name   , c.shortname asc";
 		
 	}
 	

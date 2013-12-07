@@ -42,7 +42,7 @@ function parm5AjaxPrefix() {
 
 </script>
 
-<title>IDS</title>
+<title>${textPrefix}</title>
 <style>
 body { 
 background-color:#FFFF00; 
@@ -189,7 +189,7 @@ body.wait, body.wait *{
 <div id="box31"  class="showornot111" style="display:none">
 <span class="selectboxit-container">
 <span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 190px;">
-<span class="selectboxit-text" style="width: 180px;">Grp Sumary: All Countries</span>
+<span class="selectboxit-text" style="width: 180px;">Grp Summary: All Countries</span>
 </span>
 </span>
 </div>
@@ -255,7 +255,7 @@ body.wait, body.wait *{
 <div id="box21"  class="showornot22" style="display:none">
 <span class="selectboxit-container">
 <span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 190px;">
-<span class="selectboxit-text" style="width: 180px;">Grp Sumary: All Countries</span>
+<span class="selectboxit-text" style="width: 180px;">Grp Summary: All Countries</span>
 </span>
 </span>
 </div>
@@ -335,6 +335,19 @@ body.wait, body.wait *{
      <input id="addcosub" class="k-button" type="submit" name="submitBtn" value="Add new Company" />
 </div>
 </div>
+
+
+<div id="saveOtherButId" style="float:left;margin-left:5px;display:block">
+<div  style="display:block">
+<form  id="saving1" action="${ajaxPrefix}saverow?other=1" method="post" name="saveForm2"   > 
+ <input  type="hidden" name="save" value="" />
+ <input type="hidden" name="access" id="accessCurrx2" value="" >
+ <input id="twoothsub"  class="k-button" type="submit" name="submitBtn" value="recalculate Others/Total" />
+
+</form>
+</div>
+</div>
+
 
  </div>
  

@@ -19,14 +19,12 @@ public class SQL4Ed {
 		if (countryId == -10) {
 			countryClause = " AND a.countryId NOT IN (20,21,-10,0) ";
 			queryPart1 =  "select a.year, Sum(a.quantity) as quantity,  CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
-	    		     "     WHEN substr(b.name,1,20) = '_OTHER' then ' OTHER' "+
 	       " ELSE substr(b.name,1,20) END  as company, "+product+" as product, 'EUROPE' as country ";
 			groupBy = " group by  a.year, b.name, "+product+" , 'EUROPE'  ";
 			incExCountries = "";
 		} else {
 			countryClause = " AND a.countryId = "+countryId;
 			queryPart1 =  " select a.year, a.quantity,   CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
-	    		     "     WHEN substr(b.name,1,20) = '_OTHER' then ' OTHER' "+
 	       " ELSE substr(b.name,1,20) END  as company, "+product+" as product, c.country ";
 			groupBy = " ";
 		}

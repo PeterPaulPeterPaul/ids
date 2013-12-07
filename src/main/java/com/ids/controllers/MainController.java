@@ -107,10 +107,13 @@ public class MainController implements DropdownInterface {
 			HttpServletRequest request,
 			ModelMap model) throws SQLException, JSONException, IOException {	   
 
+		 GetBeansFromContext gcfc = null;
 		 
+		 try{
 		 logger.warning("Entering application via GEt");
 		 logger.warning("excelDownload: "+request.getParameter("excelDownload"));
-		 GetBeansFromContext gcfc = new GetBeansFromContext();
+		 
+		 gcfc = new GetBeansFromContext();
 		 con = gcfc.myConnection();
 		 
 		 model.addAttribute("ajaxPrefix",gcfc.ajaxURLprefix());
@@ -758,6 +761,20 @@ public class MainController implements DropdownInterface {
 		    	  
 		    	  con.close();   
 	return "idsmain";
+	
+		 } finally {
+				logger.warning("just before ending");
+				   gcfc.closeCon();
+				if (con  != null) {
+					try{
+			        con.close();
+
+					}
+			        catch(Exception e) {
+			        	logger.warning("weird error");
+			        }
+				}
+		}
 }
 	 
 	 
@@ -849,11 +866,12 @@ private List <JSONObject> getObj5Summary(ResultSet resultSet, Statement statemen
      returnValues.add(0,jp.getObj5());
      returnValues.add(1,jp.getObj8());
      return returnValues;
+    
 
 }
 
 
-private List <JSONObject> getObj5GroupSummary(ResultSet resultSet, Statement statement, String query,String ONE ,String TWO, 
+private List <JSONObject> getObj5GroupSummary( ResultSet resultSet, Statement statement, String query,String ONE ,String TWO, 
 		 String colHeading,  ColumnModel columnModel, JSONObject columnNameObj, int ProdOrSales, 
 		 boolean hasAll, int summary) throws JSONException, SQLException{
 
@@ -886,6 +904,8 @@ private List <JSONObject> getObj5GroupSummary(ResultSet resultSet, Statement sta
        titleCountry= jl.getTitleFOUR();
    }
 
+   resultSet.close();
+   statement.close();
     JsonPackaging jp = new	 JsonPackaging(obj2a,array7,colHeading,totalLine2,
           titleCountry,  titleProduct,
           columnModel.getModelObject(),  columnNameObj, 
@@ -895,6 +915,7 @@ private List <JSONObject> getObj5GroupSummary(ResultSet resultSet, Statement sta
     returnValues.add(0,jp.getObj5());
     returnValues.add(1,jp.getObj8());
     return returnValues;
+
 
 }
 	

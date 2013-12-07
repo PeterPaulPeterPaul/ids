@@ -28,6 +28,7 @@ public class ColumnModel {
 		  }else {
 		     JSONObject obj1a = new JSONObject();
   	         obj1a.put("name",jsonArray.get(i));
+  	         obj1a.put("align", "right");
   	         obj1a.put("index",jsonArray.get(i));
 
 

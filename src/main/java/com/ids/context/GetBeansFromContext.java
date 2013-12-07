@@ -101,7 +101,9 @@ public class GetBeansFromContext {
 	public void closeCon() {
 		try {
 			con.close();
+			logger.warn("are we closing this too");
 		} catch (SQLException e) {
+			logger.warn("whoops no");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			logger.error( "failed!", e );

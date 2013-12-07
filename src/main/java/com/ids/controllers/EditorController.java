@@ -109,11 +109,12 @@ public class EditorController implements DropdownInterface {
 			HttpServletRequest request,
 			ModelMap model) throws SQLException, JSONException, IOException {	   
 
-		 
+		 GetBeansFromContext gcfc = null;
+		 try{
 		 logger.warning("Entering application via GEt");
 		 logger.warning("excelDownload: "+request.getParameter("excelDownload"));
 		 
-		 GetBeansFromContext gcfc = new GetBeansFromContext();
+		  gcfc = new GetBeansFromContext();
 		 con = gcfc.myConnection();
 		 
 		   model.addAttribute("ajaxPrefix",gcfc.ajaxURLprefix());
@@ -182,17 +183,25 @@ public class EditorController implements DropdownInterface {
             	
             	String accessoptions = "";
             	String selected = "";
+            	String textPrefix = "";
+            	String filePrefix = "";
+            	boolean set = false;
             	if (user.getWorld()==1) {
             		if (access.equals("w")) {
             			selected = "selected";
+	            		filePrefix = "ids";
+	            		textPrefix = "IDS";
             		} else {
             			selected = "";
             		}
-            		accessoptions+="<option value='w' "+selected+" >IDS</option>"; 
+            		accessoptions+="<option value='w' "+selected+" >IDS</option>";
+            		
             	}
             	if (user.getChina()==1) {
             		if (access.equals("c")) {
             			selected = "selected";
+	            		   filePrefix = "cds";
+	            		   textPrefix = "CDS";
             		} else {
             			selected = "";
             		}
@@ -201,12 +210,16 @@ public class EditorController implements DropdownInterface {
             	if (user.getIndia()==1) {
             		if (access.equals("i")) {
             			selected = "selected";
+	            		  filePrefix = "inds";
+	            		  textPrefix = "INDS";
             		} else {
             			selected = "";
             		}
             		accessoptions+="<option value='i' "+selected+" >INDS</option>";
             	}
             	  model.addAttribute("accessoptions",accessoptions);
+            	  model.addAttribute("filePrefix",filePrefix);
+            	  model.addAttribute("textPrefix",textPrefix);
             	
             
 		 if (request.getParameter("list") == null || !request.getParameter("list").equals("1")){
@@ -704,6 +717,20 @@ public class EditorController implements DropdownInterface {
 		    	  
 		    	  con.close();   
 		    	  model.addAttribute("openOrClose","close");
+		    	  
+		 } finally {
+				logger.warning("just before ending");
+				   gcfc.closeCon();
+				if (con  != null) {
+					try{
+			        con.close();
+
+					}
+			        catch(Exception e) {
+			        	logger.warning("weird error");
+			        }
+				}
+		 }
 	return "idsEditmain";
 }
 	 

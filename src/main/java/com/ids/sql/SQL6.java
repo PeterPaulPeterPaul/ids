@@ -17,7 +17,7 @@ public class SQL6 {
 		}
 		
 		
-	      query = " select a.year, a.quantity, substr(b.name,1,20) as company, "+product+" as product, "+country+" as country " +
+	      query = " select a.year, a.quantity,  substr(b.name,1,20) as company, "+product+" as product, "+country+" as country " +
 	      		" from Facts_"+access+" a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +

@@ -57,7 +57,7 @@ public class FirstTimeQuery {
 	      }
 	      if (access.equals("i")) {
 		    titleArray = new TitleArray("India","Agricultural Tractor", "sales" );
-		    countryId = 2000000;  //India
+		    countryId = 20000000;  //India
 		    multiplier="*200000";
 	      }
 		  
@@ -85,16 +85,17 @@ public class FirstTimeQuery {
     	  String query2="";
 
     	  if (access.equals("w")) {
-    	   query2 = " select a.year, SUM(a.quantity) as quantity, substr(b.name,1,20) as name " +
+    	   query2 = " select a.year, SUM(a.quantity) as quantity, substr(b.name,1,20)  as name " +
     			  " from Facts_w a, Company b, Country c, Product d  "+
     			  "  where a.companyid=b.id  and a.sales_production=1 AND a.countryId NOT IN (20,21,0) "+
     			  "  and a.productId = 1 and a.year >=2008 and b.name != 'ALL COMPANIES'  "+
     			  " and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
     			  "  and d.id = a.productId  and a.access = 'w'  and a.countryId = c.id "+
-    			  "  group by  a.year,  b.name, d.name, 'EUROPE'   order by b.name , a.year asc ";
+    			  "  group by  a.year, substr(b.name,1,20), d.name, 'EUROPE'  " +
+    			  " order by  b.name , a.year asc ";
     			  
     	  }else {
-	       query2 = " select a.year, a.quantity, b.name from Facts_"+access+" a, Company b, Country c " +
+	       query2 = " select a.year, a.quantity, substr(b.name,1,20) from Facts_"+access+" a, Company b, Country c " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.countryid=c.id " + 
 	    		  " and c.id="+countryId  + 
@@ -106,6 +107,7 @@ public class FirstTimeQuery {
 	    		  " order by b.name , a.year asc";
     	  }
     	  
+    	  logger.warning(query2);
     	  resultSet = statement.executeQuery(query2);
     	  String currentCompany="";
         JSONObject obj2a = null;
@@ -151,24 +153,6 @@ public class FirstTimeQuery {
     	  }   
     	  
 
-    	  /*
-	      JSONObject objTotal = new JSONObject();
-    	  objTotal.put("Company","TOTAL");
-    	  Iterator<Entry<String, Integer>> it = totalLine2.entrySet().iterator();
-    	   while (it.hasNext()) {
-    	        Entry<String, Integer> pairs = it.next();
-    	        objTotal.put(pairs.getKey(), pairs.getValue());
-    	    }
-    	   objTotal.put("Total", 0);
-    	   JSONArray array8 = new JSONArray(); 
-    	   
-	    	  if (objTotal != null) {
-		    	     array8.put(objTotal);
-		    	     JSONObject obj8 = new JSONObject();
-		       	     obj8.put("myTotals", array8);
-		    	     model.addAttribute("jsonTotal",obj8);
-		    	  }
-*/
     	  
     	  JSONObject obj7 = new JSONObject();
     	  obj7.put("myData", array7);
@@ -258,7 +242,7 @@ public class FirstTimeQuery {
 			    		  		" a.access = '" + access + "' " +
 			    		  		" and a.name != 'ALL COMPANIES' " +
 			    		  	//	" and b.year between "+(curYear - 5)+" and "+(curYear+5)+
-			    		  		" order by a.name asc " ;
+			    		  		" order by  a.name  asc " ;
 					    
 			    		  logger.warning(query);
 			    		  	
