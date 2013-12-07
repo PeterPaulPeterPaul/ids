@@ -1,14 +1,27 @@
 
 .dbservicestyle {
-    background-color: #FFFF00;
+    background-color: #FFFFFF;
     font-family: times new roman;
     font-size: 32pt;
-    height: 100px;
-    margin-top: inherit;
+    height: 380px;
+    margin-top: 10px;
     text-align: center;
     width: 100%;
 }
 
+.HeaderPics {
+    Float: Left;
+    Width: 30%;
+    Margin-left: 3%;
+    font-size: Large;
+}
+
+div.Loginbox {
+    background-color: #FFFFFF;
+    border-style: none;
+    height: 60px;
+    width: 100%;
+}
 
 .login {
     background-position: 80% 55px;

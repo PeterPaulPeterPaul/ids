@@ -58,10 +58,12 @@ background:#E6E6E6;
             background-color: pink !important;
         }
  .filter {
- border-color: gray;
-border-bottom: 2px solid;
-border-right: 2px solid;
+   border-color: gray;
+  margin-bottom: 3px;
+   margin-top: 3px;
  }
+ 
+ 
  
  .printerIcon {
  background-image: url(images/exit.bmp);
@@ -70,14 +72,11 @@ background-position:left;
 padding-left: 3px;
  }
 
-
-div.box{
-background-color:#FFFFFF	; 
-border-style:solid;
-border-width:1px;
-border-color:grey;
-width:100%;
-height:60px;
+div.box {
+    background-color: #FFFF00;
+    border-style: none;
+    height: 60px;
+    width: 100%;
 }
 
 .IDSheader{
@@ -109,3 +108,14 @@ height: 30px;
 border-right-width: 5px;
 margin-right: 5px;
 }
+
+.RightNav {
+    background-color: #FFFF00;
+    border: 1px solid #808080;
+    float: right;
+    height: 100%;
+    margin-left: 10px;
+    margin-top: 20px;
+    width: 14%;
+}
+

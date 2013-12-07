@@ -45,7 +45,7 @@ background-color:#FFFFFF;
 	<img class="rightLogo" src="images/OHRLOGO-BnW.png"  >
 	</span>
 	</div> -->
-	<div class="box">
+	<div class="Loginbox">
 	<span class="IDSheader"> 
 	<p style="text-align:center; margin-top:2px">
     <img src="images/OHR-Logo-Medium.png" alt="Off-Highway Research"/>
