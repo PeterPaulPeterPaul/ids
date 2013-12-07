@@ -41,8 +41,8 @@ border:1px solid black;
 </head>
 <body>
 <br>
-<input class='noprint' type="image" onClick="window.print()" name="printer"  src="images/printer.jpg" />
-<input class='noprint' type="image" name="close" id="closeit"  src="images/exit.bmp" />
+<input class='noprint' type="image" onClick="window.print()" name="printer"  src="images/print-icon-32.png" />
+<input class='noprint' type="image" name="close" id="closeit"  src="images/deletered-32.png" />
 <br>
 
 ${printTable}

@@ -27,11 +27,11 @@
 </head>
 <style>
 body { 
-background-color:#FFFF00;
+background-color:#FFFFFF;
 }
 </style>
 
-<body class="login" style="margin:50px">
+<body class="login" style="margin: 20px 50px 50px;">
 
 
 <!-- 	<div class="headerdiv" style="width:500px;">
@@ -53,7 +53,21 @@ background-color:#FFFF00;
 	</span>
 	</div>
 
-	<div class="dbservicestyle" >Database Services</div>
+	<div class="dbservicestyle" >
+	<div style="margin-bottom:20px"> 	Welcome to the Database Services </div>
+		<div class="HeaderPics">
+		<img src="images/International-Computer-Logo-300.jpg" alt="Off-Highway Research">
+		</div>
+		<div class="HeaderPics">
+		<img src="images/Chinese-Computer-Logo-300.jpg" alt="Off-Highway Research">
+		</div>
+		<div class="HeaderPics">
+		<img src="images/India-Computer-Logo-300.jpg" alt="Off-Highway Research">
+		</div>
+		<div class="HeaderPics" style="margin-left:1%"> International Database Service </div>
+		<div class="HeaderPics"> Chinese Database Service </div>
+		<div class="HeaderPics"> Indian Database Service </div>
+	</div>
 
 	<div style="height: 25%"></div>
 	<div class="inner">
@@ -95,7 +109,7 @@ background-color:#FFFF00;
     <div id="dialog" title="Invalid user credentials!">
     <p id="pp3" >The login credentials you have entered are invalid. Please enter valid credentials</p>
  </div>
- <div style="height:120px;background-color:yellow;width:100%"></div>
+ <div style="height:50px;width:100%"></div>
 <div class="box" id="banner" ></div> 
 
 	<script type="text/javascript">
