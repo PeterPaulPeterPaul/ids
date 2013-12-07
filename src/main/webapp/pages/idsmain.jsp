@@ -287,7 +287,8 @@ body.wait, body.wait *{
 </div>
 <!-- end of rght Titlebar -->
 
-<div style="float:right;width:18%;background-color:#FFFF00;height:100%;padding-top:1%;margin-top:3px;"> <!-- START of right NAV -->
+<!-- <div style="float:right;width:18%;background-color:#FFFF00;height:100%;padding-top:1%;margin-top:3px;"> START of right NAV -->
+<div class="RightNav"> <!-- START of right NAV -->
 <div>
 
 <div id="tempStore" style="display:none"></div>
