@@ -11,8 +11,6 @@ import java.util.logging.Logger;
 
 import org.springframework.context.ApplicationContext;
 
-import com.ids.controllers.MainController;
-
 public class GetConnectionFromContext {
 
 	private  ApplicationContext ctx;
