@@ -352,21 +352,21 @@ public class MainController implements DropdownInterface {
 
 		    			  colHeading="company";
 		    			  
-		    			  if (srp.getSummary()==2){
+		    		//	  if (srp.getSummary()==2){
 		    			      if (srp.getHeading2()==COMPANY) {
-		    				     colHeading="year";
+		    				     colHeading="product";
 		    				     if (srp.getHeading1()==YEARS){
 		    					    colHeading="country";
 		    				     }
 		    			      }
-		    			  }else {
+		    		//	  }else {
 			        		  if (srp.getHeading1()==COMPANY) {
 			    				  colHeading="year";
 			    				  if (srp.getHeading2()==YEARS){
 			    					  colHeading="product";
 			    				  }  
 			        		  }
-		    			  }
+		    		//	  }
 
 		    			  int dropdown=0;
 		    			  if (srp.getSummary()==2 ) {
