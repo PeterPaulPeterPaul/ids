@@ -1,13 +1,28 @@
 .idsdefault {
     font-family: Arial,Helvetica,sans-serif;
 }
+
+
  .protecting {
 background: #333;
 -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
 filter: alpha(opacity=70);
 opacity: 0.5;
  }
- 
+
+.HeaderSelector{
+    background-color: #FFFF00;
+    border-color: #808080;
+    border-style: solid;
+    border-width: 1px;
+    float: right;
+    height: 100%;
+    margin-right: 2px;
+    margin-top: 20px;
+    width: 150px;
+}
+
+
  .ui-jqgrid tr.myfootrow td {
     font-weight: bold;
     overflow: hidden;
@@ -62,14 +77,14 @@ background:#E6E6E6;
 .colorLightPink {
             background-color: pink !important;
         }
+        
  .filter {
    border-color: gray;
-  margin-bottom: 3px;
-   margin-top: 3px;
- }
+     margin-left: 1px;
+    margin-top: 10px;
+}
  
- 
- 
+
  .printerIcon {
  background-image: url(images/exit.bmp);
 background-repeat: no-repeat;

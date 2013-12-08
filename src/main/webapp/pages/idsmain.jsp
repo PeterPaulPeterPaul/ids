@@ -46,7 +46,7 @@ body.wait, body.wait *{
 <input type="hidden" id="changeFlag" value="no"/>
  
 <div id="titleBar" style="float:left;width:100%;height:50px;margin-top:5px">
-<div style="float:right; margin-left:5px; margin-right:5px;"> <!-- action icons -->
+<div style="float:right; margin-left:5px; margin-right:10px; margin-top:10px;"> <!-- action icons -->
 
 
 <form  id="excel1" action="${ajaxPrefix}cron/down" method="post" name="factsForm1"   > 
@@ -71,7 +71,7 @@ body.wait, body.wait *{
   <input id="title4" type="hidden" name="title4" value=""/>
 </form>
 
-  <input id="two"  style="font-size:x-small" type="image" src="images/print-icon-32.png"  name="two" value="Print Preview" title="Print Preview" />
+<!--   <input id="two"  style="font-size:x-small" type="image" src="images/print-icon-32.png"  name="two" value="Print Preview" title="Print Preview" /> -->
   <input id="one" style="font-size:x-small" type="image" src="images/table-excel-icon-32.png" name="submitBtn" value="Download Excel" title="Download to Excel" />
   <input id="toggleRowTotal" style="font-size:x-small" type="image" src="images/table-sum-icon-32.png" name="toggleRowTotal" value="Remove row total" title="Remove row Total" />
   <input id="togglePercent"  style="font-size:x-small" type="image"  src="images/percent-icon-32.png" name="togglePercent" value="Add Percentages" title="Add Percentages"/>  
@@ -86,7 +86,7 @@ body.wait, body.wait *{
 <div style="width:300px;float:left">
 
 <fieldset class="idsdefault" style="background-color:#FFFF00;margin-left: 10px;padding-bottom:3px;padding-top:1px">
-<legend style="font-size:large;"  >Header 1</legend>
+<legend style="font-size:medium;"  >Header 1</legend>
 
 <div style="margin-left:1%;float:left">  <!-- Summary icons for header 1 -->
 <input type="image" src="images/go-up-icon-32.png" style="font-size:x-small;" class="nosum" name="summary" id="summary" value="Summary"/>
@@ -185,10 +185,10 @@ body.wait, body.wait *{
 </div>
 
 
-<div style="width:300px;float:left">
+<div style="width:280px;float:left">
 
 <fieldset class="idsdefault" style="background-color:#FFFF00;margin-left: 10px;padding-bottom:3px;padding-top:1px">
-<legend style="font-size:large;"  >Header 2</legend>
+<legend style="font-size:medium;"  >Header 2</legend>
 
 
 <div style="margin-left:1%;float:left">  <!-- Summary icon for header 2 -->
@@ -271,7 +271,7 @@ body.wait, body.wait *{
 
 <div>
 
-<div style="float:left;margin-left:25px">
+<div style="float:left;margin-left:25px; margin-top: 10px"> <!-- Sales/Prod drop down  -->
 <div id="drop31" style="display:block">
 <select name="s_or_p" class="dropdown3" id="drop31s" style="width:180px;margin:10px">
   <option value="1">Sales</option>
@@ -285,7 +285,7 @@ body.wait, body.wait *{
 
 <div>
 
-<div style="float:left;margin-left:20px">
+<div style="float:left;margin-left:20px; margin-top: 10px">
 <div id="drop41" style="display:block">
 <select name="accessType" class="dropdown3" id="accessType" style="width:100px;margin:10px">
   ${accessoptions}
@@ -310,7 +310,7 @@ body.wait, body.wait *{
 </div>
 <!-- end of rght Titlebar -->
 
-<div style="float:right;width:18%;background-color:#FFFF00;height:100%;padding-top:1%;margin-top:3px;"> <!-- START of right NAV -->
+<div class="HeaderSelector"> <!-- START of right NAV -->
 
 <div>
 
@@ -402,7 +402,7 @@ To <select id="todate" name="todate" >
 <div class="idsdefault" style="float:left;width:90%;margin-right:5%;margin-top:5%;">
 
 
-<fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 10px;">
+<fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 17px;">
 <legend style="font-size:large;"  >Header 1</legend>
 <!-- <input type="button" style="font-size:x-small;" class="nosum" name="summary" id="summary" value="Summary"/>
 <input type="button" style="font-size:x-small;" class="nosum" name="grpsum" id="grpsum" value="Group Sum"/>
@@ -420,8 +420,8 @@ To <select id="todate" name="todate" >
 
 
 </div>
-<div class="idsdefault"  style="float:left;width:90%;margin-right:5%;margin-top:15%">
-<fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 10px;">
+<div class="idsdefault"  style="float:left;width:90%;margin-right:5%;margin-top:15%;margin-bottom:10px">
+<fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 17px;">
 <legend style="font-size:large;" >Header 2</legend>
 <!-- <input type="button" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum"/> -->
 <!-- <input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum"/> -->
