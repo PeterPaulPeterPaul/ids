@@ -37,7 +37,7 @@ body.wait, body.wait *{
 
 	<div class="box">
 	<span class="IDSheader"> 
-	<p style="text-align:center; margin-top:2px">
+	<p style="text-align:center; margin-top:2px;margin-bottom:1px">
     <img src="images/OHR-Logo-Medium.png" alt="Off-Highway Research"/>
     </p>  
 	</span>
@@ -45,7 +45,7 @@ body.wait, body.wait *{
 
 <input type="hidden" id="changeFlag" value="no"/>
  
-<div id="titleBar" style="float:left;width:100%;height:30px;padding-top:1%;margin-top:10px">
+<div id="titleBar" style="float:left;width:100%;height:50px;margin-top:5px">
 <div style="float:right; margin-left:5px; margin-right:5px;"> <!-- action icons -->
 
 
@@ -83,6 +83,10 @@ body.wait, body.wait *{
 
 <div style="text-align:center;float:none"> <!-- Div to hold the header drop downs -->
 
+<div style="width:300px;float:left">
+
+<fieldset class="idsdefault" style="background-color:#FFFF00;margin-left: 10px;padding-bottom:3px;padding-top:1px">
+<legend style="font-size:large;"  >Header 1</legend>
 
 <div style="margin-left:1%;float:left">  <!-- Summary icons for header 1 -->
 <input type="image" src="images/go-up-icon-32.png" style="font-size:x-small;" class="nosum" name="summary" id="summary" value="Summary"/>
@@ -177,6 +181,15 @@ body.wait, body.wait *{
 
 </div>
 
+</fieldset>
+</div>
+
+
+<div style="width:300px;float:left">
+
+<fieldset class="idsdefault" style="background-color:#FFFF00;margin-left: 10px;padding-bottom:3px;padding-top:1px">
+<legend style="font-size:large;"  >Header 2</legend>
+
 
 <div style="margin-left:1%;float:left">  <!-- Summary icon for header 2 -->
 <input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum"/>
@@ -251,26 +264,35 @@ body.wait, body.wait *{
 
 </div>
 
-<div style="float:left;margin-left:25px">
+</fieldset>
+</div>
 
+
+
+<div>
+
+<div style="float:left;margin-left:25px">
 <div id="drop31" style="display:block">
 <select name="s_or_p" class="dropdown3" id="drop31s" style="width:180px;margin:10px">
   <option value="1">Sales</option>
   <option value="2">Production</option>
 </select>
 </div>
+</div>
 
 
 </div>
 
+<div>
 
 <div style="float:left;margin-left:20px">
-
 <div id="drop41" style="display:block">
 <select name="accessType" class="dropdown3" id="accessType" style="width:100px;margin:10px">
   ${accessoptions}
 </select>
 </div>
+</div>
+
 </div>
 
 <div style="float:left;margin-left:20px">
