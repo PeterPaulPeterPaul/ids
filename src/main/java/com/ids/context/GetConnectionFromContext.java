@@ -8,7 +8,6 @@ import javax.sql.DataSource;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import mediautil.gen.Log;
 
 import org.springframework.context.ApplicationContext;
 
