@@ -396,6 +396,7 @@ public class MainController implements DropdownInterface {
                                 	  colHeading="product";  
                                   }
 			        		  }
+			        		  
 			        		  if (srp.getHeading1()==COMPANY && srp.getHeading2()==PRODUCT) {
 			    				  colHeading="year";
                                   if (srp.getSwap()==1) {
