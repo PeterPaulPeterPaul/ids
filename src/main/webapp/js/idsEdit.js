@@ -1052,7 +1052,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			    						  $("#wholescreen").fadeIn();
 			    						  
 				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:true,add:false,del:false});
-
+				    			        jQuery("#list47").jqGrid('gridResize');
 
 				    			 	   $('#gbox_list47').fadeIn();
 				    				   $('#list47').fadeIn();
@@ -1299,6 +1299,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
       });
       
       jQuery("#list47").jqGrid('navGrid','#plist47',{edit:true,add:false,del:false});
+      jQuery("#list47").jqGrid('gridResize');
       
       $("#filter").on("click",function(){
     	  
