@@ -1014,10 +1014,11 @@ if (clickType=="myrad2" || clickType=="myrad3" ) {
 	   $(".showornot2").removeClass("viewable2");
 	   $(".showornot1").removeClass("viewable1");
 }*/
-
+/*
 $(".showornot11").fadeOut();
 $(".showornot111").fadeOut();
 $(".showornot22").fadeOut()
+*/
 
 var my_SorP = $('#drop31s').val();
 var accessType = $("#accessType").val();
