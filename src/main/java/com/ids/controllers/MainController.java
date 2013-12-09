@@ -352,14 +352,17 @@ public class MainController implements DropdownInterface {
 
 		    			  colHeading="company";
 		    			  
-		    			  if (srp.getSummary()==2){
-		    			      if (srp.getHeading2()==COMPANY) {
-		    				     colHeading="product";
-		    				     if (srp.getHeading1()==YEARS){
-		    					    colHeading="country";
-		    				     }
-		    			      }
-		    			  }else {
+		    			//  if (srp.getSummary()==2){
+		    			//      if (srp.getHeading2()==COMPANY) {
+		    			//	     colHeading="product";
+		    			//	     if (srp.getHeading1()==YEARS){
+		    			//		    colHeading="country";
+		    			//	     }
+		    			//	     if (srp.getHeading1()==PRODUCT){
+		    			//		    colHeading="year";
+		    			//	     }
+		    			//      }
+		    			//  }else {
 			        		  if (srp.getHeading1()==COMPANY) {
 			    				  colHeading="year";
 			    				  if (srp.getHeading2()==YEARS){
@@ -404,7 +407,7 @@ public class MainController implements DropdownInterface {
                                   }
 			        		  }
 			        		  
-		    			  }
+		    			//  }
                           
 		    			  int dropdown=0;
 		    			  if (srp.getSummary()==2 ) {
