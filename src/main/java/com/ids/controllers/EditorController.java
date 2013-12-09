@@ -382,7 +382,7 @@ public class EditorController implements DropdownInterface {
 		    		       SQL1GrpSummary sql1 =  new SQL1GrpSummary(srp.getSalesOrProduct(),
 				    			   srp.getHeading1(), srp.getHeading2(), dropdown, srp.getFromDate(), srp.getToDate(),srp.getSummary(),
 				    			   srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-				    			   ,srp.getDateParm(),access);
+				    			   ,srp.getDateParm(),access,srp.getSwap());
 	
 		    		  
 	    			  cna = new ColumnSummaryNameArray(statement,sql1.getONE(), sql1.topHeadingLine(),

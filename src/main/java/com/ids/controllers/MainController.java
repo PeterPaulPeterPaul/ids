@@ -352,32 +352,74 @@ public class MainController implements DropdownInterface {
 
 		    			  colHeading="company";
 		    			  
-		    			  if (srp.getSummary()==2){
-		    			      if (srp.getHeading2()==COMPANY) {
-		    				     colHeading="year";
-		    				     if (srp.getHeading1()==YEARS){
-		    					    colHeading="country";
-		    				     }
-		    			      }
-		    			  }else {
+		    			//  if (srp.getSummary()==2){
+		    			//      if (srp.getHeading2()==COMPANY) {
+		    			//	     colHeading="product";
+		    			//	     if (srp.getHeading1()==YEARS){
+		    			//		    colHeading="country";
+		    			//	     }
+		    			//	     if (srp.getHeading1()==PRODUCT){
+		    			//		    colHeading="year";
+		    			//	     }
+		    			//      }
+		    			//  }else {
 			        		  if (srp.getHeading1()==COMPANY) {
 			    				  colHeading="year";
 			    				  if (srp.getHeading2()==YEARS){
 			    					  colHeading="product";
 			    				  }  
 			        		  }
-		    			  }
-
+			        		  if (srp.getHeading1()==COUNTRY && srp.getHeading2()==COMPANY) {
+			    				  colHeading="year";
+                                  if (srp.getSwap()==1) {
+                                	  colHeading="product";  
+                                  }
+			        		  }
+			        		  if (srp.getHeading1()==PRODUCT && srp.getHeading2()==COMPANY) {
+			    				  colHeading="year";
+                                  if (srp.getSwap()==1) {
+                                	  colHeading="country";  
+                                  }
+			        		  }
+			        		  if (srp.getHeading1()==YEARS && srp.getHeading2()==COMPANY) {
+			    				  colHeading="product";
+                                  if (srp.getSwap()==1) {
+                                	  colHeading="country";  
+                                  }
+			        		  }
+			        		  if (srp.getHeading1()==COMPANY && srp.getHeading2()==YEARS) {
+			    				  colHeading="product";
+                                  if (srp.getSwap()==1) {
+                                	  colHeading="country";  
+                                  }
+			        		  }
+			        		  if (srp.getHeading1()==COMPANY && srp.getHeading2()==COUNTRY) {
+			    				  colHeading="year";
+                                  if (srp.getSwap()==1) {
+                                	  colHeading="product";  
+                                  }
+			        		  }
+			        		  
+			        		  if (srp.getHeading1()==COMPANY && srp.getHeading2()==PRODUCT) {
+			    				  colHeading="year";
+                                  if (srp.getSwap()==1) {
+                                	  colHeading="country";  
+                                  }
+			        		  }
+			        		  
+		    			//  }
+                          
 		    			  int dropdown=0;
 		    			  if (srp.getSummary()==2 ) {
 		    				  dropdown = srp.getDropdown2(); 
 		    			  }else{
 		    				  dropdown = srp.getDropdown1(); 
 		    			  }
+
 		    		       SQL1GrpSummary sql1 =  new SQL1GrpSummary(srp.getSalesOrProduct(),
 				    			   srp.getHeading1(), srp.getHeading2(), dropdown, srp.getFromDate(), srp.getToDate(),srp.getSummary(),
 				    			   srp.getIncExCountries(), srp.getIncExProducts(), srp.getIncExCompanies()
-				    			   ,srp.getDateParm(),access);
+				    			   ,srp.getDateParm(),access,srp.getSwap());
 	
 		    		  
 	    			  cna = new ColumnSummaryNameArray(statement,sql1.getONE(), sql1.topHeadingLine(),
