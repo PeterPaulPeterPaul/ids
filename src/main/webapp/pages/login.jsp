@@ -56,13 +56,13 @@ background-color:#FFFFFF;
 	<div class="dbservicestyle" >
 	<div style="margin-bottom:20px"> 	Welcome to the Database Services </div>
 		<div class="HeaderPics">
-		<img src="images/International-Computer-Logo-300.jpg" alt="Off-Highway Research">
+		<img src="images/International-Computer-Logo-300A.jpg" alt="Off-Highway Research">
 		</div>
 		<div class="HeaderPics">
-		<img src="images/Chinese-Computer-Logo-300.jpg" alt="Off-Highway Research">
+		<img src="images/Chinese-Computer-Logo-300A.jpg" alt="Off-Highway Research">
 		</div>
 		<div class="HeaderPics">
-		<img src="images/India-Computer-Logo-300.jpg" alt="Off-Highway Research">
+		<img src="images/India-Computer-Logo-300A.jpg" alt="Off-Highway Research">
 		</div>
 		<div class="HeaderPics" style="margin-left:1%"> International Database Service </div>
 		<div class="HeaderPics"> Chinese Database Service </div>
