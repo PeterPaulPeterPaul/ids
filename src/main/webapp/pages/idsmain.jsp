@@ -1482,7 +1482,16 @@ if (clickType=="drop22s") {
 					      
 					      
 					      complete: function () {
-
+					    	  
+								 $("#list47").children("tbody").children("tr").each( function( index ){
+									 $(this).children("td.titleFont").each(function (ind) {
+										 $(this).css("font-weight","bold");
+									 });
+								 });
+								 
+								 $("table.ui-jqgrid-htable").children("thead").children("tr").children("th").each(function (index) {
+									 $(this).css("font-weight","bold");
+				          });
 					    	  if( $("#summary").hasClass("sum")){
 					    	     $('td[aria-describedby=list47_year]').css( 'cursor','pointer');
 					    	     $('td[aria-describedby=list47_product]').css( 'cursor','pointer');
@@ -1775,9 +1784,15 @@ if (clickType=="drop22s") {
 			 
 			 
 			 
-			 
-			 
-			 
+
+			 $("#list47").children("tbody").children("tr").each( function( index ){
+				 $(this).children("td.titleFont").each(function (ind) {
+					 $(this).css("font-weight","bold");
+				 });
+			 });
+			 $("table.ui-jqgrid-htable").children("thead").children("tr").children("th").each(function (index) {
+					 $(this).css("font-weight","bold");
+          });
 			 
 			 var allC = $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child(1)").html();
 	    	  if(allC==" OTHER") {
