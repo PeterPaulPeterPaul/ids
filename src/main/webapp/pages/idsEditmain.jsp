@@ -357,7 +357,7 @@ body.wait, body.wait *{
   <!-- end of titlebar -->
   
   
-<div style="float:right;width:18%;background-color:#FFFF00;height:100%;"> <!-- Right Nav --> 
+<div style="float:right;width:10%;background-color:#FFFF00;height:100%;"> <!-- Right Nav --> 
 <div>
 
 <div id="tempStore" style="display:none"></div>
@@ -431,13 +431,13 @@ To <select id="todate" name="todate" >
 </div>
 
 
-<div style="margin-left:15px;text-align:left"><br>
+<div style="margin-left:15px;margin-right:15px;text-align:right"><br>
 <!--   <input type="image" name="filter" class="filter" id="filter"   src="images/filter.png" /> -->
   <input type="image" name="filter" class="filter" id="filter"   src="images/filter-add-icon-32.png" title="IDS Filter"/>
   <input type="button" style="font-size:x-small;display:none"  id="clearfilter"  value="Clear Filter"/>
   <input type="button" style="font-size:x-small;display:none" class="swap" name="swap1" id="swap1"  value="Swap cols/rows"/>
 </div>
-<div class="idsdefault" style="float:left;width:90%;margin-right:5%;margin-top:5%;">
+<div class="idsdefault" style="float:right;width:100%;margin-right:5%;margin-top:5%;">
 <fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 10px;">
 <legend style="font-size:large;">Header 1</legend>
 <input class="myrad2" type="radio" name="horiz" id="a1"  value="1" checked >Country<br>
@@ -447,7 +447,7 @@ To <select id="todate" name="todate" >
 
 </fieldset>
 </div>
-<div class="idsdefault"  style="float:left;width:90%;margin-right:5%;margin-top:15%">
+<div class="idsdefault"  style="float:right;width:100%;margin-right:5%;margin-top:15%">
 <fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 10px;">
 <legend style="font-size:large;" >Header 2</legend>
 <input class="myrad3" type="radio" id="z1" name="verti" value="1"  >Country<br>
@@ -476,7 +476,7 @@ To <select id="todate" name="todate" >
    
    
 	
-<div id="beans" style="margin-left:5px;margin-top:18px;float:left;width:81%;height:90%;background-color:#FFFF00;">
+<div id="beans" style="margin-left:0;padding-left:0;border-left:0;margin-right:1px;border-right:1px;padding-right:1px;margin-top:18px;float:left;width:89.8%;height:90%;background-color:#FFFF00;">
 <table id="list47"></table>
 <div id="plist47"></div>
 </div>
