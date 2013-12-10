@@ -1663,6 +1663,7 @@ if (clickType=="drop22s") {
 		    		                     $(this).css(" border-bottom-width","1px");
 		    		                     $(this).css(" border-bottom-color","inherit");
 		    		                    $(this).css(" border-bottom-style","solid");
+		    		                    $(this).css("border-top-style","none");
 
 		    		                    $(this).css("width",myWidth+"px");
 		    		                  
@@ -1818,6 +1819,7 @@ if (clickType=="drop22s") {
 	                     $(this).css("padding"," 0 2px 0 2px");
 	                     $(this).css(" border-bottom-width","1px");
 	                     $(this).css(" border-bottom-color","inherit");
+		                    $(this).css("border-top-style","none");
 	                    $(this).css(" border-bottom-style","solid");
 
 	                    $(this).css("width",myWidth+"px");
