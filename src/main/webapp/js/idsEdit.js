@@ -1157,11 +1157,21 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 						                 
 						      	        });
 						                   
+						      	      newFooterRow.children("td:nth-child(1)").css("font-weight","bold");
 						      	        newFooterRow.insertAfter($("tr.footrow"));
 						      	        $("#list47").children("tbody").children("tr:nth-child(3)").css("display","none");
 						      	      $("tr.footrow").css("display","none");
 
 						      		}
+						      		
+									 $("#list47").children("tbody").children("tr").each( function( index ){
+										 $(this).children("td.titleFont").each(function (ind) {
+											 $(this).css("font-weight","bold");
+										 });
+									 });
+									 $("table.ui-jqgrid-htable").children("thead").children("tr").children("th").each(function (index) {
+											 $(this).css("font-weight","bold");
+						          });
 						      		
 						    		  newFooterRow1.addClass("footrow");
 						    		  newFooterRow1.addClass("footrow-ltr");
@@ -1378,7 +1388,14 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
 	    		  
 	    	 
-			 
+	 			 $("#list47").children("tbody").children("tr").each( function( index ){
+					 $(this).children("td.titleFont").each(function (ind) {
+						 $(this).css("font-weight","bold");
+					 });
+				 });
+				 $("table.ui-jqgrid-htable").children("thead").children("tr").children("th").each(function (index) {
+						 $(this).css("font-weight","bold");
+	          });
 			 
 			 
 			 var other = $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").html();
@@ -1414,6 +1431,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
                  
       	        });
                    
+      	        newFooterRow.children("td:nth-child(1)").css("font-weight","bold");
       	        newFooterRow.insertAfter($("tr.footrow"));
       	        $("#list47").children("tbody").children("tr:nth-child(3)").css("display","none");
       	      $("tr.footrow").css("display","none");
