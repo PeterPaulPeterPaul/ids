@@ -46,7 +46,7 @@ body.wait, body.wait *{
 <input type="hidden" id="changeFlag" value="no"/>
  
 <div id="titleBar" style="float:left;width:100%;height:50px;margin-top:5px">
-<div style="float:right; margin-left:5px; margin-right:10px; margin-top:10px;"> <!-- action icons -->
+<div style="float:right; margin-left:5px; margin-right:10px; margin-top:20px;"> <!-- action icons -->
 
 
 <form  id="excel1" action="${ajaxPrefix}cron/down" method="post" name="factsForm1"   > 
@@ -72,11 +72,12 @@ body.wait, body.wait *{
 </form>
 
 <!--   <input id="two"  style="font-size:x-small" type="image" src="images/print-icon-32.png"  name="two" value="Print Preview" title="Print Preview" /> -->
-  <input id="one" style="font-size:x-small" type="image" src="images/table-excel-icon-32.png" name="submitBtn" value="Download Excel" title="Download to Excel" />
-  <input id="toggleRowTotal" style="font-size:x-small" type="image" src="images/table-sum-icon-32.png" name="toggleRowTotal" value="Remove row total" title="Remove row Total" />
-  <input id="togglePercent"  style="font-size:x-small" type="image"  src="images/percent-icon-32.png" name="togglePercent" value="Add Percentages" title="Add Percentages"/>  
-  <input type="image" name="Download all ${textPrefix} data as Excel file" id="whenPressed"  src="images/export-32.png" title="Download"/> 
-  <input type="image" name="close" id="closeit"  src="images/deletered-32.png" title="Exit IDS"/>
+
+ <!--  <input id="toggleRowTotal" style="font-size:x-small" type="image" src="images/table-sum-icon-32.png" name="toggleRowTotal" value="Remove row total" title="Remove row Total" />
+  <input id="togglePercent"  style="font-size:x-small" type="image"  src="images/percent-icon-32.png" name="togglePercent" value="Add Percentages" title="Add Percentages"/>   -->
+  <input id="one" style="font-size:x-small" type="image" src="images/table-excel-icon-32.png" name="submitBtn" value="Download Excel" title="Download table to Excel" />
+  <input type="image" name="Download all ${textPrefix} data as Excel file" id="whenPressed"  src="images/export-32.png" title="Download Database to Excel"/> 
+  <input type="image" name="close" id="closeit"  src="images/deletered-32.png" title="Exit"/>
 
 </div> <!-- end of action icons -->
 <!-- end of action icons -->
@@ -89,8 +90,8 @@ body.wait, body.wait *{
 <legend style="font-size:medium;"  >Header 1</legend>
 
 <div style="margin-left:1%;float:left">  <!-- Summary icons for header 1 -->
-<input type="image" src="images/go-up-icon-32.png" style="font-size:x-small;" class="nosum" name="summary" id="summary" value="Summary"/>
-<input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="grpsum" id="grpsum" value="Group Sum"/>
+<input type="image" src="images/go-up-icon-32.png" style="font-size:x-small;" class="nosum" name="summary" id="summary" value="Summary" title="Summary" />
+<input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="grpsum" id="grpsum" value="Group Sum" title="Group Summary"/>
 </div>
 
 <div style="margin-left:1px;float:left"> <!-- Header1 dropdown -->
@@ -192,7 +193,7 @@ body.wait, body.wait *{
 
 
 <div style="margin-left:1%;float:left">  <!-- Summary icon for header 2 -->
-<input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum"/>
+<input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum" title="Group Summary"/>
 </div>
 
 <div style="float:left;margin-left:1px;width:250px"> <!-- Header2 dropdown -->
@@ -271,7 +272,7 @@ body.wait, body.wait *{
 
 <div>
 
-<div style="float:left;margin-left:25px; margin-top: 10px"> <!-- Sales/Prod drop down  -->
+<div style="float:left;margin-left:25px; margin-top: 20px"> <!-- Sales/Prod drop down  -->
 <div id="drop31" style="display:block">
 <select name="s_or_p" class="dropdown3" id="drop31s" style="width:180px;margin:10px">
   <option value="1">SALES</option>
@@ -285,7 +286,7 @@ body.wait, body.wait *{
 
 <div>
 
-<div style="float:left;margin-left:20px; margin-top: 10px">
+<div style="float:left;margin-left:20px; margin-top: 20px"> <!-- IDS/CDS/INDS dropdown -->
 <div id="drop41" style="display:block">
 <select name="accessType" class="dropdown3" id="accessType" style="width:100px;margin:10px">
   ${accessoptions}
@@ -295,8 +296,9 @@ body.wait, body.wait *{
 
 </div>
 
-<div style="float:left;margin-left:20px">
-
+<div style="float:left;margin-left:20px; margin-top:20px ">
+  <input id="toggleRowTotal" style="font-size:x-small" type="image" src="images/table-sum-icon-32.png" name="toggleRowTotal" value="Remove row total" title="Remove row Total" />
+  <input id="togglePercent"  style="font-size:x-small" type="image"  src="images/percent-icon-32.png" name="togglePercent" value="Add Percentages" title="Add Percentages"/>  
 <%--  <div id="drop44" style="display:block">
   <a id="whenPressed" href="#">${textPrefix} download</a>
 </div> --%>
@@ -393,7 +395,7 @@ To <select id="todate" name="todate" >
 
 
 <div style="margin-left:15px;text-align:top">
-  <input type="image" name="filter" class="filter" id="filter"   src="images/filter-add-icon-32.png" title="IDS Filter"/>
+  <input type="image" name="filter" class="filter" id="filter"   src="images/filter-add-icon-32.png" title="Filter Results"/>
   <input type="button" style="font-size:x-small;display:none"  id="clearfilter"  value="Clear Filter"/>
   <input type="button" style="font-size:x-small;display:none" class="swap" name="swap1" id="swap1"  value="Swap cols/rows"/>
 </div>
