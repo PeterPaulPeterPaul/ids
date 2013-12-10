@@ -453,7 +453,7 @@ To <select id="todate" name="todate" >
 
 
 
-<div id="beans" style="margin-left:5px;margin-top:18px;float:left;width:81%;height:90%;background-color:#FFFF00;">
+<div id="beans" style="margin-left:5px;margin-top:18px;float:left;width:88%;height:90%;background-color:#FFFF00;">
 <table id="list47"></table>
 <div id="plist47"></div>
 </div>
