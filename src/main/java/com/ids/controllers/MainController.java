@@ -186,7 +186,7 @@ public class MainController implements DropdownInterface {
 	            		} else {
 	            			selected = "";
 	            		}
-	            		accessoptions+="<option value='w' "+selected+" >IDS</option>";
+	            		accessoptions+="<option value='w' "+selected+" >INTERNATIONAL</option>";
 	            		
 	            	}
 	            	if (user.getChina()==1) {
@@ -197,7 +197,7 @@ public class MainController implements DropdownInterface {
 	            		} else {
 	            			selected = "";
 	            		}
-	            		accessoptions+="<option value='c' "+selected+" >CDS</option>";
+	            		accessoptions+="<option value='c' "+selected+" >CHINA</option>";
 	            	}
 	            	if (user.getIndia()==1) {
 	            		if (access.equals("i")) {
@@ -207,7 +207,7 @@ public class MainController implements DropdownInterface {
 	            		} else {
 	            			selected = "";
 	            		}
-	            		accessoptions+="<option value='i' "+selected+" >INDS</option>";
+	            		accessoptions+="<option value='i' "+selected+" >INDIA</option>";
 	            	}
 	            	  model.addAttribute("accessoptions",accessoptions);
 	            	  model.addAttribute("filePrefix",filePrefix);

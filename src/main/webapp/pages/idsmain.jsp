@@ -83,7 +83,7 @@ body.wait, body.wait *{
 
 <div style="text-align:center;float:none"> <!-- Div to hold the header drop downs -->
 
-<div style="width:300px;float:left">
+<div style="width:350px;float:left">
 
 <fieldset class="idsdefault" style="background-color:#FFFF00;margin-left: 10px;padding-bottom:3px;padding-top:1px">
 <legend style="font-size:medium;"  >Header 1</legend>
@@ -131,24 +131,24 @@ body.wait, body.wait *{
 
 <div id="box11"  class="showornot11" style="display:none">
 <span  class="selectboxit-container">
-<span  class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 180px;">
-<span class="selectboxit-text" style="width: 180px;">SUMMARY - ALL COUNTRIES</span>
+<span  class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 230px;">
+<span class="selectboxit-text" style="width: 230px;">SUMMARY - ALL COUNTRIES</span>
 </span>
 </span>
 </div>
 
 <div id="box12"  class="showornot11" style="display:none">
 <span class="selectboxit-container">
-<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 180px;">
-<span class="selectboxit-text" style="width: 180px;">SUMMARY - ALL PRODUCTS</span>
+<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 230px;">
+<span class="selectboxit-text" style="width: 230px;">SUMMARY - ALL PRODUCTS</span>
 </span>
 </span>
 </div>
 
 <div id="box13"  class="showornot11" style="display:none">
 <span class="selectboxit-container">
-<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 180px;">
-<span class="selectboxit-text" style="width: 180px;">SUMMARY - ALL YEARS</span>
+<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 230px;">
+<span class="selectboxit-text" style="width: 230px;">SUMMARY - ALL YEARS</span>
 </span>
 </span>
 </div>
@@ -156,24 +156,24 @@ body.wait, body.wait *{
 
 <div id="box31"  class="showornot111" style="display:none">
 <span class="selectboxit-container">
-<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 180px;">
-<span class="selectboxit-text" style="width: 180px;">GRP SUMMARY: ALL COUNTRIES</span>
+<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 230px;">
+<span class="selectboxit-text" style="width: 230px;">GRP SUMMARY: ALL COUNTRIES</span>
 </span>
 </span>
 </div>
 
 <div id="box32"  class="showornot111" style="display:none">
 <span class="selectboxit-container">
-<span  class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 180px;">
-<span  class="selectboxit-text" style="width: 180px;">GRP SUMMARY: ALL PRODUCTS</span>
+<span  class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 230px;">
+<span  class="selectboxit-text" style="width: 230px;">GRP SUMMARY: ALL PRODUCTS</span>
 </span>
 </span>
 </div>
 
 <div id="box33"  class="showornot111" style="display:none">
 <span class="selectboxit-container">
-<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 180px;">
-<span  class="selectboxit-text" style="width: 180px;">GRP SUMMARY: ALL YEARS</span>
+<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 230px;">
+<span  class="selectboxit-text" style="width: 230px;">GRP SUMMARY: ALL YEARS</span>
 </span>
 </span>
 </div>
@@ -185,7 +185,7 @@ body.wait, body.wait *{
 </div>
 
 
-<div style="width:280px;float:left">
+<div style="width:350px;float:left">
 
 <fieldset class="idsdefault" style="background-color:#FFFF00;margin-left: 10px;padding-bottom:3px;padding-top:1px">
 <legend style="font-size:medium;"  >Header 2</legend>
@@ -195,26 +195,26 @@ body.wait, body.wait *{
 <input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum"/>
 </div>
 
-<div style="float:left;margin-left:1px"> <!-- Header2 dropdown -->
+<div style="float:left;margin-left:1px;width:250px"> <!-- Header2 dropdown -->
 
 <div id="drop21" class="showornot2" style="display:none;">
-<select class="dropdown2" id="drop21s" style="width:180px;margin:10px">
+<select class="dropdown2" id="drop21s" style="width:198px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1a}">
   <option value="${drop1.id}">${drop1.name}&nbsp;</option>
   </c:forEach>
 </select>
 </div>
 
-<div id="drop22"  class="showornot2 viewable2" style="display:block">
-<select class="dropdown2" id="drop22s" style="width:180px;margin:10px">
+<div id="drop22"  class="showornot2 viewable2" style="display:block;width:220px">
+<select class="dropdown2" id="drop22s" style="width:200px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1b}">
-  <option value="${drop1.id}">${drop1.name}&nbsp;</option>
+  <option value="${drop1.id}">${drop1.name}</option>
   </c:forEach>
 </select>
 </div>
 
 <div id="drop23"  class="showornot2" style="display:none">
-<select class="dropdown2" id="drop23s" style="width:180px;margin:10px">
+<select class="dropdown2" id="drop23s" style="width:198px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1c}">
   <option value="${drop1.id}">${drop1.name}&nbsp;</option>
   </c:forEach>
@@ -222,7 +222,7 @@ body.wait, body.wait *{
 </div>
 
 <div id="drop24"  class="showornot2" style="display:none">
-<select class="dropdown2" id="drop24s" style="width:180px;margin:10px">
+<select class="dropdown2" id="drop24s" style="width:198px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1d}">
   <option value="${drop1.id}">${drop1.name}&nbsp;</option>
   </c:forEach>
@@ -232,32 +232,32 @@ body.wait, body.wait *{
 
 <div id="box21"  class="showornot22" style="display:none">
 <span class="selectboxit-container">
-<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 190px;">
-<span class="selectboxit-text" style="width: 180px;">GRP SUMMARY: ALL COUNTRIES</span>
+<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 230px;">
+<span class="selectboxit-text" style="width:230px;">GRP SUMMARY: ALL COUNTRIES</span>
 </span>
 </span>
 </div>
 
 <div id="box22"  class="showornot22" style="display:none">
 <span class="selectboxit-container">
-<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 190px;">
-<span class="selectboxit-text" style="width: 180px;">GRP SUMMARY: ALL PRODUCTS</span>
+<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 230px;">
+<span class="selectboxit-text" style="width: 230px;">GRP SUMMARY: ALL PRODUCTS</span>
 </span>
 </span>
 </div>
 
 <div id="box23"  class="showornot22" style="display:none">
 <span class="selectboxit-container">
-<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 190px;">
-<span class="selectboxit-text" style="width: 180px;">GRP SUMMARY: ALL YEARS</span>
+<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 230px;">
+<span class="selectboxit-text" style="width: 230px;">GRP SUMMARY: ALL YEARS</span>
 </span>
 </span>
 </div>
 
 <div id="box24"  class="showornot22" style="display:none">
 <span  class="selectboxit-container">
-<span  class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 190px;">
-<span  class="selectboxit-text" style="width: 180px;">GRP SUMMARY: ALL COMPANIES</span>
+<span  class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 230px;">
+<span  class="selectboxit-text" style="width: 230px;">GRP SUMMARY: ALL COMPANIES</span>
 </span>
 </span>
 </div>
@@ -703,8 +703,8 @@ To <select id="todate" name="todate" >
         	  
         	  $( "input:button" ).button();
         	  
-        	  $(".dropdown1").css("width","182px");
-        	  $(".dropdown2").css("width","182px");
+        	  $(".dropdown1").css("width","230px");
+        	  $(".dropdown2").css("width","230px");
 
 
         	clickType="";

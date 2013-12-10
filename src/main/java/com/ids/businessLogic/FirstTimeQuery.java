@@ -44,19 +44,19 @@ public class FirstTimeQuery {
 	      String query=null;
 	      ResultSet resultSet = null;
 	      
-	      TitleArray titleArray= new TitleArray("Austria","Agricultural Tractor", "sales" );
+	      TitleArray titleArray= new TitleArray("AUSTRIA","AGRICULTURAL TRACTOR", "SALES" );
 	      int countryId = 7; //Austria
 	      
 	    	String multiplier="";
 
 	    	
 	      if (access.equals("c")) {
-		    titleArray = new TitleArray("China","Agricultural Tractor", "sales" );
+		    titleArray = new TitleArray("CHINA","AGRICULTURAL TRACTOR", "SALES" );
 		    countryId = 210000; //China
 		    multiplier="*10000";
 	      }
 	      if (access.equals("i")) {
-		    titleArray = new TitleArray("India","Agricultural Tractor", "sales" );
+		    titleArray = new TitleArray("INDIA","AGRICULTURAL TRACTOR", "SALES" );
 		    countryId = 20000000;  //India
 		    multiplier="*200000";
 	      }
@@ -199,7 +199,7 @@ public class FirstTimeQuery {
  		
 
 			    	  
-				      query = "select id, country from Country where id != 0 and access = '"+access+"' order by country asc " ;
+				      query = "select id, UPPER(country) as country from Country where id != 0 and access = '"+access+"' order by country asc " ;
 				      
 				         List<Country> countries = new ArrayList<Country>();
 
@@ -216,7 +216,7 @@ public class FirstTimeQuery {
 					      model.addAttribute("dropdown1a",countries);
 					      model.addAttribute("dropdown2a",countries);
 
-					      query = "select id, name from Product where id != 0 and access = '"+access+"' order by name asc " ;
+					      query = "select id, UPPER(name) as name from Product where id != 0 and access = '"+access+"' order by name asc " ;
 					      
 					         List<Product> products = new ArrayList<Product>();
 
@@ -235,7 +235,7 @@ public class FirstTimeQuery {
 
 
 			    		  
-			    		  query = " select distinct a.id, substr(a.name,1,20) as name from Company a  , Facts_"+access+" b " +
+			    		  query = " select distinct a.id, UPPER(substr(a.name,1,20)) as name from Company a  , Facts_"+access+" b " +
 			    		  		" where a.id != 0" +
 			    		  		" and b.companyid = a.id " +
 			    		  		" and b.access = '" + access +"' and " +
