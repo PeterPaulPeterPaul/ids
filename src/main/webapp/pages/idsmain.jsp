@@ -132,7 +132,7 @@ body.wait, body.wait *{
 <div id="box11"  class="showornot11" style="display:none">
 <span  class="selectboxit-container">
 <span  class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 180px;">
-<span class="selectboxit-text" style="width: 180px;">Summary - All Countries</span>
+<span class="selectboxit-text" style="width: 180px;">SUMMARY - ALL COUNTRIES</span>
 </span>
 </span>
 </div>
@@ -140,7 +140,7 @@ body.wait, body.wait *{
 <div id="box12"  class="showornot11" style="display:none">
 <span class="selectboxit-container">
 <span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 180px;">
-<span class="selectboxit-text" style="width: 180px;">Summary - All Products</span>
+<span class="selectboxit-text" style="width: 180px;">SUMMARY - ALL PRODUCTS</span>
 </span>
 </span>
 </div>
@@ -148,7 +148,7 @@ body.wait, body.wait *{
 <div id="box13"  class="showornot11" style="display:none">
 <span class="selectboxit-container">
 <span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 180px;">
-<span class="selectboxit-text" style="width: 180px;">Summary - All Years</span>
+<span class="selectboxit-text" style="width: 180px;">SUMMARY - ALL YEARS</span>
 </span>
 </span>
 </div>
@@ -157,7 +157,7 @@ body.wait, body.wait *{
 <div id="box31"  class="showornot111" style="display:none">
 <span class="selectboxit-container">
 <span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 180px;">
-<span class="selectboxit-text" style="width: 180px;">Grp Summary: All Countries</span>
+<span class="selectboxit-text" style="width: 180px;">GRP SUMMARY: ALL COUNTRIES</span>
 </span>
 </span>
 </div>
@@ -165,7 +165,7 @@ body.wait, body.wait *{
 <div id="box32"  class="showornot111" style="display:none">
 <span class="selectboxit-container">
 <span  class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 180px;">
-<span  class="selectboxit-text" style="width: 180px;">Grp Summary: All Products</span>
+<span  class="selectboxit-text" style="width: 180px;">GRP SUMMARY: ALL PRODUCTS</span>
 </span>
 </span>
 </div>
@@ -173,7 +173,7 @@ body.wait, body.wait *{
 <div id="box33"  class="showornot111" style="display:none">
 <span class="selectboxit-container">
 <span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 180px;">
-<span  class="selectboxit-text" style="width: 180px;">Grp Summary: All Years</span>
+<span  class="selectboxit-text" style="width: 180px;">GRP SUMMARY: ALL YEARS</span>
 </span>
 </span>
 </div>
@@ -233,7 +233,7 @@ body.wait, body.wait *{
 <div id="box21"  class="showornot22" style="display:none">
 <span class="selectboxit-container">
 <span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 190px;">
-<span class="selectboxit-text" style="width: 180px;">Grp Summary: All Countries</span>
+<span class="selectboxit-text" style="width: 180px;">GRP SUMMARY: ALL COUNTRIES</span>
 </span>
 </span>
 </div>
@@ -241,7 +241,7 @@ body.wait, body.wait *{
 <div id="box22"  class="showornot22" style="display:none">
 <span class="selectboxit-container">
 <span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 190px;">
-<span class="selectboxit-text" style="width: 180px;">Grp Summary: All Products</span>
+<span class="selectboxit-text" style="width: 180px;">GRP SUMMARY: ALL PRODUCTS</span>
 </span>
 </span>
 </div>
@@ -249,7 +249,7 @@ body.wait, body.wait *{
 <div id="box23"  class="showornot22" style="display:none">
 <span class="selectboxit-container">
 <span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 190px;">
-<span class="selectboxit-text" style="width: 180px;">Grp Summary: All Years</span>
+<span class="selectboxit-text" style="width: 180px;">GRP SUMMARY: ALL YEARS</span>
 </span>
 </span>
 </div>
@@ -257,7 +257,7 @@ body.wait, body.wait *{
 <div id="box24"  class="showornot22" style="display:none">
 <span  class="selectboxit-container">
 <span  class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 190px;">
-<span  class="selectboxit-text" style="width: 180px;">Grp Summary: All Companies</span>
+<span  class="selectboxit-text" style="width: 180px;">GRP SUMMARY: ALL COMPANIES</span>
 </span>
 </span>
 </div>
@@ -274,8 +274,8 @@ body.wait, body.wait *{
 <div style="float:left;margin-left:25px; margin-top: 10px"> <!-- Sales/Prod drop down  -->
 <div id="drop31" style="display:block">
 <select name="s_or_p" class="dropdown3" id="drop31s" style="width:180px;margin:10px">
-  <option value="1">Sales</option>
-  <option value="2">Production</option>
+  <option value="1">SALES</option>
+  <option value="2">PRODUCTION</option>
 </select>
 </div>
 </div>
