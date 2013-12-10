@@ -186,7 +186,7 @@ public class FirstTimeEdQuery {
  		
 
 			    	  
-				      query = "select id, country from Country where id not in (-10,0) and access = '"+access+"' order by country asc " ;
+				      query = "select id, UPPER(country) as country from Country where id not in (-10,0) and access = '"+access+"' order by country asc " ;
 				      
 				         List<Country> countries = new ArrayList<Country>();
 
@@ -203,7 +203,7 @@ public class FirstTimeEdQuery {
 					      model.addAttribute("dropdown1a",countries);
 					      model.addAttribute("dropdown2a",countries);
 
-					      query = "select id, name from Product where id != 0 and access = '"+access+"' order by name asc " ;
+					      query = "select id, UPPER(name) as name from Product where id != 0 and access = '"+access+"' order by name asc " ;
 					      
 					         List<Product> products = new ArrayList<Product>();
 

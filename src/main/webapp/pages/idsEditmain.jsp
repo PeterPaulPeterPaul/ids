@@ -291,8 +291,8 @@ body.wait, body.wait *{
 
 <div id="drop31" style="display:block">
 <select name="s_or_p" class="dropdown3" id="drop31s" style="width:180px;margin:10px">
-  <option value="1">Sales</option>
-  <option value="2">Production</option>
+  <option value="1">SALES</option>
+  <option value="2">PRODUCTION</option>
 </select>
 </div>
 
@@ -313,7 +313,7 @@ body.wait, body.wait *{
 <form  id="saving" action="${ajaxPrefix}saverow" method="post" name="saveForm"   > 
  <input  type="hidden" name="save" value="" />
  <input type="hidden" name="access" id="accessCurrx" value="" >
- <input id="twosub" style="background-color:red" class="k-button" type="submit" name="submitBtn" value="Save to PRODUCTION database" />
+ <input id="twosub" style="background-color:red" class="k-button" type="submit" name="submitBtn" value="Save to PROD" />
 
 </form>
 </div>
@@ -321,7 +321,7 @@ body.wait, body.wait *{
 
 <div style="float:left;margin-left:20px">
 <div  style="display:block">
-     <input id="addsub" class="k-button" type="submit" name="submitBtn" value="Add new Row" />
+     <input id="addsub" class="k-button" type="submit" name="submitBtn" value="Add Row" />
 </div>
 </div>
 <div style="float:left;margin-left:5px">
@@ -332,7 +332,7 @@ body.wait, body.wait *{
 
 <div style="float:left;margin-left:5px">
 <div  style="display:block">
-     <input id="addcosub" class="k-button" type="submit" name="submitBtn" value="Add new Company" />
+     <input id="addcosub" class="k-button" type="submit" name="submitBtn" value="Add Company" />
 </div>
 </div>
 

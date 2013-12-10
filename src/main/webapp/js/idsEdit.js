@@ -504,8 +504,8 @@
         	  
         	  $( "input:button" ).button();
         	  
-        	  $(".dropdown1").css("width","182px");
-        	  $(".dropdown2").css("width","182px");
+        	  $(".dropdown1").css("width","220px");
+        	  $(".dropdown2").css("width","220px");
         	  
         	  
         	  var mySS1 = $(".viewable1").children(".dropdown1").attr("id");
@@ -1108,6 +1108,16 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 					      
 					      complete: function () {
 
+					    	  
+					 			 $("#list47").children("tbody").children("tr").each( function( index ){
+									 $(this).children("td.titleFont").each(function (ind) {
+										 $(this).css("font-weight","bold");
+									 });
+								 });
+								 $("table.ui-jqgrid-htable").children("thead").children("tr").children("th").each(function (index) {
+										 $(this).css("font-weight","bold");
+					          });
+								 
 					    	  var allC = $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child(1)").html();
 					    	 
 					    	  if(allC==" ALL COMPANIES") {
@@ -1119,7 +1129,6 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 					    			  $(this).addClass("titleFont");
 					    		  });
 					    		  newFooterRow1.insertAfter($("tr.footrow"));
-					    		
 					    		  
 					    	  
 								 var other = $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").html();
@@ -1163,15 +1172,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 						      	      $("tr.footrow").css("display","none");
 
 						      		}
-						      		
-									 $("#list47").children("tbody").children("tr").each( function( index ){
-										 $(this).children("td.titleFont").each(function (ind) {
-											 $(this).css("font-weight","bold");
-										 });
-									 });
-									 $("table.ui-jqgrid-htable").children("thead").children("tr").children("th").each(function (index) {
-											 $(this).css("font-weight","bold");
-						          });
+
 						      		
 						    		  newFooterRow1.addClass("footrow");
 						    		  newFooterRow1.addClass("footrow-ltr");
