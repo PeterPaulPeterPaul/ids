@@ -197,7 +197,7 @@ public class MainController implements DropdownInterface {
 	            		} else {
 	            			selected = "";
 	            		}
-	            		accessoptions+="<option value='c' "+selected+" >CHINA</option>";
+	            		accessoptions+="<option value='c' "+selected+" >CHINESE</option>";
 	            	}
 	            	if (user.getIndia()==1) {
 	            		if (access.equals("i")) {
@@ -207,7 +207,7 @@ public class MainController implements DropdownInterface {
 	            		} else {
 	            			selected = "";
 	            		}
-	            		accessoptions+="<option value='i' "+selected+" >INDIA</option>";
+	            		accessoptions+="<option value='i' "+selected+" >INDIAN</option>";
 	            	}
 	            	  model.addAttribute("accessoptions",accessoptions);
 	            	  model.addAttribute("filePrefix",filePrefix);
