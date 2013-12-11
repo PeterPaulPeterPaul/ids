@@ -1670,7 +1670,7 @@ if (clickType=="drop22s") {
 		    			                      $(this).css("border-left-style","none"); 
 		    			                    }
 		    		                 //   $(this).css("border-right-style","none"); 
-
+                                        $(this).css("border-color","grey");
 		    		                    $(this).css("width",myWidth+"px");
 		    		                  
 		    		       	        });
@@ -1829,6 +1829,7 @@ if (clickType=="drop22s") {
 		                    if (ind!=0) {
 		                      $(this).css("border-left-style","none"); 
 		                    }
+		                    $(this).css("border-color","grey");
 		              //      $(this).css("border-right-style","none"); 
 	                   // $(this).css(" border-bottom-style","solid");
 
