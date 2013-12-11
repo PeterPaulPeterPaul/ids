@@ -1,7 +1,7 @@
 
 <!doctype html>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http:f//www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
@@ -76,7 +76,7 @@ body.wait, body.wait *{
  <!--  <input id="toggleRowTotal" style="font-size:x-small" type="image" src="images/table-sum-icon-32.png" name="toggleRowTotal" value="Remove row total" title="Remove row Total" />
   <input id="togglePercent"  style="font-size:x-small" type="image"  src="images/percent-icon-32.png" name="togglePercent" value="Add Percentages" title="Add Percentages"/>   -->
   <input id="one" style="font-size:x-small" type="image" src="images/table-excel-icon-32.png" name="submitBtn" value="Download Excel" title="Download table to Excel" />
-  <input type="image" name="Download all ${textPrefix} data as Excel file" id="whenPressed"  src="images/export-32.png" title="Download Database to Excel"/> 
+  <input type="image" name="Download all ${textPrefix} data as Excel file" id="whenPressed"  src="images/Excel-Folder-icon-32.png" title="Download Database to Excel"/> 
   <input type="image" name="close" id="closeit"  src="images/deletered-32.png" title="Exit"/>
 
 </div> <!-- end of action icons -->

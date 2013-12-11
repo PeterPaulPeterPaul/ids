@@ -77,7 +77,7 @@ background-color:#FFFFFF;
 		<form id="territoryform" action="login" method="post">
 		<table>
 			<tr>
-				<td width="100px">UserId</td>
+				<td width="100px">User Name</td>
 				<td width="150px"><input class="input" id="userId" name="userId" type="text" value="" /></td>
 			</tr>
 			<tr>
