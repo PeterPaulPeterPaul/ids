@@ -168,7 +168,7 @@ public class Down extends HttpServlet {
 					}
 				}
 				
-				
+				boolean done = false;
 				
 				JSONObject jo2 = clobArray.getJSONObject(2);
 				logger.warning("size2 is: "+jo2.length());
@@ -177,16 +177,27 @@ public class Down extends HttpServlet {
 					logger.warning("it has myData");
 					JSONArray myDataArray = jo2.getJSONArray("myData");
 					logger.warning("myData size: "+myDataArray.length());
+					boolean outer_others=false;
+					int k=0;
 					for (int i = 0; i < myDataArray.length();i++){
-						
-						 HSSFRow nextRow = worksheet.createRow((short) i+5);
+
+						  
+						 if (done) {
+							 k-=1;
+							 done=false;
+						 }
+						 HSSFRow  nextRow = worksheet.createRow((short) k+5);
+						 
+						 
 						 int j=0;
+						 boolean others=false;
 						for (String s : columnHeaders){
 							
 							   HSSFCell cellA = nextRow.createCell((short) j);
 							   j+=1;
 						   try{
 							   if (j!=1) {
+								//   if (!others) {
 							    //  cellA.setCellType(Cell.CELL_TYPE_NUMERIC);
 								   cellA.setCellType(Cell.CELL_TYPE_STRING);
 							      cellA.setCellValue(" "+nf.format(Integer.parseInt(myDataArray.getJSONObject(i).getString(s).trim().replaceAll(",",""))));
@@ -194,9 +205,19 @@ public class Down extends HttpServlet {
 							        cellStyleH = workbook.createCellStyle(); 
 							        cellStyleH.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
 							        cellA.setCellStyle(cellStyleH);
+								 //  }
 							   }else {
 							//	   cellA.setCellType(Cell.CELL_TYPE_STRING);
 								   cellA.setCellType(Cell.CELL_TYPE_STRING);
+								//   logger.warning("WHAT IS I: "+i);
+								//   logger.warning("EXCEL IS: x"+myDataArray.getJSONObject(i).getString(s).trim().replaceAll(",","")+"x");
+								   if (myDataArray.getJSONObject(i).getString(s).trim().replaceAll(",","").equals("OTHERS")) {
+									   //others=true;
+									   outer_others=true;
+									   done=true;
+									 //  j=j-1;
+									   break;
+								   }
 								   cellA.setCellValue(myDataArray.getJSONObject(i).getString(s).trim().replaceAll(",",""));
 							   }  
 
@@ -204,15 +225,60 @@ public class Down extends HttpServlet {
 							   cellA.setCellValue(0);
 						   }
 						}
+						
+						k+=1;
 					}
 					
+					
+					if (outer_others) {
+						
+						
+						
+						 HSSFRow nextRow = worksheet.createRow((short)  myDataArray.length()+5);
+						 int j=0;
+						for (String s : columnHeaders){
+							
+							   HSSFCell cellA = nextRow.createCell((short) j);
+							   j+=1;
+						   try{
+							   if (j!=1) {
+								//   if (!others) {
+							    //  cellA.setCellType(Cell.CELL_TYPE_NUMERIC);
+								   cellA.setCellType(Cell.CELL_TYPE_STRING);
+							      cellA.setCellValue(" "+nf.format(Integer.parseInt(myDataArray.getJSONObject(0).getString(s).trim().replaceAll(",",""))));
+							      HSSFCellStyle cellStyleH = workbook.createCellStyle();  
+							        cellStyleH = workbook.createCellStyle(); 
+							        cellStyleH.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
+							        cellA.setCellStyle(cellStyleH);
+								 //  }
+							   }else {
+							//	   cellA.setCellType(Cell.CELL_TYPE_STRING);
+								   cellA.setCellType(Cell.CELL_TYPE_STRING);
+								  // logger.warning("WHAT IS I: "+i);
+								  // logger.warning("EXCEL IS: x"+myDataArray.getJSONObject(i).getString(s).trim().replaceAll(",","")+"x");
+								 //  if (myDataArray.getJSONObject(0).getString(s).trim().replaceAll(",","").equals("OTHERS")) {
+									   //others=true;
+								//	   outer_others=true;
+									 //  j=j-1;
+								//	   break;
+								   }
+								   cellA.setCellValue(myDataArray.getJSONObject(0).getString(s).trim().replaceAll(",",""));
+							    
+
+						   }catch(Exception e){
+							   cellA.setCellValue(0);
+						   }
+						
+						}
+						
+					}
 
 					JSONArray totals = myTotals.getJSONArray("myTotals");
 				//	JSONObject jo3 =  totals1.getJSONObject(0);
 					//	JSONObject jo3 = totals.getJSONObject(0);
-					HSSFRow nextRow = worksheet.createRow((short) myDataArray.length()+6);
+					 HSSFRow nextRow = worksheet.createRow((short) myDataArray.length()+6);
 					
-					 int j=0;
+					int j=0;
 						for (String s : columnHeaders){
 							
 							   HSSFCell cellA = nextRow.createCell((short) j);
