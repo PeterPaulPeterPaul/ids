@@ -38,7 +38,7 @@ body.wait, body.wait *{
 	<div class="box">
 	<span class="IDSheader"> 
 	<p style="text-align:center; margin-top:2px;margin-bottom:1px">
-    <img src="images/OHR-Logo-Medium.png" alt="Off-Highway Research"/>
+    <img src="images/OHR-Logo-Medium.gif" alt="Off-Highway Research"/>
     </p>  
 	</span>
 	</div>
@@ -312,7 +312,7 @@ body.wait, body.wait *{
 </div>
 <!-- end of rght Titlebar -->
 
-<div class="HeaderSelector"> <!-- START of right NAV -->
+<div class="HeaderSelector" > <!-- START of right NAV -->
 
 <div>
 
@@ -455,7 +455,7 @@ To <select id="todate" name="todate" >
 
 
 
-<div id="beans" style="margin-left:5px;margin-top:18px;float:left;width:88%;height:90%;background-color:#FFFF00;">
+<div id="beans" style="margin-left:1px;margin-top:18px;float:left;width:86%;height:90%;background-color:#FFFF00;">
 <table id="list47"></table>
 <div id="plist47"></div>
 </div>
@@ -1662,10 +1662,14 @@ if (clickType=="drop22s") {
 		    		                      $(this).css("white-space","pre");
 		    		                      $(this).css("height","22px");
 		    		                     $(this).css("padding"," 0 2px 0 2px");
-		    		                     $(this).css(" border-bottom-width","1px");
-		    		                     $(this).css(" border-bottom-color","inherit");
-		    		                    $(this).css(" border-bottom-style","solid");
+		    		                //     $(this).css(" border-bottom-width","1px");
+		    		                     $(this).css(" border","inherit");
+		    		                 //   $(this).css(" border-bottom-style","solid");
 		    		                    $(this).css("border-top-style","none");
+		    		                    if (ind!=0) {
+		    			                      $(this).css("border-left-style","none"); 
+		    			                    }
+		    		                    $(this).css("border-right-style","none"); 
 
 		    		                    $(this).css("width",myWidth+"px");
 		    		                  
@@ -1819,10 +1823,14 @@ if (clickType=="drop22s") {
 	                      $(this).css("white-space","pre");
 	                      $(this).css("height","22px");
 	                     $(this).css("padding"," 0 2px 0 2px");
-	                     $(this).css(" border-bottom-width","1px");
-	                     $(this).css(" border-bottom-color","inherit");
+	                   //  $(this).css(" border-bottom-width","1px");
+	                  //   $(this).css(" border","inherit");
 		                    $(this).css("border-top-style","none");
-	                    $(this).css(" border-bottom-style","solid");
+		                    if (ind!=0) {
+		                      $(this).css("border-left-style","none"); 
+		                    }
+		                    $(this).css("border-right-style","none"); 
+	                   // $(this).css(" border-bottom-style","solid");
 
 	                    $(this).css("width",myWidth+"px");
 	                  
@@ -1860,6 +1868,55 @@ if (clickType=="drop22s") {
 				  }
 				  
 				});
+			  
+			  
+			  
+				 $('#list47').setGridWidth($('#beans').width());
+				 
+				 $(window).resize(function() {
+					 $('#list47').setGridWidth($('#beans').width());
+					 
+					 var width1 = $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").width();
+					 var width2 = $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(2)").width();
+					 var width3 = $("#list47").children("tbody").children("tr:nth-child(3)").children("td:last").width();
+					 var length1 =  $('.footrow:nth-child(1)').children('td').length;
+					 
+					 $('.footrow:nth-child(1)').children('td').each(function( index ) {
+						 
+						 if (width1 !=0) {
+						      if (index==0) {
+                                 $(this).css("width",width1+"px");
+						      }else {
+						    	  
+						    	  $(this).css("width",width2+"px");  
+						      }
+						      if ((index+1)==length1) {
+						    	  $(this).css("width",width3+"px");  
+						      }
+						 }
+						  
+						});
+					 
+					 
+					 $('.footrow:nth-child(2)').children('td').each(function( index ) {
+						 
+						 if (width1 !=0) {
+						      if (index==0) {
+                                 $(this).css("width",width1+"px");
+						      }else {
+						    	  
+						    	  $(this).css("width",width2+"px");  
+						      }
+						      if ((index+1)==length1) {
+						    	  $(this).css("width",width3+"px");  
+						      }
+						 }
+						  
+						});
+					 
+					 
+					 
+					});
 
 
 		     	 function validateDates() {

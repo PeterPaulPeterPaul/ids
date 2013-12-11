@@ -95,7 +95,7 @@ public class FirstTimeQuery {
     			  " order by  b.name , a.year asc ";
     			  
     	  }else {
-	       query2 = " select a.year, a.quantity, substr(b.name,1,20) from Facts_"+access+" a, Company b, Country c " +
+	       query2 = " select a.year, a.quantity, substr(b.name,1,20) as name from Facts_"+access+" a, Company b, Country c " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.countryid=c.id " + 
 	    		  " and c.id="+countryId  + 
