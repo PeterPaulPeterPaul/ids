@@ -68,7 +68,7 @@ public class Down extends HttpServlet {
 		HSSFWorkbook workbook = new HSSFWorkbook();
 			HSSFSheet worksheet = workbook.createSheet("Off-Highway Research");
 
-			worksheet.setColumnWidth(0, 7000);
+			worksheet.setColumnWidth(0, 7500);
 			
 			Header header = worksheet.getHeader();
 		    header.setCenter("Center Header");
@@ -98,11 +98,11 @@ public class Down extends HttpServlet {
 	        
 			   HSSFRow rowhead = worksheet.createRow((short) 2);
 			   
-			   Date d = new Date();
+			//   Date d = new Date();
 
-				  String myString = DateFormat.getDateInstance(DateFormat.LONG).format(d);
-				  HSSFCell cellHead0 = rowhead.createCell((short) 0); 
-				  cellHead0.setCellValue(new HSSFRichTextString(myString));
+			//	  String myString = DateFormat.getDateInstance(DateFormat.LONG).format(d);
+			//	  HSSFCell cellHead0 = rowhead.createCell((short) 0); 
+			//	  cellHead0.setCellValue(new HSSFRichTextString(myString));
 				  
 			   HSSFCell cellHead = rowhead.createCell((short) 4);
  
@@ -154,6 +154,7 @@ public class Down extends HttpServlet {
 				        hSSFFontH.setFontHeightInPoints((short) 12);  
 				        hSSFFontH.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);  
 				        hSSFFontH.setColor(HSSFColor.BLACK.index);  
+				        
 				        cellStyleH.setFont(hSSFFontH);
 					for (int i = 0; i < myArray.length();i++){
 						   HSSFCell cellA = row.createCell((short) i);
@@ -261,9 +262,9 @@ public class Down extends HttpServlet {
 						
 						
 						HSSFRow nextRow2 = worksheet.createRow((short) myDataArray.length()+8);
-						HSSFCell cellA = nextRow2.createCell((short) 1);
+						HSSFCell cellA = nextRow2.createCell((short) 0);
 						
-					      cellA.setCellValue("  Source: Off-Highway Research ");
+					      cellA.setCellValue("Source: Off-Highway Research");
 							
 						   HSSFCellStyle cellStyleH = workbook.createCellStyle();  
 					        cellStyleH = workbook.createCellStyle();  
