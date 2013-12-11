@@ -1133,7 +1133,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 					    	  
 								 var other = $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").html();
 
-						      		if (other==" OTHER") {
+						      		if (other==" OTHERS") {
 						      	
 						      	     var newFooterRow =$("tr.footrow").clone();
 
@@ -1335,7 +1335,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 	   $('#gbox_list47').fadeIn();
 	   $('#list47').fadeIn();
 
-	      if ( $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").text()==" OTHER") {
+	      if ( $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").text()==" OTHERS") {
 	    	  
 	     
 	     $("#list47").children("tbody").children("tr:nth-child(3)").children("td").each(function(index){
@@ -1400,7 +1400,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			 
 			 
 			 var other = $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").html();
-      		if (other==" OTHER") {
+      		if (other==" OTHERS") {
       	
       	     var newFooterRow =$("tr.footrow").clone();
 

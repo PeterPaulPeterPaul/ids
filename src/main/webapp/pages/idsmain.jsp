@@ -1641,11 +1641,11 @@ if (clickType=="drop22s") {
 		    			  
 		    				 
 		    				 var allC = $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child(1)").html();
-		    		    	  if(allC==" OTHER") {
+		    		    	  if(allC==" OTHERS") {
 
 		    		    		  var newFooterRow1 =$("#list47").children("tbody").children("tr:nth-child(2)").clone();
 
-		    		    		  newFooterRow1.children("td:nth-child(1)").html("OTHER");
+		    		    		  newFooterRow1.children("td:nth-child(1)").html("OTHERS");
 		    		    		  newFooterRow1.children("td").each(function (ind) {
 		    		    			  $(this).addClass("titleFont");
 
@@ -1802,11 +1802,11 @@ if (clickType=="drop22s") {
           });
 			 
 			 var allC = $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child(1)").html();
-	    	  if(allC==" OTHER") {
+	    	  if(allC==" OTHERS") {
 
 	    		  var newFooterRow1 =$("#list47").children("tbody").children("tr:nth-child(2)").clone();
 
-	    		  newFooterRow1.children("td:nth-child(1)").html("OTHER");
+	    		  newFooterRow1.children("td:nth-child(1)").html("OTHERS");
 	    		  newFooterRow1.children("td").each(function (ind) {
 	    			  $(this).addClass("titleFont");
 
