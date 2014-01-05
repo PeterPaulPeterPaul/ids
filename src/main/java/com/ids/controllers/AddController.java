@@ -147,7 +147,7 @@ public class AddController implements DropdownInterface {
          			  companyId=request.getParameter("dimension1Val");
             	   }  else{
          			  
-            	  SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension1Val") +"' " +
+            	  SQL = " select id from "+value+ " where UPPER(name) = '" +request.getParameter("dimension1Val") +"' " +
             	  		" and access = '"+access+"' ";
             	  logger.warning("SQL1: "+SQL);
             	  resultSet = statement.executeQuery(SQL);
@@ -181,7 +181,7 @@ public class AddController implements DropdownInterface {
             		   SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension2Val").trim() +"'" +
             				   " and access = '"+access+"' ";
             	   } else {
-             	      SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension2Val").trim() +"'" +
+             	      SQL = " select id from "+value+ " where UPPER(name) = '" +request.getParameter("dimension2Val").trim() +"'" +
              	    		 " and access = '"+access+"' ";
             	   }
              	 logger.warning("SQL2: "+SQL);
@@ -219,7 +219,7 @@ public class AddController implements DropdownInterface {
             	       SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension3Val").trim() +"'" +
             	    		   " and access = '"+access+"' ";
             	   }else{
-            		   SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension3Val").trim() +"' " +
+            		   SQL = " select id from "+value+ " where UPPER(name) = '" +request.getParameter("dimension3Val").trim() +"' " +
             				   " and access = '"+access+"' ";
             	   }
             	   logger.warning("SQL3: "+SQL);
@@ -242,10 +242,12 @@ public class AddController implements DropdownInterface {
             	   
                }
                
-               if (request.getParameter("dimension4Val").equals("Sales") ) {
-            	   PorS= "1"; 
+               logger.warning("sales stuff is: "+request.getParameter("dimension4Val"));
+               
+               if (request.getParameter("dimension4Val").equals("PRODUCTION") ) {
+            	   PorS= "2"; 
                } else {
-            	   PorS = "2";
+            	   PorS = "1";
                }
                
                value = request.getParameter("dimension5Name");

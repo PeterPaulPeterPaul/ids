@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -36,13 +37,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 
-
-import com.google.appengine.api.rdbms.AppEngineDriver;
-import com.google.apphosting.api.DeadlineExceededException;
-import com.google.cloud.sql.jdbc.PreparedStatement;
 import com.ids.businessLogic.DropdownInterface;
 import com.ids.context.GetBeansFromContext;
 import com.ids.user.User;
+
 
 
 

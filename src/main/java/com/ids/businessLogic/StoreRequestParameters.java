@@ -1,6 +1,10 @@
 package com.ids.businessLogic;
 
+import java.util.logging.Logger;
+
 import javax.servlet.http.HttpServletRequest;
+
+import com.ids.controllers.Down;
 
 public class StoreRequestParameters {
 
@@ -24,6 +28,7 @@ public class StoreRequestParameters {
 	private int swap=0;
 	private int myYear=0;
 	
+	private final static Logger logger = Logger.getLogger(StoreRequestParameters.class.getName()); 
 	
 	public StoreRequestParameters(HttpServletRequest request, int myYear, String longStringCompanies, boolean edit){
 		
@@ -36,14 +41,14 @@ public class StoreRequestParameters {
 		list = Integer.parseInt(request.getParameter("list"));
 		salesOrProduct = Integer.parseInt(request.getParameter("pors"));
 		summary=Integer.parseInt(request.getParameter("summary"));
-		System.out.println("SUMMARY: "+summary);
-	//	if (summary!=1  &&  summary != 4 ) {
+
+		if ( request.getParameter("dropdown1") != null && !request.getParameter("dropdown1").equals("undefined")) {
 		    dropdown1=Integer.parseInt(request.getParameter("dropdown1"));
-	//	}
-	//	if (summary!=2  &&  summary != 3 &&  summary != 5 ) {
-			System.out.println("DROPDOWN2: "+Integer.parseInt(request.getParameter("dropdown2")) );
+		}
+		if ( request.getParameter("dropdown2") != null && !request.getParameter("dropdown2").equals("undefined") ) {
+	
 		    dropdown2=Integer.parseInt(request.getParameter("dropdown2"));
-	//	}
+		}
 		heading1=Integer.parseInt(request.getParameter("radio1"));
 		heading2=Integer.parseInt(request.getParameter("radio2"));
 		oldHeading1=Integer.parseInt(request.getParameter("oldHead1"));

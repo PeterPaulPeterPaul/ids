@@ -3,6 +3,7 @@ package com.ids.controllers;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,8 +21,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.google.appengine.api.rdbms.AppEngineDriver;
-import com.google.cloud.sql.jdbc.PreparedStatement;
+
 import com.ids.businessLogic.DropdownInterface;
 import com.ids.context.GetBeansFromContext;
 
@@ -96,11 +96,13 @@ return "setup";
 	 }catch(Exception e) {
 		 try {
 			 logger.warning(e.getMessage());
+			 logger.log(Level.SEVERE, e.getMessage(), e);
 			 e.printStackTrace();
 			out.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			logger.warning("SQL ERROR OF SOME KIND");
+			logger.log(Level.SEVERE, e1.getMessage(), e1);
 			e1.printStackTrace();
 		}
 		 return "setup";

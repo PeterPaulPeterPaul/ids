@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -38,8 +39,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.google.appengine.api.rdbms.AppEngineDriver;
-import com.google.cloud.sql.jdbc.PreparedStatement;
+
 import com.ids.businessLogic.DownloadExcel;
 import com.ids.businessLogic.DropdownInterface;
 import com.ids.businessLogic.FirstTimeQuery;
@@ -138,7 +138,7 @@ public class SaveController implements DropdownInterface {
 				   
 				   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("DELETE from FactsEdit_"+access+"  Where companyId < 0 ");  // That removes all the current OTHER rows
 				   statement2.executeUpdate();
-				   con.commit();
+				//   con.commit();
 				   String multiplier="";
 				   String allCompanies="11";
 			    	if (access.equals("c")) {
@@ -191,18 +191,18 @@ public class SaveController implements DropdownInterface {
 				    
 				    
 				    statement2.executeUpdate();
-				    con.commit();
+			//	    con.commit();
 					
 				    
 	     if (request.getParameter("other")== null ) {  
 				    statement2 = (PreparedStatement) con.prepareStatement("Delete from Facts_"+access+"  Where companyId < 0 " );
 				  statement2.executeUpdate();
 
-					   con.commit();
+				//	   con.commit();
 				   statement2 = (PreparedStatement) con.prepareStatement("insert into Facts_"+access+" " +
 				   		" select * from FactsEdit_"+access + " WHERE flag ='I' ");
 				   statement2.executeUpdate();
-				   con.commit();
+			//	   con.commit();
 				   
 				   
 				   statement2 = (PreparedStatement) con.prepareStatement("delete from Facts_"+access+"  " +
@@ -218,7 +218,7 @@ public class SaveController implements DropdownInterface {
 					   		" and cc.flag = 'X') ");
 				   
 					   statement2.executeUpdate();
-					   con.commit();
+				//	   con.commit();
 					   
 					   statement2 = (PreparedStatement) con.prepareStatement("update Facts_"+access +" aa INNER JOIN " +
 					      " FactsEdit_"+access+" bb ON ( aa.year= bb.year and aa.countryId = bb.countryId and aa.companyId = bb.companyId " +
@@ -228,18 +228,18 @@ public class SaveController implements DropdownInterface {
 					   
 	
 					   statement2.executeUpdate();
-					   con.commit();
+				//	   con.commit();
 					   statement2 = (PreparedStatement) con.prepareStatement("delete from FactsEdit_"+access+" where flag = 'X' ");
 						   statement2.executeUpdate();
-						   con.commit();
+						//   con.commit();
 						   statement2 = (PreparedStatement) con.prepareStatement("update FactsEdit_"+access+" set flag = '' where flag in ( 'I','D','U' )");
 						   statement2.executeUpdate();   
-						   con.commit();
+						//   con.commit();
 					   
 				   statement2 = (PreparedStatement) con.prepareStatement("update editing set flag = '0' ");
 				   statement2.executeUpdate();
 				   logger.warning("all the updates/deletes and inserts done");
-				   con.commit();  
+				//   con.commit();  
 				   
 	     }
 				   logger.warning(".....and also commit");
@@ -269,7 +269,7 @@ public class SaveController implements DropdownInterface {
             	   if (convertIt.equals(" ALL COMPANIES")) {
             		   convertIt = "ALL COMPANIES";
             	   }
-            	  SQL = " select id from "+value+ " where name = '" +convertIt +"' and access= '"+access+"' ";
+            	  SQL = " select id from "+value+ " where UPPER(name) = '" +convertIt +"' and access= '"+access+"' ";
             	  logger.warning("SQL1: "+SQL);
             	  logger.warning("SQL4: "+SQL);
             	  resultSet = statement.executeQuery(SQL);
@@ -301,7 +301,7 @@ public class SaveController implements DropdownInterface {
             		   SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension2Val").trim() +"'" +
             		   		" and access= '"+access+"' ";
             	   } else {
-             	      SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension2Val").trim() +"'" +
+             	      SQL = " select id from "+value+ " where UPPER(name) = '" +request.getParameter("dimension2Val").trim() +"'" +
              	    		 " and access= '"+access+"' ";
             	   }
              	 logger.warning("SQL2: "+SQL);
@@ -339,7 +339,7 @@ public class SaveController implements DropdownInterface {
             	       SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension3Val").trim() +"' " +
             	    			 " and access= '"+access+"' ";
             	   }else{
-            		   SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension3Val").trim() +"' " +
+            		   SQL = " select id from "+value+ " where UPPER(name) = '" +request.getParameter("dimension3Val").trim() +"' " +
             					 " and access= '"+access+"' ";
             	   }
               	  resultSet = statement.executeQuery(SQL);
@@ -361,10 +361,10 @@ public class SaveController implements DropdownInterface {
             	   
                }
                
-               if (request.getParameter("dimension4Val").equals("Sales") ) {
-            	   PorS= "1"; 
+               if (request.getParameter("dimension4Val").equals("PRODUCTION") ) {
+            	   PorS= "2"; 
                } else {
-            	   PorS = "2";
+            	   PorS = "1";
                }
                
                value = request.getParameter("dimension5Name");
@@ -445,7 +445,7 @@ public class SaveController implements DropdownInterface {
         	   PreparedStatement statement3 = (PreparedStatement) con.prepareStatement(newSQL);
            	   statement3.executeUpdate();
                
-                con.commit();
+              //  con.commit();
                 con.close();
 		 }
                 catch(Exception e) {

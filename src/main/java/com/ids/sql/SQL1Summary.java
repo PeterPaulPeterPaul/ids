@@ -32,7 +32,7 @@ public class SQL1Summary implements DropdownInterface {
             	TWO="year";
             	ONE="product";
             	topHeadingLine=YEARS;
-            	selectClause = "d.name as product, a.year,  ";
+            	selectClause = "UPPER(d.name) as product, a.year,  ";
             	groupAndOrderByClause = " d.name, a.year ";
             }else{
             	ONE="year";
@@ -78,7 +78,7 @@ public class SQL1Summary implements DropdownInterface {
             	topHeadingLine=COUNTRY;
             	ONE="product";
             	TWO="country";
-            	selectClause = " d.name as product, c.shortname as country,  ";
+            	selectClause = " UPPER(d.name) as product, c.shortname as country,  ";
             	groupAndOrderByClause = " d.name, c.shortname ";
             }
             break;
@@ -98,7 +98,7 @@ public class SQL1Summary implements DropdownInterface {
             	    topHeadingLine=YEARS;
             	    ONE="product";
             	    TWO="year";
-            	    selectClause = " d.name as product, a.year,  ";
+            	    selectClause = " UPPER(d.name) as product, a.year,  ";
             	    groupAndOrderByClause = " d.name, a.year ";
             	 } else {
              	    topHeadingLine=PRODUCT;
@@ -130,8 +130,7 @@ public class SQL1Summary implements DropdownInterface {
 	    		  " group by "+groupAndOrderByClause+
 	    		  " order by "+groupAndOrderByClause+" asc";
 	
-	      
-	  	System.out.println(query);
+
 	  	
 	}
 	

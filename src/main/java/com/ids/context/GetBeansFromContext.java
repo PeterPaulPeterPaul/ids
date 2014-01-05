@@ -23,7 +23,7 @@ public class GetBeansFromContext {
 	
 	public String ajaxURLprefix(){
 
-		   if (myDataSourceName().equals("GOOGLE")) {
+		   if (myDataSourceName().equals("GOOGLE") || myDataSourceName().equals("AMAZON") ) {
 			  return "/"; 
 		   }
         return "/ids/";
@@ -71,6 +71,9 @@ public class GetBeansFromContext {
 			 
 			 source = (DriverManagerDataSource) ctx.getBean("DataSource");
 
+		//	 System.out.println("HAWTHORNE: "+source.getUrl() );
+		//	 System.out.println("HAWTHORNE: "+source.getUsername() );
+		//	 System.out.println("HAWTHORNE: "+source.getPassword()  );
 
 		        try {
 		        	con = (Connection) source.getConnection();
@@ -90,6 +93,10 @@ public class GetBeansFromContext {
 			 
 			 
 			 con = DriverManager.getConnection(gcfc.myURL(),gcfc.myUserId(),gcfc.myPassword());
+			 
+			// System.out.println("HAWTHORNE: "+gcfc.myURL() );
+		//	 System.out.println("HAWTHORNE: "+gcfc.myUserId() );
+		//	 System.out.println("HAWTHORNE: "+gcfc.myPassword() );
 			 }
 
 		  
