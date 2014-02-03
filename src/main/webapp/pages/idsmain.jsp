@@ -681,12 +681,12 @@ To <select id="todate" name="todate" >
 			       processData: false,
 			       dataType: 'html',
 			       success: function(data) {  
-			    	   window.location = '/login';
+			    	   window.location = '${ajaxPrefix}login';
 			       },
 				    error: function (xhr, ajaxOptions, thrownError) {
 				        alert(xhr.status);
 				        alert(thrownError);
-				        window.location = '/login';
+				        window.location = '${ajaxPrefix}login';
 				      }
 
 				  });

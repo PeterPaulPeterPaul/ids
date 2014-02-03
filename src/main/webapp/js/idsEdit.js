@@ -259,14 +259,84 @@
 	                	$("#dimension5Name").val($("#myDimensionHidden").text());
 	                	$("#quantAmt").val($("#quantityAmt").val());
 	                	$("#accessCurr").val($("#accessType").val());
-	                	$("#addrowForm").submit();
 	                	}else {
 	                		alert("you must only enter a numeric value");
 	                	}
 	                	}else{
 	                		alert("you must enter a quantity");
 	                	}
-	      			    return false;
+
+	                	
+	                	$.ajax({
+		  					  url: parm5AjaxPrefix()+'addrow?'+
+			                	'dimension1Val='+$("#dimension1Val").val()+
+			                	'&dimension1Name='+$("#dimension1Name").val()+
+			                	'&dimension2Val='+$("#dimension2Val").val()+
+			                	'&dimension2Name='+$("#dimension2Name").val()+
+			                	'&dimension3Val='+$("#dimension3Val").val()+
+			                	'&dimension3Name='+$("#dimension3Name").val()+
+			                	'&dimension4Val='+$("#dimension4Val").val()+
+			                	'&dimension4Name='+$("#dimension4Name").val()+
+			                	'&dimension5Val='+$("#dimension5Val").val()+
+			                	'&dimension5Name='+$("#dimension5Name").val()+
+			                	'&quantAmt='+$("#quantAmt").val()+
+			                	'&accessCurr='+$("#accessCurr").val(),
+		  			         type: 'GET',
+		  			       contentType: 'application/html',
+		  			       processData: false,
+		  			       dataType: 'html',
+		  			       success: function(data) {  
+
+		  			    	   var intVal = 0;
+		  			    	   var intVal2=0;
+		  			    	   var ff = dimension1Val.replace(/^\s+|\s+$/g, '');
+		  			    	   
+		  			    	   
+		    		    		  var newFooterRow1 =$("#list47").children("tbody").children("tr:nth-child(2)").clone();
+		    		    		  
+		    		    		//  newFooterRow1.attr("id","-1");
+		    		    		  
+		    		    		 var myText=  $("#"+selectedKey+" option[value='"+dimension1Val+"']").text().replace(/^\s+|\s+$/g, '');
+		    		    		  
+		    		    		 
+		    		    		 newFooterRow1.children("td").each(function() {
+		    		    			    $(this).html('0');
+		    		    			});
+		    		    		 
+
+		    		    		  newFooterRow1.children("td:nth-child(1)").html(myText);
+		    		    		  newFooterRow1.children("td:nth-child(2)").html($("#quantAmt").val());
+		    		    		  
+		    		    		  
+		  			    	 newFooterRow1.insertBefore($("#list47").children("tbody").children("tr:nth-child(3)"));
+		  			    	 
+		  			    	$("#list47").children("tbody").children("tr").each( function( index ){
+		  			    		$(this).attr("id",index);
+		  			    	});
+		  			    	 
+		  			    	   /*
+		  					 $("#list47").children("tbody").children("tr").each( function( index ){
+								 $(this).children("td.titleFont").each(function (ind) {
+									 intVal = intVal +1;
+									 if ($.trim($(this).html())==ff) {
+										    intVal2=intVal +1;
+									 } 
+								 });
+							 }); */
+		  			//		$("#list47").children("tbody").children("tr:nth-child("+intVal2+")").css("display","none");
+		  					 
+		  			    	 
+		  			       },
+		  				    error: function (xhr, ajaxOptions, thrownError) {
+		  				        alert(xhr.status);
+		  				        alert(thrownError);
+		  				      }
+
+		  				  });
+
+			                 $( this ).dialog( "close" );
+			                 $(this).dialog(dialogOpts3).dialog("close"); //return false; 
+		      			    return false;
 	                	
 	    		
 	                }
@@ -387,8 +457,46 @@
 	                 	$("#dimension44Val").val($("#drop31sSelectBoxItText").text());
 	                	$("#dimension44Name").val("PorS");
 	                	$("#accessCurrr").val($("#accessType").val());
-	                	$("#deleterowForm").submit();
-	                	
+
+	                	$.ajax({
+	  					  url: parm5AjaxPrefix()+'deleterow?dimension1Val='+dimension1Val.replace(/^\s+|\s+$/g, '')
+	  					  +'&dimension1Name='+dimension1Name+'&dimension2Val='+text2.replace(/^\s+|\s+$/g, '')+
+	  					  '&dimension2Name='+di_name+
+	  					  '&dimension3Val='+text3.replace(/^\s+|\s+$/g, '')+
+	  					  '&dimension3Name='+di_name3+
+	  					  '&dimension4Val='+$("#drop31sSelectBoxItText").text()+
+	  					  '&dimension4Name=PorS&accessCurr='+$("#accessType").val(),
+	  			         type: 'GET',
+	  			       contentType: 'application/html',
+	  			       processData: false,
+	  			       dataType: 'html',
+	  			       success: function(data) {  
+
+	  			    	   var intVal = 0;
+	  			    	   var intVal2=0;
+	  			    	   var ff = dimension1Val.replace(/^\s+|\s+$/g, '');
+	  			    	   
+	  					 $("#list47").children("tbody").children("tr").each( function( index ){
+							 $(this).children("td.titleFont").each(function (ind) {
+								 intVal = intVal +1;
+								 if ($.trim($(this).html())==ff) {
+									    intVal2=intVal +1;
+								 } 
+							 });
+						 });
+	  					$("#list47").children("tbody").children("tr:nth-child("+intVal2+")").css("display","none");
+	  					 
+	  			    	 
+	  			       },
+	  				    error: function (xhr, ajaxOptions, thrownError) {
+	  				        alert(xhr.status);
+	  				        alert(thrownError);
+	  				      }
+
+	  				  });
+
+		                 $( this ).dialog( "close" );
+		                 $(this).dialog(dialogOpts3).dialog("close"); //return false; 
 	      			    return false;
 	                	
 	    		
@@ -957,6 +1065,14 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			        	cellurl : saveURL,
 				    			        	afterSaveCell: function(){
 				    			        		$("#saveButId").css("display","block");
+
+				    			        	},
+				    			        	afterSubmitCell: function(serverresponse,iRow,iCol){
+				    			        		var leny = $('td[aria-describedby=list47_'+iCol+']').length;
+				    			        		
+				    			        		$('td[aria-describedby=list47_'+iCol+']').eq(leny -2).text(serverresponse.responseText );
+
+				    			        		return [true,""];
 				    			        	},
 				    			        	beforeSubmitCell : function(rowid,celname,value,iRow,iCol) { 
 				    			        		//if( some_condition ) { 
@@ -1231,6 +1347,13 @@ if (dateParm=="todate must be greater or equal to fromdate") {
     	cellurl :parm5AjaxPrefix()+"saverow?access="+$("#accessType").val(),
     	afterSaveCell: function(){
     		$("#saveButId").css("display","block");
+    	},
+    	afterSubmitCell: function(serverresponse,  iRow, iCol){
+    		var leny = $('td[aria-describedby=list47_'+iCol+']').length;
+    		
+    		$('td[aria-describedby=list47_'+iCol+']').eq(leny-2).text(serverresponse.responseText );
+
+    		return [true,""];
     	},
     	beforeSubmitCell : function(rowid,celname,value,iRow,iCol) { 
     		//if( some_condition ) { 

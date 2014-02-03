@@ -46,6 +46,11 @@
 		<servlet-name>mvc-dispatcher</servlet-name>
 		<url-pattern>/deleterow</url-pattern>
 	</servlet-mapping>
+	
+		  	<servlet-mapping>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<url-pattern>/success</url-pattern>
+	</servlet-mapping>
 
 	<servlet-mapping>
 		<servlet-name>mvc-dispatcher</servlet-name>

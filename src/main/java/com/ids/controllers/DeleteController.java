@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.appengine.api.rdbms.AppEngineDriver;
-import com.google.cloud.sql.jdbc.PreparedStatement;
+//import com.google.cloud.sql.jdbc.PreparedStatement;
 import com.ids.businessLogic.DownloadExcel;
 import com.ids.businessLogic.DropdownInterface;
 import com.ids.businessLogic.FirstTimeQuery;
@@ -59,6 +59,7 @@ import com.ids.sql.SQL4;
 import com.ids.sql.SQL5;
 import com.ids.sql.SQL6;
 import com.ids.user.User;
+import com.mysql.jdbc.PreparedStatement;
 
 @Controller
 @RequestMapping(value="/deleterow")
@@ -85,6 +86,8 @@ public class DeleteController implements DropdownInterface {
 		 
 		 GetBeansFromContext gcfc = new GetBeansFromContext();
 		 con = gcfc.myConnection();
+		 
+		 con.setAutoCommit(false);
 		 
 		  Enumeration keys = request.getParameterNames();  
 		   while (keys.hasMoreElements() )  
@@ -262,13 +265,13 @@ public class DeleteController implements DropdownInterface {
             	   
                }
                
-               if (request.getParameter("dimension4Val").equals("Sales") ) {
+               if (request.getParameter("dimension4Val").toUpperCase().equals("SALES") ) {
             	   PorS= "1"; 
                } else {
             	   PorS = "2";
                }
                
-               
+               logger.warning("dimension4Val: "+request.getParameter("dimension4Val"));
 
                logger.warning("year: "+year);
                logger.warning("productId: "+productId);
@@ -389,7 +392,8 @@ public class DeleteController implements DropdownInterface {
 		 }catch(Exception e) {
 			 logger.log(Level.SEVERE,"Error",e);
 		 }
-		 return "redirect:editor?openOrClose=open";
+		 model.addAttribute("myReturnVal", "success");
+		 return "success";
 	 }
 	 
 	 @Transactional

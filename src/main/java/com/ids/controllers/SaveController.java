@@ -81,7 +81,7 @@ public class SaveController implements DropdownInterface {
 			HttpServletRequest request,
 			ModelMap model)  {	   
 
-		 
+		 int others=0;
 		 GetBeansFromContext gcfc =null;
 		 try{
 		 
@@ -89,6 +89,32 @@ public class SaveController implements DropdownInterface {
 		  gcfc = new GetBeansFromContext();
 		 con = gcfc.myConnection();
 	      Statement statement = con.createStatement();
+	      
+	      
+	      Enumeration keys = request.getParameterNames();  
+		   while (keys.hasMoreElements() )  
+		   {  
+		      String key = (String)keys.nextElement();  
+		      logger.warning(key);  
+		   
+		      //To retrieve a single value  
+		      String value = request.getParameter(key);  
+		      logger.warning(value);  
+
+		   }  
+		   
+		   String multiplier="";
+		   String allCompanies="11";
+		    String access = request.getParameter("access");
+		    logger.warning("access: "+access);
+	    	if (access.equals("c")) {
+	    		multiplier="*10000";
+	    		allCompanies="11"+multiplier;
+	    	}
+	    	if (access.equals("i")) {
+	    		multiplier="*20000";
+	    		allCompanies="200600000";
+	    	}
 
 	      ResultSet resultSet = null;
 	      HttpSession session = request.getSession(true);
@@ -96,7 +122,8 @@ public class SaveController implements DropdownInterface {
 	 		 if (user==null ) {
 	   		      model.addAttribute("errortext","You must logon before you can access IDS");
 	   		   con.close();
-	   		   	  return "login";
+	  		 model.addAttribute("myReturnVal", "You must logon before you can access IDS");
+			 return "success";
 	   		 }
 	      
 	 		 if (request.getParameter("exit")!= null ){
@@ -104,7 +131,8 @@ public class SaveController implements DropdownInterface {
 	 			    session.setAttribute("myUser",null);
 	 			 }
 	 			 con.close();
-	 			return "login"; 
+		  		 model.addAttribute("myReturnVal", "invalid user");
+				 return "success";
 	 		 }
 	 		String      query = " select 'found' as found from ids_users where userId = '"+user.getUserName()
 					  +"' and passwordId = '"+user.getPassword()+"'";
@@ -122,13 +150,13 @@ public class SaveController implements DropdownInterface {
 			   if (!found) {
 		   		      model.addAttribute("errortext","Invalid user credentials");
 		   		   con.close();
-		   		   	  return "login";
+			  		 model.addAttribute("myReturnVal", "bit further ");
+					 return "success";
 			   }
 			   
 			   model.addAttribute("openOrClose","close");
 			   
-			    String access = request.getParameter("access");
-			    logger.warning("access: "+access);
+
 				   
 			   
 			   if (request.getParameter("save")!= null ) {
@@ -139,16 +167,7 @@ public class SaveController implements DropdownInterface {
 				   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("DELETE from FactsEdit_"+access+"  Where companyId < 0 ");  // That removes all the current OTHER rows
 				   statement2.executeUpdate();
 				//   con.commit();
-				   String multiplier="";
-				   String allCompanies="11";
-			    	if (access.equals("c")) {
-			    		multiplier="*10000";
-			    		allCompanies="11"+multiplier;
-			    	}
-			    	if (access.equals("i")) {
-			    		multiplier="*20000";
-			    		allCompanies="200600000";
-			    	}
+
 
 				    statement2 = (PreparedStatement) con.prepareStatement(" INSERT INTO FactsEdit_"+access+" (id, companyId, countryid, productid, year, sales_production, quantity, flag, access)  "+
 				    		" select 0, -1"+multiplier+", a.countryId,a.productid,a.year,a.sales_production, " +
@@ -415,6 +434,7 @@ public class SaveController implements DropdownInterface {
                 		    " productId = "+productId + " and year = "+year+ " and access = '"+access+"' "+
                 		   " and companyId = "+companyId + " and countryId = "+countryId+ " and sales_production = "+PorS);
             	   
+            	   
                    int retval = statement2.executeUpdate();
             	   
                }else {
@@ -439,6 +459,8 @@ public class SaveController implements DropdownInterface {
             	   retval = statement2.executeUpdate();
             	   
                }
+               
+               
                }
                
         	   String newSQL = "update editing set flag = '1' ";
@@ -446,6 +468,71 @@ public class SaveController implements DropdownInterface {
            	   statement3.executeUpdate();
                
               //  con.commit();
+           	   
+           	   
+               SQL = " select  sum(quantity) q from FactsEdit_"+access+"  where "+
+           		    " productId = "+productId + " and year = "+year+ " and access = '"+access+"' "+
+           		   " and companyId not in( "+allCompanies+",-1"+multiplier+") and countryId = "+countryId+ " and sales_production = "+PorS;
+               logger.warning("SQL111: "+SQL);
+    	  resultSet = statement.executeQuery(SQL);
+    	  
+    	  int totalVals1=0;
+
+    	  while (resultSet.next()) {
+    		 totalVals1=  resultSet.getInt("q");
+    		 logger.warning("QUANTITY q: "+totalVals1);
+    	  }
+    	  resultSet.close();
+         SQL = " select quantity from FactsEdit_"+access+"  where "+
+     		    " productId = "+productId + " and year = "+year+ " and access = '"+access+"' "+
+     		   " and companyId= "+allCompanies+" and countryId = "+countryId+ " and sales_production = "+PorS;
+   	  logger.warning("SQL222: "+SQL);
+	  resultSet = statement.executeQuery(SQL);
+	  
+	  int totalVals2=0;
+	  
+
+	  while (resultSet.next()) {
+		 totalVals2=  resultSet.getInt("quantity");
+		 logger.warning("QUANTITY: "+totalVals2);
+	  }
+	  resultSet.close();    	   
+	  others =  totalVals2 -  totalVals1;  	  
+	  
+	  
+	  SQL = " select 1 from FactsEdit_"+access+"  where "+
+   		    " productId = "+productId + " and year = "+year+ " and access = '"+access+"' "+
+   		   " and companyId= -1"+multiplier+" and countryId = "+countryId+ " and sales_production = "+PorS;
+ 	  logger.warning("SQL222: "+SQL);
+	  resultSet = statement.executeQuery(SQL);
+	  
+      int exists=0;
+	  while (resultSet.next()) {
+		exists=1;
+	  }
+	  resultSet.close();    	   
+	  
+	  if (exists==1) {
+	  
+	  
+	  PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("Update FactsEdit_"+access+" set quantity = "+
+   		   others + " ,flag='U' where productId = "+productId + " and year = "+year+ " and access = '"+access+"' "+
+ 		   " and companyId= -1"+multiplier+" and countryId = "+countryId+ " and sales_production = "+PorS);
+	 int rows= statement2.executeUpdate();
+      
+	  logger.warning("UPDATing: Update FactsEdit_"+access+" set quantity = "+
+	   		   others + " where productId = "+productId + " and year = "+year+ " and access = '"+access+"' "+
+	 		   " and companyId= -1"+multiplier+" and countryId = "+countryId+ " and sales_production = "+PorS);
+	  
+	  logger.warning("return from update: "+rows);
+	  
+	  }else {
+		  PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("INSERT into  FactsEdit_"+access+" " +
+		  		"(CompanyId, CountryId, ProductID, year, sales_production, quantity, flag, access)  values( -1"+multiplier+","+
+		  		countryId+ ","+productId +","+year+ ","+PorS+","+others+",'I','"+access+"')");
+		  int rows= statement2.executeUpdate();
+	  }
+           	   
                 con.close();
 		 }
                 catch(Exception e) {
@@ -466,8 +553,8 @@ public class SaveController implements DropdownInterface {
 			}
 	 }
 
-			   
-			   return "login";
+		 model.addAttribute("myReturnVal", others);
+		 return "success";
 	 }
 	 
 	 @Transactional
