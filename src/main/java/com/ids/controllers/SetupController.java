@@ -221,6 +221,7 @@ public class SetupController {
  			   map.addAttribute("successtext"," records committed. LOAD COMPLETE!");
  			  statement.executeBatch();
     	    	con.commit();
+    	    	con.close();
  	    	   return  "setup";
 
     	        // Process the input stream
@@ -305,7 +306,7 @@ public class SetupController {
      			  map.addAttribute("fileType","factsPARTDONE");
      			   map.addAttribute("successtext"," records committed. LOAD COMPLETE!");
 
-        	    	
+        	    	con.close();
         	    	   return  "setup";
         	        // Process the input stream
         	    	}
@@ -348,6 +349,7 @@ public class SetupController {
     	    	map.addAttribute("displaytype2","block");
     	    	map.addAttribute("displaytype","none");
  			   map.addAttribute("successtext",count+" Products committed. COMPLETE!!!");
+ 			   con.close();
  			   return  "setup";
     	        // Process the input stream
     	    	}
@@ -394,6 +396,7 @@ public class SetupController {
     	    	map.addAttribute("displaytype2","block");
     	    	map.addAttribute("displaytype","none");
  			   map.addAttribute("successtext",count+" Countries committed. COMPLETE!!!");
+ 			   con.close();
  			   return  "setup";
     	        // Process the input stream
     	    	}
@@ -437,6 +440,7 @@ public class SetupController {
     	    	map.addAttribute("displaytype2","block");
     	    	map.addAttribute("displaytype","none");
  			   map.addAttribute("successtext"," Companies committed. COMPLETE!!!");
+ 			   con.close();
  			   return  "setup";
     	        // Process the input stream
     	    	}
@@ -515,7 +519,7 @@ return "setup";
 
 				   model.addAttribute("options",options);
 				   
-
+         con.close();
     	return "setup";
 	 }
 	

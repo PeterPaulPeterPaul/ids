@@ -119,6 +119,7 @@ logger.warning("query: "+query);
 
 
                 con.commit();
+                con.close();
 
 		 }catch(Exception e) {
 			 logger.log(Level.SEVERE,"Error",e);

@@ -291,8 +291,8 @@
 		  			    	   var intVal2=0;
 		  			    	   var ff = dimension1Val.replace(/^\s+|\s+$/g, '');
 		  			    	   
-		  			    	   
-		    		    		  var newFooterRow1 =$("#list47").children("tbody").children("tr:nth-child(2)").clone();
+	
+		    		    		  var newFooterRow1 =$("#list47").children("tbody").children("tr:nth-child(4)").clone();
 		    		    		  
 		    		    		//  newFooterRow1.attr("id","-1");
 		    		    		  
@@ -301,30 +301,21 @@
 		    		    		 
 		    		    		 newFooterRow1.children("td").each(function() {
 		    		    			    $(this).html('0');
+
 		    		    			});
-		    		    		 
 
 		    		    		  newFooterRow1.children("td:nth-child(1)").html(myText);
 		    		    		  newFooterRow1.children("td:nth-child(2)").html($("#quantAmt").val());
 		    		    		  
 		    		    		  
-		  			    	 newFooterRow1.insertBefore($("#list47").children("tbody").children("tr:nth-child(3)"));
-		  			    	 
+		  			    	 newFooterRow1.insertBefore($("#list47").children("tbody").children("tr:nth-child(4)"));
+
 		  			    	$("#list47").children("tbody").children("tr").each( function( index ){
 		  			    		$(this).attr("id",index);
 		  			    	});
-		  			    	 
-		  			    	   /*
-		  					 $("#list47").children("tbody").children("tr").each( function( index ){
-								 $(this).children("td.titleFont").each(function (ind) {
-									 intVal = intVal +1;
-									 if ($.trim($(this).html())==ff) {
-										    intVal2=intVal +1;
-									 } 
-								 });
-							 }); */
-		  			//		$("#list47").children("tbody").children("tr:nth-child("+intVal2+")").css("display","none");
-		  					 
+
+
+		  					 return true;
 		  			    	 
 		  			       },
 		  				    error: function (xhr, ajaxOptions, thrownError) {
@@ -541,7 +532,7 @@
     		   
     		   
         	  var downloadExcel="no";
-        	  var rowTotal="on";
+        	  var rowTotal="off";
             	  
             	  $("#toggleRowTotal").on("click",function(){ 
             		  if ($("#list47_TOTAL").length) {
@@ -1067,6 +1058,15 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			        		$("#saveButId").css("display","block");
 
 				    			        	},
+				    			        	beforeEditCell: function(iRow,iCol) { 
+				    			        		//alert(iRow);
+				    			        		//alert(iCol);
+				    			        		//   document.getElementById(iRow+"_"+iCol).focus();
+				    			        		//    document.getElementById(iRow+"_"+iCol).select();
+
+				    			        		//alert($('#'+iRow+"_"+iCol).val());
+				    			        		return true;
+				    			        	},
 				    			        	afterSubmitCell: function(serverresponse,iRow,iCol){
 				    			        		var leny = $('td[aria-describedby=list47_'+iCol+']').length;
 				    			        		
@@ -1284,7 +1284,8 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 						                   
 						      	      newFooterRow.children("td:nth-child(1)").css("font-weight","bold");
 						      	        newFooterRow.insertAfter($("tr.footrow"));
-						      	        $("#list47").children("tbody").children("tr:nth-child(3)").css("display","none");
+						      	   //   $("#list47").children("tbody").children("tr:nth-child(2)").css("display","none");
+						      	      $("#list47").children("tbody").children("tr:nth-child(3)").css("display","none");
 						      	      $("tr.footrow").css("display","none");
 
 						      		}
@@ -1345,6 +1346,13 @@ if (dateParm=="todate must be greater or equal to fromdate") {
       	cellEdit : true,
     	cellsubmit : 'remote',
     	cellurl :parm5AjaxPrefix()+"saverow?access="+$("#accessType").val(),
+    	beforeEditCell: function(iRow,iCol) { 
+ 		  // document.getElementById(iRow+"_"+iCol).focus();
+		  //  document.getElementById(iRow+"_"+iCol).select();
+
+		//alert($('#'+iRow+"_"+iCol).val());
+    		return true;
+    	},
     	afterSaveCell: function(){
     		$("#saveButId").css("display","block");
     	},
@@ -1558,6 +1566,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
       	        newFooterRow.children("td:nth-child(1)").css("font-weight","bold");
       	        newFooterRow.insertAfter($("tr.footrow"));
       	        $("#list47").children("tbody").children("tr:nth-child(3)").css("display","none");
+      	    //    $("#list47").children("tbody").children("tr:nth-child(2)").css("display","none");
       	      $("tr.footrow").css("display","none");
 
       		}

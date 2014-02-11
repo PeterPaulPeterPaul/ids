@@ -225,6 +225,8 @@ public class FirstTimeEdQuery {
 			    		  query = " select distinct b.id,    CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
 	       " ELSE substr(b.name,1,20) END as name from Company b " +
 			    		  		" where b.access = '" + access + "' " +
+	                            " and substr(b.name,1,20) != 'ALL COMPANIES' " +
+			    		  		" and b.name != ' OTHERS' " +
 			    		//  		" and b.year between "+(curYear - 5)+" and "+(curYear+5)+
 			    		  		" order by   CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
 	       " ELSE substr(b.name,1,20) END asc " ;

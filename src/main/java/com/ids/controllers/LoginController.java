@@ -237,12 +237,14 @@ public class LoginController {
 			    
 			 if (!access.equals("a")){
 				 if (access.equals("e")) {
-
+                     con.close(); 
 					 return "redirect:editor";
 				 } else {
+					 con.close();
 	        	    return "redirect:main";
 				 }
 			 }else {
+				 con.close();
 				   return "redirect:setup2";
 			 }
 			 
@@ -254,6 +256,7 @@ public class LoginController {
 		    	model.addAttribute("displaytype","block");
 		    	model.addAttribute("userId",request.getParameter("userId"));
 		    	model.addAttribute("errortext","invalid password or userId");
+		    	 con.close();
 	        	return "login";
 	        }
 	        

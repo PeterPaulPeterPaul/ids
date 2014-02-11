@@ -238,8 +238,10 @@ public class FirstTimeQuery {
 			    		  query = " select distinct a.id, UPPER(substr(a.name,1,20)) as name from Company a  , Facts_"+access+" b " +
 			    		  		" where a.id != 0" +
 			    		  		" and b.companyid = a.id " +
-			    		  		" and b.access = '" + access +"' and " +
-			    		  		" a.access = '" + access + "' " +
+			    		  		" and b.access = '" + access +"' "  +
+	                            " and substr(a.name,1,20) != ' ALL COMPANIES' " +
+			    		  		" and a.name != ' OTHERS' " +
+			    		  		" and a.access = '" + access + "' " +
 			    		  		" and a.name != 'ALL COMPANIES' " +
 			    		  	//	" and b.year between "+(curYear - 5)+" and "+(curYear+5)+
 			    		  		" order by  a.name  asc " ;

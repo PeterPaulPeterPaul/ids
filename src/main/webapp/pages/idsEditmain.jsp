@@ -336,7 +336,7 @@ body.wait, body.wait *{
 </div>
 </div>
 
-
+ 
 <div id="saveOtherButId" style="float:left;margin-left:5px;display:block">
 <div  style="display:block">
 <form  id="saving1" action="${ajaxPrefix}saverow?other=1" method="post" name="saveForm2"   > 

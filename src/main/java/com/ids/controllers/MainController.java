@@ -125,6 +125,7 @@ public class MainController implements DropdownInterface {
 	      User user = (User) session.getAttribute("myUser");
 	 		 if (user==null ) {
 	   		      model.addAttribute("errortext","You must logon before you can access IDS");
+	   		      con.close();
 	   		   	  return "redirect:/login";
 	   		 }
 	      
@@ -132,6 +133,7 @@ public class MainController implements DropdownInterface {
 	 			 if (session.getAttribute("myUser") != null) {
 	 			    session.setAttribute("myUser",null);
 	 			 }
+	 			 con.close();
 	 			return "redirect:/login"; 
 	 		 }
 	 		String      query = " select 'found' as found from ids_users where userId = '"+user.getUserName()
@@ -149,6 +151,7 @@ public class MainController implements DropdownInterface {
 			   }
 			   if (!found) {
 		   		      model.addAttribute("errortext","Invalid user credentials");
+		   		      con.close();
 		   		   	  return "redirect:/login";
 			   }
 

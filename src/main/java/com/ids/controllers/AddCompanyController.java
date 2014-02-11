@@ -94,7 +94,7 @@ public class AddCompanyController implements DropdownInterface {
 	      User user = (User) session.getAttribute("myUser");
 	 		 if (user==null ) {
 	   		      model.addAttribute("errortext","You must logon before you can access IDS");
-
+                  con.close();
 	   		   	  return "login";
 	   		 }
 	      
@@ -102,7 +102,7 @@ public class AddCompanyController implements DropdownInterface {
 	 			 if (session.getAttribute("myUser") != null) {
 	 			    session.setAttribute("myUser",null);
 	 			 }
-
+                con.close();
 	 			return "login"; 
 	 		 }
 	 		 
@@ -148,10 +148,11 @@ public class AddCompanyController implements DropdownInterface {
             	   int retval = statement2.executeUpdate();
 
                 con.commit();
+                con.close();
 
 		 }catch(Exception e) {
 			 logger.log(Level.SEVERE,"Error",e);
-		 }
+		 } 
 
 		 return "createUser";
 	 }

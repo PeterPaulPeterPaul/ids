@@ -149,6 +149,7 @@ public class EditorController implements DropdownInterface {
 			   }
 			   if (!found) {
 		   		      model.addAttribute("errortext","Invalid user credentials");
+		   		      con.close();
 		   		   	  return "login";
 			   }
 			   
@@ -340,6 +341,7 @@ public class EditorController implements DropdownInterface {
 		    	  logger.warning(obj5.toString());
 	    		  
 		    	  con.close();
+	
 		    	  
 		    	//  DownloadExcel dx = new DownloadExcel( obj5,request,response) ;
 		    	  return "jsonData";

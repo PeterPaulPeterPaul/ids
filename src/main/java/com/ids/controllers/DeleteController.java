@@ -116,6 +116,7 @@ public class DeleteController implements DropdownInterface {
 	      User user = (User) session.getAttribute("myUser");
 	 		 if (user==null ) {
 	   		      model.addAttribute("errortext","You must logon before you can access IDS");
+	   		      con.close();
 	   		   	  return "login";
 	   		 }
 	      
@@ -123,6 +124,7 @@ public class DeleteController implements DropdownInterface {
 	 			 if (session.getAttribute("myUser") != null) {
 	 			    session.setAttribute("myUser",null);
 	 			 }
+	 			 con.close();
 	 			return "login"; 
 	 		 }
 	 		String      query = " select 'found' as found from ids_users where userId = '"+user.getUserName()
@@ -140,6 +142,7 @@ public class DeleteController implements DropdownInterface {
 			   }
 			   if (!found) {
 		   		      model.addAttribute("errortext","Invalid user credentials");
+		   		      con.close();
 		   		   	  return "login";
 			   }
 			   
@@ -383,15 +386,17 @@ public class DeleteController implements DropdownInterface {
               	   
                    }
 
-             	   newSQL = "update editing set flag = '1' ";
-             	   PreparedStatement statement3 = (PreparedStatement) con.prepareStatement(newSQL);
-                	   statement3.executeUpdate();
+             //	   newSQL = "update editing set flag = '1' ";
+            // 	   PreparedStatement statement3 = (PreparedStatement) con.prepareStatement(newSQL);
+             //   	   statement3.executeUpdate();
 
                 con.commit();
+                con.close();
 
 		 }catch(Exception e) {
 			 logger.log(Level.SEVERE,"Error",e);
 		 }
+
 		 model.addAttribute("myReturnVal", "success");
 		 return "success";
 	 }

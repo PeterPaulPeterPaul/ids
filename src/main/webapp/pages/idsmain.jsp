@@ -1678,6 +1678,7 @@ if (clickType=="drop22s") {
 		    		    			  
 		    		    			  
 		    		    		  newFooterRow1.insertBefore($("tr.footrow"));
+		    		    		//  $("#list47").children("tbody").children("tr:nth-child(1)").css("display","none");
 		    		    		  $("#list47").children("tbody").children("tr:nth-child(2)").css("display","none");
 		    		    		  
 		    		     		  newFooterRow1.addClass("footrow");
@@ -1813,9 +1814,7 @@ if (clickType=="drop22s") {
 	       	            var myWidth =  $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child("+(ind +1)+")").width();
 
 	        	          var myBack =  $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child("+(ind +1)+")").css("background-color");
-
-	        	            
-	        	          
+ 
 	       	         $(this).css("background-color",myBack);
 	                      $(this).removeClass("colorWhite");
 	                      $(this).css("font-weight","bold");
@@ -1837,11 +1836,12 @@ if (clickType=="drop22s") {
 	                  
 	       	        });
 	    			  
-	    			  
-	    			  
+
 	    		  newFooterRow1.insertBefore($("tr.footrow"));
 	    		  $("#list47").children("tbody").children("tr:nth-child(2)").css("display","none");
-	    		  
+
+	    		//  $("#list47").children("tbody").children("tr:nth-child(1)").css("display","none");
+
 	     		  newFooterRow1.addClass("footrow");
 	    		  newFooterRow1.addClass("footrow-ltr");
 	    		  newFooterRow1.removeClass("ui-widget-content");
@@ -1849,17 +1849,7 @@ if (clickType=="drop22s") {
 
 	    	  }  
 	    	 
-
-			 
-			 
-			 
-			 
-			 
-			 
-			 
-			 
-			 
-			 
+ 
 			 
 			  $('.footrow').children('td').each(function( index ) {
 
@@ -1869,17 +1859,15 @@ if (clickType=="drop22s") {
 				  }
 				  
 				});
-			  
-			  
-			  
+
 				 $('#list47').setGridWidth($('#beans').width());
-				 
+
 				 $(window).resize(function() {
 					 $('#list47').setGridWidth($('#beans').width());
 					 
-					 var width1 = $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(1)").width();
-					 var width2 = $("#list47").children("tbody").children("tr:nth-child(3)").children("td:nth-child(2)").width();
-					 var width3 = $("#list47").children("tbody").children("tr:nth-child(3)").children("td:last").width();
+					 var width1 = $("#list47").children("tbody").children("tr:nth-child(4)").children("td:nth-child(1)").width();
+					 var width2 = $("#list47").children("tbody").children("tr:nth-child(4)").children("td:nth-child(2)").width();
+					 var width3 = $("#list47").children("tbody").children("tr:nth-child(4)").children("td:last").width();
 					 var length1 =  $('.footrow:nth-child(1)').children('td').length;
 					 
 					 $('.footrow:nth-child(1)').children('td').each(function( index ) {

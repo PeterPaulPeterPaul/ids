@@ -3995,6 +3995,7 @@ $.jgrid.extend({
 						break;
 					case 'text':
 						var df = soptions.defaultValue !== undefined ? soptions.defaultValue: "";
+						alert("her her her")
 						$(thd).append("<input type='text' style='width:95%;padding:0px;' name='"+(cm.index || cm.name)+"' id='gs_"+cm.name+"' value='"+df+"'/>");
 						if(soptions.attr) {$("input",thd).attr(soptions.attr);}
 						$.jgrid.bindEv( $("input",thd)[0], soptions, $t);
@@ -9666,6 +9667,8 @@ $.jgrid.extend({
 					}
 				}
 				// save the cell
+				
+				
 				$($t).jqGrid("saveCell",$t.p.savedRow[0].id,$t.p.savedRow[0].ic);
 			} else {
 				window.setTimeout(function () { $("#"+$.jgrid.jqID($t.p.knv)).attr("tabindex","-1").focus();},0);
@@ -9674,6 +9677,8 @@ $.jgrid.extend({
 			nm = cm.name;
 			if (nm=='subgrid' || nm=='cb' || nm=='rn') {return;}
 			cc = $("td:eq("+iCol+")",$t.rows[iRow]);
+
+			
 			if (cm.editable===true && ed===true && !cc.hasClass("not-editable-cell")) {
 				if(parseInt($t.p.iCol,10)>=0  && parseInt($t.p.iRow,10)>=0) {
 					$("td:eq("+$t.p.iCol+")",$t.rows[$t.p.iRow]).removeClass("edit-cell ui-state-highlight");
@@ -9681,6 +9686,8 @@ $.jgrid.extend({
 				}
 				$(cc).addClass("edit-cell ui-state-highlight");
 				$($t.rows[iRow]).addClass("selected-row ui-state-hover");
+				
+				
 				try {
 					tmp =  $.unformat.call($t,cc,{rowId: $t.rows[iRow].id, colModel:cm},iCol);
 				} catch (_) {
@@ -9702,7 +9709,8 @@ $.jgrid.extend({
 				}
 				$(cc).html("").append(elc).attr("tabindex","0");
 				$.jgrid.bindEv( elc, opt, $t);
-				window.setTimeout(function () { $(elc).focus();},0);
+				window.setTimeout(function () { $(elc).focus(); $(elc).select();},0);
+				//HAWTHORNE
 				$("input, select, textarea",cc).bind("keydown",function(e) {
 					
 			        
