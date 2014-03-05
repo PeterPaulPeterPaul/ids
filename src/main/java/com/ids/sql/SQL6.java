@@ -17,14 +17,17 @@ public class SQL6 {
 		}
 		
 		
-	      query = " select a.year, a.quantity,  substr(b.name,1,20) as company, "+product+" as product, "+country+" as country " +
+	      query = " select a.year, a.quantity,  substr(b.name,1,70) as company, "+product+" as product, "+country+" as country " +
 	      		" from Facts_"+access+" a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  " and a.year = " + years+
 	    		  " and a.companyId = " +companyId+
 	    		   " and b.name != 'ALL COMPANIES' " +
-	    		   " and a.access = '" + access + "' " +
+		    		  " and a.access = '" + access + "' " +
+		    		  " and b.access = '" + access + "' " +
+		    		  " and c.access = '" + access + "' " +
+		    		  " and d.access = '" + access + "' " +
 	    		   incExCountries +
 	    		   incExProducts +
 	    		   incExCompanies+

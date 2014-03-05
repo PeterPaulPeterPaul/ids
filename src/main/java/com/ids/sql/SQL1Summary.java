@@ -121,6 +121,9 @@ public class SQL1Summary implements DropdownInterface {
 	    		  " and a.year between "+fromYear+" and "+toYear+" " +
 	    		  " and d.id = a.productId " +
 	    		  " and a.access = '" + access + "' " +
+	    		  " and b.access = '" + access + "' " +
+	    		  " and c.access = '" + access + "' " +
+	    		  " and d.access = '" + access + "' " +
 	    		  " and b.name != 'ALL COMPANIES' " +
 	    		  incExCountries +
 	    		  incExProducts+

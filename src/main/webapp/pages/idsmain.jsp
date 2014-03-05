@@ -16,7 +16,7 @@
 <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="js/ui.dropdownchecklist-1.4-min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.8.0/jquery.selectBoxIt.min.js"></script>
+<script type="text/javascript" src="js/jquery.selectBoxIt.min.js"></script>
 <script src="js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script src="js/jquery.jqGrid.min.js" type="text/javascript"></script>
 
@@ -41,6 +41,7 @@ body.wait, body.wait *{
     <img src="images/OHR-Logo-Medium.gif" alt="Off-Highway Research"/>
     </p>  
 	</span>
+	
 	</div>
 
 <input type="hidden" id="changeFlag" value="no"/>
@@ -1484,6 +1485,10 @@ if (clickType=="drop22s") {
 					      
 					      
 					      complete: function () {
+					    	  
+					      	  $("#drop14sSelectBoxIt").css("width","270px");
+					    	  $("#drop24sSelectBoxIt").css("width","270px");
+					    	  
 					    	  
 								 $("#list47").children("tbody").children("tr").each( function( index ){
 									 $(this).children("td.titleFont").each(function (ind) {

@@ -17,7 +17,7 @@
 <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="js/ui.dropdownchecklist-1.4-min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.selectboxit/3.8.0/jquery.selectBoxIt.min.js"></script>
+<script type="text/javascript" src="js/jquery.selectBoxIt.min.js"></script>
 <script src="js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script src="js/jquery.jqGrid.src.js" type="text/javascript"></script>
     
@@ -153,7 +153,7 @@ body.wait, body.wait *{
 </div>
 
 <div id="drop14"  class="showornot1" style="display:none">
-<select class="dropdown1" id="drop14s" style="width:180px;margin:10px">
+<select class="dropdown1" id="drop14s" style="width:270px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1d}">
   <option value="${drop1.id}">${drop1.name}&nbsp;</option>
   </c:forEach>
@@ -244,7 +244,7 @@ body.wait, body.wait *{
 </div>
 
 <div id="drop24"  class="showornot2" style="display:none">
-<select class="dropdown2" id="drop24s" style="width:180px;margin:10px">
+<select class="dropdown2" id="drop24s" style="width:270px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1d}">
   <option value="${drop1.id}">${drop1.name}&nbsp;</option>
   </c:forEach>
@@ -494,7 +494,7 @@ To <select id="todate" name="todate" >
 <input type="text" name="dimension4Name" id="dimension4Name">
 <input type="text" name="dimension5Val" id="dimension5Val">
 <input type="text" name="dimension5Name" id="dimension5Name">
-<input type="text" name="quantAmt" id="quantAmt">
+ <input type="text" name="quantAmt" id="quantAmt">
 <input type="text" name="accessCurr" id="accessCurr" >
 </form>
  </div>
@@ -598,11 +598,12 @@ To <select id="todate" name="todate" >
 </select>
 </div>
 
+<!--
 First Quantity:
 <div    style="display:block">
-<input type="text" id="quantityAmt" name="quantityAmt" value="" />
+  <input type="text" id="quantityAmt" name="quantityAmt" value="" />
 </div>
-
+-->
 
  </div>
  

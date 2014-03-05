@@ -12,12 +12,12 @@ public class SQL3 {
         String groupBy="";
 		if (countryId == -10) {
 			countryClause = " AND a.countryId NOT IN (20,21,-10,0) ";
-			queryPart1 =  " select a.year, SUM(a.quantity) as quantity,   substr(b.name,1,20)  as company, d.name as product, 'EUROPE' as country ";
+			queryPart1 =  " select a.year, SUM(a.quantity) as quantity,   substr(b.name,1,70)  as company, d.name as product, 'EUROPE' as country ";
 			groupBy = " group by  a.year,  b.name, d.name, 'EUROPE'  ";
 			incExCountries = "";
 		} else {
 			countryClause = " AND a.countryId = "+countryId;
-			queryPart1 =  " select a.year, a.quantity,  substr(b.name,1,20)  as company, d.name as product, c.country ";
+			queryPart1 =  " select a.year, a.quantity,  substr(b.name,1,70)  as company, d.name as product, c.country ";
 		}
 
 
@@ -35,6 +35,9 @@ public class SQL3 {
 	    		  " and a.year between "+fromYear+" and "+toYear+" " +
 	    		  " and d.id = a.productId " +
 	    		  " and a.access = '" + access + "' " +
+	    		  " and b.access = '" + access + "' " +
+	    		  " and c.access = '" + access + "' " +
+	    		  " and d.access = '" + access + "' " +
 	    		  " and a.countryId = c.id" +
 	    		  groupBy+
 	    		  " order by b.name, a.year asc";

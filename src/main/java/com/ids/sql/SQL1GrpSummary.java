@@ -295,6 +295,9 @@ public class SQL1GrpSummary implements DropdownInterface {
 	    		  andClause +
 	    		  " and a.year between "+fromYear+" and "+toYear+" " +
 	    		  " and a.access = '" + access + "' " +
+	    		  " and b.access = '" + access + "' " +
+	    		  " and c.access = '" + access + "' " +
+	    		  " and d.access = '" + access + "' " +
 	    		  " and d.id = a.productId " +
 	    		  incExCountries +
 	    		  incExProducts+

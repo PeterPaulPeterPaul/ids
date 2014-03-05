@@ -13,12 +13,15 @@ public class SQL5 {
 			country="c.country";
 			orderby = " order by "+country+", a.year  asc";
 		}
-	      query = " select a.year, a.quantity,  substr(b.name,1,20)  as company, d.name as product, "+country+" as country " +
+	      query = " select a.year, a.quantity,  substr(b.name,1,70)  as company, d.name as product, "+country+" as country " +
 	      		" from Facts_"+access+" a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  " and a.productId = " + productId+
-	    		   " and a.access = '" + access + "' " +
+	    		  " and a.access = '" + access + "' " +
+	    		  " and b.access = '" + access + "' " +
+	    		  " and c.access = '" + access + "' " +
+	    		  " and d.access = '" + access + "' " +
 	              " and a.companyId = " +companyId+
 	               " and b.name != 'ALL COMPANIES' " +
 	               incExCountries+

@@ -81,12 +81,7 @@ public class SetupController {
 		 logger.warning("access: " + access);
 		 
 	    	String multiplier="";
-	    	if (access.equals("c")) {
-	    		multiplier="*10000";
-	    	}
-	    	if (access.equals("i")) {
-	    		multiplier="*200000";
-	    	}
+
 	    	
 
 	//	 Statement statement1 = con.createStatement();

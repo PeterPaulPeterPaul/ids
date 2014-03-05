@@ -52,13 +52,11 @@ public class FirstTimeEdQuery {
 		
 	      if (access.equals("c")) {
 		    titleArray = new TitleArray("China","Agricultural Tractor", "sales" );
-		    countryId = 210000; //China
-		    multiplier="*10000";
+		 //   countryId = 210000; //China
 	      }
 	      if (access.equals("i")) {
 		    titleArray = new TitleArray("India","Agricultural Tractor", "sales" );
-		    countryId = 20000000;  //India
-		    multiplier="*200000";
+		//    countryId = 20000000;  //India
 	      }
 		  
 		  
@@ -86,18 +84,18 @@ public class FirstTimeEdQuery {
 
 
     	  
-	      String query2 = " select a.year, a.quantity,  CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' " +
+	      String query2 = " select a.year, a.quantity,  CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' " +
 	       " ELSE substr(b.name,1,30) END as name  from FactsEdit_"+access+" a, Company b, Country c " +
 	    		  " where a.companyid=b.id " +
 	    		  " and b.access = '" + access + "' " +
 	    		  " and a.countryid=c.id " + 
+	    		  " and a.flag != 'X' " +
 	    		  " and c.access =  '" + access + "' " +
-	    		  " and c.id="+countryId  + 
 	    		  " and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
 	    		  " and a.sales_production= 1" + 
 	    		  " and a.productid=1"+multiplier  + 
 	    		  " and a.access = '" + access + "' " +
-	    		  " order by  CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+	    		  " order by  CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
 	       " ELSE substr(b.name,1,30) END , a.year asc";
 
 	      logger.warning(query2);
@@ -222,14 +220,14 @@ public class FirstTimeEdQuery {
 
 
 			    		  
-			    		  query = " select distinct b.id,    CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
-	       " ELSE substr(b.name,1,20) END as name from Company b " +
+			    		  query = " select distinct b.id,    CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+	       " ELSE substr(b.name,1,70) END as name from Company b " +
 			    		  		" where b.access = '" + access + "' " +
-	                            " and substr(b.name,1,20) != 'ALL COMPANIES' " +
+	                            " and substr(b.name,1,70) != 'ALL COMPANIES' " +
 			    		  		" and b.name != ' OTHERS' " +
 			    		//  		" and b.year between "+(curYear - 5)+" and "+(curYear+5)+
-			    		  		" order by   CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
-	       " ELSE substr(b.name,1,20) END asc " ;
+			    		  		" order by   CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+	       " ELSE substr(b.name,1,70) END asc " ;
 					    
 			    		  logger.warning(query);
 			    		  	

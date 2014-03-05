@@ -245,8 +245,8 @@
 	                text: "Create",
 	                click : function() {    
 
-	                	if ($("#quantityAmt").val().length){
-	                	if(	$.isNumeric($("#quantityAmt").val())) {
+	                //	if ($("#quantityAmt").val().length){
+	                //	if(	$.isNumeric($("#quantityAmt").val())) {
 	                	$("#dimension1Val").val(dimension1Val.replace(/^\s+|\s+$/g, ''));
 	                	$("#dimension1Name").val(dimension1Name);
 	                 	$("#dimension2Val").val(text2.replace(/^\s+|\s+$/g, ''));
@@ -257,14 +257,13 @@
 	                	$("#dimension4Name").val("PorS");
 	                 	$("#dimension5Val").val(dimension5Val.replace(/^\s+|\s+$/g, ''));
 	                	$("#dimension5Name").val($("#myDimensionHidden").text());
-	                	$("#quantAmt").val($("#quantityAmt").val());
+	                	//$("#quantAmt").val('0');
 	                	$("#accessCurr").val($("#accessType").val());
-	                	}else {
-	                		alert("you must only enter a numeric value");
-	                	}
-	                	}else{
-	                		alert("you must enter a quantity");
-	                	}
+	                //	}else {
+	                //		alert("you must only enter a numeric value");
+//	                	}else{
+	                //		alert("you must enter a quantity");
+	                //	}
 
 	                	
 	                	$.ajax({
@@ -279,7 +278,7 @@
 			                	'&dimension4Name='+$("#dimension4Name").val()+
 			                	'&dimension5Val='+$("#dimension5Val").val()+
 			                	'&dimension5Name='+$("#dimension5Name").val()+
-			                	'&quantAmt='+$("#quantAmt").val()+
+			                	'&quantAmt=0'+
 			                	'&accessCurr='+$("#accessCurr").val(),
 		  			         type: 'GET',
 		  			       contentType: 'application/html',
@@ -305,7 +304,8 @@
 		    		    			});
 
 		    		    		  newFooterRow1.children("td:nth-child(1)").html(myText);
-		    		    		  newFooterRow1.children("td:nth-child(2)").html($("#quantAmt").val());
+		    		    		 // newFooterRow1.children("td:nth-child(2)").html($("#quantAmt").val());
+		    		    		  newFooterRow1.children("td:nth-child(2)").html("0");
 		    		    		  
 		    		    		  
 		  			    	 newFooterRow1.insertBefore($("#list47").children("tbody").children("tr:nth-child(4)"));
@@ -466,7 +466,7 @@
 	  			    	   var intVal = 0;
 	  			    	   var intVal2=0;
 	  			    	   var ff = dimension1Val.replace(/^\s+|\s+$/g, '');
-	  			    	   
+
 	  					 $("#list47").children("tbody").children("tr").each( function( index ){
 							 $(this).children("td.titleFont").each(function (ind) {
 								 intVal = intVal +1;
@@ -476,7 +476,7 @@
 							 });
 						 });
 	  					$("#list47").children("tbody").children("tr:nth-child("+intVal2+")").css("display","none");
-	  					 
+
 	  			    	 
 	  			       },
 	  				    error: function (xhr, ajaxOptions, thrownError) {
@@ -605,7 +605,7 @@
         	  
         	  $(".dropdown1").css("width","220px");
         	  $(".dropdown2").css("width","220px");
-        	  
+
         	  
         	  var mySS1 = $(".viewable1").children(".dropdown1").attr("id");
         	  var mySS2 = $(".viewable2").children(".dropdown2").attr("id");
@@ -1070,7 +1070,10 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			        	afterSubmitCell: function(serverresponse,iRow,iCol){
 				    			        		var leny = $('td[aria-describedby=list47_'+iCol+']').length;
 				    			        		
-				    			        		$('td[aria-describedby=list47_'+iCol+']').eq(leny -2).text(serverresponse.responseText );
+				    			        		 var res = serverresponse.responseText.split("|");
+				    			        		
+				    			        		$('td[aria-describedby=list47_'+iCol+']').eq(leny -2).text(res[0] );
+				    			        		$('td[aria-describedby=list47_'+iCol+']').eq(leny -1).text(res[1] );
 
 				    			        		return [true,""];
 				    			        	},
@@ -1149,13 +1152,13 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			         	userDataOnFooter: true,
 				    			        	   onSelectRow: function(id){
 
-					    			        	     if(id && id!==lastSel){ 
+					    			        	//     if(id && id!==lastSel){ 
 					    			        	    	 
-					    			        	    	 jQuery('#list47').jqGrid('saveRow?access='+ $("#accessType").val(),id ,saveparameters);
+					    			        	 //   	 jQuery('#list47').jqGrid('saveRow?access='+ $("#accessType").val(),id ,saveparameters);
 
-					    			        	        lastSel=id; 
-					    			        	     }
-					    			        	     jQuery('#list47').editRow(id, true); 
+					    			        	//        lastSel=id; 
+					    			        	//     }
+					    			        	//     jQuery('#list47').editRow(id, true); 
 					    			        	   },
 				    			        });
 				    			        
@@ -1224,7 +1227,10 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 					      
 					      complete: function () {
 
-					    	  
+    			        	  $("#drop14sSelectBoxIt").css("width","270px");
+    			        	  $("#drop24sSelectBoxIt").css("width","270px");
+    			        	  
+    			        	  
 					 			 $("#list47").children("tbody").children("tr").each( function( index ){
 									 $(this).children("td.titleFont").each(function (ind) {
 										 $(this).css("font-weight","bold");
@@ -1359,7 +1365,10 @@ if (dateParm=="todate must be greater or equal to fromdate") {
     	afterSubmitCell: function(serverresponse,  iRow, iCol){
     		var leny = $('td[aria-describedby=list47_'+iCol+']').length;
     		
-    		$('td[aria-describedby=list47_'+iCol+']').eq(leny-2).text(serverresponse.responseText );
+   		 var res = serverresponse.responseText.split("|");
+ 		
+ 		$('td[aria-describedby=list47_'+iCol+']').eq(leny -2).text(res[0] );
+ 		$('td[aria-describedby=list47_'+iCol+']').eq(leny -1).text(res[1] );
 
     		return [true,""];
     	},
@@ -1571,7 +1580,9 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
       		}
 			 
-			 
+      	  $("#drop14sSelectBoxIt").css("width","270px");
+    	  $("#drop24sSelectBoxIt").css("width","270px");
+    	  
   		  newFooterRow1.addClass("footrow");
 		  newFooterRow1.addClass("footrow-ltr");
 		  newFooterRow1.removeClass("ui-widget-content");

@@ -52,13 +52,11 @@ public class FirstTimeQuery {
 	    	
 	      if (access.equals("c")) {
 		    titleArray = new TitleArray("CHINA","AGRICULTURAL TRACTOR", "SALES" );
-		    countryId = 210000; //China
-		    multiplier="*10000";
+		  //  countryId = 210000; //China
 	      }
 	      if (access.equals("i")) {
 		    titleArray = new TitleArray("INDIA","AGRICULTURAL TRACTOR", "SALES" );
-		    countryId = 20000000;  //India
-		    multiplier="*200000";
+		  //  countryId = 20000000;  //India
 	      }
 		  
 		  query="SELECT YEAR(DATE_ADD( CURDATE(), INTERVAL -5 YEAR)) as year1 ";
@@ -85,25 +83,26 @@ public class FirstTimeQuery {
     	  String query2="";
 
     	  if (access.equals("w")) {
-    	   query2 = " select a.year, SUM(a.quantity) as quantity, substr(b.name,1,20)  as name " +
+    	   query2 = " select a.year, SUM(a.quantity) as quantity, substr(b.name,1,70)  as name " +
     			  " from Facts_w a, Company b, Country c, Product d  "+
     			  "  where a.companyid=b.id  and a.sales_production=1 AND a.countryId NOT IN (20,21,0) "+
     			  "  and a.productId = 1 and a.year >=2008 and b.name != 'ALL COMPANIES'  "+
     			  " and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
     			  "  and d.id = a.productId  and a.access = 'w'  and a.countryId = c.id "+
-    			  "  group by  a.year, substr(b.name,1,20), d.name, 'EUROPE'  " +
+    			  "  group by  a.year, substr(b.name,1,70), d.name, 'EUROPE'  " +
     			  " order by  b.name , a.year asc ";
     			  
     	  }else {
-	       query2 = " select a.year, a.quantity, substr(b.name,1,20) as name from Facts_"+access+" a, Company b, Country c " +
+	       query2 = " select a.year, a.quantity, substr(b.name,1,70) as name from Facts_"+access+" a, Company b, Country c " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.countryid=c.id " + 
-	    		  " and c.id="+countryId  + 
+	    		  " and c.access='" + access + "' " +
 	    		  " and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
 	    		  " and a.sales_production= 1" + 
 	    		  " and a.productid=1"+multiplier  + 
 	    		  " and a.access = '" + access + "' " +
 	    		  " and b.name!='ALL COMPANIES' " +
+	    		  "  and b.access= '" + access + "' " +
 	    		  " order by b.name , a.year asc";
     	  }
     	  
@@ -235,11 +234,11 @@ public class FirstTimeQuery {
 
 
 			    		  
-			    		  query = " select distinct a.id, UPPER(substr(a.name,1,20)) as name from Company a  , Facts_"+access+" b " +
+			    		  query = " select distinct a.id, UPPER(substr(a.name,1,70)) as name from Company a  , Facts_"+access+" b " +
 			    		  		" where a.id != 0" +
 			    		  		" and b.companyid = a.id " +
 			    		  		" and b.access = '" + access +"' "  +
-	                            " and substr(a.name,1,20) != ' ALL COMPANIES' " +
+	                            " and substr(a.name,1,70) != ' ALL COMPANIES' " +
 			    		  		" and a.name != ' OTHERS' " +
 			    		  		" and a.access = '" + access + "' " +
 			    		  		" and a.name != 'ALL COMPANIES' " +

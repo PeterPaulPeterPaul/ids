@@ -9,6 +9,7 @@ import java.sql.Statement;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -82,6 +83,7 @@ public class SaveController implements DropdownInterface {
 			ModelMap model)  {	   
 
 		 int others=0;
+		 int newTotal=0;
 		 GetBeansFromContext gcfc =null;
 		 try{
 		 
@@ -108,11 +110,9 @@ public class SaveController implements DropdownInterface {
 		    String access = request.getParameter("access");
 		    logger.warning("access: "+access);
 	    	if (access.equals("c")) {
-	    		multiplier="*10000";
 	    		allCompanies="11"+multiplier;
 	    	}
 	    	if (access.equals("i")) {
-	    		multiplier="*20000";
 	    		allCompanies="200600000";
 	    	}
 
@@ -288,7 +288,11 @@ public class SaveController implements DropdownInterface {
             	   if (convertIt.equals(" ALL COMPANIES")) {
             		   convertIt = "ALL COMPANIES";
             	   }
-            	  SQL = " select id from "+value+ " where UPPER(name) = '" +convertIt +"' and access= '"+access+"' ";
+            	  if (value.equals("Company")) {
+            		   SQL = " select id from "+value+ " where UPPER(name) = '" +convertIt.replace("'", "''") +"' and access= '"+access+"' ";
+            	   }else{
+            		   SQL = " select id from "+value+ " where UPPER(name) = '" +convertIt +"' and access= '"+access+"' ";
+            	  }
             	  logger.warning("SQL1: "+SQL);
             	  logger.warning("SQL4: "+SQL);
             	  resultSet = statement.executeQuery(SQL);
@@ -320,7 +324,7 @@ public class SaveController implements DropdownInterface {
             		   SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension2Val").trim() +"'" +
             		   		" and access= '"+access+"' ";
             	   } else {
-             	      SQL = " select id from "+value+ " where UPPER(name) = '" +request.getParameter("dimension2Val").trim() +"'" +
+             	      SQL = " select id from "+value+ " where UPPER(name) = '" +request.getParameter("dimension2Val").trim().replace("'", "''") +"'" +
              	    		 " and access= '"+access+"' ";
             	   }
              	 logger.warning("SQL2: "+SQL);
@@ -358,7 +362,8 @@ public class SaveController implements DropdownInterface {
             	       SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension3Val").trim() +"' " +
             	    			 " and access= '"+access+"' ";
             	   }else{
-            		   SQL = " select id from "+value+ " where UPPER(name) = '" +request.getParameter("dimension3Val").trim() +"' " +
+            		   SQL = " select id from "+value+ " where UPPER(name) = '" 
+            	                     +request.getParameter("dimension3Val").trim().replace("'", "''") +"' " +
             					 " and access= '"+access+"' ";
             	   }
               	  resultSet = statement.executeQuery(SQL);
@@ -498,6 +503,7 @@ public class SaveController implements DropdownInterface {
 	  }
 	  resultSet.close();    	   
 	  others =  totalVals2 -  totalVals1;  	  
+	  newTotal = totalVals2;
 	  
 	  
 	  SQL = " select 1 from FactsEdit_"+access+"  where "+
@@ -553,7 +559,11 @@ public class SaveController implements DropdownInterface {
 			}
 	 }
 
-		 model.addAttribute("myReturnVal", others);
+		 DecimalFormat formatter = new DecimalFormat("#,###");
+		 String newTot1 = formatter.format(newTotal);
+		 String others1 = formatter.format(others);
+		 
+		 model.addAttribute("myReturnVal", others1+"|"+newTot1);
 		 return "success";
 	 }
 	 

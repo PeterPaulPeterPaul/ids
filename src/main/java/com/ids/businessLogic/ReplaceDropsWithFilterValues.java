@@ -178,7 +178,7 @@ public class ReplaceDropsWithFilterValues  implements DropdownInterface {
 				      model.addAttribute("drop14","drop14");
 						 model.addAttribute("drop24","drop24");
 						 
-					String query4=	 " select distinct b.id, substr(b.name,1,20) name from Company b " +
+					String query4=	 " select distinct b.id, substr(b.name,1,70) name from Company b " +
 		    		  		" where b.id != 0" +
 							companies +
 		    		  		" and b.access = '" + access + "' " +

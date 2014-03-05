@@ -52,12 +52,6 @@ public class SetupOtherFactColumn {
 			 String access = request.getParameter("access");
 			  logger.warning("got request") ;
 		    	String multiplier="";
-		    	if (access.equals("c")) {
-		    		multiplier="*10000";
-		    	}
-		    	if (access.equals("i")) {
-		    		multiplier="*20000";
-		    	}
 	      
 		    	logger.warning("above delete") ;
 	      String query1 = "DELETE from Facts_"+access+" where companyId < 0";

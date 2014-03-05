@@ -177,7 +177,7 @@ public class DeleteController implements DropdownInterface {
          			  companyId=request.getParameter("dimension1Val");
             	   }  else{
             	   
-            	  SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension1Val") +"' ";
+            	  SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension1Val") +"' and access='"+request.getParameter("accessCurr")+"' ";
             	  logger.warning("SQL1: "+SQL);
             	  resultSet = statement.executeQuery(SQL);
             	  while (resultSet.next()) {
@@ -208,9 +208,9 @@ public class DeleteController implements DropdownInterface {
             	   year =  request.getParameter("dimension2Val");
                } else {
             	   if (request.getParameter("dimension2Name").trim().equals("Country")){
-            		   SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension2Val").trim() +"' ";
+            		   SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension2Val").trim() +"' and access='"+request.getParameter("accessCurr")+"' ";
             	   } else {
-             	      SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension2Val").trim() +"' ";
+             	      SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension2Val").trim() +"' and access='"+request.getParameter("accessCurr")+"' ";
             	   }
              	 logger.warning("SQL2: "+SQL);
              	logger.warning("value2: "+value);
@@ -244,9 +244,9 @@ public class DeleteController implements DropdownInterface {
             	   year =  request.getParameter("dimension3Val");
                } else {
             	   if (value.equals("Country")) {
-            	       SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension3Val").trim() +"' ";
+            	       SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension3Val").trim() +"' and access='"+request.getParameter("accessCurr")+"' ";
             	   }else{
-            		   SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension3Val").trim() +"' "; 
+            		   SQL = " select id from "+value+ " where name = '" +request.getParameter("dimension3Val").trim() +"' and access='"+request.getParameter("accessCurr")+"' "; 
             	   }
             	   logger.warning("SQL3: "+SQL);
             	   logger.warning("value3: "+value);

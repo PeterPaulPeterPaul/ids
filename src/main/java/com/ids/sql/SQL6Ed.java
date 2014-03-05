@@ -17,16 +17,20 @@ public class SQL6Ed {
 		}
 		
 		
-	      query = " select a.year, a.quantity,   CASE WHEN substr(b.name,1,20) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
-	       " ELSE substr(b.name,1,20) END  as company, "+product+" as product, "+country+" as country " +
+	      query = " select a.year, a.quantity,   CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+	       " ELSE substr(b.name,1,70) END  as company, "+product+" as product, "+country+" as country " +
 	      		" from FactsEdit_"+access+" a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  " and a.year = " + years+
+	    		    " and a.flag != 'X' " +
 	    		  " and a.companyId = " +companyId+
 	    		  	    		  " and c.shortname != 'EUR' " +
 	    		//   " and b.name != 'ALL COMPANIES' " +
-	    		   " and a.access = '" + access + "' " +
+	    		  " and a.access = '" + access + "' " +
+	    		  " and b.access = '" + access + "' " +
+	    		  " and c.access = '" + access + "' " +
+	    		  " and d.access = '" + access + "' " +
 	    		   incExCountries +
 	    		   incExProducts +
 	    		   incExCompanies+
