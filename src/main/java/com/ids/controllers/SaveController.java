@@ -109,12 +109,6 @@ public class SaveController implements DropdownInterface {
 		   String allCompanies="11";
 		    String access = request.getParameter("access");
 		    logger.warning("access: "+access);
-	    	if (access.equals("c")) {
-	    		allCompanies="11"+multiplier;
-	    	}
-	    	if (access.equals("i")) {
-	    		allCompanies="200600000";
-	    	}
 
 	      ResultSet resultSet = null;
 	      HttpSession session = request.getSession(true);
