@@ -120,6 +120,7 @@ public class SaveController implements DropdownInterface {
 			 return "success";
 	   		 }
 	      
+	 		 
 	 		 if (request.getParameter("exit")!= null ){
 	 			 if (session.getAttribute("myUser") != null) {
 	 			    session.setAttribute("myUser",null);
