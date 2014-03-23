@@ -125,6 +125,7 @@ public class EditorController implements DropdownInterface {
 	      User user = (User) session.getAttribute("myUser");
 	 		 if (user==null ) {
 	   		      model.addAttribute("errortext","You must logon before you can access IDS");
+	   		      logger.warning("JOHN 1");
 	   		   	  return "login";
 	   		 }
 	      
@@ -132,6 +133,7 @@ public class EditorController implements DropdownInterface {
 	 			 if (session.getAttribute("myUser") != null) {
 	 			    session.setAttribute("myUser",null);
 	 			 }
+	 			logger.warning("JOHN 2");
 	 			return "login"; 
 	 		 }
 	 		String      query = " select 'found' as found from ids_users where userId = '"+user.getUserName()
@@ -150,6 +152,7 @@ public class EditorController implements DropdownInterface {
 			   if (!found) {
 		   		      model.addAttribute("errortext","Invalid user credentials");
 		   		      con.close();
+		   		   logger.warning("JOHN 3");
 		   		   	  return "login";
 			   }
 			   
@@ -181,7 +184,12 @@ public class EditorController implements DropdownInterface {
 	            
 	        	access=user.getCurrentLocation();
             	
-            	
+            	String hideIt="";
+            	String hideIt2="";
+            	String hideCountry="";
+            	String checked1="";
+            	String checked2="";
+	        	
             	String accessoptions = "";
             	String selected = "";
             	String textPrefix = "";
@@ -192,6 +200,11 @@ public class EditorController implements DropdownInterface {
             			selected = "selected";
 	            		filePrefix = "ids";
 	            		textPrefix = "IDS";
+	            		 hideIt="display:block;";
+	            		 hideIt2="display:none;";
+	            		 hideCountry="Country<br>";
+	            		 checked1="checked";
+	            		 checked2="";
             		} else {
             			selected = "";
             		}
@@ -203,6 +216,11 @@ public class EditorController implements DropdownInterface {
             			selected = "selected";
 	            		   filePrefix = "cds";
 	            		   textPrefix = "CDS";
+	            		   hideIt="display:none;";
+	            		   hideIt2="display:block;";
+	            		   hideCountry="";
+		            		 checked2="checked";
+		            		 checked1="";
             		} else {
             			selected = "";
             		}
@@ -213,6 +231,12 @@ public class EditorController implements DropdownInterface {
             			selected = "selected";
 	            		  filePrefix = "inds";
 	            		  textPrefix = "INDS";
+	            		  hideIt="display:none;";
+	            		  hideIt2="display:block;";
+	            		  hideCountry="";		
+	            		  checked2="checked";
+		            		 checked1="";
+	            		  
             		} else {
             			selected = "";
             		}
@@ -221,6 +245,13 @@ public class EditorController implements DropdownInterface {
             	  model.addAttribute("accessoptions",accessoptions);
             	  model.addAttribute("filePrefix",filePrefix);
             	  model.addAttribute("textPrefix",textPrefix);
+            	  model.addAttribute("hideIt",hideIt);
+            	  model.addAttribute("hideIt2",hideIt2);
+            	  model.addAttribute("hideCountry",hideCountry);
+            	  model.addAttribute("hideCountry",hideCountry);
+            	  model.addAttribute("checked1",checked1);
+            	  model.addAttribute("checked2",checked2);
+
             	
             
 		 if (request.getParameter("list") == null || !request.getParameter("list").equals("1")){
@@ -236,6 +267,7 @@ public class EditorController implements DropdownInterface {
     		    	 }else {
     		    	    model.addAttribute("openOrClose","close");
     		    	 }
+    		    	 logger.warning("JOHN 4");
 	    		  return "idsEditmain";
 		    		
 		      }
@@ -261,7 +293,8 @@ public class EditorController implements DropdownInterface {
 
 		    	  StoreRequestParameters srp = new   StoreRequestParameters(request,myYear,longStringCompanies,true);
 		    	  
-		    	
+
+		    	  
 		    	  if (srp.getJustClicked().equals("heading1")) {
 		    		  
 		    		  if (srp.getHeading1()==srp.getHeading2()){		    			  
@@ -285,6 +318,21 @@ public class EditorController implements DropdownInterface {
 		    			srp.setDropdown1(srp.getDropdown2());
 		    			srp.setDropdown2(tempFlipOver);
 		    		  }
+		    	  }
+		    	  if (!access.equals("w")) {
+		    	   	  if (srp.getHeading1()==2 && srp.getHeading2()==2) {
+		    		     srp.setHeading2(1);
+		    	      }
+		    	   	if (srp.getHeading1()>2) {
+		    	   		srp.setHeading2(1);
+		    	   	}
+		    	   	  if (srp.getHeading2()>2) {
+		    	   		  if (srp.getHeading1()!=1) {
+		    	   		      srp.setHeading2(1);
+		    	   		  }else {
+		    	   			srp.setHeading2(2); 
+		    	   		  }
+		    	   	  }
 		    	  }
 
 		    	  model.addAttribute("myDropValue1",srp.getDropdown1());

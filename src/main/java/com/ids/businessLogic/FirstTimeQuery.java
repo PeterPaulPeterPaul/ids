@@ -93,6 +93,24 @@ public class FirstTimeQuery {
     			  " order by  b.name , a.year asc ";
     			  
     	  }else {
+    		  
+    		  query2  = " select a.year, a.quantity,  substr(b.name,1,70)  as name, d.name as product, c.country "  +
+    		  		" from Facts_"+access+" a, Company b, Country c, Product d " +
+    		  		" where a.companyid=b.id  " +
+    		  		" and a.sales_production=1 " +
+    		  		" and a.productId = 1 " +
+    		  		" and b.name != 'ALL COMPANIES'  " +
+    		  		" and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
+    		  		" and d.id = a.productId " +
+    		  		" and a.access = '" + access + "' " + 
+    		  		" and b.access = '" + access + "' " + 
+    		  		" and c.access = '" + access + "' " + 
+    		  		" and d.access = '" + access + "' " +  
+    		  		" and a.countryId = c.id" +
+    		  		" order by b.name, a.year asc";
+
+    			/*	  
+    				  
 	       query2 = " select a.year, a.quantity, substr(b.name,1,70) as name from Facts_"+access+" a, Company b, Country c " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.countryid=c.id " + 
@@ -103,7 +121,7 @@ public class FirstTimeQuery {
 	    		  " and a.access = '" + access + "' " +
 	    		  " and b.name!='ALL COMPANIES' " +
 	    		  "  and b.access= '" + access + "' " +
-	    		  " order by b.name , a.year asc";
+	    		  " order by b.name , a.year asc";*/
     	  }
     	  
     	  logger.warning(query2);

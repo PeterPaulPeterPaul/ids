@@ -97,7 +97,7 @@ body.wait, body.wait *{
 
 <div style="margin-left:1px;float:left"> <!-- Header1 dropdown -->
 
-<div id="drop11" class="showornot1 viewable1" style="display:block;">  
+<div id="drop11" class="showornot1 ${hideViewable1a}" style="${hideIt}">
 <select class="dropdown1" id="drop11s" style="width:180px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1a}">
   <option value="${drop1.id}">${drop1.name}&nbsp;</option>
@@ -106,7 +106,7 @@ body.wait, body.wait *{
 </div>
 
 
-<div id="drop12"  class="showornot1" style="display:none">
+<div id="drop12"  class="showornot1 ${hideViewable1b}" style="${hideIt2}">
 <select class="dropdown1" id="drop12s" style="width:180px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1b}">
   <option value="${drop1.id}">${drop1.name}&nbsp;</option>
@@ -187,7 +187,7 @@ body.wait, body.wait *{
 </div>
 
 
-<div style="width:350px;float:left">
+<div style="${hideIt3}width:350px;float:left">
 
 <fieldset class="idsdefault" style="background-color:#FFFF00;margin-left: 10px;padding-bottom:3px;padding-top:1px">
 <legend style="font-size:medium;"  >Header 2</legend>
@@ -207,7 +207,7 @@ body.wait, body.wait *{
 </select>
 </div>
 
-<div id="drop22"  class="showornot2 viewable2" style="display:block;width:220px">
+<div id="drop22"  class="showornot2 viewable2" style="${hideIt}  width:220px">
 <select class="dropdown2" id="drop22s" style="width:200px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1b}">
   <option value="${drop1.id}">${drop1.name}</option>
@@ -413,8 +413,8 @@ To <select id="todate" name="todate" >
 <!-- <input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="summary" id="summary" value="Summary"/>
 <input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="grpsum" id="grpsum" value="Group Sum"/> -->
  <!-- <br> -->
-<input class="myrad2" type="radio" name="horiz" id="a1"  value="1" checked >Country<br>
-<input class="myrad2" type="radio" name="horiz" id="a2"  value="2"  >Product<br>
+<input style="${hideIt3}" class="myrad2" type="radio" name="horiz" id="a1"  value="1" ${checked1} >${hideCountry} 
+<input class="myrad2" type="radio" name="horiz" id="a2"  value="2"  ${checked2} >Product<br>
 <input class="myrad2" type="radio" name="horiz" id="a3"  value="3"  >Years<br>
 <input class="myrad2" type="radio" name="horiz" id="a4"  value="4"  ><label id="a44">Company</label>
 
@@ -423,9 +423,9 @@ To <select id="todate" name="todate" >
 
 
 </div>
-<div class="idsdefault"  style="float:left;width:90%;margin-right:5%;margin-top:15%;margin-bottom:10px">
-<fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 17px;">
-<legend style="font-size:large;" >Header 2</legend>
+<div class="idsdefault"  style="${hideIt}float:left;width:90%;margin-right:5%;margin-top:15%;margin-bottom:10px">
+<fieldset class="idsdefault"  style="${hideIt}background-color:#FFFF00;margin-left: 17px;">
+<legend style="${hideIt}font-size:large;" >Header 2</legend>
 <!-- <input type="button" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum"/> -->
 <!-- <input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum"/> -->
 <!-- <br> -->
@@ -764,8 +764,10 @@ To <select id="todate" name="todate" >
 	  
 	  
 	  $("#grpsum").on("click",function(){
+
 		  $('#grpsum').attr("disabled", true);
 		  if ( $(this).hasClass("nosum")){
+		
 			     summary=2;
 			     $("#a4").hide();
 				 $("#a44").hide();
@@ -776,6 +778,7 @@ To <select id="todate" name="todate" >
 					  summary=5;
 				  }
 			  } else {
+		
 				  $(this).addClass("nosum");
 			       summary=0;  
 				   if ( $("#grpsum2").hasClass("sum")){
@@ -791,7 +794,9 @@ To <select id="todate" name="todate" >
 		  $("#summary").removeClass("nosum");
 		  $("#summary").addClass("nosum");
 		  downloadExcel="no";
+	
 		  getGrid();
+	
 	  });
 	  
 
@@ -1152,6 +1157,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				       dataType: 'html',
 				       success: function(data) {  
 
+				
 				    	 $("#beans").fadeOut();
 				    	 
 
@@ -1166,22 +1172,23 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 						  $(".myrad2").prop('disabled', false);
 						  $(".myrad3").prop('disabled', false);
 
-				    	 
+			
 				    //	   $("#titleBar").fadeOut();
 				    	   
 								   $('#gbox_list47').remove();
 								   $("#beans").append("<table id='list47'></table><div id='plist47'></div>");
-;
-				    	   
+
 				    	   $("#tempStore").html(data);
 
+			
+				    	   
 				    	   var data2 = JSON.parse($("#tempStore #myJson").html());
 				    	   
 				    	   $("#printDataJson").val($("#tempStore #myJson").html());
 				    	   $("#dataJson").val($("#tempStore #myJson").html());
 				    	   
 				    	   $("#tempOldHeadings").text($("#tempStore #myOldHeadings").html() );
-
+				    	
 				    	   if ($("#changeFlag").val()=="yes") {
 				    		   $("#drop11").html($("#tempStore #drop11_IN").html());
 				    		   $("#drop21").html($("#tempStore #drop21_IN").html());
@@ -1197,7 +1204,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    		   
 				    	   }
 				    	 //  newDropdowns="no";
-				    	   
+				    	  
 	    			        $(".myrad2").prop('checked', false);
 		    				   $(".myrad3").prop('checked', false);
 		    				   
@@ -1215,7 +1222,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 		    				   }else {
 		    					   $(".nosum").hide();  
 		    				   }
-
+		    				
 					    	   if (summary==1) {
 					    		   $(".showornot1").fadeOut();
 					    		   $("#box1"+h1).fadeIn();
@@ -1248,7 +1255,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 					    		   $("#box3"+h1).fadeIn();
 					    		   $("#box3"+h1).css("display","block");
 					    	   }
-
+					    	
 					    	   //HAWTHORNE
 					    	   $("#titleBar").fadeOut();
 						    	 if (clickType=="myrad2" || clickType=="myrad3" ) {
@@ -1264,7 +1271,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 					    	   
 		    				  var value1 =  $("#tempStore #myDropValue1").html();
 		    				  var value2 =  $("#tempStore #myDropValue2").html();
-		    				  
+		    			
 		    			       $("#drop1"+h1+" option:selected").prop("selected", false);
 		    				   $("#drop1"+h1+" option[value="+value1+"]").prop("selected", true);
 
@@ -1276,26 +1283,8 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
 		    			 $("#drop2"+h2+" option:selected").prop("selected", false);
 		    				   $("#drop2"+h2+" option[value="+value2+"]").prop("selected", true);
-		    				   
-		 /*   				   
-
-if (clickType=="drop11s") {
-       $("#drop1"+h1+" option:selected").prop("selected", false);
-	   $("#drop1"+h1+" option[value="+value1+"]").prop("selected", true);
- }
-if (clickType=="drop21s") {
-    $("#drop2"+h2+" option:selected").prop("selected", false);
-	   $("#drop2"+h2+" option[value="+value2+"]").prop("selected", true);
-}
-if (clickType=="drop12s") {
-    $("#drop1"+h1+" option:selected").prop("selected", false);
-	   $("#drop1"+h1+" option[value="+value1+"]").prop("selected", true);
-}
-if (clickType=="drop22s") {
- $("#drop2"+h2+" option:selected").prop("selected", false);
-	   $("#drop2"+h2+" option[value="+value2+"]").prop("selected", true);
-}
-		*/    				    
+		    			
+   				    
 		    				    
 		    				   if (clickType=="myrad2"){
 	  		    				   $("#drop1"+h1+" option:selected").prop("selected", false);
@@ -1311,7 +1300,7 @@ if (clickType=="drop22s") {
   		    				   $(".showornot2").removeClass("viewable2");
   		    				   $("#drop2"+h2).addClass("viewable2");
 
-		    				   
+  		    			
 		    				   if (clickType=="myrad3"){
 	  		    				   $("#drop2"+h2+" option:selected").prop("selected", false);
 	  		    				   $("#drop2"+h2+" option[value="+value2+"]").prop("selected", true);
@@ -1328,9 +1317,7 @@ if (clickType=="drop22s") {
 		    				    if (summary != 3 && summary != 4 && summary != 5) {
 		  		    				   $("#drop2"+h2).fadeIn();
 		  		    				}
-		    				    
-		    				    
-				    	   
+		  
 				    	   var myTabData = data2.tabData;
 			var cols= myTabData[1].columns;
 		    var colModels=myTabData[0].columnModels;
@@ -1340,13 +1327,12 @@ if (clickType=="drop22s") {
 		mylocalTitle = mylocalTitle.replace(/"/g, '');
 		mylocalTitle = mylocalTitle.replace("[", "");
 		mylocalTitle = mylocalTitle.replace("]", "");
-
+		
 		var colModels2 = JSON.stringify(colModels);
 		  colModels2 = colModels2.replace(/\"formatter\":\"number\"/g,"\"formatter\":\"number\",\"formatoptions\":{\"decimalPlaces\":0,\"defaultValue\":\"0\"}");
 		 var  colModels3 = JSON.parse(colModels2);
 		  //formatter: 'number', formatoptions: { decimalPlaces: 2 }
-		  
-		
+
 
 				    			        jQuery("#list47").jqGrid({
 				    			        	data:mylocalData,
@@ -1415,7 +1401,7 @@ if (clickType=="drop22s") {
 				    							  }
 				    							  
 				    							});
-				    						  
+				    					  
 
 				    						//  $("#titleBar").fadeIn();
 	//  $("#titleBar").fadeIn();
@@ -1445,8 +1431,7 @@ if (clickType=="drop22s") {
 				    		        			  $(this).text("%");
 				    		        		  });
 				    		        		  
-				    		        		  
-				    		        		  
+				    		
 								    		   $(".dropdown1").selectBoxIt();
 								    		   $(".dropdown2").selectBoxIt();
 								    		   
@@ -1463,9 +1448,6 @@ if (clickType=="drop22s") {
 								    		   
 
 
-
-								    		   
-								    		   
 								    		   
 								    			  $(".dropdown2").on("change",function(){
 								    				  clickType=$(this).attr('id');
@@ -1476,7 +1458,7 @@ if (clickType=="drop22s") {
 								    		   newDropdowns=="no"
 								    		  $("#changeFlag").val("no");
 								    			  $("body").removeClass("wait");	
-
+								    	
 					   },
 					    error: function (xhr, ajaxOptions, thrownError) {
 					        alert(xhr.status);

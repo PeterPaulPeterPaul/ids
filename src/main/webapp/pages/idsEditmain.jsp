@@ -128,7 +128,7 @@ body.wait, body.wait *{
 
 
 
-<div id="drop11" class="showornot1 viewable1" style="display:block;">
+<div id="drop11" class="showornot1 viewable1" style="${hideIt}">
 <select class="dropdown1" id="drop11s" style="width:180px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1a}">
   <option value="${drop1.id}">${drop1.name}&nbsp;</option>
@@ -136,7 +136,7 @@ body.wait, body.wait *{
 </select>
 </div>
 
-<div id="drop12"  class="showornot1" style="display:none">
+<div id="drop12"  class="showornot1 viewable1" style="${hideIt2}">
 <select class="dropdown1" id="drop12s" style="width:180px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1b}">
   <option value="${drop1.id}">${drop1.name}&nbsp;</option>
@@ -219,7 +219,7 @@ body.wait, body.wait *{
 
 <div style="float:left;margin-left:15px"> <!-- Header2 dropdown -->
 
-<div id="drop21" class="showornot2" style="display:none;">
+<div id="drop21" class="showornot2 viewable2" style="display:none">
 <select class="dropdown2" id="drop21s" style="width:180px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1a}">
   <option value="${drop1.id}">${drop1.name}&nbsp;</option>
@@ -227,7 +227,7 @@ body.wait, body.wait *{
 </select>
 </div>
 
-<div id="drop22"  class="showornot2 viewable2" style="display:block">
+<div id="drop22"  class="showornot2 viewable2" style="${hideIt}">
 <select class="dropdown2" id="drop22s" style="width:180px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1b}">
   <option value="${drop1.id}">${drop1.name}&nbsp;</option>
@@ -440,14 +440,14 @@ To <select id="todate" name="todate" >
 <div class="idsdefault" style="float:right;width:100%;margin-right:5%;margin-top:5%;">
 <fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 10px;">
 <legend style="font-size:large;">Header 1</legend>
-<input class="myrad2" type="radio" name="horiz" id="a1"  value="1" checked >Country<br>
-<input class="myrad2" type="radio" name="horiz" id="a2"  value="2"  >Product<br>
+ <input style="${hideIt}" class="myrad2" type="radio" name="horiz" id="a1"  value="1" ${checked1} >${hideCountry} 
+<input class="myrad2" type="radio" name="horiz" id="a2"  value="2" ${checked2} >Product<br>
 <input class="myrad2" type="radio" name="horiz" id="a3"  value="3"  >Years<br>
 <input class="myrad2" type="radio" name="horiz" id="a4"  value="4"  ><label id="a44">Company</label>
 
 </fieldset>
 </div>
-<div class="idsdefault"  style="float:right;width:100%;margin-right:5%;margin-top:15%">
+<div class="idsdefault"  style="${hideIt}float:right;width:100%;margin-right:5%;margin-top:15%">
 <fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 10px;">
 <legend style="font-size:large;" >Header 2</legend>
 <input class="myrad3" type="radio" id="z1" name="verti" value="1"  >Country<br>

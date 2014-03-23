@@ -126,6 +126,7 @@ public class MainController implements DropdownInterface {
 	 		 if (user==null ) {
 	   		      model.addAttribute("errortext","You must logon before you can access IDS");
 	   		      con.close();
+	   		   logger.warning("JOHN 1");
 	   		   	  return "redirect:/login";
 	   		 }
 	      
@@ -134,6 +135,7 @@ public class MainController implements DropdownInterface {
 	 			    session.setAttribute("myUser",null);
 	 			 }
 	 			 con.close();
+	 			logger.warning("JOHN 2");
 	 			return "redirect:/login"; 
 	 		 }
 	 		String      query = " select 'found' as found from ids_users where userId = '"+user.getUserName()
@@ -152,6 +154,7 @@ public class MainController implements DropdownInterface {
 			   if (!found) {
 		   		      model.addAttribute("errortext","Invalid user credentials");
 		   		      con.close();
+		   		   logger.warning("JOHN 3");
 		   		   	  return "redirect:/login";
 			   }
 
@@ -162,7 +165,16 @@ public class MainController implements DropdownInterface {
 
 	            	access=user.getCurrentLocation();
 	            	
-
+	            	
+	            	String hideIt="";
+	            	String hideIt2="";
+	            	String hideIt3="";
+	            	String hideCountry="";
+	            	String hideViewable1a="";
+	            	String hideViewable1b="";
+	            	String checked1="";
+	            	String checked2="";
+	            	
 	            	String longStringCompanies="";
 
 		    		  if (request.getParameter("rowTotal")==null || request.getParameter("rowTotal").equals("on")) {
@@ -186,6 +198,15 @@ public class MainController implements DropdownInterface {
 	            			selected = "selected";
 		            		filePrefix = "ids";
 		            		textPrefix = "IDS";
+		            		 hideIt="display:block;";
+		            		 hideIt2="display:none;";
+		            		 hideIt3="";
+		            		 hideCountry="Country<br>";
+		            		 hideViewable1a="viewable1";
+		            		 hideViewable1b="";
+		            		 checked1="checked";
+		            		 checked2="";
+		            		 
 	            		} else {
 	            			selected = "";
 	            		}
@@ -197,6 +218,14 @@ public class MainController implements DropdownInterface {
 	            			selected = "selected";
 		            		   filePrefix = "cds";
 		            		   textPrefix = "CDS";
+		            		   hideIt="display:none;";
+		            		   hideIt3="display:none;";
+		            		   hideIt2="display:block;";
+		            		   hideCountry="";
+			            		 hideViewable1b="viewable1";
+			            		 hideViewable1a="";
+			            		 checked2="checked";
+			            		 checked1="";
 	            		} else {
 	            			selected = "";
 	            		}
@@ -207,6 +236,15 @@ public class MainController implements DropdownInterface {
 	            			selected = "selected";
 		            		  filePrefix = "inds";
 		            		  textPrefix = "INDS";
+		            		   hideIt="display:none;";
+		            		   hideIt2="display:block;";
+		            		   hideIt3="display:none;";
+		            		   hideCountry="";			
+		            		   hideViewable1b="viewable1";
+			            		 hideViewable1a="";
+			            		 checked2="checked";
+			            		 checked1="";
+		            		   
 	            		} else {
 	            			selected = "";
 	            		}
@@ -215,6 +253,15 @@ public class MainController implements DropdownInterface {
 	            	  model.addAttribute("accessoptions",accessoptions);
 	            	  model.addAttribute("filePrefix",filePrefix);
 	            	  model.addAttribute("textPrefix",textPrefix);
+	            	  
+	            	  model.addAttribute("hideIt",hideIt);
+	            	  model.addAttribute("hideIt2",hideIt2);
+	            	  model.addAttribute("hideIt3",hideIt3);
+	            	  model.addAttribute("hideCountry",hideCountry);
+	            	  model.addAttribute("hideViewable1a",hideViewable1a);
+	            	  model.addAttribute("hideViewable1b",hideViewable1b);
+	            	  model.addAttribute("checked1",checked1);
+	            	  model.addAttribute("checked2",checked2);
 	            	  
 	            	
 	            
@@ -225,11 +272,14 @@ public class MainController implements DropdownInterface {
 				 
 	    		  con.close(); 
 	    		    	 logger.warning("coming out of first time");
+	    		    	 logger.warning("JOHN 4");
 	    		  return "idsmain";
 
 		    		
 		      }
 		    	
+			 
+			 
 			 Enumeration keys = request.getParameterNames(); 
 			 while (keys.hasMoreElements() )  
       	   {  
@@ -248,7 +298,8 @@ public class MainController implements DropdownInterface {
 
 		    	  StoreRequestParameters srp = new   StoreRequestParameters(request,myYear,longStringCompanies,false);
 
-		    	
+		    	  
+		   
 		    	  if (srp.getJustClicked().equals("heading1")) {
 		    		  
 		    		  if (srp.getHeading1()==srp.getHeading2()){		    			  
@@ -274,6 +325,21 @@ public class MainController implements DropdownInterface {
 		    		  }
 		    	  }
 
+		    	  if (!access.equals("w")) {
+		    	   	  if (srp.getHeading1()==2 && srp.getHeading2()==2) {
+		    		     srp.setHeading2(1);
+		    	      }
+		    	   	if (srp.getHeading1()>2) {
+		    	   		srp.setHeading2(1);
+		    	   	}
+		    	   	  if (srp.getHeading2()>2) {
+		    	   		  if (srp.getHeading1()!=1) {
+		    	   		      srp.setHeading2(1);
+		    	   		  }else {
+		    	   			srp.setHeading2(2); 
+		    	   		  }
+		    	   	  }
+		    	  }
 
 		    	  ReplaceDropsWithFilterValues rd = new ReplaceDropsWithFilterValues(  con, srp, access,  model);
 		    	  model = rd.getModel();
@@ -461,8 +527,7 @@ public class MainController implements DropdownInterface {
 		    	 return "jsonData";
 		    		  
 		    	  }
-		    	  
-		    	  
+
 		    	  if ((srp.getHeading1()==PRODUCT && srp.getHeading2()==YEARS) && srp.getSummary()==0 ||
 		    			  (srp.getHeading2()==PRODUCT && srp.getHeading1()==YEARS && srp.getSummary()==0)) {
 		    		  try{
@@ -805,7 +870,12 @@ public class MainController implements DropdownInterface {
 		    	  
 		    	  
 		    	  con.close();   
-	return "idsmain";
+		    	  logger.warning("JOHN 5");
+		    	  logger.warning("heading1" +srp.getHeading1());
+		    	  logger.warning("heading2" +srp.getHeading2());
+
+	
+	return "jsonData";
 	
 		 } finally {
 				logger.warning("just before ending");
