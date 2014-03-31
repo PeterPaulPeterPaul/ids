@@ -219,7 +219,7 @@ body.wait, body.wait *{
 
 <div style="float:left;margin-left:15px"> <!-- Header2 dropdown -->
 
-<div id="drop21" class="showornot2 viewable2" style="display:none">
+<div id="drop21" class="showornot2 ${viewable2a}" style="display:none">
 <select class="dropdown2" id="drop21s" style="width:180px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1a}">
   <option value="${drop1.id}">${drop1.name}&nbsp;</option>
@@ -227,7 +227,7 @@ body.wait, body.wait *{
 </select>
 </div>
 
-<div id="drop22"  class="showornot2 viewable2" style="${hideIt}">
+<div id="drop22"  class="showornot2 ${viewable2b}" style="${hideIt}">
 <select class="dropdown2" id="drop22s" style="width:180px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1b}">
   <option value="${drop1.id}">${drop1.name}&nbsp;</option>
