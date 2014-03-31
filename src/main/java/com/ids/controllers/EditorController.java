@@ -125,7 +125,6 @@ public class EditorController implements DropdownInterface {
 	      User user = (User) session.getAttribute("myUser");
 	 		 if (user==null ) {
 	   		      model.addAttribute("errortext","You must logon before you can access IDS");
-	   		      logger.warning("JOHN 1");
 	   		   	  return "login";
 	   		 }
 	      
@@ -133,7 +132,6 @@ public class EditorController implements DropdownInterface {
 	 			 if (session.getAttribute("myUser") != null) {
 	 			    session.setAttribute("myUser",null);
 	 			 }
-	 			logger.warning("JOHN 2");
 	 			return "login"; 
 	 		 }
 	 		String      query = " select 'found' as found from ids_users where userId = '"+user.getUserName()
@@ -152,7 +150,6 @@ public class EditorController implements DropdownInterface {
 			   if (!found) {
 		   		      model.addAttribute("errortext","Invalid user credentials");
 		   		      con.close();
-		   		   logger.warning("JOHN 3");
 		   		   	  return "login";
 			   }
 			   
@@ -189,6 +186,8 @@ public class EditorController implements DropdownInterface {
             	String hideCountry="";
             	String checked1="";
             	String checked2="";
+            	String viewable2a="";
+            	String viewable2b="";
 	        	
             	String accessoptions = "";
             	String selected = "";
@@ -202,6 +201,8 @@ public class EditorController implements DropdownInterface {
 	            		textPrefix = "IDS";
 	            		 hideIt="display:block;";
 	            		 hideIt2="display:none;";
+	            		 viewable2b="viewable2";
+	            		 viewable2a="";
 	            		 hideCountry="Country<br>";
 	            		 checked1="checked";
 	            		 checked2="";
@@ -218,6 +219,8 @@ public class EditorController implements DropdownInterface {
 	            		   textPrefix = "CDS";
 	            		   hideIt="display:none;";
 	            		   hideIt2="display:block;";
+		            		 viewable2a="viewable2";
+		            		 viewable2b="";
 	            		   hideCountry="";
 		            		 checked2="checked";
 		            		 checked1="";
@@ -233,6 +236,8 @@ public class EditorController implements DropdownInterface {
 	            		  textPrefix = "INDS";
 	            		  hideIt="display:none;";
 	            		  hideIt2="display:block;";
+		            		 viewable2a="viewable2";
+		            		 viewable2b="";
 	            		  hideCountry="";		
 	            		  checked2="checked";
 		            		 checked1="";
@@ -251,6 +256,8 @@ public class EditorController implements DropdownInterface {
             	  model.addAttribute("hideCountry",hideCountry);
             	  model.addAttribute("checked1",checked1);
             	  model.addAttribute("checked2",checked2);
+            	  model.addAttribute("viewable2a",viewable2a);
+            	  model.addAttribute("viewable2b",viewable2b);
 
             	
             
