@@ -84,7 +84,22 @@ public class FirstTimeEdQuery {
 
 
     	  
-	      String query2 = " select a.year, a.quantity,  CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' " +
+
+    	  String query2 = "   select a.year, a.quantity, "+
+    	"  CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+    			  "   ELSE substr(b.name,1,30) END as company, d.name as product, c.country   from FactsEdit_w a," +
+    	          " Company b, Country c ,Product d " +
+    			  "  where a.companyid=b.id  and b.access = 'w'  and a.countryid=c.id  and a.flag != 'X'  " +
+    			  "  and a.countryId = 7" +
+    			  " and d.id = a.productId" +
+    			  "  and d.access = 'w' " +
+    			  " and c.access =  'w'  and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
+    			  " and a.sales_production= 1 " +
+    			  "  and a.productid=1 and a.access = 'w'  order by  CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' " +
+    			  "  then  ' ALL COMPANIES'  ELSE substr(b.name,1,30) END , a.year asc" ;
+    	 
+    	  
+	 /*     String query2 = " select a.year, a.quantity,  CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' " +
 	       " ELSE substr(b.name,1,30) END as name  from FactsEdit_"+access+" a, Company b, Country c " +
 	    		  " where a.companyid=b.id " +
 	    		  " and b.access = '" + access + "' " +
@@ -97,7 +112,7 @@ public class FirstTimeEdQuery {
 	    		  " and a.access = '" + access + "' " +
 	    		  " order by  CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
 	       " ELSE substr(b.name,1,30) END , a.year asc";
-
+*/
 	      logger.warning(query2);
 	      
     	  resultSet = statement.executeQuery(query2);
@@ -126,12 +141,12 @@ public class FirstTimeEdQuery {
     			otherQuantity += Integer.parseInt(resultSet.getString("quantity"));
     			otherLine2.put(resultSet.getString("year"), otherQuantity);
     			
-    		if (!currentCompany.equals(resultSet.getString("name")))  {
+    		if (!currentCompany.equals(resultSet.getString("company")))  {
     			if (!currentCompany.equals("")){
     				array7.put(obj2a);
     			}
     			obj2a = new JSONObject();
-    			currentCompany=resultSet.getString("name");
+    			currentCompany=resultSet.getString("company");
     			obj2a.put("company",currentCompany);
     			obj2a.put(resultSet.getString("year"),resultSet.getString("quantity"));
     		} else {
