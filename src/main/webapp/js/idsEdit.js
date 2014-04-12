@@ -77,12 +77,6 @@
 
           $(document).ready(function(){
         	  
-              
-
-        	  
-        	  
-        	  $("#accessCurrx").val( $("#accessType").val()   );
-        	  $("#accessCurrx2").val( $("#accessType").val()   );
         	  
         	  $("body").removeClass("js");
         	  
@@ -113,19 +107,6 @@
         	  $("#dialogAdd").dialog("close");
         	  $("#dialogDel").dialog("close");
         	  $("#dialogAddCompany").dialog("close");
-        	  
-        	  $("#twosub").on("click",function(){
-        		  $("body").toggleClass("wait");
-        		 // $('#twosub').attr("disabled", true);
-        		  return true;
-        	  });
-        	  
-        	  $("#twoothsub").on("click",function(){
-        		  $("body").toggleClass("wait");
-        		  $('#twoothsub').attr("disabled", true);
-        		  $('#saving1').submit();
-        		  return false;
-        	  });
         	  
 
         	  $("#addcosub").on("click",function(){ 
@@ -1055,7 +1036,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			        	cellsubmit : 'remote',
 				    			        	cellurl : saveURL,
 				    			        	afterSaveCell: function(){
-				    			        		$("#saveButId").css("display","block");
+				    	
 
 				    			        	},
 				    			        	beforeEditCell: function(iRow,iCol) { 
@@ -1360,7 +1341,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
     		return true;
     	},
     	afterSaveCell: function(){
-    		$("#saveButId").css("display","block");
+  
     	},
     	afterSubmitCell: function(serverresponse,  iRow, iCol){
     		var leny = $('td[aria-describedby=list47_'+iCol+']').length;

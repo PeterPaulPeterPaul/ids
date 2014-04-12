@@ -79,8 +79,18 @@ CDS: <input type="radio" class="radIT" value="c" name="radio1" id="rad112"/>
 INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"/>
 
  </div>
+ <form action="savetoprod" method="get"   > 
+     <input  class="k-button" type="submit" name="submitBtn" value="Save World" />
+</form>
+ <form action="savetochina" method="get"   > 
+     <input  class="k-button" type="submit" name="submitBtn" value="Save China" />
+</form>
+ <form action="savetoindia" method="get"   > 
+     <input  class="k-button" type="submit" name="submitBtn" value="Save India" />
+</form>
+ 
 <div>
-
+<div>${done}</div>
 
 <table style="margin-left:120px;margin-top:10px;">
 

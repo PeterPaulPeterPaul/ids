@@ -46,7 +46,7 @@
    <property name="validationQuery" value="SELECT 1"/> 
 </bean>
 
- 
+ <!--
 <bean id="DataSource"
   class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -54,8 +54,9 @@
         <property name="username" value="root" />
         <property name="password" value="smiggles123" />
   </bean>
- 
-      <!--
+
+  -->
+    
 <bean id="DataSource"
   class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -63,9 +64,8 @@
         <property name="username" value="dev1" />
         <property name="password" value="Wednesday" />
   </bean>
-  -->
   
-   
+    
      
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

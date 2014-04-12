@@ -37,6 +37,11 @@
 		<url-pattern>/addrow</url-pattern>
 	</servlet-mapping>
 	
+	<servlet-mapping>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<url-pattern>/addrow</url-pattern>
+	</servlet-mapping>
+	
  	<servlet-mapping>
 		<servlet-name>mvc-dispatcher</servlet-name>
 		<url-pattern>/addcompany</url-pattern>
@@ -75,6 +80,23 @@
 		<servlet-mapping>
 		<servlet-name>mvc-dispatcher</servlet-name>
 		<url-pattern>/saverow</url-pattern>
+	</servlet-mapping>
+
+
+		<servlet-mapping>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<url-pattern>/savetoprod</url-pattern>
+	</servlet-mapping>
+	
+			<servlet-mapping>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<url-pattern>/savetochina</url-pattern>
+	</servlet-mapping>
+	
+	
+			<servlet-mapping>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<url-pattern>/savetoindia</url-pattern>
 	</servlet-mapping>
 	
 		<servlet-mapping>

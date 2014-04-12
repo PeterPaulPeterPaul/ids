@@ -308,17 +308,6 @@ body.wait, body.wait *{
 </div>
 
 
-<div id="saveButId" style="float:left;margin-left:20px;display:${saveBut}">
-<div  style="display:block">
-<form  id="saving" action="${ajaxPrefix}saverow" method="post" name="saveForm"   > 
- <input  type="hidden" name="save" value="" />
- <input type="hidden" name="access" id="accessCurrx" value="" >
- <input id="twosub" style="background-color:red" class="k-button" type="submit" name="submitBtn" value="Save to PROD" />
-
-</form>
-</div>
-</div>
-
 <div style="float:left;margin-left:20px">
 <div  style="display:block">
      <input id="addsub" class="k-button" type="submit" name="submitBtn" value="Add Row" />
@@ -333,18 +322,6 @@ body.wait, body.wait *{
 <div style="float:left;margin-left:5px">
 <div  style="display:block">
      <input id="addcosub" class="k-button" type="submit" name="submitBtn" value="Add Company" />
-</div>
-</div>
-
- 
-<div id="saveOtherButId" style="float:left;margin-left:5px;display:block">
-<div  style="display:block">
-<form  id="saving1" action="${ajaxPrefix}saverow?other=1" method="post" name="saveForm2"   > 
- <input  type="hidden" name="save" value="" />
- <input type="hidden" name="access" id="accessCurrx2" value="" >
- <input id="twoothsub"  class="k-button" type="submit" name="submitBtn" value="recalculate Others/Total" />
-
-</form>
 </div>
 </div>
 

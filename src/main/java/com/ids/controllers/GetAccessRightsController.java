@@ -65,14 +65,14 @@ public class GetAccessRightsController implements DropdownInterface {
 
 	private Connection con;
 
-   	private final static Logger logger = Logger.getLogger(GetAccessRightsController.class.getName()); 
+   	private final static Logger logger = Logger.getLogger(SaveToProductionController.class.getName()); 
        
     //   HashMap<Integer,Integer> totalLine = null;
        HashMap<String,Integer> totalLine2 = null;
    //    HashMap<Integer,Integer> otherLine = null;
 
 	 
-	 @RequestMapping( method = RequestMethod.GET)
+       @RequestMapping(  method = RequestMethod.GET)
 	public String getMethodOne(
             HttpServletResponse response,
 			HttpServletRequest request,

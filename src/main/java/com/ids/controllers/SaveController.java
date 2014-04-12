@@ -500,6 +500,10 @@ public class SaveController implements DropdownInterface {
 	  others =  totalVals2 -  totalVals1;  	  
 	  newTotal = totalVals2;
 	  
+	  if (totalVals1==0) {
+		  others=0;
+	  }
+	  
 	  
 	  SQL = " select 1 from FactsEdit_"+access+"  where "+
    		    " productId = "+productId + " and year = "+year+ " and access = '"+access+"' "+

@@ -493,6 +493,11 @@ return "setup";
 			   model.addAttribute("displaytype","none");
 			   model.addAttribute("displaytype2","none");
 			   model.addAttribute("fileType","facts");
+			   
+			   if (request.getParameter("done")!=null) {
+				   model.addAttribute("done","Saved to Production!");  
+				   
+			   }
  
 				 GetBeansFromContext gcfc = new GetBeansFromContext();
 				 con = gcfc.myConnection();
