@@ -87,7 +87,7 @@ public class FirstTimeEdQuery {
 
     	  String query2 = "   select a.year, a.quantity, "+
     	"  CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
-    			  "   ELSE substr(b.name,1,30) END as company, d.name as product, c.country   from FactsEdit_'" + access + "' a," +
+    			  "   ELSE substr(b.name,1,30) END as company, d.name as product, c.country   from FactsEdit_" + access + " a," +
     	          " Company b, Country c ,Product d " +
     			  "  where a.companyid=b.id  and b.access = '" + access + "'  and a.countryid=c.id  and a.flag != 'X'  " +
     			  "  and a.countryId = 7" +
