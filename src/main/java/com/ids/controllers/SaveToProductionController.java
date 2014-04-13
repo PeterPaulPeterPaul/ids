@@ -125,7 +125,7 @@ public class SaveToProductionController implements DropdownInterface {
 logger.warning("HELLO WORLD");
 
 		
-return "redirect:setup2?done=done";
+return "redirect:setup2?d=w";
 
 
 

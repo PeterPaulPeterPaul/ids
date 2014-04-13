@@ -494,8 +494,16 @@ return "setup";
 			   model.addAttribute("displaytype2","none");
 			   model.addAttribute("fileType","facts");
 			   
-			   if (request.getParameter("done")!=null) {
-				   model.addAttribute("done","Saved to Production!");  
+			   if (request.getParameter("d")!=null) {
+				   if (request.getParameter("d").equals("w")){
+				      model.addAttribute("done1","<span style='font-weight:bold;color:red;background:#CCFFCC' > world saved! </span>");  
+				   }
+				   if (request.getParameter("d").equals("c")){
+					      model.addAttribute("done2","<span style='font-weight:bold;color:red;background:#CCFFCC' > china saved! </span>");  
+					   }
+				   if (request.getParameter("d").equals("i")){
+					      model.addAttribute("done3","<span style='font-weight:bold;color:red;background:#CCFFCC' > India saved! </span>");  
+					   }
 				   
 			   }
  

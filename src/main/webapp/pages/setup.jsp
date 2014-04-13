@@ -80,17 +80,17 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"/>
 
  </div>
  <form action="savetoprod" method="get"   > 
-     <input  class="k-button" type="submit" name="submitBtn" value="Save World" />
+     <input  class="k-button" type="submit" name="submitBtn" value="Save World" /> ${done1}
 </form>
  <form action="savetochina" method="get"   > 
-     <input  class="k-button" type="submit" name="submitBtn" value="Save China" />
+     <input  class="k-button" type="submit" name="submitBtn" value="Save China" /> ${done2}
 </form>
  <form action="savetoindia" method="get"   > 
-     <input  class="k-button" type="submit" name="submitBtn" value="Save India" />
+     <input  class="k-button" type="submit" name="submitBtn" value="Save India" /> ${done3}
 </form>
  
 <div>
-<div>${done}</div>
+
 
 <table style="margin-left:120px;margin-top:10px;">
 

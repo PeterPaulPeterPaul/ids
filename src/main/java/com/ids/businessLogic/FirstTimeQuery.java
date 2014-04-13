@@ -83,15 +83,27 @@ public class FirstTimeQuery {
     	  String query2="";
 
     	  if (access.equals("w")) {
-    	   query2 = " select a.year, SUM(a.quantity) as quantity, substr(b.name,1,70)  as name " +
+    	/*   query2 = " select a.year, SUM(a.quantity) as quantity, substr(b.name,1,70)  as name " +
     			  " from Facts_w a, Company b, Country c, Product d  "+
     			  "  where a.companyid=b.id  and a.sales_production=1 AND a.countryId NOT IN (20,21,0) "+
-    			  "  and a.productId = 1 and a.year >=2008 and b.name != 'ALL COMPANIES'  "+
+    			  "  and a.productId = 1  and b.name != 'ALL COMPANIES'  "+
     			  " and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
     			  "  and d.id = a.productId  and a.access = 'w'  and a.countryId = c.id "+
-    			  "  group by  a.year, substr(b.name,1,70), d.name, 'EUROPE'  " +
+  		  		" and a.access = '" + access + "' " + 
+  		  		" and b.access = '" + access + "' " + 
+  		  		" and c.access = '" + access + "' " + 
+  		  		" and d.access = '" + access + "' " +  
     			  " order by  b.name , a.year asc ";
-    			  
+    			  */
+    	   
+    	   query2 =   "  select a.year, a.quantity,  substr(b.name,1,70)  as name, d.name as product, c.country " +
+    	   "  from Facts_w a, Company b, Country c, Product d  where a.companyid=b.id  " +
+    	   "  and a.sales_production=1 AND a.countryId = 7 and a.productId = 1 and b.name != 'ALL COMPANIES' " +
+    	   "  and a.year between 2009 and 2019  and d.id = a.productId  and a.access = 'w'  and b.access = 'w' " +
+    	   "  and c.access = 'w'  and d.access = 'w'  and a.countryId = c.id order by b.name, a.year asc" ;
+
+    	   
+    	   
     	  }else {
     		  
     		  query2  = " select a.year, a.quantity,  substr(b.name,1,70)  as name, d.name as product, c.country "  +
