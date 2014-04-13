@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -98,8 +99,8 @@ public class FirstTimeQuery {
     	   
     	   query2 =   "  select a.year, a.quantity,  substr(b.name,1,70)  as name, d.name as product, c.country " +
     	   "  from Facts_w a, Company b, Country c, Product d  where a.companyid=b.id  " +
-    	   "  and a.sales_production=1 AND a.countryId = 7 and a.productId = 1 and b.name != 'ALL COMPANIES' " +
-    	   "  and a.year between 2009 and 2019  and d.id = a.productId  and a.access = 'w'  and b.access = 'w' " +
+    	   "  and a.sales_production=1 AND a.countryId = 7 and a.productId = 1  " +
+    	   "  and a.year between "+(curYear - 5)+" and "+(curYear+5)+" and d.id = a.productId  and a.access = 'w'  and b.access = 'w' " +
     	   "  and c.access = 'w'  and d.access = 'w'  and a.countryId = c.id order by b.name, a.year asc" ;
 
     	   
@@ -111,7 +112,6 @@ public class FirstTimeQuery {
     		  		" where a.companyid=b.id  " +
     		  		" and a.sales_production=1 " +
     		  		" and a.productId = 1 " +
-    		  		" and b.name != 'ALL COMPANIES'  " +
     		  		" and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
     		  		" and d.id = a.productId " +
     		  		" and a.access = '" + access + "' " + 
@@ -145,21 +145,35 @@ public class FirstTimeQuery {
     	  totalLine2 =  new HashMap<String,Integer>();
     	  otherLine2 =  new HashMap<String,Integer>();
     	  
+    	  int year = Calendar.getInstance().get(Calendar.YEAR);
+    	  
     	  while (resultSet.next()) {
     		  
 
     	    		int totalQuantity=0;
-    	    		if (totalLine2.get(resultSet.getString("year"))!= null) {
+    	    		if (!resultSet.getString("name").equals("ALL COMPANIES") && totalLine2.get(resultSet.getString("year"))!= null) {
     	    			totalQuantity= totalLine2.get(resultSet.getString("year"));
+    	    		}else{
+    	    			if (Integer.parseInt(resultSet.getString("year")) > year && totalLine2.get(resultSet.getString("year"))!= null){
+    	    				totalQuantity= totalLine2.get(resultSet.getString("year"));
+    	    			}
     	    		}
-    	    		totalQuantity += Integer.parseInt(resultSet.getString("quantity"));
-    	    		totalLine2.put(resultSet.getString("year"), totalQuantity);
+    	    		if (!resultSet.getString("name").equals("ALL COMPANIES")){
+    	    		  totalQuantity += Integer.parseInt(resultSet.getString("quantity"));
+    	    		  totalLine2.put(resultSet.getString("year"), totalQuantity);
+    	    		}else{
+    	    			if (Integer.parseInt(resultSet.getString("year")) > year){
+    	    	    		totalQuantity += Integer.parseInt(resultSet.getString("quantity"));
+    	    	    		totalLine2.put(resultSet.getString("year"), totalQuantity);
+    	    			}
+    	    		}
 
 
     			int otherQuantity=0;
-    			if (otherLine2.get(resultSet.getString("year"))!= null) {
+    			if (!resultSet.getString("name").equals("ALL COMPANIES") && otherLine2.get(resultSet.getString("year"))!= null) {
     				otherQuantity= otherLine2.get(resultSet.getString("year"));
     			}
+    			if (!resultSet.getString("name").equals("ALL COMPANIES") ){
     			otherQuantity += Integer.parseInt(resultSet.getString("quantity"));
     			otherLine2.put(resultSet.getString("year"), otherQuantity);
     			
@@ -174,6 +188,8 @@ public class FirstTimeQuery {
     		} else {
     			obj2a.put(resultSet.getString("year"),resultSet.getString("quantity"));
     		}
+    		
+    			}
     	  }
 
     	  
