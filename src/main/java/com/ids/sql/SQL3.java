@@ -31,7 +31,7 @@ public class SQL3 {
 	    		  incExProducts+
 	    		  incExCompanies+
 	    		  dateParm+
-	    		   " and b.name != 'ALL COMPANIES' " +
+	    //		   " and b.name != 'ALL COMPANIES' " +
 	    		  " and a.year between "+fromYear+" and "+toYear+" " +
 	    		  " and d.id = a.productId " +
 	    		  " and a.access = '" + access + "' " +

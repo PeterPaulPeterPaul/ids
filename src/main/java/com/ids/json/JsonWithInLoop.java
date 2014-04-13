@@ -43,16 +43,21 @@ public class JsonWithInLoop {
 		titleTHREE = THREE;
 		titleFOUR = FOUR;
 		
+		System.out.println("ONE:" +ONE);
+		System.out.println("TWO:" +TWO);
+		System.out.println("THREE:" +THREE);
+		System.out.println("FOUR:" +FOUR);
+		
 		if (hasAll) {
-		//   if (ONE.equals("ALL COMPANIES"))  {
+		   if (ONE.equals("ALL COMPANIES"))  {
     		  int totalQuantity=0;
     		  if (totalLine2.get(TWO)!= null) {
     			 totalQuantity= totalLine2.get(TWO);
     		  }
     		  totalQuantity += Integer.parseInt(quantity);
     		  totalLine2.put(TWO, totalQuantity);
-			//  return;
-		//   }
+	          return;
+	   }
 
 	//	   int otherQuantity=0;
 	//	   if (otherLine2.get(TWO)!= null) {

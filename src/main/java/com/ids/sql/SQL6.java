@@ -23,7 +23,7 @@ public class SQL6 {
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  " and a.year = " + years+
 	    		  " and a.companyId = " +companyId+
-	    		   " and b.name != 'ALL COMPANIES' " +
+	    		 //  " and b.name != 'ALL COMPANIES' " +
 		    		  " and a.access = '" + access + "' " +
 		    		  " and b.access = '" + access + "' " +
 		    		  " and c.access = '" + access + "' " +

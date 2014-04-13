@@ -23,7 +23,7 @@ public class SQL5 {
 	    		  " and c.access = '" + access + "' " +
 	    		  " and d.access = '" + access + "' " +
 	              " and a.companyId = " +companyId+
-	               " and b.name != 'ALL COMPANIES' " +
+	          //     " and b.name != 'ALL COMPANIES' " +
 	               incExCountries+
 	               incExProducts+
 	               incExCompanies+

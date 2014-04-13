@@ -16,7 +16,7 @@ public class SQL1 {
 	    		  " and b.access = '" + access + "' " +
 	    		  " and c.access = '" + access + "' " +
 	    		  " and d.access = '" + access + "' " +
-	    		  " and b.name != 'ALL COMPANIES' " +
+	    	//	  " and b.name != 'ALL COMPANIES' " +
 	    		  incExCountries +
 	    		  incExProducts+
 	    		  incExCompanies+

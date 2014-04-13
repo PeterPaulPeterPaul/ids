@@ -30,7 +30,7 @@ public class SQL2 {
 	    		  incExProducts+
 	    		  incExCompanies+
 	    		  dateParm+
-	    		   " and b.name != 'ALL COMPANIES' " +
+	    		//   " and b.name != 'ALL COMPANIES' " +
 	    		  " and a.year between "+fromYear+" and "+toYear+" " +
 	    		  " and a.access = '" + access + "' " +
 	    		  " and b.access = '" + access + "' " +
