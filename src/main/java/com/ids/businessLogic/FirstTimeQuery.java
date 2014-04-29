@@ -168,6 +168,7 @@ public class FirstTimeQuery {
     	    			}
     	    		}
 
+    	    		System.out.println("XX >= just happened");
 
     			int otherQuantity=0;
     			if (!resultSet.getString("name").equals("ALL COMPANIES") && otherLine2.get(resultSet.getString("year"))!= null) {
