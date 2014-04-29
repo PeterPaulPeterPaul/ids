@@ -169,7 +169,8 @@ public class FirstTimeQuery {
     	    		}
 
     	    		System.out.println("XX >= just happened");
-
+    	    		logger.warning(">>>>>>> ERRRRR: ");
+    	    		
     			int otherQuantity=0;
     			if (!resultSet.getString("name").equals("ALL COMPANIES") && otherLine2.get(resultSet.getString("year"))!= null) {
     				otherQuantity= otherLine2.get(resultSet.getString("year"));
