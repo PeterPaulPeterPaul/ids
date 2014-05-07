@@ -188,6 +188,8 @@ public class EditorController implements DropdownInterface {
             	String checked2="";
             	String viewable2a="";
             	String viewable2b="";
+            	String hideViewable1a="";
+            	String hideViewable1b="";
 	        	
             	String accessoptions = "";
             	String selected = "";
@@ -205,6 +207,8 @@ public class EditorController implements DropdownInterface {
 	            		 viewable2a="";
 	            		 hideCountry="Country<br>";
 	            		 checked1="checked";
+	            		 hideViewable1a="viewable1";
+	            		 hideViewable1b="";
 	            		 checked2="";
             		} else {
             			selected = "";
@@ -221,6 +225,8 @@ public class EditorController implements DropdownInterface {
 	            		   hideIt2="display:block;";
 		            		 viewable2a="viewable2";
 		            		 viewable2b="";
+		            		 hideViewable1b="viewable1";
+		            		 hideViewable1a="";
 	            		   hideCountry="";
 		            		 checked2="checked";
 		            		 checked1="";
@@ -238,6 +244,8 @@ public class EditorController implements DropdownInterface {
 	            		  hideIt2="display:block;";
 		            		 viewable2a="viewable2";
 		            		 viewable2b="";
+		            		 hideViewable1b="viewable1";
+		            		 hideViewable1a="";
 	            		  hideCountry="";		
 	            		  checked2="checked";
 		            		 checked1="";
