@@ -23,7 +23,15 @@ public class SQL4Ed {
 			groupBy = " group by  a.year, b.name, "+product+" , 'EUROPE'  ";
 			incExCountries = "";
 		} else {
-			countryClause = " AND a.countryId = "+countryId;
+			if (access.equals("i")) {
+	               countryClause = " AND a.countryId = 100" ;
+	            }else {
+	               if (access.equals("c")) {
+		               countryClause = " AND a.countryId = 21";
+	              } else {
+		                countryClause = " AND a.countryId = "+countryId;
+	              }
+	           }
 			queryPart1 =  " select a.year, a.quantity,   CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
 	       " ELSE substr(b.name,1,70) END  as company, "+product+" as product, c.country ";
 			groupBy = " ";
