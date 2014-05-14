@@ -7,11 +7,24 @@ public class SQL3Ed {
 	public SQL3Ed(int salesOrProduction, int countryId, int productId, int fromYear, int toYear, String incExCountries,
 			String incExProducts, String incExCompanies, String dateParm, String access) {
 		
+		String countryClause="";
+			if (access.equals("i")) {
+               countryClause = " AND a.countryId = 100" ;
+            }else {
+               if (access.equals("c")) {
+	               countryClause = " AND a.countryId = 21";
+              } else {
+	                countryClause = " AND a.countryId = "+countryId;
+              }
+           }
+			
+			
+		
 	      query = " select a.year, a.quantity,  CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
 	       " ELSE substr(b.name,1,70) END  as company, d.name as product, c.country from FactsEdit_"+access+" a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +
-	    		  " and a.countryId = " + countryId+
+                   countryClause+
 	    		  " and a.productId = " +productId+
 	    		  incExCountries +
 	    		  incExProducts+
