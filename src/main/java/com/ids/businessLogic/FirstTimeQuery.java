@@ -154,7 +154,7 @@ public class FirstTimeQuery {
     	    		if (!resultSet.getString("name").equals("ALL COMPANIES") && totalLine2.get(resultSet.getString("year"))!= null) {
     	    			totalQuantity= totalLine2.get(resultSet.getString("year"));
     	    		}else{
-    	    			if (Integer.parseInt(resultSet.getString("year")) > year && totalLine2.get(resultSet.getString("year"))!= null){
+    	    			if (Integer.parseInt(resultSet.getString("year")) >= year && totalLine2.get(resultSet.getString("year"))!= null){
     	    				totalQuantity= totalLine2.get(resultSet.getString("year"));
     	    			}
     	    		}
@@ -162,7 +162,7 @@ public class FirstTimeQuery {
     	    		  totalQuantity += Integer.parseInt(resultSet.getString("quantity"));
     	    		  totalLine2.put(resultSet.getString("year"), totalQuantity);
     	    		}else{
-    	    			if (Integer.parseInt(resultSet.getString("year")) > year){
+    	    			if (Integer.parseInt(resultSet.getString("year")) >= year){
     	    	    		totalQuantity += Integer.parseInt(resultSet.getString("quantity"));
     	    	    		totalLine2.put(resultSet.getString("year"), totalQuantity);
     	    			}

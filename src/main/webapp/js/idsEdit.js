@@ -893,6 +893,14 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			       	              $("#clearfilter").fadeIn();
 			       		}
 			       		
+						  if ($("#accessTypeSelectBoxItText").text()=="CHINA") {
+							  $("#drop21").removeClass("viewable2");
+							  $("#drop21").fadeOut();
+						  }
+						  if ($("#accessTypeSelectBoxItText").text()=="INDIA") {
+							  $("#drop21").removeClass("viewable2");
+							  $("#drop21").fadeOut();
+						  }
 			       		
 			       		var saveURL = parm5AjaxPrefix()+'saverow?list=1&pors='+my_SorP+'&dropdown1='+mydropdown1+'&dropdown2='+mydropdown2
 						  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
@@ -947,7 +955,6 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 		    				   $("#a"+h1).prop('checked', true);
 		    				   $("#z"+h2).prop('checked', true);
 		    				   
-
 	
 		    				  var value1 =  $("#tempStore #myDropValue1").html();
 		    				  var value2 =  $("#tempStore #myDropValue2").html();
@@ -961,10 +968,27 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 	  		    				    }
 		    				    
 		    				    if (summary != 3 && summary != 4 && summary != 5) {
-		  		    				   $("#drop2"+h2).fadeIn();
+		    				    	  if (h2!="1") {
+		  		    				     $("#drop2"+h2).fadeIn();
+		    				    	  } else {
+		    				    		  if ($("#accessTypeSelectBoxItText").text()!="CHINA" &&  
+		    				    		     $("#accessTypeSelectBoxItText").text()!="INDIA")  {
+			       		                     $("#drop2"+h2).fadeIn();
+			       		                  }
+		    				    	  }
 		  		    				}
 		    				    
 
+	    						  if ($("#accessTypeSelectBoxItText").text()=="CHINA") {
+	    							  $("#drop21").removeClass("viewable2");
+	    							  $("#drop21").fadeOut();
+	    						  }
+	    						  if ($("#accessTypeSelectBoxItText").text()=="INDIA") {
+	    							  $("#drop21").removeClass("viewable2");
+	    							  $("#drop21").fadeOut();
+	    						  }
+	    						  
+		    				    
 		    				   if (clickType=="myrad2"){
 	  		    				   $("#drop1"+h1+" option:selected").prop("selected", false);
 	  		    				   $("#drop1"+h1+" option[value="+value1+"]").prop("selected", true);
@@ -1154,6 +1178,8 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:true,add:false,del:false});
 				    			        jQuery("#list47").jqGrid('gridResize');
 
+
+				    			        
 				    			 	   $('#gbox_list47').fadeIn();
 				    				   $('#list47').fadeIn();
 
@@ -1195,8 +1221,6 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    		            		  }
 				    						  
 				    						  $("#titleBar").fadeIn();
-				    						  
-				    						  
 
 				    						  
 

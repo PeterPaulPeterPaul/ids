@@ -264,6 +264,8 @@ public class EditorController implements DropdownInterface {
             	  model.addAttribute("hideCountry",hideCountry);
             	  model.addAttribute("checked1",checked1);
             	  model.addAttribute("checked2",checked2);
+            	  model.addAttribute("hideViewable1a",hideViewable1a);
+            	  model.addAttribute("hideViewable1b",hideViewable1b);
             	  model.addAttribute("viewable2a",viewable2a);
             	  model.addAttribute("viewable2b",viewable2b);
 
