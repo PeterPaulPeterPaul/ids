@@ -82,15 +82,23 @@ public class FirstTimeEdQuery {
     	  
     	  ColumnModel columnModel = new ColumnModel(yearArray.getJsonYearArray());
 
-
-    	  
+        String Country = "";
+    	  if (access.equals("w")) {
+    		  Country=" 7 ";
+    	  }
+    	  if (access.equals("c")) {
+    		  Country=" 21 ";  
+    	  }
+    	  if (access.equals("i")) {
+    		  Country=" 100 "; 
+    	  }
 
     	  String query2 = "   select a.year, a.quantity, "+
     	"  CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
     			  "   ELSE substr(b.name,1,30) END as company, d.name as product, c.country   from FactsEdit_" + access + " a," +
     	          " Company b, Country c ,Product d " +
     			  "  where a.companyid=b.id  and b.access = '" + access + "'  and a.countryid=c.id  and a.flag != 'X'  " +
-    			  "  and a.countryId = 7" +
+    			  "  and a.countryId = "+Country+" "+
     			  " and d.id = a.productId" +
     			  "  and d.access = '" + access + "' " +
     			  " and c.access =  '" + access + "'  and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
