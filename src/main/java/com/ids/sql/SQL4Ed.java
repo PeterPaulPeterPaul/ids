@@ -17,7 +17,7 @@ public class SQL4Ed {
         String queryPart1 =  "";
         String groupBy="";
 		if (countryId == -10) {
-			countryClause = " AND a.countryId NOT IN (20,21,-10,0) ";
+			countryClause = " AND a.countryId NOT IN (20,21,-10,0,100) ";
 			queryPart1 =  "select a.year, Sum(a.quantity) as quantity,  CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
 	       " ELSE substr(b.name,1,70) END  as company, "+product+" as product, 'EUROPE' as country ";
 			groupBy = " group by  a.year, b.name, "+product+" , 'EUROPE'  ";

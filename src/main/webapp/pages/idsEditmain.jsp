@@ -227,7 +227,7 @@ body.wait, body.wait *{
 </select>
 </div>
 
-<div id="drop22"  class="showornot2 viewable" style="${hideIt}">
+<div id="drop22"  class="showornot2 viewable2" style="${hideIt}">
 <select class="dropdown2" id="drop22s" style="width:180px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1b}">
   <option value="${drop1.id}">${drop1.name}&nbsp;</option>
