@@ -23,9 +23,17 @@ public class SQL1Summary implements DropdownInterface {
 			if (summary!=4) {
 			
 				if (dropdown2 == -10) {
-					 andClause = " AND a.countryId NOT IN (20,21,-10,0) ";
+					 andClause = " AND a.countryId NOT IN (20,21,-10,0,100) ";
 				} else {
-			         andClause = " and a.countryId = "+ dropdown2;
+					if (access.equals("i")) {
+						andClause = " AND a.countryId = 100" ;
+						}else {
+							if (access.equals("c")) {
+								andClause = " AND a.countryId = 21";
+							} else {
+								andClause = " AND a.countryId = "+dropdown2;
+							}
+						}
 				}
 			}
             if (heading1==PRODUCT) {
