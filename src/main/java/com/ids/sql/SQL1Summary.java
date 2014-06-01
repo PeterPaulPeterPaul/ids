@@ -1,5 +1,7 @@
 package com.ids.sql;
 
+import java.util.Calendar;
+
 import com.ids.businessLogic.DropdownInterface;
 
 public class SQL1Summary implements DropdownInterface {
@@ -17,6 +19,9 @@ public class SQL1Summary implements DropdownInterface {
 		String selectClause ="";
 		String groupAndOrderByClause = "";
 		 String ingoreALL = "";
+
+		  int  	 year = Calendar.getInstance().get(Calendar.YEAR);
+
 
 		switch(heading2){
 		case(COUNTRY): {
@@ -59,7 +64,7 @@ public class SQL1Summary implements DropdownInterface {
             	topHeadingLine=YEARS;
             	ONE="country";
             	TWO="year";
-            	ingoreALL = " and b.name != 'ALL COMPANIES' ";
+            //	ingoreALL = " and b.name != 'ALL COMPANIES' ";
             	selectClause = " c.country as country, a.year, ";
             	groupAndOrderByClause = " c.country, a.year ";
             }else{
@@ -129,10 +134,12 @@ public class SQL1Summary implements DropdownInterface {
 	    		  " and a.year between "+fromYear+" and "+toYear+" " +
 	    		  " and d.id = a.productId " +
 	    		  " and a.access = '" + access + "' " +
+	    		  " and ( (a.year < " +year+ " AND  b.name != 'ALL COMPANIES') OR ( " +
+	    		  "  a.year >= " +year+ " AND  b.name = 'ALL COMPANIES')) "+
 	    		  " and b.access = '" + access + "' " +
 	    		  " and c.access = '" + access + "' " +
 	    		  " and d.access = '" + access + "' " +
-	    		  " and b.name != 'ALL COMPANIES' " +
+	    		//  " and b.name != 'ALL COMPANIES' " +
 	    		  incExCountries +
 	    		  incExProducts+
 	    		  incExCompanies+

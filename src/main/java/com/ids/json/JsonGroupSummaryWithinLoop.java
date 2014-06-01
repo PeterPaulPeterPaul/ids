@@ -2,16 +2,22 @@ package com.ids.json;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.ids.businessLogic.FirstTimeEdQuery;
+
 public class JsonGroupSummaryWithinLoop {
     private  HashMap<String,Integer> totalLine2 = null;
     private HashMap<String,Integer> totalQuantity3 = null;
     
+	private final static Logger logger = Logger.getLogger(JsonGroupSummaryWithinLoop.class.getName());
+	
     private String titleTHREE="";
     private String titleFOUR="";
     private String currentCo11="";
@@ -20,6 +26,11 @@ public class JsonGroupSummaryWithinLoop {
     private String colHeading;
 	 
     private  int totalQuantity1=0;
+    private int year =0;
+    
+    public JsonGroupSummaryWithinLoop(){
+    	 year = Calendar.getInstance().get(Calendar.YEAR);
+    }
 
 	public void  loopProcess(String ONE, String TWO,  String quantity, 
 			HashMap<String,Integer> totalLine2In,
@@ -35,9 +46,8 @@ public class JsonGroupSummaryWithinLoop {
 		
 		titleTHREE = "";
 		titleFOUR = " Group Summary of 'Heading 2 Value' by "+colHeading;
-		
 		if (hasAll) {
-		   if (ONE.equals("ALL COMPANIES"))  {
+		   if (ONE.equals("ALL COMPANIES") || ONE.equals(" ALL COMPANIES"))  {
     		  totalQuantity1=0;
     		  if (totalLine2.get(TWO)!= null) {
     			 totalQuantity1= totalLine2.get(TWO);
@@ -52,26 +62,43 @@ public class JsonGroupSummaryWithinLoop {
 		   
 		} else {
 			
-
 			
 			   totalQuantity1=0;
 			   if (totalLine2.get(TWO)!= null) {
 				   totalQuantity1= totalLine2.get(TWO);
 			   }
-			   totalQuantity1 += Integer.parseInt(quantity);
-			   totalLine2.put(TWO, totalQuantity1);
+			   if (ONE.equals(" ALL COMPANIES")){
+				   try{
+				   if (Integer.parseInt(TWO)>= year) {
+				       totalQuantity1 += Integer.parseInt(quantity);
+				       totalLine2.put(TWO, totalQuantity1);
+				   }
+				   }catch(Exception e){
+				       totalQuantity1 += Integer.parseInt(quantity);
+				       totalLine2.put(TWO, totalQuantity1);  
+				   }
+			   }else {
+			     totalQuantity1 += Integer.parseInt(quantity);
+			     totalLine2.put(TWO, totalQuantity1);
+			   }
 		}
 		
 		
 		if (!currentCo11.equals(ONE))  {
+			if (ONE.equals(" ALL COMPANIES")){
+				return;
+			}
 			if (!currentCo11.equals("")){
 				array7.put(obj2a);
 			}
-			obj2a = new JSONObject();
-			currentCo11=ONE;
-			obj2a.put(colHeading,currentCo11);
+
+			   obj2a = new JSONObject();
+			   currentCo11=ONE;
+			   obj2a.put(colHeading,currentCo11);
+
 			obj2a.put(TWO,quantity);
 		} else {
+
 			obj2a.put(TWO,quantity);
 		}
 

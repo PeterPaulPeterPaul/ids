@@ -51,13 +51,16 @@ public class SQL1GrpSummary implements DropdownInterface {
 					ONE="company";
 					TWO="year";
 					topHeadingLine=YEARS;
-		        	selectClause = "b.name as company, a.year,  ";
+		        	selectClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+    			  "   ELSE substr(b.name,1,30) END as company,  a.year,  ";
 			switch(heading1){
 			  case(PRODUCT):{
 	            	TWO="year";
 	            	topHeadingLine=YEARS;
-	            	selectClause = " b.name as company, a.year ,  ";
-	            	groupAndOrderByClause = " b.name, a.year ";
+	            	selectClause = "  CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+    			  "   ELSE substr(b.name,1,30) END as company,  a.year ,  ";
+	            	groupAndOrderByClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+    			  "   ELSE substr(b.name,1,30) END, a.year ";
 
 	            	    if (summary ==3){
 							 andClause = " AND a.productId = " +dropdown2;
@@ -68,8 +71,10 @@ public class SQL1GrpSummary implements DropdownInterface {
 			  case(YEARS):{
 	            	TWO="product";
 	            	topHeadingLine=PRODUCT;
-	            	selectClause = " b.name as company, d.shortname as product,  ";
-	            	groupAndOrderByClause = " b.name, d.shortname ";
+	            	selectClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+    			  "   ELSE substr(b.name,1,30) END as company,  d.shortname as product,  ";
+	            	groupAndOrderByClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+	          			  "   ELSE substr(b.name,1,30) END, d.shortname ";
             	    if (summary ==3){
 						 andClause = " AND a.year = " +dropdown2;
 					} 
@@ -102,13 +107,16 @@ public class SQL1GrpSummary implements DropdownInterface {
 				TWO="year";
 				topHeadingLine=YEARS;
 	        	selectClause = "b.name as company, a.year,  ";
-	        	groupAndOrderByClause = "b.name,  a.year ";
+	        	groupAndOrderByClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+    			  "   ELSE substr(b.name,1,30) END,  a.year ";
 			switch(heading1){
 			  case(COUNTRY):{
 	            	TWO="year";
 	            	topHeadingLine=YEARS;
-	            	selectClause = " b.name as company, a.year,  ";
-	            	groupAndOrderByClause = " b.name, a.year ";
+	            	selectClause = "  CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+    			  "   ELSE substr(b.name,1,30) END as company,  a.year,  ";
+	            	groupAndOrderByClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+	          			  "   ELSE substr(b.name,1,30) END, a.year ";
             	    if (summary ==3){
             	    	
 						if (dropdown2 == -10) {
@@ -131,8 +139,10 @@ public class SQL1GrpSummary implements DropdownInterface {
 			  case(YEARS):{
 	            	TWO="country";
 	            	topHeadingLine=COUNTRY;
-	            	selectClause = " b.name as company, c.shortname as country,  ";
-	            	groupAndOrderByClause = " b.name, c.shortname ";
+	            	selectClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+    			  "   ELSE substr(b.name,1,30) END as company,  c.shortname as country,  ";
+	            	groupAndOrderByClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+	          			  "   ELSE substr(b.name,1,30) END, c.shortname ";
             	    if (summary ==3){
 						 andClause = " AND a.year = " +dropdown2;
 					} 
@@ -167,13 +177,16 @@ public class SQL1GrpSummary implements DropdownInterface {
 				TWO="product";
 				topHeadingLine=PRODUCT;
 	        	selectClause = "b.name as company, d.shortname as product,  ";
-	        	groupAndOrderByClause = " b.name, d.shortname  ";
+	        	groupAndOrderByClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+	      			  "   ELSE substr(b.name,1,30) END, d.shortname  ";
 			switch(heading1){
 			  case(COUNTRY):{
 	             	TWO="product";
 	             	topHeadingLine=PRODUCT;
-	             	selectClause = " b.name as company, d.shortname as product,  ";
-	             	groupAndOrderByClause = " b.name, d.shortname ";
+	             	selectClause = "  CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+    			  "   ELSE substr(b.name,1,30) END as company,  d.shortname as product,  ";
+	             	groupAndOrderByClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+	          			  "   ELSE substr(b.name,1,30) END, d.shortname ";
             	    if (summary ==3){
 						if (dropdown2 == -10) {
 							 andClause = " AND a.countryId NOT IN (20,21,-10,0,100) ";
@@ -194,8 +207,10 @@ public class SQL1GrpSummary implements DropdownInterface {
 			  case(PRODUCT):{
 	             	TWO="country";
 	             	topHeadingLine=COUNTRY;
-	             	  selectClause = " b.name as company, c.shortname as country,  ";
-	             	   groupAndOrderByClause = " b.name, c.shortname ";
+	             	  selectClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+    			  "   ELSE substr(b.name,1,30) END as company, c.shortname as country,  ";
+	             	   groupAndOrderByClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
+	             			  "   ELSE substr(b.name,1,30) END, c.shortname ";
             	    if (summary ==3){
 						 andClause = " AND a.productId = " +dropdown2;
 					} 
@@ -335,7 +350,7 @@ public class SQL1GrpSummary implements DropdownInterface {
 	    		  incExProducts+
 	    		  incExCompanies+
 	    		  dateParm+
-	    		  " and b.name != 'ALL COMPANIES' " +
+	    	//	  " and b.name != 'ALL COMPANIES' " +
 	    		  " and a.countryId = c.id" +
 	    		  " group by "+groupAndOrderByClause+
 	    		  " order by "+groupAndOrderByClause+" asc";
