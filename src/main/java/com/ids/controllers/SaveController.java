@@ -272,6 +272,14 @@ public class SaveController implements DropdownInterface {
 			   String PorS ="";
 			   String SQL = "";
 			   
+			   if (access.equals("c")) {
+				   countryId="21";
+			   }else {
+				   if (access.equals("i")){
+					   countryId="100";
+				   }
+			   }
+			   
 			   String value = request.getParameter("dimension1Name");
 			   value = WordUtils.capitalize(value); 
                if (value.equals("Year")) {
@@ -413,6 +421,14 @@ public class SaveController implements DropdownInterface {
                }
                
 
+			   if (access.equals("c")) {
+				   countryId="21";
+			   }else {
+				   if (access.equals("i")){
+					   countryId="100";
+				   }
+			   }
+               
                logger.warning("year: "+year);
                logger.warning("productId: "+productId);
                logger.warning("countryId: "+countryId);
@@ -472,7 +488,7 @@ public class SaveController implements DropdownInterface {
            	   
                SQL = " select  sum(quantity) q from FactsEdit_"+access+"  where "+
            		    " productId = "+productId + " and year = "+year+ " and access = '"+access+"' "+
-           		   " and companyId not in( "+allCompanies+",-1"+multiplier+") and countryId = "+countryId+ " and sales_production = "+PorS;
+           		   " and companyId not in( "+allCompanies+",-1) and countryId = "+countryId+ " and sales_production = "+PorS;
                logger.warning("SQL111: "+SQL);
     	  resultSet = statement.executeQuery(SQL);
     	  
