@@ -488,7 +488,7 @@ public class SaveController implements DropdownInterface {
            	   
                SQL = " select  sum(quantity) q from FactsEdit_"+access+"  where "+
            		    " productId = "+productId + " and year = "+year+ " and access = '"+access+"' "+
-           		   " and companyId not in( "+allCompanies+",-1"+multiplier+") and countryId = "+countryId+ " and sales_production = "+PorS;
+           		   " and companyId not in( "+allCompanies+",-1) and countryId = "+countryId+ " and sales_production = "+PorS;
                logger.warning("SQL111: "+SQL);
     	  resultSet = statement.executeQuery(SQL);
     	  
