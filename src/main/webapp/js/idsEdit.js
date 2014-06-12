@@ -444,10 +444,13 @@
 	  			       dataType: 'html',
 	  			       success: function(data) {  
 
+	  			    	 location.reload();
+	  			    	 /*
 	  			    	   var intVal = 0;
 	  			    	   var intVal2=0;
 	  			    	   var ff = dimension1Val.replace(/^\s+|\s+$/g, '');
-
+	  			    	 location.reload();
+	  			    	 
 	  					 $("#list47").children("tbody").children("tr").each( function( index ){
 							 $(this).children("td.titleFont").each(function (ind) {
 								 intVal = intVal +1;
@@ -457,7 +460,7 @@
 							 });
 						 });
 	  					$("#list47").children("tbody").children("tr:nth-child("+intVal2+")").css("display","none");
-
+*/
 	  			    	 
 	  			       },
 	  				    error: function (xhr, ajaxOptions, thrownError) {
@@ -467,9 +470,9 @@
 
 	  				  });
 
-		                 $( this ).dialog( "close" );
-		                 $(this).dialog(dialogOpts3).dialog("close"); //return false; 
-	      			    return false;
+		              //   $( this ).dialog( "close" );
+		              //   $(this).dialog(dialogOpts3).dialog("close"); //return false; 
+	      			  //  return false;
 	                	
 	    		
 	                }
