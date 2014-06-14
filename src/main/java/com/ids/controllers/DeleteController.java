@@ -275,6 +275,15 @@ public class DeleteController implements DropdownInterface {
             	   PorS = "2";
                }
                
+               
+			   if (request.getParameter("accessCurr").equals("c")) {
+				   countryId="21";
+			   }else {
+				   if (request.getParameter("accessCurr").equals("i")){
+					   countryId="100";
+				   }
+			   }
+			   
                logger.warning("dimension4Val: "+request.getParameter("dimension4Val"));
 
                logger.warning("year: "+year);
