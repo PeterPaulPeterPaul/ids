@@ -587,7 +587,7 @@ First Quantity:
       <div id="dialogDel" title="Delete row">
     <p id="pp333" >Delete row</p>
     
-        (Side grid column you wish to delete)
+        Select side grid column you wish to delete (After deletion the page with reload/refresh)
      <div id="drop211z" class="showornot2" style="display:none;">
 <select class="dropdown222" id="drop211sz" style="width:180px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1a}">

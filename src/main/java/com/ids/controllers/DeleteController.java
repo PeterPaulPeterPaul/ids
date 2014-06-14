@@ -42,6 +42,7 @@ import com.ids.businessLogic.DownloadExcel;
 import com.ids.businessLogic.DropdownInterface;
 import com.ids.businessLogic.FirstTimeQuery;
 import com.ids.businessLogic.StoreRequestParameters;
+import com.ids.businessLogic.UpdateOthersMissingDimension;
 import com.ids.context.GetBeansFromContext;
 import com.ids.json.ColumnModel;
 import com.ids.json.ColumnNameArray;
@@ -285,6 +286,47 @@ public class DeleteController implements DropdownInterface {
                    String newSQL="";
                 
                    if (productId==null || productId.equals("")){
+                	   
+                	   
+                	   
+            	  SQL = " select sum(quantity) quant, productId from  FactsEdit_"+request.getParameter("accessCurr")+" " +
+                   		" where year = "+year+
+                		   " and companyId = "+companyId+
+                		   " and countryId = "+countryId+
+                		   " and sales_production ="+PorS+
+                		   " and access = '"+request.getParameter("accessCurr")+"' group by productId";
+            	  
+
+              	  resultSet = statement.executeQuery(SQL);
+              	  int quant = 0;
+              	List<UpdateOthersMissingDimension> u = new ArrayList<UpdateOthersMissingDimension>();
+              	while  (resultSet.next()) 
+              	  {
+              			  quant = resultSet.getInt("quant");
+              			  if (quant!=0){
+              				UpdateOthersMissingDimension u1 = new UpdateOthersMissingDimension();
+              				u1.setMissingDimensionId(resultSet.getString("productId"));
+              				u1.setQuantity(quant);
+              				u.add(u1);
+              			  }
+              	  }
+
+              	  
+              	  for (UpdateOthersMissingDimension uo : u){
+              	  
+                  newSQL = "update  FactsEdit_"+request.getParameter("accessCurr")+" " +
+                        " set quantity = quantity+"+uo.getQuantity()+ " "+
+                		" where year = "+year+
+             		   " and companyId = -1 "+
+                		" and productId = "+uo.getMissingDimensionId()+" "+
+             		   " and countryId = "+countryId+
+             		   " and sales_production ="+PorS+
+             		   " and access = '"+request.getParameter("accessCurr")+"'";
+                  
+           	          logger.warning("updateSQL: "+newSQL);
+           	          PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
+           	          int retval = statement2.executeUpdate();
+              	  }
                      newSQL = "delete from  FactsEdit_"+request.getParameter("accessCurr")+" " +
                    		" where year = "+year+
                 		   " and companyId = "+companyId+
@@ -293,22 +335,54 @@ public class DeleteController implements DropdownInterface {
                 		   " and access = '"+request.getParameter("accessCurr")+"'";
                      
               	   logger.warning("deleteSQL: "+newSQL);
-              	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
-              	   int retval = statement2.executeUpdate();
+              	 PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
+              	int retval = statement2.executeUpdate();
               	   
-                   newSQL = "delete from  Facts_"+request.getParameter("accessCurr")+" " +
-                 		" where year = "+year+
-              		   " and companyId = "+companyId+
-              		   " and countryId = "+countryId+
-              		   " and sales_production ="+PorS+
-              		   " and access = '"+request.getParameter("accessCurr")+"'";
-                   
-            	   logger.warning("deleteSQL: "+newSQL);
-            	   statement2 = (PreparedStatement) con.prepareStatement(newSQL);
-            	   retval = statement2.executeUpdate();
               	   
                    }
                    if (year==null || year.equals("")) {
+                	   
+                	   
+                	   
+                 	  SQL = " select sum(quantity) quant, year  from  FactsEdit_"+request.getParameter("accessCurr")+" " +
+                         		" where productId = "+productId+
+                     		   " and companyId = "+companyId+
+                     		   " and countryId = "+countryId+
+                     		   " and sales_production ="+PorS+
+                     		   " and access = '"+request.getParameter("accessCurr")+"' group by year ";
+                  	  
+                 	 resultSet = statement.executeQuery(SQL);
+                  	  int quant = 0;
+                    	List<UpdateOthersMissingDimension> u = new ArrayList<UpdateOthersMissingDimension>();
+                    	while  (resultSet.next()) 
+                    	  {
+                    			  quant = resultSet.getInt("quant");
+                    			  if (quant!=0){
+                    				UpdateOthersMissingDimension u1 = new UpdateOthersMissingDimension();
+                    				u1.setMissingDimensionId(resultSet.getString("year"));
+                    				u1.setQuantity(quant);
+                    				u.add(u1);
+                    			  }
+                    	  }
+                    	  
+
+                    	  for (UpdateOthersMissingDimension uo : u){  
+                    	  
+                        newSQL = "update  FactsEdit_"+request.getParameter("accessCurr")+" " +
+                        	    " set quantity = quantity+"+uo.getQuantity()+ " "+
+                         		" where productId = "+productId+
+                        		   " and companyId = -1 "+
+                        		   " and countryId = "+countryId+
+                        		   " and year = "+uo.getMissingDimensionId()+" "+
+                        		   " and sales_production ="+PorS+
+                        		   " and access = '"+request.getParameter("accessCurr")+"'";
+                        
+                 	   logger.warning("updateSQL: "+newSQL);
+                 	  PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
+                 	   int retval = statement2.executeUpdate();
+                 	   
+                    	  }
+ 
                      newSQL = "delete from  FactsEdit_"+request.getParameter("accessCurr")+" " +
                    		" where productId = "+productId+
                 		   " and companyId = "+companyId+
@@ -317,25 +391,16 @@ public class DeleteController implements DropdownInterface {
                 		   " and access = '"+request.getParameter("accessCurr")+"'";
                      
               	   logger.warning("deleteSQL: "+newSQL);
-              	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
-              	   int retval = statement2.executeUpdate();
-              	   
-              	   
-                   newSQL = "delete from  Facts_"+request.getParameter("accessCurr")+" " +
-                 		" where productId = "+productId+
-              		   " and companyId = "+companyId+
-              		   " and countryId = "+countryId+
-              		   " and sales_production ="+PorS+
-              		   " and access = '"+request.getParameter("accessCurr")+"'";
-                   
-            	   logger.warning("deleteSQL: "+newSQL);
-            	    statement2 = (PreparedStatement) con.prepareStatement(newSQL);
-            	   retval = statement2.executeUpdate();
+              	 PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
+              	 int retval = statement2.executeUpdate();
+
             	   
             	   
               	   
                    }
                    if (companyId == null || companyId.equals("")) {
+                	   
+                	   
                      newSQL = "delete from  FactsEdit_"+request.getParameter("accessCurr")+" " +
                    		" where productId = "+productId+
                 		   " and year = "+year+
@@ -347,20 +412,53 @@ public class DeleteController implements DropdownInterface {
               	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
               	   int retval = statement2.executeUpdate();
               	   
-                   newSQL = "delete from  Facts_"+request.getParameter("accessCurr")+" " +
-                 		" where productId = "+productId+
-              		   " and year = "+year+
-              		   " and countryId = "+countryId+
-              		   " and sales_production ="+PorS+
-              		   " and access = '"+request.getParameter("accessCurr")+"'";
-                   
-            	   logger.warning("deleteSQL: "+newSQL);
-            	    statement2 = (PreparedStatement) con.prepareStatement(newSQL);
-            	    retval = statement2.executeUpdate();
-              	   
+
               	   
                    }
                    if (countryId==null || countryId.equals("")) {
+                	   
+                	   
+                  	  SQL = " select sum(quantity) quant, countryId from  FactsEdit_"+request.getParameter("accessCurr")+" " +
+                         		" where productId = "+productId+
+                     		   " and year = "+year+
+                     		   " and companyId = "+companyId+
+                     		   " and sales_production ="+PorS+
+                     		   " and access = '"+request.getParameter("accessCurr")+"' group by countryId ";
+                	  
+                  	 resultSet = statement.executeQuery(SQL);
+                 	  int quant = 0;
+                  	List<UpdateOthersMissingDimension> u = new ArrayList<UpdateOthersMissingDimension>();
+                  	while  (resultSet.next()) 
+                  	  {
+                  			  quant = resultSet.getInt("quant");
+                  			  if (quant!=0){
+                  				UpdateOthersMissingDimension u1 = new UpdateOthersMissingDimension();
+                  				u1.setMissingDimensionId(resultSet.getString("countryId"));
+                  				u1.setQuantity(quant);
+                  				u.add(u1);
+                  			  }
+                  	  }
+                  	  
+
+                  	  
+                	  for (UpdateOthersMissingDimension uo : u){  
+                		  
+                	 
+                      newSQL = "update  FactsEdit_"+request.getParameter("accessCurr")+" " +
+                    		  " set quantity = quantity+"+uo.getQuantity()+ " "+
+                       		" where productId = "+productId+
+                 		   " and year = "+year+
+                 		   " and CountryId = "+uo.getMissingDimensionId()+" "+
+                 		   " and companyId = -1 " +
+                 		   " and sales_production ="+PorS+
+                 		   " and access = '"+request.getParameter("accessCurr")+"'";
+                      
+               	   logger.warning("updateSQL: "+newSQL);
+               	  PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
+               	   int retval = statement2.executeUpdate();
+                	   
+                	  }
+                	   
                      newSQL = "delete  from FactsEdit_"+request.getParameter("accessCurr")+" " +
                    		" where productId = "+productId+
                 		   " and year = "+year+
@@ -369,26 +467,11 @@ public class DeleteController implements DropdownInterface {
                 		   " and access = '"+request.getParameter("accessCurr")+"'";
                      
               	   logger.warning("deleteSQL: "+newSQL);
-              	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
-              	   int retval = statement2.executeUpdate();
-              	   
-                   newSQL = "delete  from Facts_"+request.getParameter("accessCurr")+" " +
-                 		" where productId = "+productId+
-              		   " and year = "+year+
-              		   " and companyId = "+companyId+
-              		   " and sales_production ="+PorS+
-              		   " and access = '"+request.getParameter("accessCurr")+"'";
-                   
-            	   logger.warning("deleteSQL: "+newSQL);
-            	    statement2 = (PreparedStatement) con.prepareStatement(newSQL);
-            	    retval = statement2.executeUpdate();
-              	   
-              	   
+              	 PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
+              	int retval = statement2.executeUpdate();
+
                    }
 
-             //	   newSQL = "update editing set flag = '1' ";
-            // 	   PreparedStatement statement3 = (PreparedStatement) con.prepareStatement(newSQL);
-             //   	   statement3.executeUpdate();
 
                 con.commit();
                 con.close();
