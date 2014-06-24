@@ -20,6 +20,7 @@
         		    $("#dialog").dialog(dialogOpts2);
         		    $("#dialog44").dialog(dialogOpts2);
         		    $("#dialogAdd").dialog(dialogOpts2);
+        		    $("#dialogEdCo").dialog(dialogOpts2);
         		    
         		
         		    $("#dialogDel").dialog(dialogOpts2);
@@ -105,6 +106,7 @@
         	  
         	
         	  $("#dialogAdd").dialog("close");
+        	  $("#dialogEdCo").dialog("close");
         	  $("#dialogDel").dialog("close");
         	  $("#dialogAddCompany").dialog("close");
         	  
@@ -113,7 +115,9 @@
         		  $("#dialogAddCompany").dialog("open");
         	  });
         	  
-        	  $("#addsub").on("click",function(){ 
+        	  
+        	  
+        	  $(".again").on("click",function(){ 
         		 
             	  var selectedKey="";
             	  var selectedKey2="";
@@ -129,6 +133,7 @@
     			var dimension5Name = $("#myDimensionHidden").text();
     			
       			$("#drop211").css("display","none");
+      			$("#drop244a").css("display","none");
       			$("#drop222").css("display","none");
       			$("#drop233").css("display","none");
       			$("#drop244").css("display","none");
@@ -148,7 +153,10 @@
     			}
     			if (dimension1Name == "company") {
     				$("#drop244").css("display","block");
-    				selectedKey="drop244s";
+    				selectedKey="drop244s";        	
+    				$("#drop244a").css("display","block");
+          		    selectedKey="drop244sa";
+    				
     			}
     			
       			$("#drop2111").css("display","none");
@@ -218,6 +226,72 @@
                		 dimension5Val = $("#"+selectedKey2+" option:selected").val();
                	  });
     			
+            	  if ($(this).attr("id")=="upsub"){
+            		  
+    		  	var dialogOpts3a = {
+     	    			 modal: true,
+     		            width: 500,
+     		            height: 600,
+     		            buttons: [{
+     		                text: "Update",	
+     		                click : function() {	
+     		                	
+     		                	$("#accessCurr").val($("#accessType").val());
+     		                	
+     		                	$.ajax({
+     			  					  url: parm5AjaxPrefix()+'updateComp?'+
+     				                	'id='+$("#drop244sa").val()+
+     				                	'&newName='+$.trim($("#myedit").val())+
+     				                	'&accessCurr='+$("#accessCurr").val(),
+     			  			         type: 'GET',
+     			  			       contentType: 'application/html',
+     			  			       processData: false,
+     			  			       dataType: 'html',
+     			  			       success: function(data) {  
+     			  			    	   
+     			  			    	 alert("done! (when this msg is closed the page will" +
+ 					    	   		"  reload allowing you view the updated name on the grid)");
+ 					    	   location.reload();
+     		                	},
+    						    error: function (xhr, ajaxOptions, thrownError) {
+    						        alert(xhr.status);
+    						        alert(thrownError);
+    						      }
+
+    						     
+    						     
+    						  }); 	
+     				                	
+     		                	
+     		                }}, { 
+     		                	text: "Delete",	
+    		                 click : function() {	
+    		                	
+    		                 }}, {
+     			                text: "Cancel",
+     			                click: function() {
+     			                  $( this ).dialog( "close" );
+     			                    $(this).dialog(dialogOpts3a).dialog("close"); //return false; 
+     			                    return false;
+     			                } 
+     			                
+     			                }]
+     			       };
+     		    			
+     		    	
+
+     		    				$("#drop244sa").on("change",function(){
+     		    						$("#myedit").val( $("#drop244sa option:selected" ).text());
+     		    				});
+     		        		  $("#dialogEdCo").dialog(dialogOpts3a).dialog("open");
+ 
+
+     		    			
+ 
+		  
+	  	  
+            	  }else{
+    		  	  
     			var dialogOpts3 = {
     			 modal: true,
 	            width: 500,
@@ -324,9 +398,11 @@
 	                }]
 	       };
     			
-        		  $("#dialogAdd").dialog(dialogOpts3).dialog("open");
+    			  $("#dialogAdd").dialog(dialogOpts3).dialog("open");
+    			
+            	  }
         		  
-        		  
+ 
  
     			
         	  });
@@ -487,6 +563,8 @@
 	                
 	                }]
 	       };
+    			
+    			
     			
         		  $("#dialogDel").dialog(dialogOpts3).dialog("open");
         		  
