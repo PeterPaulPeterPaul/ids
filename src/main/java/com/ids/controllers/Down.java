@@ -12,9 +12,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+//import java.util.regex.Pattern;
+//import java.util.regex.Matcher;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFHeader;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
@@ -34,8 +37,11 @@ import org.slf4j.LoggerFactory;
 public class Down extends HttpServlet {
 	
 	private final static Logger logger = Logger.getLogger(Down.class.getName()); 
+   // Pattern ppcPattern = Pattern.compile("PPC");
+   
 	
-  public void doGet(HttpServletRequest request,
+  @SuppressWarnings("deprecation")
+public void doGet(HttpServletRequest request,
                     HttpServletResponse resp)
       throws ServletException, IOException {
       
@@ -55,8 +61,6 @@ public class Down extends HttpServlet {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	  
-	  
 	  
 	  
 	  resp.setContentType("application/octet-stream");
@@ -156,14 +160,25 @@ public class Down extends HttpServlet {
 				        hSSFFontH.setColor(HSSFColor.BLACK.index);  
 				        
 				        cellStyleH.setFont(hSSFFontH);
+				        
+
 					for (int i = 0; i < myArray.length();i++){
 						   HSSFCell cellA = row.createCell((short) i);
 						   
 
 					        cellA.setCellStyle(cellStyleH);
+					          
+					        String Str = new String(myArray.getString(i));
+					    	//Matcher m = ppcPattern.matcher(myArray.getString(i));
+					        //if (m.find()){
+					        if (Str.matches("PPC(.*)")){
+					            //System.out.println(matcher.group(0)); //prints /{item}/
+					    		//cellA.setCellValue(myArray.getString(i));
+					        	Str = "%";
+					        }
 					        
-			    		   cellA.setCellValue(myArray.getString(i));
-						columnHeaders.add(myArray.getString(i));
+			    	   cellA.setCellValue(Str);
+					   columnHeaders.add(myArray.getString(i));
 
 					}
 				}
@@ -198,13 +213,20 @@ public class Down extends HttpServlet {
 						   try{
 							   if (j!=1) {
 								//   if (!others) {
-							    //  cellA.setCellType(Cell.CELL_TYPE_NUMERIC);
-								   cellA.setCellType(Cell.CELL_TYPE_STRING);
-							      cellA.setCellValue(" "+nf.format(Integer.parseInt(myDataArray.getJSONObject(i).getString(s).trim().replaceAll(",",""))));
-							      HSSFCellStyle cellStyleH = workbook.createCellStyle();  
-							        cellStyleH = workbook.createCellStyle(); 
-							        cellStyleH.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
-							        cellA.setCellStyle(cellStyleH);
+							       cellA.setCellType(Cell.CELL_TYPE_NUMERIC);
+							       cellA.getCellStyle().setDataFormat(HSSFDataFormat.getBuiltinFormat("#,##0"));
+								//prev  cellA.setCellType(Cell.CELL_TYPE_STRING);
+							    //prev  cellA.setCellValue(" "+nf.format(Integer.parseInt(myDataArray.getJSONObject(i).getString(s).trim().replaceAll(",",""))));
+							     
+							    //Chris - set the numbers to Integers in the spreadsheet 
+							     String Str = new String(myDataArray.getJSONObject(i).getString(s).trim().replaceAll(",",""));							       
+							     cellA.setCellValue(new Double(Str));	
+							       							     
+								// HSSFCellStyle cellStyleH = workbook.createCellStyle();  
+							      //  cellStyleH = workbook.createCellStyle();
+							        //cellStyleH.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
+							      //  cellA.setCellStyle(cellStyleH);
+							       // cellStyleH.setDataFormat((short) 0);
 								 //  }
 							   }else {
 							//	   cellA.setCellType(Cell.CELL_TYPE_STRING);
@@ -243,13 +265,18 @@ public class Down extends HttpServlet {
 						   try{
 							   if (j!=1) {
 								//   if (!others) {
-							    //  cellA.setCellType(Cell.CELL_TYPE_NUMERIC);
-								   cellA.setCellType(Cell.CELL_TYPE_STRING);
-							      cellA.setCellValue(" "+nf.format(Integer.parseInt(myDataArray.getJSONObject(0).getString(s).trim().replaceAll(",",""))));
-							      HSSFCellStyle cellStyleH = workbook.createCellStyle();  
-							        cellStyleH = workbook.createCellStyle(); 
-							        cellStyleH.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
-							        cellA.setCellStyle(cellStyleH);
+							      cellA.setCellType(Cell.CELL_TYPE_NUMERIC);
+							      cellA.getCellStyle().setDataFormat(HSSFDataFormat.getBuiltinFormat("#,##0"));
+								//   cellA.setCellType(Cell.CELL_TYPE_STRING);
+							      						      
+							      //cellA.setCellValue(" "+nf.format(Integer.parseInt(myDataArray.getJSONObject(0).getString(s).trim().replaceAll(",",""))));
+								  String Str = new String(myDataArray.getJSONObject(0).getString(s).trim().replaceAll(",",""));							       
+								  cellA.setCellValue(new Double(Str));						  
+								     
+							     //   HSSFCellStyle cellStyleH = workbook.createCellStyle();  
+							     //   cellStyleH = workbook.createCellStyle(); 
+							        //cellStyleH.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
+							        //cellA.setCellStyle(cellStyleH);
 								 //  }
 							   }else {
 							//	   cellA.setCellType(Cell.CELL_TYPE_STRING);
@@ -261,8 +288,10 @@ public class Down extends HttpServlet {
 								//	   outer_others=true;
 									 //  j=j-1;
 								//	   break;
+								   //  cellA.setCellValue(myDataArray.getJSONObject(0).getString(s).trim().replaceAll(",",""));
+								   cellA.setCellValue(myDataArray.getJSONObject(0).getString(s).trim());
 								   }
-								   cellA.setCellValue(myDataArray.getJSONObject(0).getString(s).trim().replaceAll(",",""));
+
 							    
 
 						   }catch(Exception e){
@@ -287,16 +316,21 @@ public class Down extends HttpServlet {
 							   
 
 							   if (j!=1) {
-								   //   cellA.setCellType(Cell.CELL_TYPE_NUMERIC);
-								   cellA.setCellType(Cell.CELL_TYPE_STRING);
-								      cellA.setCellValue(" "+nf.format(Integer.parseInt(totals.getJSONObject(0).getString(s).trim().replaceAll(",",""))));
+								   cellA.setCellType(Cell.CELL_TYPE_NUMERIC);
+								   cellA.getCellStyle().setDataFormat(HSSFDataFormat.getBuiltinFormat("#,##0"));
+								 //  cellA.setCellType(Cell.CELL_TYPE_STRING);
+								     
+								   //cellA.setCellValue(" "+nf.format(Integer.parseInt(totals.getJSONObject(0).getString(s).trim().replaceAll(",",""))));
 								
+								     String Str = new String(totals.getJSONObject(0).getString(s).trim().replaceAll(",",""));							       
+								     cellA.setCellValue(new Double(Str));	
+								     
 									   HSSFCellStyle cellStyleH = workbook.createCellStyle();  
 								        cellStyleH = workbook.createCellStyle();  
 								        HSSFFont hSSFFontH = workbook.createFont();  
 								        hSSFFontH.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);  
 								        cellStyleH.setFont(hSSFFontH);
-								        cellStyleH.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
+								       // cellStyleH.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
 								        cellA.setCellStyle(cellStyleH);
 								        
 								        
