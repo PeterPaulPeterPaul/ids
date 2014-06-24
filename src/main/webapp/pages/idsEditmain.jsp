@@ -310,12 +310,18 @@ body.wait, body.wait *{
 
 <div style="float:left;margin-left:20px">
 <div  style="display:block">
-     <input id="addsub" class="k-button" type="submit" name="submitBtn" value="Add Row" />
+     <input id="addsub" class="k-button again" type="submit" name="submitBtn" value="Add Row" />
 </div>
 </div>
 <div style="float:left;margin-left:5px">
 <div  style="display:block">
      <input id="delsub" class="k-button" type="submit" name="submitBtn" value="Delete row" />
+</div>
+</div>
+
+<div style="float:left;margin-left:5px">
+<div  style="display:block">
+     <input id="upsub" class="k-button again" type="submit" name="submitBtn" value="Update Company" />
 </div>
 </div>
 
@@ -504,6 +510,23 @@ To <select id="todate" name="todate" >
      <input id="companyName" type="text" value="" />
     </div>
  
+      <div id="dialogEdCo" title="Edit/Delete Company">
+    <p id="pp333" >Select Company to Edit or Delete</p>
+     <div id="drop244a" class="showornot2" style="display:none;">
+<select class="dropdown222" id="drop244sa" style="width:180px;margin:10px">
+ <option value="" disabled selected>Select Company</option>
+ 
+ <c:forEach var="drop1" items="${dropdown1d}">
+  <option value="${drop1.id}">${drop1.name}&nbsp;</option>
+  </c:forEach>
+</select>
+<br>
+<input type="text" id="myedit" />
+</div>
+
+</div>
+
+
      <div id="dialogAdd" title="Add new row">
     <p id="pp33" >(You need to add the first quantity here before you can perform the normal row editing functions)</p>
     
