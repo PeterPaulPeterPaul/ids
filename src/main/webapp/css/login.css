@@ -63,7 +63,7 @@ div.Loginbox {
 
 .login #banner {
     text-align: center;
-    background-image:URL('/images/trucks.bmp');
+    background-image:URL('/ids/images/trucks.bmp');
     background-repeat:repeat-x; 
     background-position:left;
 }
@@ -103,7 +103,7 @@ div.Loginbox {
 }
 .login table th, .login table td {
     color: #000000;
-    font-size: 9pt;
+    font-size: 12pt;
     font-weight: lighter;
     padding: 5px;
     text-align: left;
@@ -145,7 +145,7 @@ div.Loginbox {
 .login input {
     border: 1px solid #999999;
     color: #003366;
-    font-size: 9pt;
+    font-size: 12pt;
     font-weight: normal;
     padding: 2px;
 }
