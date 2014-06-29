@@ -153,6 +153,72 @@ public class EditCompanyController implements DropdownInterface {
 
 }
 	
+	 
+	 
+	 
+	 @RequestMapping( value="/deleteComp"
+			 , method = RequestMethod.GET)
+	public String getMethodOnea(
+            HttpServletResponse response,
+			HttpServletRequest request,
+			ModelMap model) throws SQLException, JSONException, IOException {	   
+
+		 GetBeansFromContext gcfc = null;
+		 try{
+
+
+			  Enumeration keys = request.getParameterNames();  
+			   while (keys.hasMoreElements() )  
+			   {  
+			      String key = (String)keys.nextElement();  
+			      logger.warning(key);  
+			   
+			      //To retrieve a single value  
+			      String value = request.getParameter(key);  
+			      logger.warning(value);  
+
+			   }  
+			   
+			 
+			 gcfc = new GetBeansFromContext();
+			 con = gcfc.myConnection();
+			 
+			 String s =  request.getParameter("newName");
+			 s = s.replaceAll("'","''");
+
+			  logger.warning("Delete from FactsEdit_"+request.getParameter("accessCurr")+" "+
+			   		 " where companyId = "+request.getParameter("id") );
+		      
+			  PreparedStatement statement2 = (PreparedStatement) con.prepareStatement
+					  ("Delete from FactsEdit_"+request.getParameter("accessCurr")+" "+
+				   		 " where companyId = "+request.getParameter("id"));
+				 int rows= statement2.executeUpdate();
+			      
+
+				  
+				  logger.warning("return from delete facts: "+rows);
+				  
+				  PreparedStatement statement3 = (PreparedStatement) con.prepareStatement
+						  ("Delete from Company "+
+					   		 " where id = "+request.getParameter("id") +" AND access = '"+request.getParameter("accessCurr")+"'");
+					 int rows3= statement3.executeUpdate();
+				      
+
+					  
+					  logger.warning("return from delete company: "+rows3);
+				  
+				  
+		 
+           return "success";
+		 } catch(Exception ed) {
+			 ed.printStackTrace();
+					 }
+		 
+		 return "success";
+
+}
+	 
+	 
 	 @Transactional
 	 @RequestMapping( method = RequestMethod.POST)
 	public String postMethodOne(

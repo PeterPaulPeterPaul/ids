@@ -21,7 +21,10 @@
         		    $("#dialog44").dialog(dialogOpts2);
         		    $("#dialogAdd").dialog(dialogOpts2);
         		    $("#dialogEdCo").dialog(dialogOpts2);
+        		    $("#dialogSure").dialog(dialogOpts2);
         		    
+        		    
+        		  
         		
         		    $("#dialogDel").dialog(dialogOpts2);
 
@@ -109,6 +112,7 @@
         	  $("#dialogEdCo").dialog("close");
         	  $("#dialogDel").dialog("close");
         	  $("#dialogAddCompany").dialog("close");
+        	  $("#dialogSure").dialog("close");
         	  
 
         	  $("#addcosub").on("click",function(){ 
@@ -266,7 +270,55 @@
      		                }}, { 
      		                	text: "Delete",	
     		                 click : function() {	
-    		                	
+    		                	 
+    		                	  var dialogOpts3b = {
+    		         	    			 modal: true,
+    		         		            width: 300,
+    		         		            height: 300,
+    		         		            buttons: [{
+    		         		                text: "Go for it",	
+    		         		                click : function() {	
+    		         		                	
+    		         		                	$("#accessCurr").val($("#accessType").val());
+    		         		                	
+    		         		                	$.ajax({
+    		         			  					  url: parm5AjaxPrefix()+'deleteComp?'+
+    		         				                	'id='+$("#drop244sa").val()+
+    		         				                	'&newName='+$.trim($("#myedit").val())+
+    		         				                	'&accessCurr='+$("#accessCurr").val(),
+    		         			  			         type: 'GET',
+    		         			  			       contentType: 'application/html',
+    		         			  			       processData: false,
+    		         			  			       dataType: 'html',
+    		         			  			       success: function(data) {  
+    		         			  			    	   
+    		         			  			    	 alert("done! (when this msg is closed the page will" +
+    		     					    	   		"  reload allowing you view the updated name on the grid)");
+    		     					    	   location.reload();
+    		         		                	},
+    		        						    error: function (xhr, ajaxOptions, thrownError) {
+    		        						        alert(xhr.status);
+    		        						        alert(thrownError);
+    		        						      }
+
+    		        						     
+    		        						     
+    		        						  }); 	
+    		         				                	
+    		         		                	
+    		         		                }},  {
+    		         			                text: "Cancel",
+    		         			                click: function() {
+    		         			                  $( this ).dialog( "close" );
+    		         			                    $(this).dialog(dialogOpts3b).dialog("close"); //return false; 
+    		         			                    return false;
+    		         			                } 
+    		         			                
+    		         			                }]
+    		         			       };
+    		         		    
+    		                	 
+    		                	 $("#dialogSure").dialog(dialogOpts3b).dialog("open");
     		                 }}, {
      			                text: "Cancel",
      			                click: function() {

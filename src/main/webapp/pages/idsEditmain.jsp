@@ -510,6 +510,12 @@ To <select id="todate" name="todate" >
      <input id="companyName" type="text" value="" />
     </div>
  
+      <div id="dialogSure" title="Are you sure?">
+     <p>This will also delete all the Fact rows that are potentially linked to this company. 
+                 Are you sure you want to do this?</p>
+    </div>
+    
+    
       <div id="dialogEdCo" title="Edit/Delete Company">
     <p id="pp333" >Select Company to Edit or Delete</p>
      <div id="drop244a" class="showornot2" style="display:none;">
