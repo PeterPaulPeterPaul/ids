@@ -354,6 +354,16 @@
 
 	                //	if ($("#quantityAmt").val().length){
 	                //	if(	$.isNumeric($("#quantityAmt").val())) {
+	                	
+	                	
+	        			dimension1Val = $("#drop244s").val();
+
+
+	      		  	//  $("#"+selectedKey).on("change",function(){ 
+	                //		 dimension1Val = $("#"+selectedKey+" option:selected").text();
+	                //	  });
+	      		  	  
+	      		  	  
 	                	$("#dimension1Val").val(dimension1Val.replace(/^\s+|\s+$/g, ''));
 	                	$("#dimension1Name").val(dimension1Name);
 	                 	$("#dimension2Val").val(text2.replace(/^\s+|\s+$/g, ''));
@@ -422,6 +432,9 @@
 		  			    	});
 
 
+					    	   alert("done! (when this msg is closed the page will" +
+				    	   		"  reload allowing you to pick this company from the drop down list)");
+				    	   location.reload();
 		  					 return true;
 		  			    	 
 		  			       },
