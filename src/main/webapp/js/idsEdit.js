@@ -37,7 +37,8 @@
         	  	                click : function() {    
         	  	                	 $.ajax({
         						         type: 'GET',
-        							  url: parm5AjaxPrefix()+"addcompany?company="+$("#companyName").val()+"&accessType="+$("#accessType").val(), 
+        							  url: parm5AjaxPrefix()+"addcompany?company="+$("#companyName").val()+"&accessType="+$("#accessType").val()
+        							  +"&k="+Math.random(), 
         					       processData: false,
         					       dataType: 'html',
         					       success: function(data) {  
@@ -246,7 +247,7 @@
      			  					  url: parm5AjaxPrefix()+'updateComp?'+
      				                	'id='+$("#drop244sa").val()+
      				                	'&newName='+$.trim($("#myedit").val())+
-     				                	'&accessCurr='+$("#accessCurr").val(),
+     				                	'&accessCurr='+$("#accessCurr").val()+"&k="+Math.random(),
      			  			         type: 'GET',
      			  			       contentType: 'application/html',
      			  			       processData: false,
@@ -285,7 +286,7 @@
     		         			  					  url: parm5AjaxPrefix()+'deleteComp?'+
     		         				                	'id='+$("#drop244sa").val()+
     		         				                	'&newName='+$.trim($("#myedit").val())+
-    		         				                	'&accessCurr='+$("#accessCurr").val(),
+    		         				                	'&accessCurr='+$("#accessCurr").val()+"&k="+Math.random(),
     		         			  			         type: 'GET',
     		         			  			       contentType: 'application/html',
     		         			  			       processData: false,
@@ -396,7 +397,7 @@
 			                	'&dimension5Val='+$("#dimension5Val").val()+
 			                	'&dimension5Name='+$("#dimension5Name").val()+
 			                	'&quantAmt=0'+
-			                	'&accessCurr='+$("#accessCurr").val(),
+			                	'&accessCurr='+$("#accessCurr").val()+"&k="+Math.random(),
 		  			         type: 'GET',
 		  			       contentType: 'application/html',
 		  			       processData: false,
@@ -562,15 +563,23 @@
 	                click : function() {    
 
 	                	$("#dimension11Val").val(dimension1Val.replace(/^\s+|\s+$/g, ''));
+	             
 	                	$("#dimension11Name").val(dimension1Name);
+	           
 	                 	$("#dimension22Val").val(text2.replace(/^\s+|\s+$/g, ''));
+	             
 	                	$("#dimension22Name").val(di_name);
+	                	
 	                 	$("#dimension33Val").val(text3.replace(/^\s+|\s+$/g, ''));
+	                 
 	                	$("#dimension33Name").val(di_name3);
+	                
 	                 	$("#dimension44Val").val($("#drop31sSelectBoxItText").text());
+	                
 	                	$("#dimension44Name").val("PorS");
+	                
 	                	$("#accessCurrr").val($("#accessType").val());
-
+	         
 	                	$.ajax({
 	  					  url: parm5AjaxPrefix()+'deleterow?dimension1Val='+dimension1Val.replace(/^\s+|\s+$/g, '')
 	  					  +'&dimension1Name='+dimension1Name+'&dimension2Val='+text2.replace(/^\s+|\s+$/g, '')+
@@ -578,13 +587,13 @@
 	  					  '&dimension3Val='+text3.replace(/^\s+|\s+$/g, '')+
 	  					  '&dimension3Name='+di_name3+
 	  					  '&dimension4Val='+$("#drop31sSelectBoxItText").text()+
-	  					  '&dimension4Name=PorS&accessCurr='+$("#accessType").val(),
+	  					  '&dimension4Name=PorS&accessCurr='+$("#accessType").val()+"&k="+Math.random(),
 	  			         type: 'GET',
 	  			       contentType: 'application/html',
 	  			       processData: false,
 	  			       dataType: 'html',
 	  			       success: function(data) {  
-
+	  			    
 	  			    	 location.reload();
 	  			    	 /*
 	  			    	   var intVal = 0;
@@ -706,7 +715,7 @@
         	  $("#closeit").on("click",function(){
         		  $("body").toggleClass("wait");
         		  $.ajax({
-					  url: parm5AjaxPrefix()+'main?exit=yes',
+					  url: parm5AjaxPrefix()+'main?exit=yes'+"&k="+Math.random(),
 			         type: 'GET',
 			       contentType: 'application/html',
 			       processData: false,
@@ -1053,7 +1062,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 						  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue+"&access="+$("#accessType").val()
 						  +countriesParm+countriesList+productsParm+productsList+
 			       		  companiesParm+companiesList+fromDate+toDate+"&excelDownload="+downloadExcel+
-						  "&rowTotal="+rowTotal+dateParm;
+						  "&rowTotal="+rowTotal+dateParm+"&k="+Math.random();
 						
 
 			       		var saveparameters = {
@@ -1073,7 +1082,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				  +'&radio1='+$(".myrad2:checked").val()+'&radio2='+$(".myrad3:checked").val()+"&clickType="+clickType+
 								  "&oldHead1="+h1+"&oldHead2="+h2+"&summary="+summary+"&swap="+swapValue
 								  +countriesParm+countriesList+productsParm+productsList+
-								  fromDate+toDate+"&rowTotal="+rowTotal+"&excelDownload="+downloadExcel+dateParm,
+								  fromDate+toDate+"&rowTotal="+rowTotal+"&excelDownload="+downloadExcel+dateParm+"&k="+Math.random(),
 					       contentType: "application/x-www-form-urlencoded;charset=UTF-8", 
 					       processData: false,
 					       dataType: 'html',
@@ -1186,7 +1195,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
 		 saveparameters = {
 				    successfunc : null,
-				    url : parm5AjaxPrefix()+'saverow?access='+$("#accessType").val(),
+				    url : parm5AjaxPrefix()+'saverow?access='+$("#accessType").val()+"&k="+Math.random(),
 				    extraparam : {},
 				    aftersavefunc : function( response ) {
 				                          alert('saved');
