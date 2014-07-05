@@ -404,27 +404,30 @@
 		  			       dataType: 'html',
 		  			       success: function(data) {  
 
+		  			    
 		  			    	   var intVal = 0;
 		  			    	   var intVal2=0;
 		  			    	   var ff = dimension1Val.replace(/^\s+|\s+$/g, '');
 		  			    	   
 	
 		    		    		  var newFooterRow1 =$("#list47").children("tbody").children("tr:nth-child(4)").clone();
+		  	
+		    		    		 
 		    		    		  
 		    		    		//  newFooterRow1.attr("id","-1");
 		    		    		  
 		    		    		 var myText=  $("#"+selectedKey+" option[value='"+dimension1Val+"']").text().replace(/^\s+|\s+$/g, '');
-		    		    		  
-		    		    		 
+
 		    		    		 newFooterRow1.children("td").each(function() {
 		    		    			    $(this).html('0');
 
 		    		    			});
 
+		    		    	
 		    		    		  newFooterRow1.children("td:nth-child(1)").html(myText);
 		    		    		 // newFooterRow1.children("td:nth-child(2)").html($("#quantAmt").val());
 		    		    		  newFooterRow1.children("td:nth-child(2)").html("0");
-		    		    		  
+		    		    		
 		    		    		  
 		  			    	 newFooterRow1.insertBefore($("#list47").children("tbody").children("tr:nth-child(4)"));
 
