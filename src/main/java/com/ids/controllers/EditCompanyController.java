@@ -186,9 +186,13 @@ public class EditCompanyController implements DropdownInterface {
 			 String s =  request.getParameter("newName");
 			 s = s.replaceAll("'","''");
 
+
+			   
 			  logger.warning("Delete from FactsEdit_"+request.getParameter("accessCurr")+" "+
 			   		 " where companyId = "+request.getParameter("id") );
 		      
+			  
+			  
 			  PreparedStatement statement2 = (PreparedStatement) con.prepareStatement
 					  ("Delete from FactsEdit_"+request.getParameter("accessCurr")+" "+
 				   		 " where companyId = "+request.getParameter("id"));
