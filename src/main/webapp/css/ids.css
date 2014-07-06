@@ -66,6 +66,20 @@ background:#E6E6E6;
 font-weight:bold;
 }
 
+.PPcFont{
+background:#E6E6E6;
+font-weight:normal;
+}
+
+.ui-jqgrid-ftable{ 
+			border-top: thin solid gray !important;
+		}
+		
+.ui-jqgrid .ui-jqgrid-hbox {
+			color:#000000 !important 
+		{
+
+
 .js {display: none;}
 .colorWhite {
             background-color: white !important;
