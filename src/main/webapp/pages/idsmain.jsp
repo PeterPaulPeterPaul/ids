@@ -21,7 +21,7 @@
 <script src="js/jquery.jqGrid.min.js" type="text/javascript"></script>
 
 <title>${textPrefix}</title>
-<style>
+<style> 
 body { 
 background-color:#FFFF00; 
 }
@@ -298,7 +298,7 @@ body.wait, body.wait *{
 </div>
 
 <div style="float:left;margin-left:20px; margin-top:20px ">
-  <input id="toggleRowTotal" style="font-size:x-small" type="image" src="images/table-sum-icon-32.png" name="toggleRowTotal" value="Remove row total" title="Remove row Total" />
+  <input id="toggleRowTotal" style="font-size:x-small" type="image" src="images/table-sum-icon-32.png" name="toggleRowTotal" value="Add row total" title="Add row Total" />
   <input id="togglePercent"  style="font-size:x-small" type="image"  src="images/percent-icon-32.png" name="togglePercent" value="Add Percentages" title="Add Percentages"/>  
 <%--  <div id="drop44" style="display:block">
   <a id="whenPressed" href="#">${textPrefix} download</a>
@@ -617,7 +617,7 @@ To <select id="todate" name="todate" >
     		   
     		   
         	  downloadExcel="no";
-        	  var rowTotal="on";
+        	  var rowTotal="off";
         	  var percents="off";
         	  
         	  $("#toggleRowTotal").on("click",function(){ 
@@ -1338,8 +1338,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			        	data:mylocalData,
 				    			        	datatype: "local",
 				    			        	height: 350,
-				    			        	rowNum: 40,
-				    			        	rowList: [10,20,40],
+				    			        	rowNum: 100,
 				    			           	colNames:cols,
 				    			           	hidegrid:false,
 				    			           	colModel:colModels3,
@@ -1347,7 +1346,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			           	viewrecords: true,
 				    			           	caption: mylocalTitle,
 				    			         	footerrow: true, 
-				    			         	 ignoreCase:true,
+				    			         	ignoreCase:true,
 				    			         	userDataOnFooter: true
 				    			        });
 				    			        
@@ -1361,7 +1360,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			    					//	  $("#titleBar").fadeIn();
 			    					//	  $("#titleBar").fadeIn();
 			    						  
-				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false});
+				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false,search:false,refresh:false});
 
 				    			        jQuery("#list47").jqGrid('gridResize');
 				    			        
@@ -1726,8 +1725,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
       	data:mylocalData,
       	datatype: "local",
       	height: 350,
-      	rowNum: 40,
-      	rowList: [10,20,40],
+      	rowNum: 100,
          	colNames:cols,
          	colModel:colModels3,
          	pager: "#plist47",
@@ -1739,7 +1737,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
          	userDataOnFooter: true
       });
       
-      jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false});
+      jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false,search:false,refresh:false});
       jQuery("#list47").jqGrid('gridResize');
       
       $("#filter").on("click",function(){
