@@ -334,7 +334,7 @@
      		    	
 
      		    				$("#drop244sa").on("change",function(){
-     		    						$("#myedit").val( $("#drop244sa option:selected" ).text());
+     		    						$("#myedit").val($.trim( $("#drop244sa option:selected" ).text()));
      		    				});
      		        		  $("#dialogEdCo").dialog(dialogOpts3a).dialog("open");
  
