@@ -43,11 +43,7 @@ public class JsonWithInLoop {
 		titleTHREE = THREE;
 		titleFOUR = FOUR;
 		
-		System.out.println("ONE:" +ONE);
-		System.out.println("TWO:" +TWO);
-		System.out.println("THREE:" +THREE);
-		System.out.println("FOUR:" +FOUR);
-		
+
 		if (hasAll) {
 		   if (ONE.equals("ALL COMPANIES"))  {
     		  int totalQuantity=0;
