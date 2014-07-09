@@ -1363,7 +1363,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			    						  
 				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false});
 
-				    			        jQuery("#list47").jqGrid('gridResize');
+				    			  //      jQuery("#list47").jqGrid('gridResize');
 				    			        
 				    			 //	   $('#gbox_list47').fadeIn();
 				    			//	   $('#list47').fadeIn();
@@ -1385,6 +1385,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    						 $('#list47').setGridWidth($('#beans').width());
 				    						 $(window).resize(function() {
 				    							 $('#list47').setGridWidth($('#beans').width());
+				    							 
 				    							});
 				    					 
 				    						 
@@ -1740,7 +1741,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
       });
       
       jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false});
-      jQuery("#list47").jqGrid('gridResize');
+   //   jQuery("#list47").jqGrid('gridResize');
       
       $("#filter").on("click",function(){
     	  
@@ -1775,6 +1776,19 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			 
 			 $(window).resize(function() {
 				 $('#list47').setGridWidth($('#beans').width());
+				 
+				 
+				 
+				 
+				  $("table.ui-jqgrid-ftable").children("tr").children("td").each(function (ind) {
+	       	            var myWidth =  $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child("+(ind +1)+")").width();
+	                    $(this).css("width",myWidth+"px");
+	                  
+	       	        });
+				 
+				 
+				 
+				 
 				});
 			 
 			 
