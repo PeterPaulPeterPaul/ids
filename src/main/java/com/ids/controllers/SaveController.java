@@ -370,9 +370,10 @@ public class SaveController implements DropdownInterface {
             					 " and access= '"+access+"' ";
             	   }
             	   
-            	   if (!value.equals("")) {
+            	   if (value != null && !value.equals("")) {
+            		   logger.warning("SQL2: "+SQL);
               	     resultSet = statement.executeQuery(SQL);
-              	    logger.warning("SQL2: "+SQL);
+
                 	  while (resultSet.next()) {
               		   if (value.equals("Country")) {
               			  countryId= Integer.toString(resultSet.getInt("id"));
