@@ -241,9 +241,12 @@ public class DeleteController implements DropdownInterface {
                
                value = request.getParameter("dimension3Name");
                value =WordUtils.capitalize(value) ;
+               if (value!=null && !value.equals("")) {
+            	   
                if (value.equals("Year")) {
             	   year =  request.getParameter("dimension3Val");
                } else {
+            	 
             	   if (value.equals("Country")) {
             	       SQL = " select id from "+value+ " where country = '" +request.getParameter("dimension3Val").trim() +"' and access='"+request.getParameter("accessCurr")+"' ";
             	   }else{
@@ -269,6 +272,7 @@ public class DeleteController implements DropdownInterface {
             	   
                }
                
+               }
                if (request.getParameter("dimension4Val").toUpperCase().equals("SALES") ) {
             	   PorS= "1"; 
                } else {
