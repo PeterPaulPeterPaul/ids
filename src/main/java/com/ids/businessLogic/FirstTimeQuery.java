@@ -60,7 +60,10 @@ public class FirstTimeQuery {
 		  //  countryId = 20000000;  //India
 	      }
 		  
-		  query="SELECT YEAR(DATE_ADD( CURDATE(), INTERVAL -5 YEAR)) as year1 ";
+		 // query="SELECT YEAR(DATE_ADD( CURDATE(), INTERVAL -5 YEAR)) as year1 ";
+	      
+	     //Chris - always show the last 5 years of data in the system. Actual date wont always be right. 
+	      query="SELECT MAX(year) -4 as year1 from facts_"+access+" where Sales_Production = 2 ";
 
 		    	 
 		  List<Year> years = new ArrayList<Year>();	
@@ -68,7 +71,7 @@ public class FirstTimeQuery {
 		   while (resultSet.next()) {
 		    	  Year year = new Year(resultSet.getString("year1"),resultSet.getString("year1"));
 		    	  years.add(year);
-		    	  for (int i=1;i<=10;i++) {
+		    	  for (int i=1;i<10;i++) {
 			    	  Year nextYear = new Year(
 			    			  Integer.toString(Integer.parseInt(year.getId())+i),
 			    			  Integer.toString(Integer.parseInt(year.getId())+i));
@@ -78,7 +81,8 @@ public class FirstTimeQuery {
 		   }
 		  
 
-    	  YearArray yearArray = new YearArray("Company",years,"TOTAL");
+    	//  YearArray yearArray = new YearArray("Company",years,"TOTAL");
+	     YearArray yearArray = new YearArray("Company",years,"");		   
     	  
     	  ColumnModel columnModel = new ColumnModel(yearArray.getJsonYearArray());
     	  String query2="";
@@ -217,13 +221,15 @@ public class FirstTimeQuery {
     	  
     	  
 	      JSONObject objTotal = new JSONObject();
-    	  objTotal.put("Company","TOTAL");
+    	 // objTotal.put("Company","TOTAL");
+    	  objTotal.put("Company","");
     	  Iterator<Entry<String, Integer>> it = totalLine2.entrySet().iterator();
     	   while (it.hasNext()) {
     	        Entry<String, Integer> pairs = it.next();
     	        objTotal.put(pairs.getKey(), pairs.getValue());
     	    }
-    	   objTotal.put("TOTAL", aj.getTotal());
+    	  // objTotal.put("TOTAL", aj.getTotal());
+    	  objTotal.put("", aj.getTotal());
     	   JSONArray array8 = new JSONArray(); 
     	   
 	    	  if (objTotal != null) {

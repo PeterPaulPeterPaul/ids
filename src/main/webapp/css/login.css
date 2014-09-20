@@ -66,6 +66,8 @@ div.Loginbox {
     background-image:URL('/ids/images/trucks.bmp');
     background-repeat:repeat-x; 
     background-position:left;
+    height:70px;
+    width:100%;
 }
 
 .login .warning {

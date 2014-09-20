@@ -47,6 +47,7 @@ import com.ids.businessLogic.FirstTimeQuery;
 import com.ids.businessLogic.ReplaceDropsWithFilterValues;
 import com.ids.businessLogic.StoreRequestParameters;
 import com.ids.context.GetBeansFromContext;
+import com.ids.entities.Year;
 import com.ids.json.ColumnModel;
 import com.ids.json.ColumnNameArray;
 import com.ids.json.ColumnSummaryNameArray;
@@ -159,12 +160,17 @@ public class MainController implements DropdownInterface {
 			   }
 
 		  
-	         final Calendar c = Calendar.getInstance();
+	           // final Calendar c = Calendar.getInstance();
+	          //chris   int myYear =  c.get(Calendar.YEAR) ;
+			   
 
-	            int myYear =  c.get(Calendar.YEAR) ;
-
-	            	access=user.getCurrentLocation();
-	            	
+           	      access=user.getCurrentLocation();
+           	
+	              query="SELECT MAX(year) as year1 from facts_"+access+" where Sales_Production = 2 ";
+	      	      resultSet = statement.executeQuery(query);
+	   		      resultSet.next();
+	   		      int myYear = resultSet.getInt("year1");
+	               	            	
 	            	
 	            	String hideIt="";
 	            	String hideIt2="";
@@ -176,8 +182,12 @@ public class MainController implements DropdownInterface {
 	            	String checked2="";
 	            	
 	            	String longStringCompanies="";
+	            	
+	            	@SuppressWarnings("unused")
+					String XX = request.getParameter("rowTotal");
 
-		    		  if (request.getParameter("rowTotal")==null || request.getParameter("rowTotal").equals("on")) {
+		    		  if (request.getParameter("rowTotal")!=null && request.getParameter("rowTotal").equals("on")) {
+	            	// if ( request.getParameter("rowTotal").equals("on")) {
 		    			  total="TOTAL";
 		    		  }else {
 		    			  total="";
@@ -266,7 +276,7 @@ public class MainController implements DropdownInterface {
 	            	
 	            
 			 if (request.getParameter("list") == null || !request.getParameter("list").equals("1")){
-		    	  
+				 
 				 FirstTimeQuery ftq = new FirstTimeQuery(model, con, request, myYear, access );
 				 model = ftq.getModel();
 				 

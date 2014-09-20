@@ -21,7 +21,7 @@
 <script src="js/jquery.jqGrid.min.js" type="text/javascript"></script>
 
 <title>${textPrefix}</title>
-<style> 
+<style>
 body { 
 background-color:#FFFF00; 
 }
@@ -59,7 +59,7 @@ body.wait, body.wait *{
   <input id="title44" type="hidden" name="title4" value=""/>
 </form>
 
-<form   target="_blank" id="db11" action="${ajaxPrefix}pages/${filePrefix}.xlsx" method="get" name="db1Form1"   > 
+<form   target="_blank" id="db11" action="${ajaxPrefix}pages/${filePrefix}.xls" method="get" name="db1Form1"   > 
 <input id="myDB"  type="hidden" name="myDB" value="dummy" />
 </form>
 
@@ -315,7 +315,7 @@ body.wait, body.wait *{
 
 <div class="HeaderSelector" > <!-- START of right NAV -->
 
-<div>
+<div style="margin-top: 20px;">
 
 
 
@@ -1343,26 +1343,22 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			           	hidegrid:false,
 				    			           	colModel:colModels3,
 				    			           	pager: "#plist47",
-				    			           	viewrecords: true,
+				    			           	viewrecords : true,
 				    			           	caption: mylocalTitle,
 				    			         	footerrow: true, 
 				    			         	ignoreCase:true,
 				    			         	userDataOnFooter: true
 				    			        });
-				    			        
-
-
-				    			        
-				    			        
+				    			         
 				    			        
 				    			        $("#titleBar").fadeIn();
 			    						  $("#beans").fadeIn();
 			    					//	  $("#titleBar").fadeIn();
 			    					//	  $("#titleBar").fadeIn();
 			    						  
-				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false,search:false,refresh:false});
+				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false,search:false,refresh:false,shrinkToFit:false,forceFit:true});
 
-				    			        jQuery("#list47").jqGrid('gridResize');
+				    			  //      jQuery("#list47").jqGrid('gridResize');
 				    			        
 				    			 //	   $('#gbox_list47').fadeIn();
 				    			//	   $('#list47').fadeIn();
@@ -1384,6 +1380,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    						 $('#list47').setGridWidth($('#beans').width());
 				    						 $(window).resize(function() {
 				    							 $('#list47').setGridWidth($('#beans').width());
+				    							 
 				    							});
 				    					 
 				    						 
@@ -1738,7 +1735,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
       });
       
       jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false,search:false,refresh:false});
-      jQuery("#list47").jqGrid('gridResize');
+   //   jQuery("#list47").jqGrid('gridResize');
       
       $("#filter").on("click",function(){
     	  
@@ -1773,6 +1770,19 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			 
 			 $(window).resize(function() {
 				 $('#list47').setGridWidth($('#beans').width());
+				 
+				 
+				 
+				 
+				  $("table.ui-jqgrid-ftable").children("tr").children("td").each(function (ind) {
+	       	            var myWidth =  $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child("+(ind +1)+")").width();
+	                    $(this).css("width",myWidth+"px");
+	                  
+	       	        });
+				 
+				 
+				 
+				 
 				});
 			 
 			 
