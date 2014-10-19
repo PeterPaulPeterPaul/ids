@@ -183,7 +183,7 @@ public class StoreRequestParameters {
 	public int getFromDate(){
 		int theDate=0;
 		if (fromDate==null){
-			theDate=myYear-5;
+			theDate=myYear-4;
 		}else {
 			theDate = Integer.parseInt(fromDate);
 		}

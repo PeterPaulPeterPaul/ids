@@ -34,6 +34,7 @@ public YearArray(String horizonalHeading, List<Year> years, String total) {
 		for (Year y : years) {
 			jsonYearArray.put(y.getId());
 		}
+		if (total.equals("TOTAL"))
 		jsonYearArray.put(total);
 
   	  try {

@@ -101,7 +101,7 @@ public class FirstTimeEdQuery {
     			  "  and a.countryId = "+Country+" "+
     			  " and d.id = a.productId" +
     			  "  and d.access = '" + access + "' " +
-    			  " and c.access =  '" + access + "'  and a.year between "+(curYear - 5)+" and "+(curYear+5)+" " +
+    			  " and c.access =  '" + access + "'  and a.year between "+(curYear - 4)+" and "+(curYear+5)+" " +
     			  " and a.sales_production= 1 " +
     			  "  and a.productid=1 and a.access = '" + access + "'  order by  CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' " +
     			  "  then  ' ALL COMPANIES'  ELSE substr(b.name,1,30) END , a.year asc" ;

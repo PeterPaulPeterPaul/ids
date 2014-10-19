@@ -166,7 +166,7 @@ public class MainController implements DropdownInterface {
 
            	      access=user.getCurrentLocation();
            	
-	              query="SELECT MAX(year) as year1 from facts_"+access+" where Sales_Production = 2 ";
+	              query="SELECT MAX(year) as year1 from Facts_"+access+" where Sales_Production = 2 ";
 	      	      resultSet = statement.executeQuery(query);
 	   		      resultSet.next();
 	   		      int myYear = resultSet.getInt("year1");
@@ -187,7 +187,6 @@ public class MainController implements DropdownInterface {
 					String XX = request.getParameter("rowTotal");
 
 		    		  if (request.getParameter("rowTotal")!=null && request.getParameter("rowTotal").equals("on")) {
-	            	// if ( request.getParameter("rowTotal").equals("on")) {
 		    			  total="TOTAL";
 		    		  }else {
 		    			  total="";
