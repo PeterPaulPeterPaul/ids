@@ -59,7 +59,7 @@ body.wait, body.wait *{
   <input id="title44" type="hidden" name="title4" value=""/>
 </form>
 
-<form   target="_blank" id="db11" action="${ajaxPrefix}pages/${filePrefix}.xls" method="get" name="db1Form1"   > 
+<form   target="_blank" id="db11" action="${ajaxPrefix}pages/${filePrefix}.xlsx" method="get" name="db1Form1"   > 
 <input id="myDB"  type="hidden" name="myDB" value="dummy" />
 </form>
 
@@ -405,7 +405,7 @@ To <select id="todate" name="todate" >
 <div class="idsdefault" style="float:left;width:90%;margin-right:5%;margin-top:5%;">
 
 
-<fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 17px;">
+<fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 17px; margin-bottom:10px">
 <legend style="font-size:large;"  >Header 1</legend>
 <!-- <input type="button" style="font-size:x-small;" class="nosum" name="summary" id="summary" value="Summary"/>
 <input type="button" style="font-size:x-small;" class="nosum" name="grpsum" id="grpsum" value="Group Sum"/>
@@ -423,7 +423,7 @@ To <select id="todate" name="todate" >
 
 
 </div>
-<div class="idsdefault"  style="${hideIt}float:left;width:90%;margin-right:5%;margin-top:15%;margin-bottom:10px">
+<div class="idsdefault"  style="${hideIt}float:left; width:90%; margin-right:5%; margin-top:15%; margin-bottom:10px">
 <fieldset class="idsdefault"  style="${hideIt}background-color:#FFFF00;margin-left: 17px;">
 <legend style="${hideIt}font-size:large;" >Header 2</legend>
 <!-- <input type="button" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum"/> -->
