@@ -45,8 +45,9 @@ public class FirstTimeQuery {
 	      String query=null;
 	      ResultSet resultSet = null;
 	      
-	      TitleArray titleArray= new TitleArray("AUSTRIA","AGRICULTURAL TRACTOR", "SALES" );
-	      int countryId = 7; //Austria
+	      TitleArray titleArray= new TitleArray("EUROPE","AGRICULTURAL TRACTOR", "SALES" );
+	      int countryId = -10; //Austria
+    	  model.addAttribute("myDropValue1",7);
 	      
 	    	String multiplier="";
 
@@ -63,7 +64,7 @@ public class FirstTimeQuery {
 		 // query="SELECT YEAR(DATE_ADD( CURDATE(), INTERVAL -5 YEAR)) as year1 ";
 	      
 	     //Chris - always show the last 5 years of data in the system. Actual date wont always be right. 
-	      query="SELECT MAX(year) -4 as year1 from facts_"+access+" where Sales_Production = 2 ";
+	      query="SELECT MAX(year) -4 as year1 from Facts_"+access+" where Sales_Production = 2 ";
 
 		    	 
 		  List<Year> years = new ArrayList<Year>();	
@@ -101,13 +102,32 @@ public class FirstTimeQuery {
     			  " order by  b.name , a.year asc ";
     			  */
     	   
-    	   query2 =   "  select a.year, a.quantity,  substr(b.name,1,70)  as name, d.name as product, c.country " +
+    	/*   query2 =   "  select a.year, a.quantity,  substr(b.name,1,70)  as name, d.name as product, c.country " +
     	   "  from Facts_w a, Company b, Country c, Product d  where a.companyid=b.id  " +
     	   "  and a.sales_production=1 AND a.countryId = 7 and a.productId = 1  " +
     	   "  and a.year between "+(curYear - 5)+" and "+(curYear+5)+" and d.id = a.productId  and a.access = 'w'  and b.access = 'w' " +
     	   "  and c.access = 'w'  and d.access = 'w'  and a.countryId = c.id order by b.name, a.year asc" ;
-
+		*/
+    		  
+    	   query2 =   "  select a.year, sum(a.quantity) as quantity,  substr(b.name,1,70)  as name, d.name as product, 'EUROPE' as country " +
+       	   "  from Facts_w a, Company b, Country c, Product d  where a.companyid=b.id  " +
+       	   "  and a.sales_production=1 AND a.access= 'w' and a.productId = 1  " +
+       	   "  and a.year between "+(curYear - 5)+" and "+(curYear+5)+" and d.id = a.productId  and a.access = 'w'  and b.access = 'w' " +
+       	   "  and c.access = 'w'  and d.access = 'w'  and a.countryId = c.id  and a.countryId NOT IN (20,21,-10,0,100) " +
+       	   "  group by year, name, product " +
+       	   "  order by b.name, a.year asc" ;
+   		   		  
     	   
+    	/*   select a.year, sum(a.quantity) quantity,  substr(b.name,1,70)  as name, d.name as product, 'EUROPE' as country 
+     	     from Facts_w a, Company b, Country c,Product d  
+			 where a.companyid=b.id   
+     	     and a.sales_production=1 AND a.access= 'w'  and a.productId = 1   
+     	     and a.year between (2013 - 5) and (2013+5) 
+			and d.id = a.productId  and a.access = 'w'  and b.access = 'w'  
+     	     and c.access = 'w'  and d.access = 'w'  and a.countryId = c.id  
+     	     group by year, name, product 
+     	   order by b.name, a.year asc ;
+    	 */  
     	   
     	  }else {
     		  
@@ -123,7 +143,7 @@ public class FirstTimeQuery {
     		  		" and c.access = '" + access + "' " + 
     		  		" and d.access = '" + access + "' " +  
     		  		" and a.countryId = c.id" +
-    		  		" order by b.name, a.year asc";
+    		  		" order by b.name, a.year asc" ;
 
     			/*	  
     				  
@@ -221,16 +241,18 @@ public class FirstTimeQuery {
     	  
     	  
 	      JSONObject objTotal = new JSONObject();
-    	 // objTotal.put("Company","TOTAL");
-    	  objTotal.put("Company","");
+    	 objTotal.put("Company","TOTAL");
+    	//  objTotal.put("Company","");
     	  Iterator<Entry<String, Integer>> it = totalLine2.entrySet().iterator();
     	   while (it.hasNext()) {
     	        Entry<String, Integer> pairs = it.next();
     	        objTotal.put(pairs.getKey(), pairs.getValue());
     	    }
-    	  // objTotal.put("TOTAL", aj.getTotal());
+    	  
+    	   // objTotal.put("TOTAL", aj.getTotal());
     	  objTotal.put("", aj.getTotal());
-    	   JSONArray array8 = new JSONArray(); 
+    	  
+    	  JSONArray array8 = new JSONArray(); 
     	   
 	    	  if (objTotal != null) {
 		    	     array8.put(objTotal);
@@ -250,7 +272,7 @@ public class FirstTimeQuery {
  		
 
 			    	  
-				      query = "select id, UPPER(country) as country from Country where id != 0 and access = '"+access+"' order by country asc " ;
+				      query = "select id, UPPER(country) as country from Country where id != 0 and access = '"+access+"' order by SortOrder asc " ;
 				      
 				         List<Country> countries = new ArrayList<Country>();
 
