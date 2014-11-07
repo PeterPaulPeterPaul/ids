@@ -8,10 +8,10 @@
    <meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="css/ids.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="css/ui.dropdownchecklist.themeroller.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="css/jquery.selectboxit.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="css/IDS-YELLOW/jquery-ui-1.10.3.custom.min.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="css/ids.css" />
 
 <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
@@ -133,24 +133,24 @@ body.wait, body.wait *{
 
 <div id="box11"  class="showornot11" style="display:none">
 <span  class="selectboxit-container">
-<span  class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 230px;">
-<span class="selectboxit-text" style="width: 230px;">SUMMARY - ALL COUNTRIES</span>
+<span  class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 240px;">
+<span class="selectboxit-text" style="width: 240px;">SUMMARY - ALL COUNTRIES</span>
 </span>
 </span>
 </div>
 
 <div id="box12"  class="showornot11" style="display:none">
 <span class="selectboxit-container">
-<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 230px;">
-<span class="selectboxit-text" style="width: 230px;">SUMMARY - ALL PRODUCTS</span>
+<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 240px;">
+<span class="selectboxit-text" style="width: 240px;">SUMMARY - ALL PRODUCTS</span>
 </span>
 </span>
 </div>
 
 <div id="box13"  class="showornot11" style="display:none">
 <span class="selectboxit-container">
-<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 230px;">
-<span class="selectboxit-text" style="width: 230px;">SUMMARY - ALL YEARS</span>
+<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 240px;">
+<span class="selectboxit-text" style="width: 240px;">SUMMARY - ALL YEARS</span>
 </span>
 </span>
 </div>
@@ -158,24 +158,24 @@ body.wait, body.wait *{
 
 <div id="box31"  class="showornot111" style="display:none">
 <span class="selectboxit-container">
-<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 230px;">
-<span class="selectboxit-text" style="width: 230px;">GRP SUMMARY: ALL COUNTRIES</span>
+<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 240px;">
+<span class="selectboxit-text" style="width: 240px;">GRP SUMMARY: ALL COUNTRIES</span>
 </span>
 </span>
 </div>
 
 <div id="box32"  class="showornot111" style="display:none">
 <span class="selectboxit-container">
-<span  class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 230px;">
-<span  class="selectboxit-text" style="width: 230px;">GRP SUMMARY: ALL PRODUCTS</span>
+<span  class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 240px;">
+<span  class="selectboxit-text" style="width: 240px;">GRP SUMMARY: ALL PRODUCTS</span>
 </span>
 </span>
 </div>
 
 <div id="box33"  class="showornot111" style="display:none">
 <span class="selectboxit-container">
-<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 230px;">
-<span  class="selectboxit-text" style="width: 230px;">GRP SUMMARY: ALL YEARS</span>
+<span class="selectboxit selectboxit-enabled selectboxit-btn selectboxit-hover"   style="width: 240px;">
+<span  class="selectboxit-text" style="width: 240px;">GRP SUMMARY: ALL YEARS</span>
 </span>
 </span>
 </div>
@@ -1619,9 +1619,6 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 		    				  }
 		    			  });
 		    			  
-		    			  
-		    			  
-		    			  
 		    				 
 		    				 var allC = $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child(1)").html();
 		    		    	  if(allC==" OTHERS") {
@@ -1630,7 +1627,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
 		    		    		  newFooterRow1.children("td:nth-child(1)").html("OTHERS");
 		    		    		  newFooterRow1.children("td").each(function (ind) {
-		    		    			  $(this).addClass("titleFont");
+		    		    			  //$(this).addClass("titleFont");
 
 		    		       	            var myWidth =  $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child("+(ind +1)+")").width();
 
@@ -1669,6 +1666,27 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 		    		    		  newFooterRow1.removeClass("ui-widget-content");
 		    		    		  newFooterRow1.removeClass("jqgrow ui-row-ltr");
 
+		    		      	      $("th").on("click",function(){
+		    		                	//$( "td[title=' OTHERS']" ).parent().remove();
+										
+										var idSearchValue = " OTHERS";
+										var cm = jQuery("#list47").jqGrid("getGridParam", "colModel");
+										var colName = cm[0].name;
+										
+										var rowIds = $("#list47").jqGrid('getDataIDs');
+										
+										for (i = 1; i <= rowIds.length; i++) {
+										rowData = $("#list47").jqGrid('getRowData', i);
+
+											if (rowData[colName] == idSearchValue ) {
+								
+											 //var xx = $("#list47").children("tbody").children("tr:nth-child("+i+")");
+											 $("#list47").children("tbody").children("tr:nth-child("+(i+1)+")").remove();
+											 break;
+											} //if
+										} //for
+		    		               });
+		    		    		  
 		    		    	  }  
 		    			  
 		    			  
@@ -1804,7 +1822,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
 	    		  newFooterRow1.children("td:nth-child(1)").html("OTHERS");
 	    		  newFooterRow1.children("td").each(function (ind) {
-	    			  $(this).addClass("titleFont");
+	    			  //$(this).addClass("titleFont");
 
 	       	            var myWidth =  $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child("+(ind +1)+")").width();
 
@@ -1835,12 +1853,31 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 	    		  newFooterRow1.insertBefore($("tr.footrow"));
 	    		  $("#list47").children("tbody").children("tr:nth-child(2)").css("display","none");
 
-	    		//  $("#list47").children("tbody").children("tr:nth-child(1)").css("display","none");
-
+		    		  
 	     		  newFooterRow1.addClass("footrow");
 	    		  newFooterRow1.addClass("footrow-ltr");
 	    		  newFooterRow1.removeClass("ui-widget-content");
 	    		  newFooterRow1.removeClass("jqgrow ui-row-ltr");
+	    		  
+	      	      $("th").on("click",function(){
+	                	//$( "td[title=' OTHERS']" ).parent().remove();
+							var idSearchValue = " OTHERS";
+							var cm = jQuery("#list47").jqGrid("getGridParam", "colModel");
+							var colName = cm[0].name;
+										
+							var rowIds = $("#list47").jqGrid('getDataIDs');
+										
+							for (i = 1; i <= rowIds.length; i++) {
+									rowData = $("#list47").jqGrid('getRowData', i);
+
+									if (rowData[colName] == idSearchValue ) {
+									//var xx = $("#list47").children("tbody").children("tr:nth-child("+(i+1)+")");
+									 $("#list47").children("tbody").children("tr:nth-child("+(i+1)+")").remove();
+									break;
+								} //if
+							} //for
+	               });
+	    		  
 
 	    	  }  
 	    	 
