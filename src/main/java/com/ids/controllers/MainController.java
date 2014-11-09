@@ -108,6 +108,7 @@ public class MainController implements DropdownInterface {
 			ModelMap model) throws SQLException, JSONException, IOException {	   
 
 		 GetBeansFromContext gcfc = null;
+		 model.addAttribute("displaytypePassword","style='display:none'");
 		 
 		 try{
 		 logger.warning("Entering application via GEt");
