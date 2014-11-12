@@ -1786,6 +1786,14 @@ if (dateParm=="todate must be greater or equal to fromdate") {
                  
       	        });
                    
+       	      mylocalData=null;
+    	        newFooterRow.children("td:nth-child(1)").removeAttr("aria-describedby");
+		        $("th").on("click",function(){
+	       	       	$( "td[title=' OTHERS'][aria-describedby='list47_company']" ).parent().remove();
+		        });   
+    	        
+		        
+      	        
       	        newFooterRow.children("td:nth-child(1)").css("font-weight","bold");
       	        newFooterRow.insertAfter($("tr.footrow"));
       	        $("#list47").children("tbody").children("tr:nth-child(3)").css("display","none");
