@@ -369,10 +369,13 @@ public class SaveController implements DropdownInterface {
             	                     +request.getParameter("dimension3Val").trim().replace("'", "''") +"' " +
             					 " and access= '"+access+"' ";
             	   }
-              	  resultSet = statement.executeQuery(SQL);
-              	 logger.warning("SQL2: "+SQL);
-              	  while (resultSet.next()) {
-              		  if (value.equals("Country")) {
+            	   
+            	   if (value != null && !value.equals("")) {
+            		   logger.warning("SQL2: "+SQL);
+              	     resultSet = statement.executeQuery(SQL);
+
+                	  while (resultSet.next()) {
+              		   if (value.equals("Country")) {
               			  countryId= Integer.toString(resultSet.getInt("id"));
               			  break;
               		  }
@@ -384,7 +387,8 @@ public class SaveController implements DropdownInterface {
               			  productId= Integer.toString(resultSet.getInt("id"));
               			  break;
               		  }
-              	  } 
+              	   } 
+            	 }
             	   
                }
                

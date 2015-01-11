@@ -85,9 +85,9 @@ body.wait, body.wait *{
 
 <div style="text-align:center;float:none"> <!-- Div to hold the header drop downs -->
 
-<div style="width:350px;float:left">
+<div style="width:360px;float:left">
 
-<fieldset class="idsdefault" style="background-color:#FFFF00;margin-left: 10px;padding-bottom:3px;padding-top:1px">
+<fieldset class="idsBoxDefault" style="background-color:#FFFF00;margin-left: 10px;padding-bottom:3px;padding-top:1px">
 <legend style="font-size:medium;"  >Header 1</legend>
 
 <div style="margin-left:1%;float:left">  <!-- Summary icons for header 1 -->
@@ -189,7 +189,7 @@ body.wait, body.wait *{
 
 <div style="${hideIt3}width:350px;float:left">
 
-<fieldset class="idsdefault" style="background-color:#FFFF00;margin-left: 10px;padding-bottom:3px;padding-top:1px">
+<fieldset class="idsBoxDefault" style="background-color:#FFFF00;margin-left: 10px;padding-bottom:3px;padding-top:1px">
 <legend style="font-size:medium;"  >Header 2</legend>
 
 
@@ -200,7 +200,7 @@ body.wait, body.wait *{
 <div style="float:left;margin-left:1px;width:250px"> <!-- Header2 dropdown -->
 
 <div id="drop21" class="showornot2" style="display:none;">
-<select class="dropdown2" id="drop21s" style="width:198px;margin:10px">
+<select class="dropdown2" id="drop21s" style="width:200px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1a}">
   <option value="${drop1.id}">${drop1.name}&nbsp;</option>
   </c:forEach>
@@ -216,7 +216,7 @@ body.wait, body.wait *{
 </div>
 
 <div id="drop23"  class="showornot2" style="display:none">
-<select class="dropdown2" id="drop23s" style="width:198px;margin:10px">
+<select class="dropdown2" id="drop23s" style="width:240px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1c}">
   <option value="${drop1.id}">${drop1.name}&nbsp;</option>
   </c:forEach>
@@ -224,7 +224,7 @@ body.wait, body.wait *{
 </div>
 
 <div id="drop24"  class="showornot2" style="display:none">
-<select class="dropdown2" id="drop24s" style="width:198px;margin:10px">
+<select class="dropdown2" id="drop24s" style="width:240px;margin:10px">
  <c:forEach var="drop1" items="${dropdown1d}">
   <option value="${drop1.id}">${drop1.name}&nbsp;</option>
   </c:forEach>
@@ -405,7 +405,7 @@ To <select id="todate" name="todate" >
 <div class="idsdefault" style="float:left;width:90%;margin-right:5%;margin-top:5%;">
 
 
-<fieldset class="idsdefault"  style="background-color:#FFFF00;margin-left: 17px; margin-bottom:10px">
+<fieldset class="idsBoxDefault"  style="background-color:#FFFF00;margin-left: 17px; margin-bottom:10px">
 <legend style="font-size:large;"  >Header 1</legend>
 <!-- <input type="button" style="font-size:x-small;" class="nosum" name="summary" id="summary" value="Summary"/>
 <input type="button" style="font-size:x-small;" class="nosum" name="grpsum" id="grpsum" value="Group Sum"/>
@@ -424,7 +424,7 @@ To <select id="todate" name="todate" >
 
 </div>
 <div class="idsdefault"  style="${hideIt}float:left; width:90%; margin-right:5%; margin-top:15%; margin-bottom:10px">
-<fieldset class="idsdefault"  style="${hideIt}background-color:#FFFF00;margin-left: 17px;">
+<fieldset class="idsBoxDefault"  style="${hideIt}background-color:#FFFF00;margin-left: 17px;">
 <legend style="${hideIt}font-size:large;" >Header 2</legend>
 <!-- <input type="button" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum"/> -->
 <!-- <input type="image" src="images/sum-icon-32.png" style="font-size:x-small;" class="nosum" name="grpsum2" id="grpsum2" value="Group Sum"/> -->
@@ -486,7 +486,8 @@ To <select id="todate" name="todate" >
     	  var downloadExcel="no";
           var clickType="";
     	  var swapValue="0";
-          
+		  var myStartGridWidth=0;
+ 
           $(document).ready(function(){
 
         	  
@@ -833,7 +834,7 @@ To <select id="todate" name="todate" >
              downloadExcel="no";
              newDropdowns="yes";
     	     $("#changeFlag").val("yes");
-             getGrid();
+                getGrid();
              
           alert("filters cleared");
           $("#clearfilter").fadeOut();
@@ -847,8 +848,8 @@ To <select id="todate" name="todate" >
           downloadExcel="no";
           newDropdowns="yes";
     	  $("#changeFlag").val("yes");
-          getGrid();
 		  $("#dialogFilter").dialog("close");
+		  getGrid();
 	  });
 	  
 	  $("#grpsum2").on("click",function(){
@@ -888,12 +889,12 @@ To <select id="todate" name="todate" >
 	  
 	  $("#fromdate").on("change",function(){
 		  downloadExcel="no";
-		  getGrid();
+		 // getGrid();
 	  });
 	  
 	  $("#todate").on("change",function(){
 		  downloadExcel="no";
-		  getGrid();
+		//  getGrid();
 	  });
 	  
 	  $(".dropdown1").on("change",function(){
@@ -1037,7 +1038,6 @@ $("body").toggleClass("wait");
 
 var dateParm=       validateDates() ;
 if (dateParm=="todate must be greater or equal to fromdate") {
-	 $("body").removeClass("wait");
 	 alert(dateParm);
 	 $("#titleBar").fadeIn();
 	 $("#wholescreen").fadeIn();
@@ -1338,16 +1338,17 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			        	data:mylocalData,
 				    			        	datatype: "local",
 				    			        	height: 350,
-				    			        	rowNum: 100,
+				    			        	rowNum: 500,
 				    			           	colNames:cols,
 				    			           	hidegrid:false,
 				    			           	colModel:colModels3,
-				    			           	pager: "#plist47",
+				    			           	//pager: "#plist47",
 				    			           	viewrecords : true,
 				    			           	caption: mylocalTitle,
 				    			         	footerrow: true, 
 				    			         	ignoreCase:true,
-				    			         	userDataOnFooter: true
+				    			         	userDataOnFooter: false,
+				    			         	shrinkToFit:false
 				    			        });
 				    			         
 				    			        
@@ -1356,8 +1357,17 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			    					//	  $("#titleBar").fadeIn();
 			    					//	  $("#titleBar").fadeIn();
 			    						  
-				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false,search:false,refresh:false,shrinkToFit:false,forceFit:true});
-
+				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false,search:false,refresh:false});
+									    
+										
+										$("#list47").jqGrid
+										({
+											rowList: [],        // disable page size dropdown
+											pgbuttons: false,     // disable page control like next, back button
+											pgtext: null,         // disable pager text like 'Page 0 of 10'
+											viewrecords: false    // disable current view record text like 'View 1-10 of 100' 
+										});
+										
 				    			  //      jQuery("#list47").jqGrid('gridResize');
 				    			        
 				    			 //	   $('#gbox_list47').fadeIn();
@@ -1369,19 +1379,22 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    				//	 $("#printDataJson").val($("#tempStore #myJsonTotals").html());
 								    	    $("#printTotalJson").val($("#tempStore #myJsonTotals").html());
 								    	   
-				    					 
-				    						$("#list47").jqGrid('footerData', 'set', 
-				    								totals.myTotals[0]); 
+				    						$("#list47").jqGrid('footerData', 'set', totals.myTotals[0]); 
 				    						
-				    					
 				    						 $(".ui-jqgrid-titlebar").remove();
 				    						 
-				    						 
-				    						 $('#list47').setGridWidth($('#beans').width());
-				    						 $(window).resize(function() {
-				    							 $('#list47').setGridWidth($('#beans').width());
-				    							 
-				    							});
+											if( $("#list47").width() > $('#beans').width()) {
+												myStartGridWidth = $("#list47").width(); 
+												}
+												else {
+												myStartGridWidth = $('#beans').width();
+												}
+												
+											myResizeGrid($("#list47").width());
+											
+											// $(window).resize(function() {
+											//	myResizeGrid();
+				    						//	});
 				    					 
 				    						 
 				    						  if ($(".myrad2:checked").val()=="4"|| 
@@ -1398,9 +1411,9 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    							  
 				    							});
 				    					  
-
-				    						//  $("#titleBar").fadeIn();
-	//  $("#titleBar").fadeIn();
+												//  $("#titleBar").fadeIn();
+												//  $("#titleBar").fadeIn();
+												
 				    		        		  if ($("#list47_TOTAL").length) {
 					    		         		     $("#toggleRowTotal").val("Remove row total");
 					    		         		    $("#toggleRowTotal").attr("title","Remove row total");
@@ -1427,7 +1440,6 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    		        			  $(this).text("%");
 				    		        		  });
 				    		        		  
-				    		
 								    		   $(".dropdown1").selectBoxIt();
 								    		   $(".dropdown2").selectBoxIt();
 								    		   
@@ -1437,13 +1449,6 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 								    				  downloadExcel="no";
 								    				  getGrid();
 								    			  });
-								    		   
-				  		    				   
-								    		   
-								    		   
-								    		   
-
-
 								    		   
 								    			  $(".dropdown2").on("change",function(){
 								    				  clickType=$(this).attr('id');
@@ -1467,12 +1472,13 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 					      	  $("#drop14sSelectBoxIt").css("width","270px");
 					    	  $("#drop24sSelectBoxIt").css("width","270px");
 					    	  
-					    	  
-								 $("#list47").children("tbody").children("tr").each( function( index ){
-									 $(this).children("td.titleFont").each(function (ind) {
-										 $(this).css("font-weight","bold");
-									 });
-								 });
+					    	  addBoldedcols();
+							  
+								//("#list47").children("tbody").children("tr").each( function( index ){
+									//(this).children("td.titleFont").each(function (ind) {
+									//$(this).css("font-weight","bold");
+									//);
+								//});
 								 
 								 $("table.ui-jqgrid-htable").children("thead").children("tr").children("th").each(function (index) {
 									 $(this).css("font-weight","bold");
@@ -1640,8 +1646,8 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 		    		                      $(this).css("font-weight","bold");
 		    		                      $(this).css("overflow","hidden");
 		    		                      $(this).css("white-space","pre");
-		    		                      $(this).css("height","22px");
-		    		                     $(this).css("padding"," 0 2px 0 2px");
+		    		                     // $(this).css("height","22px");
+		    		                     $(this).css("padding","2px");
 		    		                //     $(this).css(" border-bottom-width","1px");
 		    		                     $(this).css(" border","inherit");
 		    		                 //   $(this).css(" border-bottom-style","solid");
@@ -1666,6 +1672,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 		    		    		  newFooterRow1.removeClass("ui-widget-content");
 		    		    		  newFooterRow1.removeClass("jqgrow ui-row-ltr");
 
+								  
 		    		      	      $("th").on("click",function(){
 		    		                	//$( "td[title=' OTHERS']" ).parent().remove();
 										
@@ -1685,7 +1692,9 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 											 break;
 											} //if
 										} //for
+								   	addBoldedcols();
 		    		               });
+						   
 		    		    		  
 		    		    	  }  
 		    			  
@@ -1740,20 +1749,30 @@ if (dateParm=="todate must be greater or equal to fromdate") {
       	data:mylocalData,
       	datatype: "local",
       	height: 350,
-      	rowNum: 100,
+      	rowNum: 500,
          	colNames:cols,
          	colModel:colModels3,
-         	pager: "#plist47",
+         	//pager: "#plist47",
          	viewrecords: true,
          	caption: mylocalTitle,
          	hidegrid:false,
          	footerrow: true, 
-         	 ignoreCase:true,
-         	userDataOnFooter: true
+         	ignoreCase:true,
+         	shrinkToFit: false,
+         	userDataOnFooter: false
       });
       
       jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false,search:false,refresh:false});
-   //   jQuery("#list47").jqGrid('gridResize');
+	  
+	  $("#list47").jqGrid
+		({
+			rowList: [],        // disable page size dropdown
+			pgbuttons: false,     // disable page control like next, back button
+			pgtext: null,         // disable pager text like 'Page 0 of 10'
+			iewrecords: false    // disable current view record text like 'View 1-10 of 100' 
+		});
+	  
+      jQuery("#list47").jqGrid('gridResize');
       
       $("#filter").on("click",function(){
     	  
@@ -1782,41 +1801,30 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 
 			 
 			 $(".ui-jqgrid-titlebar").remove();
-			
-			 
-			 $('#list47').setGridWidth($('#beans').width());
-			 
-			 $(window).resize(function() {
-				 $('#list47').setGridWidth($('#beans').width());
-				 
-				 
-				 
-				 
-				  $("table.ui-jqgrid-ftable").children("tr").children("td").each(function (ind) {
-	       	            var myWidth =  $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child("+(ind +1)+")").width();
-	                    $(this).css("width",myWidth+"px");
-	                  
-	       	        });
-				 
-				 
-				 
-				 
-				});
-			 
-			 
-			 
 
-			 $("#list47").children("tbody").children("tr").each( function( index ){
-				 $(this).children("td.titleFont").each(function (ind) {
-					 $(this).css("font-weight","bold");
-				 });
-			 });
+			 //myStartGridWidth = $("#list47").width();
+			if( $("#list47").width() > $('#beans').width()) {
+				myStartGridWidth = $("#list47").width(); 
+			}
+			else {
+				myStartGridWidth = $('#beans').width();
+			}
+			 
+			 myResizeGrid($("#list47").width()); 
+			 addBoldedcols();
+
+		//$("#list47").children("tbody").children("tr").each( function( index ){
+			//$(this).children("td.titleFont").each(function (ind) {
+				//$(this).css("font-weight","bold");
+			//});
+		//});
+			 
 			 $("table.ui-jqgrid-htable").children("thead").children("tr").children("th").each(function (index) {
 					 $(this).css("font-weight","bold");
           });
 			 
 			 var allC = $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child(1)").html();
-	    	  if(allC==" OTHERS") {
+	    	if(allC==" OTHERS") {
 
 	    		  var newFooterRow1 =$("#list47").children("tbody").children("tr:nth-child(2)").clone();
 
@@ -1833,8 +1841,8 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 	                      $(this).css("font-weight","bold");
 	                      $(this).css("overflow","hidden");
 	                      $(this).css("white-space","pre");
-	                      $(this).css("height","22px");
-	                     $(this).css("padding"," 0 2px 0 2px");
+	                   //   $(this).css("height","22px");
+	                     $(this).css("padding","2px");
 	                   //  $(this).css(" border-bottom-width","1px");
 	                  //   $(this).css(" border","inherit");
 		                    $(this).css("border-top-style","none");
@@ -1858,6 +1866,9 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 	    		  newFooterRow1.addClass("footrow-ltr");
 	    		  newFooterRow1.removeClass("ui-widget-content");
 	    		  newFooterRow1.removeClass("jqgrow ui-row-ltr");
+				 
+			} //if(allC==" OTHERS") 		 
+		
 	    		  
 	      	      $("th").on("click",function(){
 	                	//$( "td[title=' OTHERS']" ).parent().remove();
@@ -1876,12 +1887,9 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 									break;
 								} //if
 							} //for
-	               });
-	    		  
-
-	    	  }  
-	    	 
- 
+					addBoldedcols();		
+									
+	               });  //$("th").on("click",function(){
 			 
 			  $('.footrow').children('td').each(function( index ) {
 
@@ -1892,11 +1900,26 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				  
 				});
 
-				 $('#list47').setGridWidth($('#beans').width());
+				// $('#list47').setGridWidth($('#beans').width());
+				if($("#list47").width() < $('#beans').width()) {
+					$('#list47').setGridWidth($('#beans').width(),true);  //turn on shrink if columns less than the window. 
+				} else {
+					$('#list47').setGridWidth($('#beans').width(),false);  
+				}
+				
+				$(window).resize(function() {
+					myResizeGrid(myStartGridWidth)	
+				});	
 
+				/*
+				
 				 $(window).resize(function() {
-					 $('#list47').setGridWidth($('#beans').width());
-					 
+					// $('#list47').setGridWidth($('#beans').width());
+					 if($("#list47").width() < $('#beans').width()) {
+						$('#list47').setGridWidth($('#beans').width(),true);  //turn on shrink if columns less than the window. 
+						} else {
+						$('#list47').setGridWidth($('#beans').width(),false);  
+					}
 					 var width1 = $("#list47").children("tbody").children("tr:nth-child(4)").children("td:nth-child(1)").width();
 					 var width2 = $("#list47").children("tbody").children("tr:nth-child(4)").children("td:nth-child(2)").width();
 					 var width3 = $("#list47").children("tbody").children("tr:nth-child(4)").children("td:last").width();
@@ -1938,7 +1961,17 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 					 
 					 
 					});
-
+					*/
+					
+				function addBoldedcols() {
+					
+					 $("#list47").children("tbody").children("tr").each( function( index ){
+					$(this).children("td.titleFont").each(function (ind) {
+					 $(this).css("font-weight","bold");
+					});
+					});
+					
+				}
 
 		     	 function validateDates() {
 		     		 var testing ="";
@@ -1967,8 +2000,32 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 		    		 return testing;
 		    	}
 		     	 
-		     	 
-			
+			function myResizeGrid(myStartGridWidth) { 
+		 	//if($("#list47").width() < $('#beans').width()) {
+            if( myStartGridWidth < $('#beans').width()) {
+				//				var myStartGridWidth = $("#list47").width();				
+		 		$('#list47').setGridWidth($('#beans').width(),true);  //turn on shrink if columns less than the window. 
+					} else {
+					$('#list47').setGridWidth($('#beans').width(),false);  
+					}
+					var winHeight = window.innerHeight;
+					wHeight = winHeight - 230;
+										
+					if(wHeight < 110){  //Height of five rows in grid is 110 pixels.
+						wHeight = 110;
+						$('#list47').jqGrid('setGridHeight',wHeight);
+					}
+					else {
+						$('#list47').jqGrid('setGridHeight',wHeight);
+					}
+					
+					$("table.ui-jqgrid-ftable").children("tr").children("td").each(function (ind) {
+	       	            var myWidth =  $("#list47").children("tbody").children("tr:nth-child(2)").children("td:nth-child("+(ind +1)+")").width();
+	                    $(this).css("width",myWidth+"px");
+	                  
+	       	        });
+	
+	}	
   });
   
 

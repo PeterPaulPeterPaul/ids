@@ -334,7 +334,7 @@
      		    	
 
      		    				$("#drop244sa").on("change",function(){
-     		    						$("#myedit").val( $("#drop244sa option:selected" ).text());
+     		    						$("#myedit").val($.trim( $("#drop244sa option:selected" ).text()));
      		    				});
      		        		  $("#dialogEdCo").dialog(dialogOpts3a).dialog("open");
  
@@ -1334,7 +1334,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			    						  $("#wholescreen").fadeIn();
 			    						  
 				    			        jQuery("#list47").jqGrid('navGrid','#plist47',{edit:true,add:false,del:false});
-				    			        jQuery("#list47").jqGrid('gridResize');
+				    			     //   jQuery("#list47").jqGrid('gridResize');
 
 
 				    			        
@@ -1359,6 +1359,13 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    						 
 				    						 $(window).resize(function() {
 				    							 $('#list47').setGridWidth($('#beans').width());
+				    							 
+				    							  $("table.ui-jqgrid-ftable").children("tbody").children("tr").children("td").each(function (ind) {
+				    				       	            var myWidth =  $("#list47").children("tbody").children("tr:nth-child(4)").children("td:nth-child("+(ind +1)+")").width();
+				    				                    $(this).css("width",myWidth+"px");
+				    				                  
+				    				       	        });
+				    							 
 				    							});
 				    					 
 
@@ -1613,7 +1620,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
       });
       
       jQuery("#list47").jqGrid('navGrid','#plist47',{edit:true,add:false,del:false});
-      jQuery("#list47").jqGrid('gridResize');
+    //  jQuery("#list47").jqGrid('gridResize');
       
       $("#filter").on("click",function(){
     	  
@@ -1673,6 +1680,50 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 			 
 			 $(window).resize(function() {
 				 $('#list47').setGridWidth($('#beans').width());
+				 
+				 
+				 
+				 
+				 var width1 = $("#list47").children("tbody").children("tr:nth-child(4)").children("td:nth-child(1)").width();
+				 var width2 = $("#list47").children("tbody").children("tr:nth-child(4)").children("td:nth-child(2)").width();
+				 var width3 = $("#list47").children("tbody").children("tr:nth-child(4)").children("td:last").width();
+				 var length1 =  $('.footrow-ltr:nth-child(2)').children('td').length;
+
+				 
+				 $('.footrow-ltr:nth-child(2)').children('td').each(function( index ) {
+					 
+					 if (width1 !=0) {
+					      if (index==0) {
+                             $(this).css("width",width1+"px");
+					      }else {
+					    	  
+					    	  $(this).css("width",width2+"px");  
+					      }
+					      if ((index+1)==length1) {
+					    	  $(this).css("width",width3+"px");  
+					      }
+					 }
+					  
+					});
+				 
+				 
+				 $('.footrow-ltr:nth-child(3)').children('td').each(function( index ) {
+					 
+					 if (width1 !=0) {
+					      if (index==0) {
+                             $(this).css("width",width1+"px");
+					      }else {
+					    	  
+					    	  $(this).css("width",width2+"px");  
+					      }
+					      if ((index+1)==length1) {
+					    	  $(this).css("width",width3+"px");  
+					      }
+					 }
+					  
+					});
+				 
+
 				});
 			 
 
@@ -1735,6 +1786,14 @@ if (dateParm=="todate must be greater or equal to fromdate") {
                  
       	        });
                    
+       	      mylocalData=null;
+    	        newFooterRow.children("td:nth-child(1)").removeAttr("aria-describedby");
+		        $("th").on("click",function(){
+	       	       	$( "td[title=' OTHERS'][aria-describedby='list47_company']" ).parent().remove();
+		        });   
+    	        
+		        
+      	        
       	        newFooterRow.children("td:nth-child(1)").css("font-weight","bold");
       	        newFooterRow.insertAfter($("tr.footrow"));
       	        $("#list47").children("tbody").children("tr:nth-child(3)").css("display","none");

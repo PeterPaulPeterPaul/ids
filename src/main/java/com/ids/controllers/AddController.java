@@ -232,6 +232,8 @@ public class AddController implements DropdownInterface {
                
                value = request.getParameter("dimension3Name");
                value =WordUtils.capitalize(value) ;
+               
+               if (value != null && !value.equals("")) {
                if (value.equals("Year")) {
             	   year =  request.getParameter("dimension3Val");
                } else {
@@ -261,7 +263,7 @@ public class AddController implements DropdownInterface {
               	  } 
             	   
                }
-               
+               }
                logger.warning("sales stuff is: "+request.getParameter("dimension4Val"));
                
                if (request.getParameter("dimension4Val").equals("PRODUCTION") ) {
@@ -295,6 +297,14 @@ public class AddController implements DropdownInterface {
             	   
                }
                
+               if (access.equals("c")) {
+            	   countryId="21";
+               }else{
+            	   if (access.equals("i")) {
+            		   countryId="100";
+            	   }
+               }
+
 
                logger.warning("year: "+year);
                logger.warning("productId: "+productId);
@@ -303,13 +313,6 @@ public class AddController implements DropdownInterface {
                logger.warning("PorS: "+PorS);
                
 
-               if (access.equals("c")) {
-            	   countryId="21";
-               }else{
-            	   if (access.equals("i")) {
-            		   countryId="100";
-            	   }
-               }
 
             	   String newSQL = "Insert into FactsEdit_"+request.getParameter("accessCurr")+" (quantity, productId, year, companyId, countryId," +
             	   		" sales_production, access,flag) values ("+request.getParameter("quantAmt")+","+productId

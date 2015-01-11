@@ -32,6 +32,8 @@ import com.google.appengine.api.rdbms.AppEngineDriver;
 import com.ids.context.GetBeansFromContext;
 import com.ids.json.JsonGroupSummaryWithinLoop;
 import com.ids.user.*;
+import com.mysql.jdbc.PreparedStatement;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -67,16 +69,7 @@ public class LoginController {
 
 		 model.addAttribute("displaytype2","none");
 		 model.addAttribute("passwordlab","Password");
-		 
-
-
-
-
- 
-
-		 
- 
-		 
+		 model.addAttribute("displaytypePassword","style='display:none'");
 
 		 
 	       User  user = null;	
@@ -95,6 +88,8 @@ public class LoginController {
 
 		        	model.remove("displaytype2");
 				    model.remove("passwordlab");
+				   
+				    
 				    if (user2.getAccess().equals("e")){
 	        	       return "redirect:editor";
 				    }else{
@@ -103,6 +98,8 @@ public class LoginController {
 	    	   
 	       }
 
+	       model.addAttribute("displaytypePassword","style='display:none'");
+	       
 	    if (request.getParameter("fromJsp")==null || request.getParameter("fromJsp").equals("") ) {
 
 		    	model.addAttribute("displaytype","none");
@@ -166,13 +163,29 @@ public class LoginController {
 	        	   }
 
 		        }
-
+	        
 	        
 			 GetBeansFromContext gcfc = new GetBeansFromContext();
-			 
+			 String currentPassword="";
 			 try {
 			 con = gcfc.myConnection();
 
+			 currentPassword = request.getParameter("password");
+			 
+		        if ( request.getParameter("secondNewPassword") != null &&  !request.getParameter("secondNewPassword").equals("")){
+		        	
+		        	 Statement statement = con.createStatement();
+		        	
+		        	String update = "Update ids_users set passwordId = '"+request.getParameter("secondNewPassword")+"', "
+		        			+ " locked=0  where userId = '"+request.getParameter("userId")
+					  +"' and passwordId = '"+request.getParameter("password")+"'";
+		        	
+		        	 java.sql.PreparedStatement ps = con.prepareStatement(update);
+		        	 ps.executeUpdate();
+		        	 
+		        	 currentPassword =request.getParameter("secondNewPassword");
+		        }
+		        
 			 
 		      Statement statement = con.createStatement();
 
@@ -180,7 +193,7 @@ public class LoginController {
 		      
 		     
 		String      query = " select 'found' as found, access, world, china, india, locked from ids_users where userId = '"+request.getParameter("userId")
-				  +"' and passwordId = '"+request.getParameter("password")+"'";
+				  +"' and passwordId = '"+currentPassword+"'";
 
 		 String access="";
 		 int world=0;
@@ -201,14 +214,30 @@ public class LoginController {
 			   }
 		   }
 
+		   System.out.println("WELL WHAT DOES LOCKED CONTAIN: "+locked);
   
 	        if (locked.equals("1")) {
 
 		    	model.addAttribute("displaytype","block");
 		    	model.addAttribute("userId",request.getParameter("userId"));
 		    	model.addAttribute("errortext","UserId is locked - contact Administrator");
+		    	 model.addAttribute("displaytypePassword","style='display:none'");
+		    	System.out.println("DOWN 1");
 	        	return "login";
 	        }
+	        
+	        if (locked.equals("2")) {
+
+		    	model.addAttribute("displaytype","block");
+		    	model.addAttribute("userId",request.getParameter("userId"));
+		    	model.addAttribute("errortext","First time of entry reset password");
+		    	model.addAttribute("displaytypePassword","");
+		    	model.addAttribute("myusername",request.getParameter("userId"));
+		    	model.addAttribute("mypassword",request.getParameter("password"));
+		    	System.out.println("DOWN 2");
+	        	return "login";
+	        }
+	        
 	        
 	        
 	        if (found ) {
@@ -224,12 +253,13 @@ public class LoginController {
 	        		currentLocation="w";
 	        	}
 
-	        	user = new User(request.getParameter("userId"), request.getParameter("password"), access, world, china, india,currentLocation);
+	        	user = new User(request.getParameter("userId"), currentPassword, access, world, china, india,currentLocation);
 	        	
 		   		 HttpSession session = request.getSession(true);
 			       session.removeAttribute("myUser");
 			       session.setAttribute("myUser", user);
 			       
+			       System.out.println("got as far as setting up user");
 			       
 	        	model.remove("displaytype2");
 			    model.remove("passwordlab");
@@ -256,6 +286,10 @@ public class LoginController {
 		    	model.addAttribute("displaytype","block");
 		    	model.addAttribute("userId",request.getParameter("userId"));
 		    	model.addAttribute("errortext","invalid password or userId");
+		    	
+		    	 model.addAttribute("displaytypePassword","style='display:none'");
+		    	
+		    	
 		    	 con.close();
 	        	return "login";
 	        }

@@ -1,7 +1,5 @@
 package com.ids.sql;
 
-import java.util.Calendar;
-
 import com.ids.businessLogic.DropdownInterface;
 
 public class SQL1Summary implements DropdownInterface {
@@ -19,8 +17,7 @@ public class SQL1Summary implements DropdownInterface {
 		String selectClause ="";
 		String groupAndOrderByClause = "";
 		 String ingoreALL = "";
-
-		  int  	 year = Calendar.getInstance().get(Calendar.YEAR);
+		 String CompClause = "";
 
 
 		switch(heading2){
@@ -42,14 +39,14 @@ public class SQL1Summary implements DropdownInterface {
 				}
 			}
             if (heading1==PRODUCT) {
-            	TWO="year";
-            	ONE="product";
+            	TWO="Year";
+            	ONE="Product";
             	topHeadingLine=YEARS;
             	selectClause = "UPPER(d.name) as product, a.year,  ";
             	groupAndOrderByClause = " d.name, a.year ";
             }else{
-            	ONE="year";
-            	TWO="product";
+            	ONE="Year";
+            	TWO="Product";
             	topHeadingLine=PRODUCT;
             	selectClause = " a.year, d.shortname as product,  ";
             	groupAndOrderByClause = " a.year, d.shortname ";
@@ -62,15 +59,15 @@ public class SQL1Summary implements DropdownInterface {
 			}
             if (heading1==COUNTRY) {
             	topHeadingLine=YEARS;
-            	ONE="country";
-            	TWO="year";
-            //	ingoreALL = " and b.name != 'ALL COMPANIES' ";
+            	ONE="Country";
+            	TWO="Year";
+            	ingoreALL = " and b.name != 'ALL COMPANIES' ";
             	selectClause = " c.country as country, a.year, ";
             	groupAndOrderByClause = " c.country, a.year ";
             }else{
             	topHeadingLine=COUNTRY;
-            	ONE="year";
-            	TWO="country";
+            	ONE="Year";
+            	TWO="Country";
             	selectClause = " a.year, c.shortname as country,  ";
             	groupAndOrderByClause = " a.year, c.shortname ";
             }
@@ -83,14 +80,14 @@ public class SQL1Summary implements DropdownInterface {
 			}
             if (heading1==COUNTRY) {
             	topHeadingLine=PRODUCT;
-            	TWO="product";
-            	ONE="country";
+            	TWO="Product";
+            	ONE="Country";
             	selectClause = " c.country as country, d.shortname as product,  ";
             	groupAndOrderByClause = "  c.country, d.shortname ";
             }else{
             	topHeadingLine=COUNTRY;
-            	ONE="product";
-            	TWO="country";
+            	ONE="Product";
+            	TWO="Country";
             	selectClause = " UPPER(d.name) as product, c.shortname as country,  ";
             	groupAndOrderByClause = " d.name, c.shortname ";
             }
@@ -102,21 +99,21 @@ public class SQL1Summary implements DropdownInterface {
 			}
             if (heading1==COUNTRY) {
             	topHeadingLine=PRODUCT;
-            	TWO="product";
-            	ONE="country";
+            	TWO="Product";
+            	ONE="Country";
             	selectClause = " c.country as country, d.shortname as product,  ";
             	groupAndOrderByClause = "  c.country, d.shortname ";
             }else{
             	 if (heading1==PRODUCT) {
             	    topHeadingLine=YEARS;
-            	    ONE="product";
-            	    TWO="year";
+            	    ONE="Product";
+            	    TWO="Year";
             	    selectClause = " UPPER(d.name) as product, a.year,  ";
             	    groupAndOrderByClause = " d.name, a.year ";
             	 } else {
              	    topHeadingLine=PRODUCT;
-             	    ONE="year";
-             	    TWO="product";
+             	    ONE="Year";
+             	    TWO="Product";
                 	selectClause = "  d.shortname as product, a.year,  ";
                 	groupAndOrderByClause = " a.year, d.shortname  ";
             	 }
@@ -125,6 +122,15 @@ public class SQL1Summary implements DropdownInterface {
 		}
 			
 		}
+
+		// use all companies unoless the company filter is set.
+		//private int xtst = incExProducts.length();
+		//incExProducts.
+		 if (incExCompanies.isEmpty()) {
+			 	CompClause = "and b.name = 'ALL COMPANIES'" ;	 
+			 }else{
+				 CompClause = "and b.name != 'ALL COMPANIES'" ; 
+			 }
 		
 	      query = " select "+selectClause+"  SUM(a.quantity) quantity  " +
 	      		" from Facts_"+access+" a, Company b, Country c, Product d " +
@@ -134,12 +140,11 @@ public class SQL1Summary implements DropdownInterface {
 	    		  " and a.year between "+fromYear+" and "+toYear+" " +
 	    		  " and d.id = a.productId " +
 	    		  " and a.access = '" + access + "' " +
-	    		  " and ( (a.year < " +year+ " AND  b.name != 'ALL COMPANIES') OR ( " +
-	    		  "  a.year >= " +year+ " AND  b.name = 'ALL COMPANIES')) "+
 	    		  " and b.access = '" + access + "' " +
 	    		  " and c.access = '" + access + "' " +
 	    		  " and d.access = '" + access + "' " +
-	    		//  " and b.name != 'ALL COMPANIES' " +
+	    		  CompClause + 
+	    		  //" and b.name != 'ALL COMPANIES' " +
 	    		  incExCountries +
 	    		  incExProducts+
 	    		  incExCompanies+

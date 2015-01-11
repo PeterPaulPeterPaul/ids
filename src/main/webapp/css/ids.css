@@ -1,5 +1,11 @@
-.idsdefault {
+.idsdefault .idsBoxDefault {
     font-family: Arial,Helvetica,sans-serif;
+}
+
+.idsBoxDefault  {
+    border-style: solid;
+	border-color: #888888;	
+	border-width: 1px;
 }
 
 .ui-jqgrid-labels {
@@ -18,7 +24,7 @@ opacity: 0.5;
 
 .HeaderSelector{
     background-color: #FFFF00;
-    border-color: #808080;
+    border-color: #888888;
     border-style: solid;
     border-width: 1px;
     float: right;
@@ -71,7 +77,7 @@ background:#E6E6E6;
 font-weight:bold;
 }
 
-.PPcFont{
+.{
 background:#E6E6E6;
 font-weight:normal;
 }

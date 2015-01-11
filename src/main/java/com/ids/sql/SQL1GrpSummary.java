@@ -48,14 +48,14 @@ public class SQL1GrpSummary implements DropdownInterface {
 								}
 						}
 				 }
-					ONE="company";
-					TWO="year";
+					ONE="Company";
+					TWO="Year";
 					topHeadingLine=YEARS;
 		        	selectClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
     			  "   ELSE substr(b.name,1,30) END as company,  a.year,  ";
 			switch(heading1){
 			  case(PRODUCT):{
-	            	TWO="year";
+	            	TWO="Year";
 	            	topHeadingLine=YEARS;
 	            	selectClause = "  CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
     			  "   ELSE substr(b.name,1,30) END as company,  a.year ,  ";
@@ -69,7 +69,7 @@ public class SQL1GrpSummary implements DropdownInterface {
 	            	break;
 			  }
 			  case(YEARS):{
-	            	TWO="product";
+	            	TWO="Product";
 	            	topHeadingLine=PRODUCT;
 	            	selectClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
     			  "   ELSE substr(b.name,1,30) END as company,  d.shortname as product,  ";
@@ -81,8 +81,8 @@ public class SQL1GrpSummary implements DropdownInterface {
 	            	break;
 			  }
 			  case(COMPANY):{
-	            	TWO="product";
-	            	ONE="year";
+	            	TWO="Product";
+	            	ONE="Year";
 	            	topHeadingLine=PRODUCT;
 	            	if (swap!=1) {
 	            	  selectClause = " d.shortname as product, a.year,  ";
@@ -103,15 +103,15 @@ public class SQL1GrpSummary implements DropdownInterface {
 			if (summary != 5){
 				   andClause = " and a.productId = "+ dropdown2;
 				}
-				ONE="company";
-				TWO="year";
+				ONE="Company";
+				TWO="Year";
 				topHeadingLine=YEARS;
 	        	selectClause = "b.name as company, a.year,  ";
 	        	groupAndOrderByClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
     			  "   ELSE substr(b.name,1,30) END,  a.year ";
 			switch(heading1){
 			  case(COUNTRY):{
-	            	TWO="year";
+	            	TWO="Year";
 	            	topHeadingLine=YEARS;
 	            	selectClause = "  CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
     			  "   ELSE substr(b.name,1,30) END as company,  a.year,  ";
@@ -137,7 +137,7 @@ public class SQL1GrpSummary implements DropdownInterface {
 	            	
 			  }
 			  case(YEARS):{
-	            	TWO="country";
+	            	TWO="Country";
 	            	topHeadingLine=COUNTRY;
 	            	selectClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
     			  "   ELSE substr(b.name,1,30) END as company,  c.shortname as country,  ";
@@ -150,8 +150,8 @@ public class SQL1GrpSummary implements DropdownInterface {
 			  }
 			  
 			  case(COMPANY):{
-	            	TWO="country";
-	            	ONE="year";
+	            	TWO="Country";
+	            	ONE="Year";
 	            	topHeadingLine=COUNTRY;
 	            	if (swap!=1) {
 	            	   selectClause = " c.shortname as country, a.year,  ";
@@ -173,8 +173,8 @@ public class SQL1GrpSummary implements DropdownInterface {
 			if (summary != 5){
 				   andClause = " and a.year = "+ dropdown2;
 				}
-				ONE="company";
-				TWO="product";
+				ONE="Company";
+				TWO="Product";
 				topHeadingLine=PRODUCT;
 	        	selectClause = "b.name as company, d.shortname as product,  ";
 	        	groupAndOrderByClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
@@ -205,7 +205,7 @@ public class SQL1GrpSummary implements DropdownInterface {
 	             	break;
 			  }
 			  case(PRODUCT):{
-	             	TWO="country";
+	             	TWO="Country";
 	             	topHeadingLine=COUNTRY;
 	             	  selectClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
     			  "   ELSE substr(b.name,1,30) END as company, c.shortname as country,  ";
@@ -217,8 +217,8 @@ public class SQL1GrpSummary implements DropdownInterface {
 	             	break;
 			  }
 			  case(COMPANY):{
-	            	TWO="country";
-	            	ONE="product";
+	            	TWO="Country";
+	            	ONE="Product";
 	            	topHeadingLine=COUNTRY;
 	            	if (swap!=1){
 	            	  selectClause = " d.name as product , c.shortname country,  ";
@@ -239,8 +239,8 @@ public class SQL1GrpSummary implements DropdownInterface {
 			if (summary != 5){
 				   andClause = " and a.companyId = "+ dropdown2;
 			 }
-			 ONE="product";
-			 TWO="year";
+			 ONE="Product";
+			 TWO="Year";
 			  topHeadingLine=YEARS;
 			  if (swap!=1) {
 		         selectClause = "a.year, d.shortname as product,  ";
@@ -251,7 +251,7 @@ public class SQL1GrpSummary implements DropdownInterface {
 			  }
 			switch(heading1){
 			  case(COUNTRY):{
-	                TWO="product";
+	                TWO="Product";
 	                topHeadingLine=PRODUCT;
 	            	ONE="year";
 	            	if (swap!=1) {
@@ -279,9 +279,9 @@ public class SQL1GrpSummary implements DropdownInterface {
 	            	break;
 	            }
 			  case(PRODUCT):{
-	            	TWO="country";
+	            	TWO="Country";
 	            	topHeadingLine=COUNTRY;
-	            	ONE="year";
+	            	ONE="Year";
 	            	if (swap!=1) {
 	            	   selectClause = " c.shortname as country, a.year,  ";
 	            	   groupAndOrderByClause = "a.year, c.shortname  ";
@@ -295,9 +295,9 @@ public class SQL1GrpSummary implements DropdownInterface {
 	            	break;
 			  }
 			  case(YEARS):{
-	            	TWO="country";
+	            	TWO="Country";
 	            	topHeadingLine=COUNTRY;
-	            	ONE="product";
+	            	ONE="Product";
 	            	if (swap!=1){
 	            	  selectClause = " c.shortname as country,  d.name as product,   ";
 	            	  groupAndOrderByClause = " d.name, c.shortname ";
@@ -316,16 +316,16 @@ public class SQL1GrpSummary implements DropdownInterface {
 
 		if (swap==1) {
 			
-			if(ONE.equals("country")) {
+			if(ONE.equals("Country")) {
 				topHeadingLine=COUNTRY;
 			}
-			if(ONE.equals("product")) {
+			if(ONE.equals("Product")) {
 				topHeadingLine=PRODUCT;
 			}
-			if(ONE.equals("year")) {
+			if(ONE.equals("Year")) {
 				topHeadingLine=YEARS;
 			}
-			if(ONE.equals("company")) {
+			if(ONE.equals("Company")) {
 				topHeadingLine=COMPANY;
 			}
 			String oneA = ONE;

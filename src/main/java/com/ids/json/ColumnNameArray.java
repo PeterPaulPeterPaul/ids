@@ -28,15 +28,15 @@ public class ColumnNameArray implements DropdownInterface {
 	      ResultSet resultSet = null;
 
 	          if (dimension1 == PRODUCT) {
-	    	     columnNameArray.put("product");
+	    	     columnNameArray.put("Product");
 	          }else{
 	        	  if (dimension1== COUNTRY) {
-	        		  columnNameArray.put("country");   
+	        		  columnNameArray.put("Country");   
 	        	  } else {
 	        		  if (dimension1==YEARS) {
-	        	          columnNameArray.put("year"); 
+	        	          columnNameArray.put("Year"); 
 	        		  } else {
-	        			  columnNameArray.put("company"); 
+	        			  columnNameArray.put("Company"); 
 	        		  }
 	        	  }
 	          }
@@ -71,9 +71,9 @@ public class ColumnNameArray implements DropdownInterface {
 	          }
 	          if (topRow.equals("country shortname")) {
 	        	  
-	        	  query = "select distinct c.shortname from Country c where c.shortname != 'ALLY' and c.access = '"+access+"' " +
+	        	  query = "select distinct c.shortname from Country c where c.shortname != 'ALLY' and c.ID > 0 and c.access = '"+access+"' " +
 	        			  srp.getIncExCountries()+
-	        	  		" order by shortname asc";
+	        	  		" order by SortOrder asc";
 	        	  resultSet = statement.executeQuery(query);
 	        	  
 	        	  while (resultSet.next()) {
@@ -87,9 +87,9 @@ public class ColumnNameArray implements DropdownInterface {
 	          }
 	          if (topRow.equals("country")) {
 	        	  
-	        	  query = "select distinct c.country as name from Country c where c.shortname != 'ALLY'  and access = '"+access+"' " +
+	        	  query = "select distinct c.country as name from Country c where c.shortname != 'ALLY' and c.ID > 0 and access = '"+access+"' " +
 	        			  srp.getIncExCountries()+
-	        			  " order by c.shortname asc";
+	        			  " order by c.SortOrder asc";
 	        	  resultSet = statement.executeQuery(query);
 	        	  
 	        	  while (resultSet.next()) {

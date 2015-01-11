@@ -23,32 +23,37 @@ public class ColumnModel {
 	    	  obj1a.put("classes","titleFont"); 
 	    	  obj1a.put("width",150);   
 	    	  obj1a.put("editable",false);
+	    	  //obj1a.put("fixed",true);	    	  
 	  	  //    obj1a.put("classes","colorGrey");
 	    	  array3.put(obj1a);
 		  }else {
 		     JSONObject obj1a = new JSONObject();
   	         obj1a.put("name",jsonArray.get(i));
   	         obj1a.put("align", "right");
+  	         obj1a.put("firstsortorder","desc");  	         
   	         obj1a.put("index",jsonArray.get(i));
 
-
+   		  obj1a.put("width",50); 
    
-	    	  if (jsonArray.length()>11) {
-	    	     obj1a.put("width",40);
-	    	  } else {
-	    		  obj1a.put("width",90); 
-	    	  }
+	    	 // if (jsonArray.length()>11) {
+	    	 //    obj1a.put("width",30);
+	    	  //} else {
+	    	//	  obj1a.put("width",70); 
+	    	 // }
+	    	  
 	    	  obj1a.put("editable",true);
 	    	  obj1a.put("classes","colorWhite"); 
 	    	  if (((String)jsonArray.get(i)).contains("PPC")){
-	    		  obj1a.put("width",15);
-	    		  obj1a.put("classes","titleFont"); 
+	    		  obj1a.put("width",20);
+	    		  obj1a.put("classes","PPcFont"); 
 	    		  obj1a.put("editable",false);
+		    	 // obj1a.put("fixed",true);
 	    	  }
 	    	  
 	    	  if (((String)jsonArray.get(i)).contains("TOTAL")){
 	    		  obj1a.put("classes","titleFont"); 
 	    		  obj1a.put("editable",false);
+		    	 // obj1a.put("fixed",true);
 	    	  }
   	         obj1a.put("sorttype","int"); 
   	         obj1a.put("formatter","number");

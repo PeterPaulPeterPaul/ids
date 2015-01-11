@@ -365,15 +365,15 @@ public class MainController implements DropdownInterface {
 		    		  ColumnSummaryNameArray cna= null;
 		    		  switch(srp.getHeading1()){
 		    		    case (COUNTRY):{
-		    			  colHeading="country";
+		    			  colHeading="Country";
                           break;
 		    		    }
 		    		    case (PRODUCT):{
-		    			  colHeading="product";
+		    			  colHeading="Product";
 		    			  break;
 		    		    }
 		    		    case (YEARS):{
-		    			  colHeading="year";
+		    			  colHeading="Year";
 		    			  break;
 		    		    }
 		    		  }
@@ -428,7 +428,7 @@ public class MainController implements DropdownInterface {
 		    		  String colHeading= ""; 
 		    		  ColumnSummaryNameArray cna= null;
 
-		    			  colHeading="company";
+		    			  colHeading="Company";
 		    			  
 		    			//  if (srp.getSummary()==2){
 		    			//      if (srp.getHeading2()==COMPANY) {
@@ -444,44 +444,44 @@ public class MainController implements DropdownInterface {
 			        		  if (srp.getHeading1()==COMPANY) {
 			    				  colHeading="year";
 			    				  if (srp.getHeading2()==YEARS){
-			    					  colHeading="product";
+			    					  colHeading="Product";
 			    				  }  
 			        		  }
 			        		  if (srp.getHeading1()==COUNTRY && srp.getHeading2()==COMPANY) {
-			    				  colHeading="year";
+			    				  colHeading="Year";
                                   if (srp.getSwap()==1) {
-                                	  colHeading="product";  
+                                	  colHeading="Product";  
                                   }
 			        		  }
 			        		  if (srp.getHeading1()==PRODUCT && srp.getHeading2()==COMPANY) {
-			    				  colHeading="year";
+			    				  colHeading="Year";
                                   if (srp.getSwap()==1) {
-                                	  colHeading="country";  
+                                	  colHeading="Country";  
                                   }
 			        		  }
 			        		  if (srp.getHeading1()==YEARS && srp.getHeading2()==COMPANY) {
-			    				  colHeading="product";
+			    				  colHeading="Product";
                                   if (srp.getSwap()==1) {
-                                	  colHeading="country";  
+                                	  colHeading="Country";  
                                   }
 			        		  }
 			        		  if (srp.getHeading1()==COMPANY && srp.getHeading2()==YEARS) {
-			    				  colHeading="product";
+			    				  colHeading="Product";
                                   if (srp.getSwap()==1) {
-                                	  colHeading="country";  
+                                	  colHeading="Country";  
                                   }
 			        		  }
 			        		  if (srp.getHeading1()==COMPANY && srp.getHeading2()==COUNTRY) {
-			    				  colHeading="year";
+			    				  colHeading="Year";
                                   if (srp.getSwap()==1) {
-                                	  colHeading="product";  
+                                	  colHeading="Product";  
                                   }
 			        		  }
 			        		  
 			        		  if (srp.getHeading1()==COMPANY && srp.getHeading2()==PRODUCT) {
-			    				  colHeading="year";
+			    				  colHeading="Year";
                                   if (srp.getSwap()==1) {
-                                	  colHeading="country";  
+                                	  colHeading="Country";  
                                   }
 			        		  }
 			        		  
@@ -540,7 +540,7 @@ public class MainController implements DropdownInterface {
 		    	  if ((srp.getHeading1()==PRODUCT && srp.getHeading2()==YEARS) && srp.getSummary()==0 ||
 		    			  (srp.getHeading2()==PRODUCT && srp.getHeading1()==YEARS && srp.getSummary()==0)) {
 		    		  try{
-		    		  String colHeading= "company";
+		    		  String colHeading= "Company";
 
 		    		  ColumnNameArray cna = new ColumnNameArray(srp,statement,"country shortname", COMPANY,
 		    				  srp.getFromDate(), srp.getToDate(), access,total,percent);
@@ -592,11 +592,11 @@ public class MainController implements DropdownInterface {
 		    			  
 		    			  
 		    		  ColumnNameArray cna= null;
-		    		  String colHeading= "year";
-		    		  String colHead2 = "product";
+		    		  String colHeading= "Year";
+		    		  String colHead2 = "Product";
 		    		  
 		    		  if (srp.getSwap()==1){
-		    			  colHeading="product";
+		    			  colHeading="Product";
 		    			  colHead2="year";
 		    			  cna = new ColumnNameArray(srp,statement,"years", PRODUCT,
 		    					  srp.getFromDate(), srp.getToDate(), access, total,percent); 
@@ -655,13 +655,13 @@ public class MainController implements DropdownInterface {
 		    		  try{
 		    			  
 		    			  ColumnNameArray cna= null;
-		    		  String colHeading= "year";
-		    		  String colHead2 = "country";
+		    		  String colHeading= "Year";
+		    		  String colHead2 = "Country";
 		    		  System.out.println("SWAP: "+srp.getSwap());
 		    		  
 		    		  if (srp.getSwap()==1){
-		    			  colHeading="country";
-		    			  colHead2="year";
+		    			  colHeading="Country";
+		    			  colHead2="Year";
 		    			  cna = new ColumnNameArray(srp,statement,"years", COUNTRY,
 		    					  srp.getFromDate(), srp.getToDate(), access, total,percent); 
 		    			  model.addAttribute("myDimension","years");
@@ -718,12 +718,12 @@ public class MainController implements DropdownInterface {
 		    		  try{
 
 		    		  ColumnNameArray cna= null;
-		    		  String colHeading= "product";
-		    		  String colHead2 = "country";
+		    		  String colHeading= "Product";
+		    		  String colHead2 = "Country";
 		    		  
 		    		  if (srp.getSwap()==1){
-		    			  colHeading="country";
-		    			  colHead2="product";
+		    			  colHeading="Country";
+		    			  colHead2="Product";
 		    			  cna = new ColumnNameArray(srp,statement,"product shortname", COUNTRY,
 		    					  srp.getFromDate(), srp.getToDate(), access, total,percent); 
 		    			  model.addAttribute("myDimension","product shortname");
@@ -778,7 +778,7 @@ public class MainController implements DropdownInterface {
 		    	  if ((srp.getHeading1()==COUNTRY && srp.getHeading2()==YEARS)||
 		    			  (srp.getHeading2()==COUNTRY && srp.getHeading1()==YEARS) ) {
 		    		  try{
-		    		  String colHeading= "company";
+		    		  String colHeading= "Company";
 		    		  
 		    		  ColumnNameArray cna = new ColumnNameArray(srp,statement,"product shortname", COMPANY,
 		    				  srp.getFromDate(), srp.getToDate(),access, total,percent);
@@ -829,7 +829,7 @@ public class MainController implements DropdownInterface {
 		    	  if ((srp.getHeading1()==COUNTRY && srp.getHeading2()==PRODUCT)||
 		    			  (srp.getHeading2()==COUNTRY && srp.getHeading1()==PRODUCT) ) {
 		    		  try{
-		    		  String colHeading= "company";
+		    		  String colHeading= "Company";
 		    		  ColumnNameArray cna = new ColumnNameArray(srp,statement,"years" ,COMPANY,
 		    				  srp.getFromDate(), srp.getToDate(), access, total,percent);
 		    		  ColumnModel columnModel = new ColumnModel(cna.getColumnNameArray());

@@ -78,17 +78,17 @@ background-color:#FFFFFF;
 		<table>
 			<tr>
 				<td width="100px">User Name</td>
-				<td width="150px"><input class="input" id="userId" name="userId" type="text" value="" /></td>
+				<td width="150px"><input class="input" id="userId" name="userId" type="text" value="${myusername}" /></td>
 			</tr>
 			<tr>
 				<td width="100px">Password</td>
-				<td width="150px"><input class="input" id="password" name="password" type="password" value=""/></td>
+				<td width="150px"><input class="input" id="password" name="password" type="password" value="${mypassword}"/></td>
 			</tr>
-			<tr id="showpass1" style="display:none" >
+			<tr id="showpass1" ${displaytypePassword} >
 				<td width="100px">NEW Password</td>
 				<td width="150px"><input class="input" id="firstNewPassword" name="firstNewPassword" type="password" /></td>
 			</tr>
-			<tr id="showpass2" style="display:none">
+			<tr id="showpass2" ${displaytypePassword} >
 				<td width="100px">Reenter NEW Password</td>
 				<td width="150px"><input class="input" id="secondNewPassword" name="secondNewPassword" type="password" /></td>
 			</tr>

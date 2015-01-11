@@ -118,6 +118,7 @@ public class EditorController implements DropdownInterface {
 		 con = gcfc.myConnection();
 		 
 		   model.addAttribute("ajaxPrefix",gcfc.ajaxURLprefix());
+		   model.addAttribute("displaytypePassword","style='display:none'");
 	      Statement statement = con.createStatement();
 
 	      ResultSet resultSet = null;

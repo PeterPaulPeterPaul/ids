@@ -147,7 +147,6 @@ public class AddCompanyController implements DropdownInterface {
             	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
             	   int retval = statement2.executeUpdate();
 
-                con.commit();
                 con.close();
 
 		 }catch(Exception e) {

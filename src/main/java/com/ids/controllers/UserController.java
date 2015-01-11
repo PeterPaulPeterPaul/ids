@@ -79,7 +79,7 @@ public class UserController {
 	        Statement statement = con.createStatement();
 	        
 			 con.setAutoCommit(false);
-			 
+			 model.addAttribute("displaytypePassword","style='display:none'");
 
 			 if (request.getParameter("lockedUserID") != null && !request.getParameter("lockedUserID").trim().equals("")) {
 				 
