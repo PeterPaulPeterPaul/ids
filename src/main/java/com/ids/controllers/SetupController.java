@@ -67,7 +67,6 @@ public class SetupController {
     	
   		 HttpSession session = request.getSession(true);
 
-  		map.addAttribute("displaytypePassword","none");
 	     User user =(User) session.getAttribute("myUser");
     	
 		 if (user==null || !user.getAccess().equals("a")) {
