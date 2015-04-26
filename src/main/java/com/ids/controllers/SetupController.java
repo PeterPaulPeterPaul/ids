@@ -80,13 +80,22 @@ public class SetupController {
 		 String access = request.getParameter("access");
 		 logger.warning("access: " + access);
 		 
-	    	String multiplier="";
+		  
+	// Save radio button selection to pass back 	 
+		 if (access.equals("w")) {
+			 map.addAttribute("w_Selected","checked"); 
+		 } else if (access.equals("c")) {
+			 map.addAttribute("c_Selected","checked"); 			 
+		 } else if (access.equals("i")) {
+			 map.addAttribute("i_Selected","checked"); 			 
+		 }	;
+		 
+	   	String multiplier="";
 
 	    	
 
 	//	 Statement statement1 = con.createStatement();
    
-    	
 
     	ServletFileUpload upload = new ServletFileUpload();
 
@@ -110,56 +119,29 @@ public class SetupController {
     	    InputStream stream = item.openStream();
     	    if (!fileTypeFound)
     	     {
-    	    //	logger.warning("Form field " + name + " with value "
-    	    //        + Streams.asString(stream) + " detected.");
+
     	    	fileTypeFound=true;
     	    	fileType = Streams.asString(stream);
-    	    	/*
-    	    	if (fileType.equals("resetOthers")){
-    	    		
-    	    		PreparedStatement statement = (PreparedStatement) con.prepareStatement("DELETE FROM " +
-                            "   Facts_"+access+" where companyId < 0 and access='"+request.getParameter("access")+"' ");
-                    statement.executeUpdate();
-                     con.commit();
-    	    		
-    	    		 statement = (PreparedStatement) con.prepareStatement("DELETE FROM " +
-    	    				                                                       "   Company where id < 0 and access='"+request.getParameter("access")+"' ");
-    	    		 
-    	    		statement.executeUpdate();
-    	    		con.commit();
-    	    		
-        	    	String sql = " Insert into Company (Name, ShortName, Id, access ) values ('Others' , 'OTH' , -1"+multiplier+" ,'"+request.getParameter("access")+"' ) ";
-                    statement = (PreparedStatement) con.prepareStatement(sql);
-
-                    statement.executeUpdate();
-                    con.commit();
-        	    	map.addAttribute("displaytype2","block");
-        	    	map.addAttribute("displaytype","none");
-     			   map.addAttribute("successtext","Other Companies successfully deleted - ready for load!");
-     			   return  "setup";
-    	    		
-    	    	}
-    	    	//if (fileType.equals("facts")) { 
-    	    	//.addAttribute("fileType","factsPARTDONE");
-    	    		
-    	        
-    	    		
-    	    	//	PreparedStatement statement = (PreparedStatement) con.prepareStatement("DELETE FROM Facts_"+access+"   where access='"+request.getParameter("access")+"' ");
-    	    	//	statement.executeUpdate();
-    	    	//	con.commit();
-    	    // }*/
+    	    	
     	    } else {
 
     	    	if (fileType.contains("facts") && !fileType.contains("otherFacts")){
     	    	BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
     	    	
-    	    	String sql = "INSERT INTO Facts_"+access+"  (companyId, countryid, productid, year, sales_production, quantity, flag, access) " +
+	    	    DropTemp("tempFacts_"+access);	
+	    	    
+	   		    String sql = "create table tempFacts_"+access+"  as select * from Facts_"+access+" where 1<1";      
+		        logger.warning("current sql: "+sql);
+		        PreparedStatement statement = (PreparedStatement) con.prepareStatement(sql);
+		        statement.execute();	
+		                
+	    	      	    	
+    	        sql = "INSERT INTO tempFacts_"+access+"  (companyId, countryid, productid, year, sales_production, quantity, flag, access) " +
     	    			" values (?"+multiplier+",?"+multiplier+",?"+multiplier+",?,?, ?, ?,?)";
     	    	logger.warning("current sql: "+sql);
-    	    //	String sql = "INSERT INTO Product (Name, Shortname, Id, SortOrder ) values (? , ? , ? ,? ) ";
-                PreparedStatement statement = (PreparedStatement) con.prepareStatement(sql);
-
-
+    	    	
+		    	statement = con.prepareStatement(sql);    	    	
+             //   PreparedStatement statement = (PreparedStatement) con.prepareStatement(sql);
     	    	
     	    	//String query1 = item.getName();
     	    	String sCurrentLine= null;
@@ -209,14 +191,85 @@ public class SetupController {
     	    		
     			 
     	    	}
+    	    	con.commit();
+    			statement.executeBatch();    	    	
+    	    	
+    			ResultSet resultSet = null;
+	              sql="SELECT MAX(year) as year1 from tempFacts_"+access+" where Sales_Production = 2 ";
+	              statement = con.prepareStatement(sql);
+	      	      resultSet = statement.executeQuery(sql);
+	   		      resultSet.next();
+	   		      String myYear = resultSet.getString("year1");
+	   		  
+	    	    DropTemp("tempOthFacts_"+access);	   		 
+	    	    
+	   		      sql = "create table tempOthFacts_"+access+"  as select 0 id , -1  companyId,countryId, ProductId, year," +
+	   		      		" sales_production, sum(quantity)*-1 quantity,\'I\' flag, \'c\'  access" +
+	   		      		" from tempFacts_"+access+" WHERE CompanyID <> 11" +
+	   		      		" and year <= " + myYear  +
+	   		      		" Group by countryId, ProductId, year,sales_production ";      
+	    	    	logger.warning("current sql: "+sql);
+	    	    	statement = con.prepareStatement(sql);
+	                statement.execute();	   		      
+	   		
+	                sql = "Insert into tempOthFacts_"+access+" select 0 id , -1  companyId,countryId, ProductId, year," +
+	                		" sales_production, sum(quantity) quantity,\'I\' flag, \'c\'  access " +
+	                		" from tempFacts_"+access+" WHERE CompanyID = 11 " + 
+	                		" and year <= " + myYear  +
+	                		" Group by countryId, ProductId, year,sales_production";   
+	    	    	logger.warning("current sql: "+sql);
+	    	    	statement = con.prepareStatement(sql);
+	    	    	statement.execute();		  
+	    	    	con.commit();
+	    	    			    	    	
+	    	    	
+	    	    	sql = "Insert into tempFacts_"+access+" select 0 id , -1  companyId,countryId, ProductId, year," +
+	    	    			" sales_production,sum(quantity) quantity,\'I\' flag, \'c\' access" +
+	    	    			" from tempOthFacts_"+access+ 
+	    	    			" Group by countryId, ProductId, year,sales_production";
+	    	    	logger.warning("current sql: "+sql);
+	    	    	statement = con.prepareStatement(sql);
+	    	    	statement.execute();	
+	    	    	con.commit();	    	    	
+	    	    	
+	    	    	// update from the temp table in 1 transaction 
+	    	    	
+	    	    	sql = "delete from FactsEdit_"+access+"  where 1=1";
+	    	    	logger.warning("current sql: "+sql);
+	    	    	statement = con.prepareStatement(sql);
+	    	    	statement.execute();	    	    
+
+	    	    	//con.commit(); 	
+	    	    	
+	    	    	sql = "insert into FactsEdit_"+access+"  select * from tempFacts_"+access;
+	    	    	logger.warning("current sql: "+sql);
+	    	    	statement = con.prepareStatement(sql);
+	    	    	statement.execute();
+	    	    	
+	    	    	//con.commit(); 	
+
+	    	    	sql = "delete from Facts_"+access+"  where 1=1";
+	    	    	logger.warning("current sql: "+sql);
+	    	    	statement = con.prepareStatement(sql);
+	    	    	statement.execute();	    	    
+	    	    	
+	    	    	//con.commit(); 	
+	    	    	
+	    	    	sql = "insert into Facts_"+access+"  select * from tempFacts_"+access;
+	    	    	logger.warning("current sql: "+sql);
+	    	    	statement = con.prepareStatement(sql);
+	    	    	statement.execute();
+	    	    	
+	    	    	con.commit(); 	
+    	    	
     	    	map.addAttribute("displaytype2","block");
     	    	map.addAttribute("displaytype","none");
  			   map.addAttribute("done",commitCount);
  		//	  map.addAttribute("fileType","factsPARTDONE");
  			   map.addAttribute("successtext"," records committed. LOAD COMPLETE!");
- 			  statement.executeBatch();
-    	    	con.commit();
-    	    	con.close();
+
+ 			  
+    	       con.close();
  	    	   return  "setup";
 
     	        // Process the input stream
@@ -224,7 +277,7 @@ public class SetupController {
     	    	
     	    	
     	    	
-    	    	
+    	    	/*
     	    	
     	    	if (fileType.contains("otherFacts")){
     	    		
@@ -295,19 +348,23 @@ public class SetupController {
        			  statement.executeBatch();
       	    	con.commit();
       	    	
-        	    	map.addAttribute("displaytype2","block");
-        	    	map.addAttribute("displaytype","none");
-     			   map.addAttribute("done",commitCount);
-     			  map.addAttribute("fileType","factsPARTDONE");
-     			   map.addAttribute("successtext"," records committed. LOAD COMPLETE!");
+      	    	
+      	    	
+      	    	
+        	    map.addAttribute("displaytype2","block");
+        	    map.addAttribute("displaytype","none");
+     			map.addAttribute("done",commitCount);
+     			map.addAttribute("fileType","factsPARTDONE");
+     			map.addAttribute("successtext"," records committed. LOAD COMPLETE!");
 
-        	    	con.close();
-        	    	   return  "setup";
+        	      con.close();
+        	      return  "setup";
+        	    	   
         	        // Process the input stream
         	    	}
         	    	
         	    	
-    	    	
+    	    	*/
     	    	
     	    	
     	    	if (fileType.equals("products")){
@@ -404,7 +461,7 @@ public class SetupController {
     	    	
     	    	if (fileType.equals("companies")){
     	    		
-    	    		PreparedStatement statement = (PreparedStatement) con.prepareStatement("DELETE FROM Company  where  access='"+request.getParameter("access")+"' ");
+    	    		PreparedStatement statement = (PreparedStatement) con.prepareStatement("DELETE FROM Company  where  ID > 0 and  access='"+request.getParameter("access")+"' ");
     	    		statement.executeUpdate();
     	    		con.commit();
     	    		
@@ -434,6 +491,8 @@ public class SetupController {
     	    	con.commit();	   
     	    	map.addAttribute("displaytype2","block");
     	    	map.addAttribute("displaytype","none");
+    	    	map.addAttribute("displaytype","none");
+ 			   map.addAttribute("done",count);
  			   map.addAttribute("successtext"," Companies committed. COMPLETE!!!");
  			   con.close();
  			   return  "setup";
@@ -489,6 +548,18 @@ return "setup";
 
 
 	    	logger.warning("FIRST TIME");
+	    	
+		     if (request.getParameter("access") != null ) {
+				 if (request.getParameter("access").equals("w")) {
+					 model.addAttribute("w_Selected","checked"); 
+				 } else if (request.getParameter("access").equals("c")) {
+					 model.addAttribute("c_Selected","checked"); 			 
+				 } else if (request.getParameter("access").equals("i")) {
+					 model.addAttribute("i_Selected","checked"); 			 
+				 };
+		     } else {model.addAttribute("w_Selected","checked"); }
+		     
+		     
 	    	model.addAttribute("rowCount",0);
 			   model.addAttribute("displaytype","none");
 			   model.addAttribute("displaytype2","none");
@@ -529,6 +600,21 @@ return "setup";
 				   
          con.close();
     	return "setup";
+	 }
+	 
+	 private void DropTemp(String table){
+
+	    	try{
+	    	String sql = "DROP TABLE "+table;
+	    	PreparedStatement statement = (PreparedStatement) con.prepareStatement(sql);
+	    	logger.warning(" Dropping TABLE: "+sql);
+            statement.execute();  	 
+            con.commit();
+          
+	    	} 
+	    	catch(Exception e ){
+	    		logger.warning("Drop tempOthFacts failed");
+	    	}
 	 }
 	
 }

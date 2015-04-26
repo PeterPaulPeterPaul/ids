@@ -144,19 +144,19 @@
       			$("#drop244").css("display","none");
  
       		//	var selectedKey="";
-    			if (dimension1Name == "country") {
+    			if (dimension1Name == "Country") {
         		  $("#drop211").css("display","block");
         		  selectedKey="drop211s";
     			}
-    			if (dimension1Name == "product") {
+    			if (dimension1Name == "Product") {
     			   $("#drop222").css("display","block");
     			   selectedKey="drop222s";
     			}
-    			if (dimension1Name == "year") {
+    			if (dimension1Name == "Year") {
     				$("#drop233").css("display","block");
     				selectedKey="drop233s";
     			}
-    			if (dimension1Name == "company") {
+    			if (dimension1Name == "Company") {
     				$("#drop244").css("display","block");
     				selectedKey="drop244s";        	
     				$("#drop244a").css("display","block");
@@ -499,19 +499,19 @@
       			$("#drop244z").css("display","none");
  
       		//	var selectedKey="";
-    			if (dimension1Name == "country") {
+    			if (dimension1Name == "Country") {
         		  $("#drop211z").css("display","block");
         		  selectedKey="drop211sz";
     			}
-    			if (dimension1Name == "product") {
+    			if (dimension1Name == "Product") {
     			   $("#drop222z").css("display","block");
     			   selectedKey="drop222sz";
     			}
-    			if (dimension1Name == "year") {
+    			if (dimension1Name == "Year") {
     				$("#drop233z").css("display","block");
     				selectedKey="drop233sz";
     			}
-    			if (dimension1Name == "company") {
+    			if (dimension1Name == "Company") {
     				$("#drop244z").css("display","block");
     				selectedKey="drop244sz";
     			}

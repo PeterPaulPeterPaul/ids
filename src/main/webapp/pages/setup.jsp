@@ -74,9 +74,9 @@ body.wait, body.wait *{
 
 <div>
 <br>
-<span style="margin-left:125px">IDS:</span><input type="radio" class="radIT" value="w" name="radio1" id="rad111" checked />
-CDS: <input type="radio" class="radIT" value="c" name="radio1" id="rad112"/>
-INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"/>
+<span style="margin-left:125px">IDS:</span><input type="radio" class="radIT" value="w" name="radio1" id="rad111" ${w_Selected} />
+CDS: <input type="radio" class="radIT" value="c" name="radio1" id="rad112" ${c_Selected}  />
+INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_Selected} />
 
  </div>
  <form action="savetoprod" method="get"   > 
@@ -100,6 +100,7 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"/>
      <input type="hidden" name="table" value="facts" /> 
    <td>Fact:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my1file${rowCount}" id="myfile11"  type="file" /></td>
         <td>  <input id="one1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
+
 
 </form>
 		

@@ -1350,7 +1350,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    			         	userDataOnFooter: false,
 				    			         	shrinkToFit:false
 				    			        });
-				    			         
+				    			        
 				    			        
 				    			        $("#titleBar").fadeIn();
 			    						  $("#beans").fadeIn();
@@ -1410,7 +1410,8 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 				    							  }
 				    							  
 				    							});
-				    					  
+				    					
+						    			//        jQuery("#list47").jqGrid('setFrozenColumns');
 												//  $("#titleBar").fadeIn();
 												//  $("#titleBar").fadeIn();
 												
@@ -1761,7 +1762,7 @@ if (dateParm=="todate must be greater or equal to fromdate") {
          	shrinkToFit: false,
          	userDataOnFooter: false
       });
-      
+     
       jQuery("#list47").jqGrid('navGrid','#plist47',{edit:false,add:false,del:false,search:false,refresh:false});
 	  
 	  $("#list47").jqGrid
@@ -1866,7 +1867,9 @@ if (dateParm=="todate must be greater or equal to fromdate") {
 	    		  newFooterRow1.addClass("footrow-ltr");
 	    		  newFooterRow1.removeClass("ui-widget-content");
 	    		  newFooterRow1.removeClass("jqgrow ui-row-ltr");
-				 
+	
+	    	    //  jQuery("#list47").jqGrid('setFrozenColumns'); 
+	    		  
 			} //if(allC==" OTHERS") 		 
 		
 	    		  

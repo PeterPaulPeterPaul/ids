@@ -253,7 +253,7 @@ public class SQL1GrpSummary implements DropdownInterface {
 			  case(COUNTRY):{
 	                TWO="Product";
 	                topHeadingLine=PRODUCT;
-	            	ONE="year";
+	            	ONE="Year";
 	            	if (swap!=1) {
 	            	  selectClause = " d.shortname as product, a.year,  ";
 	            	  groupAndOrderByClause = " a.year, d.shortname ";

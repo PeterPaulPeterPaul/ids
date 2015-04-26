@@ -172,8 +172,75 @@ public class FirstTimeQuery {
     	  int year = Calendar.getInstance().get(Calendar.YEAR);
     	  
     	  while (resultSet.next()) {
-    		  
+    		  //===========
+        	  while (resultSet.next()) {
+        		  
+        		  
+        		  
+  	    		/*    		  
+      	    		int totalQuantity=0;
+      	    		if (!resultSet.getString("name").equals("ALL COMPANIES") && totalLine2.get(resultSet.getString("year"))!= null) {
+      	    			totalQuantity= totalLine2.get(resultSet.getString("year"));
+      	    		}else{
+      	    			if (Integer.parseInt(resultSet.getString("year")) >= year && totalLine2.get(resultSet.getString("year"))!= null){
+      	    				totalQuantity= totalLine2.get(resultSet.getString("year"));
+      	    			}
+      	    		}
+      	    		
 
+      	    		if (!resultSet.getString("name").equals("ALL COMPANIES")){
+      	    		  totalQuantity += Integer.parseInt(resultSet.getString("quantity"));
+      	    		  totalLine2.put(resultSet.getString("year"), totalQuantity);
+      	    		}else{
+      	    			if (Integer.parseInt(resultSet.getString("year")) >= year){
+      	    	    		totalQuantity += Integer.parseInt(resultSet.getString("quantity"));
+      	    	    		totalLine2.put(resultSet.getString("year"), totalQuantity);
+      	    			}
+      	    		}
+      	    		
+      			int otherQuantity=0;
+      			if (!resultSet.getString("name").equals("ALL COMPANIES") && otherLine2.get(resultSet.getString("year"))!= null) {
+      				otherQuantity= otherLine2.get(resultSet.getString("year"));
+      			}
+      	
+      		*/
+      		  
+      			//if (!resultSet.getString("name").equals("ALL COMPANIES") ){
+      			
+      			//otherQuantity += Integer.parseInt(resultSet.getString("quantity"));
+      			//otherLine2.put(resultSet.getString("year"), otherQuantity);
+    
+        		  
+        		  
+      
+      		  if (resultSet.getString("name").equals("ALL COMPANIES")){
+  	    		  totalLine2.put(resultSet.getString("year"), Integer.parseInt(resultSet.getString("quantity")));  
+      		  }
+      		  //else 
+      			  
+          	 // if (resultSet.getString("name").equals(" OTHERS")){
+  	    		//  otherLine2.put(resultSet.getString("year"), Integer.parseInt(resultSet.getString("quantity")));          			  
+          	 // }  			  
+          	  else {
+      				  
+  	    		if (!currentCompany.equals(resultSet.getString("name")))  {
+  	    			if (!currentCompany.equals("")){
+  	    				array7.put(obj2a);
+  	    			}
+  	    			obj2a = new JSONObject();
+  	    			currentCompany=resultSet.getString("name");
+  	    			obj2a.put("Company",currentCompany);
+  	    			obj2a.put(resultSet.getString("year"),resultSet.getString("quantity"));
+  	    		} else {
+  	    			obj2a.put(resultSet.getString("year"),resultSet.getString("quantity"));
+  	    		}
+      		 
+          	  }
+      			//}
+      	  }
+
+    		 // ==========
+/*
     	    		int totalQuantity=0;
     	    		if (!resultSet.getString("name").equals("ALL COMPANIES") && totalLine2.get(resultSet.getString("year"))!= null) {
     	    			totalQuantity= totalLine2.get(resultSet.getString("year"));
@@ -214,6 +281,7 @@ public class FirstTimeQuery {
     		}
     		
     			}
+  */
     	  }
 
     	  
@@ -249,6 +317,8 @@ public class FirstTimeQuery {
     	        objTotal.put(pairs.getKey(), pairs.getValue());
     	    }
     	  
+    	   
+    	   
     	   // objTotal.put("TOTAL", aj.getTotal());
     	  objTotal.put("", aj.getTotal());
     	  
