@@ -55,11 +55,12 @@ body.wait, body.wait *{
 	</div>
 	<br><br><br><br>
 	<div style="width:700px">
-	<span style="margin-left:200px"><input type="button" id="createUser" value="Create User"/>
-	             <input type="button" id="changePass" value="change Password"/>
-	              <input type="button" id="lockUser" value="Lock or Unlock User"/>
-	             	<input type="button" id="upgradeUser" value="Upgrade User"/>
-</span>
+	<span style="margin-left:200px">
+		<input type="button" id="createUser" value="Create User"/>
+	     <input type="button" id="changePass" value="change Password"/>
+	     <input type="button" id="lockUser" value="Lock or Unlock User"/>
+	     <input type="button" id="upgradeUser" value="Upgrade User"/> 
+   </span>
 	</div>
 
 
@@ -74,10 +75,18 @@ body.wait, body.wait *{
 
 <div>
 <br>
-<span style="margin-left:125px">IDS:</span><input type="radio" class="radIT" value="w" name="radio1" id="rad111" ${w_Selected} />
+<span style="margin-left:125px">
+IDS:<input type="radio" class="radIT" value="w" name="radio1" id="rad111" ${w_Selected} />
 CDS: <input type="radio" class="radIT" value="c" name="radio1" id="rad112" ${c_Selected}  />
 INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_Selected} />
+</span>
+<br>
 
+</div>
+
+
+
+<%--
  </div>
  <form action="savetoprod" method="get"   > 
      <input  class="k-button" type="submit" name="submitBtn" value="Save World" /> ${done1}
@@ -90,44 +99,48 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_S
 </form>
  
 <div>
+--%>
 
+<div>
 
 <table style="margin-left:120px;margin-top:10px;">
-
+<tbody>
 
 <tr>
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp11" action="setup2" method="post" name="factsForm1" enctype="multipart/form-data"   >
+	<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp11" action="setup2" method="post" name="factsForm1" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="facts" /> 
-   <td>Fact:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my1file${rowCount}" id="myfile11"  type="file" /></td>
-        <td>  <input id="one1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
-
-
+   <td>Fact:</td>
+   <td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my1file${rowCount}" id="myfile11"  type="file" /></td>
+   <td>  <input id="one1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 </form>
-		
 </tr>
 
+<!-- 
 <tr>
-
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp21" action="setup2" method="post" name="productsForm4" enctype="multipart/form-data"   >
-
+ <form style="height:25px;border:none;width:700px;background-color:#E0E0E0;display:none;" id="testUp21" action="setup2" method="post" name="productsForm4" enctype="multipart/form-data"   >
     <input type="hidden" name="table" value="products" /> 
-    <td>Products:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my4file${rowCount}" id="myfile21"  type="file" /></td>
-        <td>  <input id="two1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
-
+    <td>Products:</td>
+    <td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my4file${rowCount}" id="myfile21"  type="file" /></td>
+    <td>  <input id="two1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 </form>
 </tr>
 
 
-
+ 
     <tr>
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp31" action="setup2" method="post" name="countriesForm7" enctype="multipart/form-data"   >
+		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;display:none;" id="testUp31" action="setup2" method="post" name="countriesForm7" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="countries" /> 
-    <td>Countries:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my7file${rowCount}" id="myfile31"  type="file" /></td>
+    <td>Countries:</td><td> <input style="background-color:#E0E0E0;border:none;display:none" class="beenclicked" name="my7file${rowCount}" id="myfile31"  type="file" /></td>
        <td>   <input id="three1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
 </form>
 
+
+ 
 </tr>
+
+-->
+
     <tr>
 
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp41" action="setup2" method="post" name="companiesForm11" enctype="multipart/form-data"   >
@@ -139,22 +152,28 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_S
 </tr>
 
  
-
-
-
   <tr>
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp66" action="setup3" method="post" name="testForm1"   > 
+		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;display:none;" id="testUp767" action="setup3" method="post" name="testForm1"   > 
+    <input type="hidden" class="accessType" name="access" value="" /> 
+    <td>Update Excel download</td>
+      <td colspan=2>    <input id="six" class="k-button" type="submit" name="submitBtn" value="Create" /></td>
+
+</form>
+</tr>
+ 
+
+<!-- 
+  <tr>
+		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;display:none;" id="testUp66" action="setup3" method="post" name="testForm1"   > 
     <input type="hidden" class="accessType" name="access" value="" /> 
     <td>Create Other Companies:</td>
       <td colspan=2>    <input id="six" class="k-button" type="submit" name="submitBtn" value="Create" /></td>
 
 </form>
-
-
-
 </tr>
-
-
+ -->
+ 
+</tbody>
 </table>
 
  </div>
@@ -217,20 +236,23 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_S
 
 		 var accessIT =  $('input[name=radio1]:checked' ).val();
    	  $('#testUp11').get(0).setAttribute('action', 'setup2?access='+accessIT); 
-   	  $('#testUp21').get(0).setAttribute('action', 'setup2?access='+accessIT); 
-   	  $('#testUp31').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+   	//  $('#testUp21').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+   	//  $('#testUp31').get(0).setAttribute('action', 'setup2?access='+accessIT); 
    	  $('#testUp41').get(0).setAttribute('action', 'setup2?access='+accessIT); 
-   	  $('#testUp66').get(0).setAttribute('action', 'setup3?access='+accessIT); 
+   	  $('#testUp767').get(0).setAttribute('action', 'setup3?access='+accessIT); 
+ //  	  $('#testUp66').get(0).setAttribute('action', 'setup3?access='+accessIT); 
    	 // $('#testUp666').get(0).setAttribute('action', 'setup2?access='+accessIT); 
 	 
 	      $(".radIT").on("change", function() {
 	    	  
 	    	  var accessIT =  $('input[name=radio1]:checked' ).val();
 	    	  $('#testUp11').get(0).setAttribute('action', 'setup2?access='+accessIT); 
-	    	  $('#testUp21').get(0).setAttribute('action', 'setup2?access='+accessIT); 
-	    	  $('#testUp31').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+	    	//  $('#testUp21').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+	    	 // $('#testUp31').get(0).setAttribute('action', 'setup2?access='+accessIT); 
 	    	  $('#testUp41').get(0).setAttribute('action', 'setup2?access='+accessIT); 
-	    	  $('#testUp66').get(0).setAttribute('action', 'setup3?access='+accessIT); 
+	    //	  $('#testUp').get(0).setAttribute('action', 'setup2?access='+accessIT); 
+	//    	  $('#testUp66').get(0).setAttribute('action', 'setup3?access='+accessIT); 
+	    	  $('#testUp767').get(0).setAttribute('action', 'setup3?access='+accessIT); 
 	    //	  $('#testUp666').get(0).setAttribute('action', 'setup2?access='+accessIT); 
 	    	//  $(".accessType").val( $('input[name=radio1]:checked' ).val() );
 	      });

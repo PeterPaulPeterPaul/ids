@@ -1,5 +1,8 @@
 package com.ids.controllers;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,7 +44,24 @@ import com.ids.businessLogic.DropdownInterface;
 import com.ids.context.GetBeansFromContext;
 import com.ids.user.User;
 
+// Chris
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFHeader;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Header;
+
+///=
 
 
 @Controller
@@ -80,14 +100,18 @@ public class SetupController {
 		 String access = request.getParameter("access");
 		 logger.warning("access: " + access);
 		 
-		  
-	// Save radio button selection to pass back 	 
+	  
+	// Save radio button selection to pass back 
+		 String IDSversion = "";
 		 if (access.equals("w")) {
 			 map.addAttribute("w_Selected","checked"); 
+			 IDSversion = "IDS";
 		 } else if (access.equals("c")) {
-			 map.addAttribute("c_Selected","checked"); 			 
+			 map.addAttribute("c_Selected","checked");
+			 IDSversion = "CDS";
 		 } else if (access.equals("i")) {
-			 map.addAttribute("i_Selected","checked"); 			 
+			 map.addAttribute("i_Selected","checked"); 
+			 IDSversion = "INDS";
 		 }	;
 		 
 	   	String multiplier="";
@@ -134,6 +158,7 @@ public class SetupController {
 		        logger.warning("current sql: "+sql);
 		        PreparedStatement statement = (PreparedStatement) con.prepareStatement(sql);
 		        statement.execute();	
+
 		                
 	    	      	    	
     	        sql = "INSERT INTO tempFacts_"+access+"  (companyId, countryid, productid, year, sales_production, quantity, flag, access) " +
@@ -150,6 +175,9 @@ public class SetupController {
     	        int upTo10K =0;
     	        int readToTotalCount=0;
     	        int commitCount1=0;
+    	        
+    	        try {
+    	        	
     	    	while ((sCurrentLine = br.readLine()) != null) {
     	    		
     	    		readToTotalCount+=1;
@@ -161,6 +189,52 @@ public class SetupController {
     	    		commitCount+=1;
     	    		commitCount1+=1;
     	    		String[] parms = sCurrentLine.split("\t");
+        	    	
+    	    		if (commitCount == 1) {
+
+    	    	    	logger.warning("first time parm 6 = "+parms[7]+" parms 7 =  " + parms[8]);
+    	    	    	
+    	    			if (parms.length < 8){
+    	    				logger.warning("Cannot read file - should be a Main.unl ");
+    	        	    	map.addAttribute("displaytype2","block");
+    	        	    	//map.addAttribute("displaytype","none");
+    	     			    map.addAttribute("successtext"," Cannot read file - should be a Main.unl");
+    	     			   
+    	    				map.addAttribute("errortext"," Cannot read file - should be a Main.unl"); 
+  	    	    	    	//map.addAttribute("displaytype2","none");
+  	    	    	    	map.addAttribute("displaytype","block");
+  	     	    	       con.close();
+  	    	    	    	return  "setup";
+        	    		}
+    	    	    	    			
+    	    	    	if (!parms[8].equals("Main")){
+    	    				logger.warning("must be a Main.unl ");
+    	        	    	map.addAttribute("displaytype2","block");
+    	        	    	//map.addAttribute("displaytype","none");
+    	     			    map.addAttribute("successtext"," Wrong data - must be a Main.unl!");   	    				
+    	    				
+    	    				 map.addAttribute("errortext"," Wrong data - must be a Main.unl!");
+   	    	    	    	//map.addAttribute("displaytype2","none");
+   	    	    	    	map.addAttribute("displaytype","block");
+   	    	    	       con.close();   
+   	    	    	    	return  "setup";
+    	    			}
+        	    		if (!parms[7].equals(IDSversion)){
+    	        	    	map.addAttribute("displaytype2","block");
+    	        	    	//map.addAttribute("displaytype","none");
+    	     			    map.addAttribute("successtext","  Wrong Database must be IDS/CDS or INDS");
+    	     			    
+    	    				logger.warning("Wrong Version");
+   	    				     map.addAttribute("errorText"," Wrong Database must be IDS/CDS or INDS");  
+   	    	    	    	//map.addAttribute("displaytype2","none");
+   	    	    	    	map.addAttribute("displaytype","block");
+   	    	    	       con.close();
+   	    	    	    	return  "setup";
+        	    		}
+        	    		
+        	    	}	
+    	    		
+ 
     	    //		logger.warning(sCurrentLine);
     	    		 statement.setString(1,  parms[0]);
     	             statement.setString(2,  parms[1]);
@@ -169,6 +243,7 @@ public class SetupController {
     	    		 statement.setInt(4,  Integer.parseInt(parms[3]));
     	             statement.setInt(5,  Integer.parseInt(parms[4]));
     	             statement.setString(6, parms[5]);
+    	             
     	             if (parms.length> 6){
     	    		    statement.setString(7,  parms[6]);
     	             } else {
@@ -193,19 +268,40 @@ public class SetupController {
     	    	}
     	    	con.commit();
     			statement.executeBatch();    	    	
-    	    	
+
+	    		if  (readToTotalCount==0) {
+    	    		logger.warning("No ROWS IN MAIN TABLE SELECTED");
+    				map.addAttribute("errortext","ERROR reading file - must be a Main.unl"); 
+  	    	    	map.addAttribute("displaytype2","none");
+  	    	    	map.addAttribute("displaytype","block");
+  	    	    	
+  	    	       con.close();
+ 	 	    	   return  "setup";  	    	    	
+	    		}
+    			
+    			// update all company ID to 11 for CDS
+    			
+    			if (access.equals("i")) {
+	   		      sql = "Update tempFacts_"+access+" set CompanyID = 11 WHERE companyID = 1003 " ;
+		    	    	logger.warning("UPDATE INDIAN ALL COMPANY ID sql: "+sql);
+		    	    	statement = con.prepareStatement(sql);
+		                statement.execute();
+		    	    	con.commit();
+    			};
+    			
     			ResultSet resultSet = null;
 	              sql="SELECT MAX(year) as year1 from tempFacts_"+access+" where Sales_Production = 2 ";
 	              statement = con.prepareStatement(sql);
 	      	      resultSet = statement.executeQuery(sql);
 	   		      resultSet.next();
 	   		      String myYear = resultSet.getString("year1");
-	   		  
+	   		      
+	   		      
 	    	    DropTemp("tempOthFacts_"+access);	   		 
 	    	    
 	   		      sql = "create table tempOthFacts_"+access+"  as select 0 id , -1  companyId,countryId, ProductId, year," +
-	   		      		" sales_production, sum(quantity)*-1 quantity,\'I\' flag, \'c\'  access" +
-	   		      		" from tempFacts_"+access+" WHERE CompanyID <> 11" +
+	   		      		" sales_production, sum(quantity)*-1 quantity,\'I\' flag, '" + access + "' access" +
+	   		      		" from tempFacts_"+access+" WHERE CompanyID <> 11"  + 
 	   		      		" and year <= " + myYear  +
 	   		      		" Group by countryId, ProductId, year,sales_production ";      
 	    	    	logger.warning("current sql: "+sql);
@@ -213,8 +309,8 @@ public class SetupController {
 	                statement.execute();	   		      
 	   		
 	                sql = "Insert into tempOthFacts_"+access+" select 0 id , -1  companyId,countryId, ProductId, year," +
-	                		" sales_production, sum(quantity) quantity,\'I\' flag, \'c\'  access " +
-	                		" from tempFacts_"+access+" WHERE CompanyID = 11 " + 
+	                		" sales_production, sum(quantity) quantity,\'I\' flag, '" + access + "' access " +
+	                		" from tempFacts_"+access+" WHERE CompanyID = 11"  + 
 	                		" and year <= " + myYear  +
 	                		" Group by countryId, ProductId, year,sales_production";   
 	    	    	logger.warning("current sql: "+sql);
@@ -224,9 +320,9 @@ public class SetupController {
 	    	    			    	    	
 	    	    	
 	    	    	sql = "Insert into tempFacts_"+access+" select 0 id , -1  companyId,countryId, ProductId, year," +
-	    	    			" sales_production,sum(quantity) quantity,\'I\' flag, \'c\' access" +
+	    	    			" sales_production,sum(quantity) quantity,\'I\' flag, access" +
 	    	    			" from tempOthFacts_"+access+ 
-	    	    			" Group by countryId, ProductId, year,sales_production";
+	    	    			" Group by countryId, ProductId, year,sales_production,access";
 	    	    	logger.warning("current sql: "+sql);
 	    	    	statement = con.prepareStatement(sql);
 	    	    	statement.execute();	
@@ -239,21 +335,21 @@ public class SetupController {
 	    	    	statement = con.prepareStatement(sql);
 	    	    	statement.execute();	    	    
 
-	    	    	//con.commit(); 	
+	    	    	con.commit(); 	
 	    	    	
 	    	    	sql = "insert into FactsEdit_"+access+"  select * from tempFacts_"+access;
 	    	    	logger.warning("current sql: "+sql);
 	    	    	statement = con.prepareStatement(sql);
 	    	    	statement.execute();
 	    	    	
-	    	    	//con.commit(); 	
+	    	    	con.commit(); 	
 
 	    	    	sql = "delete from Facts_"+access+"  where 1=1";
 	    	    	logger.warning("current sql: "+sql);
 	    	    	statement = con.prepareStatement(sql);
 	    	    	statement.execute();	    	    
 	    	    	
-	    	    	//con.commit(); 	
+	    	    	con.commit(); 	
 	    	    	
 	    	    	sql = "insert into Facts_"+access+"  select * from tempFacts_"+access;
 	    	    	logger.warning("current sql: "+sql);
@@ -261,13 +357,115 @@ public class SetupController {
 	    	    	statement.execute();
 	    	    	
 	    	    	con.commit(); 	
-    	    	
-    	    	map.addAttribute("displaytype2","block");
-    	    	map.addAttribute("displaytype","none");
- 			   map.addAttribute("done",commitCount);
- 		//	  map.addAttribute("fileType","factsPARTDONE");
- 			   map.addAttribute("successtext"," records committed. LOAD COMPLETE!");
+    	 /*   	   	      
+ 			    
+ 			    ///// CREATE THE EXCEL DOWNLOAD....
+ 			   FileOutputStream fileOut = new FileOutputStream("../webapps/ids/pages/"+IDSversion+".xlsx");
+ 			   
+ 			   sql =    " select sales_production, product.NAME product, country.NAME country, Quantity quantity, year, company.NAME company " +
+ 					    " FROM facts_"+access+" main,country,product,company " +
+ 					    " WHERE main.countryID = country.ID and main.productID = product.ID  and main.companyID = company.ID " + 
+ 					    " order By  Sales_Production, product, country , quantity, Year, company ";
+ 			   
+ 			  statement = con.prepareStatement(sql);
+      	      resultSet = statement.executeQuery(sql);
+   
+      		 HSSFWorkbook workbook = new HSSFWorkbook();
+		  	 HSSFSheet worksheet = workbook.createSheet("Off-Highway Research");
+			 
+		  	 
+		  	 Header header = worksheet.getHeader();
+			 header.setCenter("Center Header");
+			 header.setLeft("Left Header");
+			 header.setRight(HSSFHeader.font("Stencil-Normal", "Italic") +
+			                    HSSFHeader.fontSize((short) 16) + "Right w/ Stencil-Normal Italic font and size 16");
+			 
 
+			 HSSFCellStyle cellStyle1 = workbook.createCellStyle();  
+		     //cellStyle1 = workbook.createCellStyle();  
+		     HSSFFont hSSFFont1 = workbook.createFont();  
+		     hSSFFont1.setFontName(HSSFFont.FONT_ARIAL);  
+		     hSSFFont1.setFontHeightInPoints((short) 16);  
+		     hSSFFont1.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);  
+		     hSSFFont1.setColor(HSSFColor.BLACK.index);  
+		     cellStyle1.setFont(hSSFFont1);
+		        
+		     String sales_production = "";
+		     String product = "";
+		     String country = "";
+		     String company = "";
+		     String quantity = "";
+		     String year = "";
+		      
+		     int k=0;
+      	      while (resultSet.next()) {
+      	    	  
+      	    	 sales_production = resultSet.getString("sales_production");
+    		     product = resultSet.getString("product");
+    		     country = resultSet.getString("country");
+    		     company = resultSet.getString("company");
+    		     quantity = resultSet.getString("year");
+    		     year = resultSet.getString("quantity");
+    		     
+
+      	    	HSSFRow  nextRow = worksheet.createRow((short) k);
+      	    	
+      	    	k+=1;
+      	    	
+      	        HSSFCell cellA = nextRow.createCell((short) 0);
+      	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+      	    	cellA.setCellValue(sales_production);
+      	    	
+      	        cellA = nextRow.createCell((short) 1);
+      	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+      	    	cellA.setCellValue(product);
+
+      	        cellA = nextRow.createCell((short) 2);
+      	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+      	    	cellA.setCellValue(country);
+
+      	        cellA = nextRow.createCell((short) 3);
+      	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+      	    	cellA.setCellValue(company);
+      	    	
+
+      	        cellA = nextRow.createCell((short) 4);
+      	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+      	    	cellA.setCellValue(year);
+      	    	
+
+      	        cellA = nextRow.createCell((short) 5);
+      	        cellA.setCellType(Cell.CELL_TYPE_NUMERIC);
+			    //  cellA.getCellStyle().setDataFormat(HSSFDataFormat.getBuiltinFormat("#,##0"));
+				//   cellA.setCellType(Cell.CELL_TYPE_STRING);
+			      						      
+			      //cellA.setCellValue(" "+nf.format(Integer.parseInt(myDataArray.getJSONObject(0).getString(s).trim().replaceAll(",",""))));
+				 // String Str = new String(myDataArray.getJSONObject(0).getString(s).trim().replaceAll(",",""));							       
+				 cellA.setCellValue(new Double(quantity));	
+      	    	//cellA.setCellType(Cell.CELL_TYPE_STRING);
+      	    	 cellA.setCellValue(quantity);
+
+      	       }
+      	      
+      	      workbook.write(fileOut);
+      	      fileOut.flush();
+      	      fileOut.close();
+      	      
+      	   */   
+      	      
+  	    	  map.addAttribute("displaytype2","block");
+  	          map.addAttribute("displaytype","none");
+			  map.addAttribute("done",commitCount);
+		//	  map.addAttribute("fileType","factsPARTDONE");
+			    map.addAttribute("successtext"," records committed. LOAD COMPLETE!");
+      	      
+    	        } 
+    	    	catch(Exception e ){
+    	    		logger.warning("ERROR in MAIN TABLE LOAD");
+    				map.addAttribute("errortext","ERROR reading file - must be a Main.unl"); 
+  	    	    	map.addAttribute("displaytype2","none");
+  	    	    	map.addAttribute("displaytype","block");
+    	    	}
  			  
     	       con.close();
  	    	   return  "setup";
@@ -473,6 +671,8 @@ public class SetupController {
     	    	String sCurrentLine= null;
 
     	    	int count=0;
+    	    	try 
+    	    	{
     	    	while ((sCurrentLine = br.readLine()) != null) {
     	    		String[] parms = sCurrentLine.split("\t");
     	    		if (parms.length==0)
@@ -484,11 +684,65 @@ public class SetupController {
     	    		statement.executeUpdate();
     	    		count+=1;
 
+    	    		
+      	    		if (count == 1) {
+
+    	    	    	logger.warning("first time parm 4 = "+parms[4]+" parms 6 =  " + parms[5]);
+    	    	    	
+    	    			if (parms.length <6 ){
+    	    				logger.warning("Not enough values in the file - should be a Company.unl ");
+    	        	    	map.addAttribute("displaytype2","block");
+    	        	    	//map.addAttribute("displaytype","none");
+    	     			    map.addAttribute("successtext"," Cannot read file - should be a Main.unl");
+    	     			   
+    	    				map.addAttribute("errortext"," Cannot read file - should be a Main.unl"); 
+  	    	    	    	//map.addAttribute("displaytype2","none");
+  	    	    	    	map.addAttribute("displaytype","block");
+  	    	 	    	   return  "setup";
+        	    		}
+    	    	    	    			
+    	    	    	if (!parms[5].equals("Company")){
+    	    				logger.warning("must be a Main.unl ");
+    	        	    	map.addAttribute("displaytype2","block");
+    	        	    	//map.addAttribute("displaytype","none");
+    	     			    map.addAttribute("successtext"," Wrong data - must be a Main.unl!");   	    				
+    	    				
+    	    				 map.addAttribute("errortext"," Wrong data - must be a Main.unl!");
+   	    	    	    	//map.addAttribute("displaytype2","none");
+   	    	    	    	map.addAttribute("displaytype","block");
+    	    	 	    	   return  "setup";
+    	    			}
+        	    		if (!parms[4].equals(IDSversion)){
+    	        	    	map.addAttribute("displaytype2","block");
+    	        	    	//map.addAttribute("displaytype","none");
+    	     			    map.addAttribute("successtext","  Wrong Database must be IDS/CDS or INDS");
+    	     			    
+    	    				logger.warning("Wrong Version");
+   	    				     map.addAttribute("errorText"," Wrong Database must be IDS/CDS or INDS");  
+   	    	    	    	//map.addAttribute("displaytype2","none");
+   	    	    	    	map.addAttribute("displaytype","block");
+   	    	 	    	   return  "setup";
+        	    		}
+        	    		
+        	    	
+      	    		}	
+    	    		
+    	    		
+    	    		
     	    	}
     	    	
     	    	
     	    	int other=0;
-    	    	con.commit();	   
+    	    	con.commit();
+    	    	
+    			if (access.equals("i")) {
+  	   		       sql = "Update Company set ID = 11 WHERE ID = 1003 and access = 'i'" ;
+  		    	    	logger.warning("UPDATE INDIAN ALL COMPANY ID sql: "+sql);
+  		    	    	statement = con.prepareStatement(sql);
+  		                statement.execute();
+  		    	    	con.commit();
+      			}
+    	    	
     	    	map.addAttribute("displaytype2","block");
     	    	map.addAttribute("displaytype","none");
     	    	map.addAttribute("displaytype","none");
@@ -497,13 +751,17 @@ public class SetupController {
  			   con.close();
  			   return  "setup";
     	        // Process the input stream
+    	    	
+    	    	}
+    	    	catch(Exception e ){
+    	    		logger.warning("ERROR in company load");
+    				map.addAttribute("errortext","ERROR reading file - must be a Company.unl"); 
+  	    	    	map.addAttribute("displaytype2","none");
+  	    	    	map.addAttribute("displaytype","block");
+    	    	}
     	    	}
     	    	
-    	    	
-    	    	
-    	 
-    	    	
-    	    	
+    	    	    	    	
     	    	
     	    }
     	}
@@ -587,6 +845,7 @@ return "setup";
 			      Statement statement = con.createStatement();
 
 			      ResultSet resultSet = null;
+
 			      String query = "select userId from ids_users order by userId asc ";
 			      String options="";
 				  resultSet = statement.executeQuery(query);
