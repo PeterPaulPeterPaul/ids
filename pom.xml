@@ -44,11 +44,6 @@
       </dependency>
             
 	
-<dependency>
-	<groupId>org.apache.poi</groupId>
-	<artifactId>poi-ooxml</artifactId>
-	<version>3.5-beta5</version>
-</dependency>
             
 
  <dependency>
@@ -220,9 +215,19 @@
         <artifactId>batik-ext</artifactId>
         <version>1.7</version>
       </dependency>
-    
-            
-		
+
+  <dependency>
+  	<groupId>org.apache.poi</groupId>
+  	<artifactId>poi</artifactId>
+  	<version>3.12</version>
+  </dependency>
+
+  <dependency>
+  	<groupId>org.apache.poi</groupId>
+  	<artifactId>poi-ooxml</artifactId>
+  	<version>3.12</version>
+  </dependency>
+  
 	</dependencies>
 
 <build>
@@ -246,8 +251,5 @@
             
         </plugins>
     </build>
-
-  
-  
   
 </project>

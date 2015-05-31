@@ -109,7 +109,7 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_S
 <tr>
 	<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp11" action="setup2" method="post" name="factsForm1" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="facts" /> 
-   <td>Fact:</td>
+   <td>Upload Main Table Data:</td>
    <td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my1file${rowCount}" id="myfile11"  type="file" /></td>
    <td>  <input id="one1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 </form>
@@ -145,17 +145,42 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_S
 
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp41" action="setup2" method="post" name="companiesForm11" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="companies" /> 
-    <td>Companies:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my11file${rowCount}" id="myfile41"  type="file" /></td>
+    <td>Upload Companies Table Data:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my11file${rowCount}" id="myfile41"  type="file" /></td>
       <td>    <input id="four1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
 
 </form>
 </tr>
 
+<br/>
+<br/>
+
  
   <tr>
 		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;display:none;" id="testUp767" action="setup3" method="post" name="testForm1"   > 
     <input type="hidden" class="accessType" name="access" value="" /> 
-    <td>Update Excel download</td>
+    <td>Update the Excel Download file</td>
+      <td colspan=2>    <input id="six" class="k-button" type="submit" name="submitBtn" value="Create" /></td>
+
+</form>
+</tr>
+
+  <tr>
+		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;display:none;" id="testUp777" action="setup3" method="post" name="testForm1"   > 
+    <input type="hidden" class="accessType" name="access" value="" /> 
+    <td>Download the Main Table</td>
+      <td colspan=2>    <input id="six" class="k-button" type="submit" name="submitBtn" value="Create" /></td>
+
+</form>
+</tr>
+ 
+ 
+<br/>
+<br/>
+ 
+  <tr>
+		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;display:none;" id="testUp778" action="setup3" method="post" name="testForm1"   > 
+    <input type="hidden" class="accessType" name="access" value="" /> 
+    <td>Download the Company Table</td>
       <td colspan=2>    <input id="six" class="k-button" type="submit" name="submitBtn" value="Create" /></td>
 
 </form>
@@ -223,7 +248,105 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_S
 
     <div style="width:100%">Select user and new access type</div>
                 <div style="width:100%"><div style="width:30%">User Id: </div><div style="width:60%"><select id="mySelUser" name="mySelUser">${options}</select></div></div>
-     
+     		if (doAction.equals("unloadMain")) { 
+		
+			try{
+
+			response.setContentType("application/octet-stream");
+			response.setHeader("Content-Disposition","attachment;filename=main.csv");
+		  
+			ServletOutputStream out = response.getOutputStream();
+		
+			String sql = "SELECT companyID,countryID,productID,year,sales_production,quantity,'"+IDSversion + "','main'" + 
+			" FROM facts_"+access+" WHERE CompanyID >  0 and Quantity > 0 ";
+			
+			logger.warning(sql);
+			
+			statement = con.prepareStatement(sql);
+      	    resultSet = statement.executeQuery(sql);
+      	    
+      	    String companyID = "";
+      	    String countryID = ""; 
+      	    String productID = "";
+      	    String year  = ""; 
+      	    String sales_production  = ""; 
+      	    String quantity  = "";
+      	    
+			StringBuffer writer = new StringBuffer();
+      	    
+			int kk = 0;
+      	    while (resultSet.next()){
+      	    
+     	     sales_production = resultSet.getString("sales_production");
+   		     productID = resultSet.getString("productID");
+   		     countryID = resultSet.getString("countryID");
+   		     companyID = resultSet.getString("companyID");
+   		     year = resultSet.getString("year");
+   		     quantity = resultSet.getString("quantity");
+      	    	
+   		     
+   			writer.append(sales_production); 
+   			writer.append(',');
+   			writer.append(productID);
+   			writer.append(',');
+   			writer.append(countryID);
+ 			writer.append(',');
+   			writer.append(companyID);
+   			writer.append(',');
+   			writer.append(year);
+ 			writer.append(',');
+   			writer.append(quantity);
+   			writer.append(',');
+   			writer.append(IDSversion);
+ 			writer.append(',');
+   			writer.append("main"); 			
+   			writer.append('\n');
+   		      	    
+   			kk+=1;
+   			
+      	    }
+      	    
+      	    
+      	    response.setContentLength(writer.length());
+      	    logger.warning("Writer Length" + writer.length());
+      	    
+            // forces download
+            String headerKey = "Content-Disposition";
+            //String headerValue = String.format("attachment; filename=\"%s\"", "main.csv");
+            String headerValue = String.format("attachment; filename=\"Main.unl\"");
+            response.setHeader(headerKey, headerValue);
+      	    	
+   			InputStream in = new ByteArrayInputStream(writer.toString().getBytes("UTF-8"));
+      		 
+   			byte[] outputByte = new byte[4096];
+   			//copy binary contect to output stream
+   			while(in.read(outputByte, 0, 4096) != -1)
+   			{
+   				out.write(outputByte, 0, 4096);
+   			}
+   			in.close();
+   			out.flush();
+   			out.close();
+
+	    	  map.addAttribute("displaytype2","block");
+  	          map.addAttribute("displaytype","none");
+			  map.addAttribute("done",kk);
+		//	  map.addAttribute("fileType","factsPARTDONE");
+			  map.addAttribute("successtext","CSV WITH "+ IDSversion+" ROWS CREATED!");
+			    
+			}
+	    	catch(Exception e ){
+	    		logger.severe("ERROR CREATING TEMP TABLE");
+				map.addAttribute("errortext","ERROR CREATING EXCEL "); 
+	    	    map.addAttribute("displaytype2","none");
+	    	    map.addAttribute("displaytype","block");
+	    	}
+	        return  "setup";			
+			
+		}
+		
+		return "setup";
+	 }
                 <div style="width:100%" id="setboxes" ><div style="width:99%">IDS: <input class="myrad2" type="checkbox" name="world" id="a11"  value="w"  />
                 CDS: <input class="myrad2" type="checkbox" name="china" id="a22"  value="c"  />
                 INDS: <input class="myrad2" type="checkbox" name="india" id="a33"  value="i"  /></div>
@@ -239,7 +362,9 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_S
    	//  $('#testUp21').get(0).setAttribute('action', 'setup2?access='+accessIT); 
    	//  $('#testUp31').get(0).setAttribute('action', 'setup2?access='+accessIT); 
    	  $('#testUp41').get(0).setAttribute('action', 'setup2?access='+accessIT); 
-   	  $('#testUp767').get(0).setAttribute('action', 'setup3?access='+accessIT); 
+   	  $('#testUp767').get(0).setAttribute('action', 'setup3?access='+accessIT+'&doaction=mkExl'); 
+   	  $('#testUp777').get(0).setAttribute('action', 'setup3?access='+accessIT+'&doaction=unloadMain'); 
+   	  $('#testUp778').get(0).setAttribute('action', 'setup3?access='+accessIT+'&doaction=unloadComp'); 
  //  	  $('#testUp66').get(0).setAttribute('action', 'setup3?access='+accessIT); 
    	 // $('#testUp666').get(0).setAttribute('action', 'setup2?access='+accessIT); 
 	 
@@ -252,7 +377,9 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_S
 	    	  $('#testUp41').get(0).setAttribute('action', 'setup2?access='+accessIT); 
 	    //	  $('#testUp').get(0).setAttribute('action', 'setup2?access='+accessIT); 
 	//    	  $('#testUp66').get(0).setAttribute('action', 'setup3?access='+accessIT); 
-	    	  $('#testUp767').get(0).setAttribute('action', 'setup3?access='+accessIT); 
+	    	  $('#testUp767').get(0).setAttribute('action', 'setup3?access='+accessIT+'&doaction=mkExl'); 
+	    	  $('#testUp777').get(0).setAttribute('action', 'setup3?access='+accessIT+'&doaction=unloadMain'); 
+	    	  $('#testUp778').get(0).setAttribute('action', 'setup3?access='+accessIT+'&doaction=unloadComp'); 
 	    //	  $('#testUp666').get(0).setAttribute('action', 'setup2?access='+accessIT); 
 	    	//  $(".accessType").val( $('input[name=radio1]:checked' ).val() );
 	      });
