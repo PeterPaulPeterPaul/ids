@@ -5,8 +5,10 @@ import java.io.FileOutputStream;
 
 //import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 //import java.io.InputStreamReader;
 import java.sql.Connection;
 //import java.sql.DriverManager;
@@ -48,45 +50,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.ids.context.GetBeansFromContext;
 import com.ids.user.User;
 
-// Chris
-
-/*
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFDataFormat;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFHeader;
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.Header;
-*/
-
-
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-//import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-//import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
-//import org.apache.poi.xssf.usermodel.XSSFRow;
-///import org.apache.poi.xssf.usermodel.XSSFSheet;
-//import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Row;
-//import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.Cell;
-//import org.apache.poi.ss.usermodel.CellStyle;
-//import org.apache.poi.ss.usermodel.Font;
 
 
-///=
+
 
 
 @Controller
@@ -152,9 +127,11 @@ public class SetupOtherFactColumn {
 		if (doAction.equals("mkExl")) { 
 
     	try{
+    		
     			    
  			    ///// CREATE THE EXCEL DOWNLOAD....
- 			   FileOutputStream fileOut = new FileOutputStream("../webapps/ids/pages/"+IDSversion+".xlsx");
+ 			   FileOutputStream fileOut = new FileOutputStream("../webapps"+gcfc.ajaxURLprefix()+"pages/"+IDSversion+".xlsx");
+ 			   
  			   
  			   String sql = " select case Sales_Production WHEN 1 then 'Sales' WHEN 2 then 'Production' END sales_production, " +
  			            " product.NAME product, country.country country, Quantity quantity, year, company.NAME company " +
@@ -279,7 +256,7 @@ public class SetupOtherFactColumn {
   	          map.addAttribute("displaytype","none");
 			  map.addAttribute("done",k);
 		//	  map.addAttribute("fileType","factsPARTDONE");
-			    map.addAttribute("successtext","EXCEL WITH "+ IDSversion+" ROWS CREATED!");
+			  map.addAttribute("successtext"," ROWS IN EXCEL FILE FOR "+ IDSversion+" CREATED !");
       	       
     	        } 
     	    	catch(Exception e ){
@@ -324,24 +301,24 @@ public class SetupOtherFactColumn {
 			int kk = 0;
       	    while (resultSet.next()){
       	    
-     	     sales_production = resultSet.getString("sales_production");
-   		     productID = resultSet.getString("productID");
+
+      		 companyID = resultSet.getString("companyID");
    		     countryID = resultSet.getString("countryID");
-   		     companyID = resultSet.getString("companyID");
-   		     year = resultSet.getString("year");
+   		     productID = resultSet.getString("productID");
+   		     year = resultSet.getString("year");   		     
+      		 sales_production = resultSet.getString("sales_production");
    		     quantity = resultSet.getString("quantity");
       	    	
-   		     
-   			writer.append(sales_production); 
-   			writer.append(',');
-   			writer.append(productID);
-   			writer.append(',');
+   		    writer.append(companyID);
+       		writer.append(',');
    			writer.append(countryID);
  			writer.append(',');
-   			writer.append(companyID);
+   			writer.append(productID);
    			writer.append(',');
    			writer.append(year);
- 			writer.append(',');
+ 			writer.append(',');   			
+   			writer.append(sales_production); 
+   			writer.append(',');
    			writer.append(quantity);
    			writer.append(',');
    			writer.append(IDSversion);
@@ -474,9 +451,280 @@ public class SetupOtherFactColumn {
 	    	    map.addAttribute("displaytype2","none");
 	    	    map.addAttribute("displaytype","block");
 	    	}
-	        return  "setup";			
+			con.close();
+	        return "setup";			
 			
 		} // end of doaction 	
+		
+		if (doAction.equals("showUsers")) { 
+			
+			try{
+	 	    
+	      	SXSSFWorkbook workbook =  new SXSSFWorkbook();
+	      	SXSSFSheet worksheet = (SXSSFSheet) workbook.createSheet("Off-Highway Research");
+
+	      	XSSFCellStyle cellStyle1 = (XSSFCellStyle) workbook.createCellStyle();  
+		    XSSFFont XSSFFont1 = (XSSFFont) workbook.createFont();  
+			XSSFFont1.setFontName(XSSFFont.DEFAULT_FONT_NAME);  
+			XSSFFont1.setFontHeightInPoints((short) 20);  
+			XSSFFont1.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);  
+		//	XSSFFont1.setColor(XSSFColor);  
+			cellStyle1.setFont(XSSFFont1);
+	 	    
+			// Create the header
+			
+	     //   hSSFFont1.setFontName(HSSFFont.FONT_ARIAL);  
+	     //   hSSFFont1.setFontHeightInPoints((short) 20);  
+	    //    hSSFFont1.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);  
+	     //   hSSFFont1.setColor(HSSFColor.BLACK.index); 
+			
+		    Cell cellA= null;
+	        Row  TitleRow = worksheet.createRow(0); 
+	        
+  	        cellA = TitleRow.createCell((short) 0);
+  	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+  	    	cellA.setCellValue("ID");
+  	    	
+  	        cellA = TitleRow.createCell((short) 1);
+  	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+  	    	cellA.setCellValue("USER NAME");
+
+  	        cellA = TitleRow.createCell((short) 2);
+  	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+  	    	cellA.setCellValue("ACCOUNT");
+
+  	        cellA = TitleRow.createCell((short) 3);
+  	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+  	    	cellA.setCellValue("IDS");	        
+	        
+  	        cellA = TitleRow.createCell((short) 4);
+  	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+  	    	cellA.setCellValue("CDS");
+  	    	
+  	        cellA = TitleRow.createCell((short) 5);
+  	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+  	    	cellA.setCellValue("INDS");
+
+  	        cellA = TitleRow.createCell((short) 6);
+  	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+  	    	cellA.setCellValue("LOCKED");
+
+  	        cellA = TitleRow.createCell((short) 7);
+  	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+  	    	cellA.setCellValue("LAST UPDATED");	  
+  	    	
+			XSSFFont1.setFontName(XSSFFont.DEFAULT_FONT_NAME);  
+			XSSFFont1.setFontHeightInPoints((short) 16);  
+			XSSFFont1.setBoldweight(XSSFFont.BOLDWEIGHT_NORMAL);
+		//	XSSFFont1.setColor(XSSFColor);  
+			cellStyle1.setFont(XSSFFont1);
+				
+			String sql=" SELECT id, user_name , " +
+			" case access when 'a' then 'admin' when 'e' then 'editor' when 's' then 'aclient' else '' end account, " + 
+			" case world when 1 then 'yes' else '' end IDS_access, " +
+			" case china when 1 then 'yes' else '' end CDS_access, " +
+			" case india when 1 then 'yes' else '' end INDS_access,  " +
+			" case locked  when 0 then '' when 1 then 'yes' when 2 then 'reset' end locked,  " +
+			" IDS_TIMESTAMP last_updated  " +
+			" from IDS_users  " +
+			" order by account " ;
+			
+			logger.warning(sql);
+			
+			statement = con.prepareStatement(sql);
+      	    resultSet = statement.executeQuery(sql);
+      	        	    
+      	    String id = "";
+      	    String user_name = ""; 
+      	    String account = "";
+      	    String IDS_access  = ""; 
+      	    String CDS_access  = ""; 
+      	    String INDS_access  = ""; 
+      	    String locked  = ""; 
+      	    String last_updated  = "";
+      	    
+      	    
+			int k = 2;
+      	    while (resultSet.next()){
+      	    	
+      	    	  
+      	    	
+      	    id = resultSet.getString("id");
+          	user_name = resultSet.getString("user_name");
+          	account = resultSet.getString("account");
+          	IDS_access  = resultSet.getString("IDS_access");
+          	CDS_access  = resultSet.getString("CDS_access");
+          	INDS_access  = resultSet.getString("INDS_access");
+          	locked  = resultSet.getString("locked");
+          //	last_updated  = resultSet.getTimestamp("last_updated").toString();
+         	    
+          	
+	        Row  nextRow = worksheet.createRow(k);            	
+          	
+	        k+=1;	        
+          	
+  	        cellA = nextRow.createCell((short) 0);
+  	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+  	    	cellA.setCellValue(id);
+  	    	
+  	        cellA = nextRow.createCell((short) 1);
+  	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+  	    	cellA.setCellValue(user_name);
+
+  	        cellA = nextRow.createCell((short) 2);
+  	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+  	    	cellA.setCellValue(account);
+
+  	        cellA = nextRow.createCell((short) 3);
+  	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+  	    	cellA.setCellValue(IDS_access);	        
+	        
+  	        cellA = nextRow.createCell((short) 4);
+  	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+  	    	cellA.setCellValue(CDS_access);
+  	    	
+  	        cellA = nextRow.createCell((short) 5);
+  	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+  	    	cellA.setCellValue(INDS_access);
+
+  	        cellA = nextRow.createCell((short) 6);
+  	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+  	    	cellA.setCellValue(locked);
+
+  	        cellA = nextRow.createCell((short) 7);
+  	    	cellA.setCellType(Cell.CELL_TYPE_STRING);
+  	    	cellA.setCellValue(last_updated);	    	        
+	           			
+      	    }
+      	    
+    	    //workbook.write(fileOut);
+    	    //fileOut.flush();
+    	    //fileOut.close();
+    	    //workbook.close();
+
+			// write it as an excel attachment
+			ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
+			workbook.write(outByteStream);
+			byte [] outArray = outByteStream.toByteArray();
+			response.setContentType("application/ms-excel");
+			response.setContentLength(outArray.length);
+			response.setHeader("Expires:", "0"); // eliminates browser caching
+			response.setHeader("Content-Disposition", "attachment; filename=users.xlsx");
+			OutputStream outStream = response.getOutputStream();
+			outStream.write(outArray);
+			outStream.flush();
+      	   
+
+	    	  map.addAttribute("displaytype2","block");
+  	          map.addAttribute("displaytype","none");
+			  map.addAttribute("done",k);
+		//	  map.addAttribute("fileType","factsPARTDONE");
+			    map.addAttribute("successtext","Rows added to Excel file");
+			    
+			}
+	    	catch(Exception e ){
+	    		logger.severe("ERROR CREATING users EXCEL");
+				map.addAttribute("errortext","ERROR CREATING EXCEL "); 
+	    	    	map.addAttribute("displaytype2","none");
+	    	    	map.addAttribute("displaytype","block");
+	    	}
+			
+					
+			con.close();
+	        return  "setup";			
+			
+		} // end of doaction 
+		
+		if (doAction.equals("unloadComp")) { 
+			
+			try{
+
+			response.setContentType("application/octet-stream");
+			
+			//response.setHeader("Content-Disposition","attachment;filename=main.csv");
+		  
+			ServletOutputStream out = response.getOutputStream();
+		
+				
+			String sql = "SELECT DISTINCT name, shortname, c.id " + 
+			" FROM Company C, FactsEdit_"+ access +" F WHERE F.CompanyID = C.ID AND F.CompanyID > 0 and C.access = '"+access+"'";		
+			
+			logger.warning(sql);
+			
+			statement = con.prepareStatement(sql);
+      	    resultSet = statement.executeQuery(sql);
+      	    
+      	    String name = "";
+      	    String shortname = ""; 
+      	    String id = "";
+      	    
+			StringBuffer writer = new StringBuffer();
+      	    
+			int kk = 0;
+      	    while (resultSet.next()){
+      	    
+     	     name = resultSet.getString("name");
+   		     shortname = resultSet.getString("shortname");
+   		     id = resultSet.getString("id");
+   		      
+   			writer.append(name); 
+   			writer.append(',');
+   			writer.append(shortname);
+   			writer.append(',');
+   			writer.append(id);
+ 			writer.append(',');
+   			writer.append(IDSversion);
+ 			writer.append(',');
+   			writer.append("company"); 			
+   			writer.append('\n');
+   		      	    
+   			kk+=1;
+   			
+      	    }
+      	    
+      	    
+      	    response.setContentLength(writer.length());
+      	    logger.warning("Writer Length" + writer.length());
+      	    
+            // forces download
+            String headerKey = "Content-Disposition";
+            //String headerValue = String.format("attachment; filename=\"%s\"", "main.csv");
+            String headerValue = String.format("attachment; filename=\"company.unl\"");
+            response.setHeader(headerKey, headerValue);
+      	    	
+   			InputStream in = new ByteArrayInputStream(writer.toString().getBytes("UTF-8"));
+      		 
+   			byte[] outputByte = new byte[4096];
+   			//copy binary contect to output stream
+   			while(in.read(outputByte, 0, 4096) != -1)
+   			{
+   				out.write(outputByte, 0, 4096);
+   			}
+   			in.close();
+   			out.flush();
+   			out.close();
+
+	    	  map.addAttribute("displaytype2","block");
+  	          map.addAttribute("displaytype","none");
+			  map.addAttribute("done",kk);
+		//	  map.addAttribute("fileType","factsPARTDONE");
+			  map.addAttribute("successtext","Companies downloaded from "+ IDSversion+" !");
+			    
+			}
+	    	catch(Exception e ){
+	    		logger.severe("ERROR UNLOADING companies");
+				map.addAttribute("errortext","ERROR UNLOADING companies "); 
+	    	    map.addAttribute("displaytype2","none");
+	    	    map.addAttribute("displaytype","block");
+	    	}
+			
+			con.close();
+	        return  "setup"
+	        		;			
+			
+		} // end of doaction 	
+				
+		
 		
 		return "setup";
 	 }

@@ -196,38 +196,27 @@ public class SetupController {
     	    	    	
     	    			if (parms.length < 8){
     	    				logger.warning("Cannot read file - should be a Main.unl ");
-    	        	    	map.addAttribute("displaytype2","block");
-    	        	    	//map.addAttribute("displaytype","none");
-    	     			    map.addAttribute("successtext"," Cannot read file - should be a Main.unl");
-    	     			   
     	    				map.addAttribute("errortext"," Cannot read file - should be a Main.unl"); 
-  	    	    	    	//map.addAttribute("displaytype2","none");
-  	    	    	    	map.addAttribute("displaytype","block");
+   	    	    	     	map.addAttribute("displaytype2","none");
+    	   	    	    	map.addAttribute("displaytype","block");
   	     	    	       con.close();
   	    	    	    	return  "setup";
         	    		}
     	    	    	    			
     	    	    	if (!parms[8].equals("Main")){
-    	    				logger.warning("must be a Main.unl ");
-    	        	    	map.addAttribute("displaytype2","block");
-    	        	    	//map.addAttribute("displaytype","none");
-    	     			    map.addAttribute("successtext"," Wrong data - must be a Main.unl!");   	    				
-    	    				
-    	    				 map.addAttribute("errortext"," Wrong data - must be a Main.unl!");
-   	    	    	    	//map.addAttribute("displaytype2","none");
-   	    	    	    	map.addAttribute("displaytype","block");
+    	    				logger.warning("must be a Main.unl ");				    	    				
+    	    				 map.addAttribute("errortext"," Wrong table - file must be a Main.unl!");
+    	    	    	     map.addAttribute("displaytype2","none");
+    	   	   	    	     map.addAttribute("displaytype","block");
    	    	    	       con.close();   
    	    	    	    	return  "setup";
     	    			}
         	    		if (!parms[7].equals(IDSversion)){
-    	        	    	map.addAttribute("displaytype2","block");
-    	        	    	//map.addAttribute("displaytype","none");
-    	     			    map.addAttribute("successtext","  Wrong Database must be IDS/CDS or INDS");
     	     			    
     	    				logger.warning("Wrong Version");
-   	    				     map.addAttribute("errorText"," Wrong Database must be IDS/CDS or INDS");  
-   	    	    	    	//map.addAttribute("displaytype2","none");
-   	    	    	    	map.addAttribute("displaytype","block");
+   	    				    map.addAttribute("errortext"," Wrong Database : " + parms[7].toString() + " selected - file is :" + IDSversion.toString());  
+   	    	    	     	map.addAttribute("displaytype2","none");
+   	   	    	    	   map.addAttribute("displaytype","block");
    	    	    	       con.close();
    	    	    	    	return  "setup";
         	    		}
@@ -317,8 +306,8 @@ public class SetupController {
 	    	    	statement = con.prepareStatement(sql);
 	    	    	statement.execute();		  
 	    	    	con.commit();
-	    	    			    	    	
-	    	    	
+	    	    			    	   
+
 	    	    	sql = "Insert into tempFacts_"+access+" select 0 id , -1  companyId,countryId, ProductId, year," +
 	    	    			" sales_production,sum(quantity) quantity,\'I\' flag, access" +
 	    	    			" from tempOthFacts_"+access+ 
@@ -335,21 +324,21 @@ public class SetupController {
 	    	    	statement = con.prepareStatement(sql);
 	    	    	statement.execute();	    	    
 
-	    	    	con.commit(); 	
+	    	    	//con.commit(); 	
 	    	    	
 	    	    	sql = "insert into FactsEdit_"+access+"  select * from tempFacts_"+access;
 	    	    	logger.warning("current sql: "+sql);
 	    	    	statement = con.prepareStatement(sql);
 	    	    	statement.execute();
 	    	    	
-	    	    	con.commit(); 	
+	    	    	//con.commit(); 	
 
 	    	    	sql = "delete from Facts_"+access+"  where 1=1";
 	    	    	logger.warning("current sql: "+sql);
 	    	    	statement = con.prepareStatement(sql);
 	    	    	statement.execute();	    	    
 	    	    	
-	    	    	con.commit(); 	
+	    	    	//con.commit(); 	
 	    	    	
 	    	    	sql = "insert into Facts_"+access+"  select * from tempFacts_"+access;
 	    	    	logger.warning("current sql: "+sql);
@@ -661,7 +650,7 @@ public class SetupController {
     	    		
     	    		PreparedStatement statement = (PreparedStatement) con.prepareStatement("DELETE FROM Company  where  ID > 0 and  access='"+request.getParameter("access")+"' ");
     	    		statement.executeUpdate();
-    	    		con.commit();
+    	    		//con.commit();
     	    		
     	    	BufferedReader br = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
     	    	
@@ -691,36 +680,32 @@ public class SetupController {
     	    	    	
     	    			if (parms.length <6 ){
     	    				logger.warning("Not enough values in the file - should be a Company.unl ");
-    	        	    	map.addAttribute("displaytype2","block");
-    	        	    	//map.addAttribute("displaytype","none");
-    	     			    map.addAttribute("successtext"," Cannot read file - should be a Main.unl");
-    	     			   
-    	    				map.addAttribute("errortext"," Cannot read file - should be a Main.unl"); 
-  	    	    	    	//map.addAttribute("displaytype2","none");
-  	    	    	    	map.addAttribute("displaytype","block");
-  	    	 	    	   return  "setup";
+
+    	    				map.addAttribute("errortext"," Cannot read file - should be a Company.unl"); 
+   	    	    	     	map.addAttribute("displaytype2","none");
+    	   	    	        map.addAttribute("displaytype","block");
+  	    	 	    	    con.rollback();
+  	    	    	    	return  "setup";
         	    		}
     	    	    	    			
     	    	    	if (!parms[5].equals("Company")){
-    	    				logger.warning("must be a Main.unl ");
-    	        	    	map.addAttribute("displaytype2","block");
-    	        	    	//map.addAttribute("displaytype","none");
-    	     			    map.addAttribute("successtext"," Wrong data - must be a Main.unl!");   	    				
-    	    				
-    	    				 map.addAttribute("errortext"," Wrong data - must be a Main.unl!");
-   	    	    	    	//map.addAttribute("displaytype2","none");
-   	    	    	    	map.addAttribute("displaytype","block");
+    	    				logger.warning("must be a Company.unl ");
+  		    	    				
+    	    				 map.addAttribute("errortext"," Wrong data - must be a Company.unl!");
+    	    	    	     map.addAttribute("displaytype2","none");
+    	   	   	    	     map.addAttribute("displaytype","block");
+  	    	 	    	    con.rollback();
     	    	 	    	   return  "setup";
     	    			}
         	    		if (!parms[4].equals(IDSversion)){
     	        	    	map.addAttribute("displaytype2","block");
-    	        	    	//map.addAttribute("displaytype","none");
-    	     			    map.addAttribute("successtext","  Wrong Database must be IDS/CDS or INDS");
-    	     			    
+
     	    				logger.warning("Wrong Version");
-   	    				     map.addAttribute("errorText"," Wrong Database must be IDS/CDS or INDS");  
-   	    	    	    	//map.addAttribute("displaytype2","none");
-   	    	    	    	map.addAttribute("displaytype","block");
+   	    				    map.addAttribute("errortext"," Wrong Database : " + IDSversion.toString() + " selected - file is :" + parms[7].toString());  
+   	    				    map.addAttribute("displaytype2","none");
+   	   	    	    	    map.addAttribute("displaytype","block");
+
+  	    	 	    	    con.rollback();
    	    	 	    	   return  "setup";
         	    		}
         	    		
@@ -732,8 +717,19 @@ public class SetupController {
     	    	}
     	    	
     	    	
-    	    	int other=0;
-    	    	con.commit();
+    	    	//int other=0;
+    	    	if ( count == 0 ) {
+    	    		logger.warning("ERROR in company load - zero rows read");
+    				map.addAttribute("errortext","ERROR no rows read - must be a Company.unl"); 
+  	    	    	map.addAttribute("displaytype2","none");
+  	    	    	map.addAttribute("displaytype","block");
+  	    	    	con.rollback();
+    	 	    	   return  "setup";
+    	    	} else
+    	    	{
+        	    	con.commit();    	    		
+    	    	}
+
     	    	
     			if (access.equals("i")) {
   	   		       sql = "Update Company set ID = 11 WHERE ID = 1003 and access = 'i'" ;
@@ -746,10 +742,10 @@ public class SetupController {
     	    	map.addAttribute("displaytype2","block");
     	    	map.addAttribute("displaytype","none");
     	    	map.addAttribute("displaytype","none");
- 			   map.addAttribute("done",count);
- 			   map.addAttribute("successtext"," Companies committed. COMPLETE!!!");
- 			   con.close();
- 			   return  "setup";
+ 			    map.addAttribute("done",count);
+ 			    map.addAttribute("successtext"," Companies committed. COMPLETE!!!");
+ 			    con.close();
+ 			    return  "setup";
     	        // Process the input stream
     	    	
     	    	}
@@ -770,8 +766,11 @@ public class SetupController {
     		logger.warning("FAILED");
     		e.printStackTrace();
     		 logger.log(Level.SEVERE, e.toString(), e);
- 	    	map.addAttribute("displaytype2","none");
- 	    	map.addAttribute("displaytype","none");
+	    		logger.warning("ERROR in company load");
+			map.addAttribute("errortext","ERROR reading file - must be a Company.unl"); 
+   	    	map.addAttribute("displaytype2","none");
+   	    	map.addAttribute("displaytype","block");
+   	    	
     	}
 	
     	
