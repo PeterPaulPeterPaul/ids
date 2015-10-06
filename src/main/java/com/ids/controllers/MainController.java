@@ -2,6 +2,8 @@ package com.ids.controllers;
 
 
 
+import com.ids.businessLogic.AddJsonTotalCell;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -39,7 +41,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 //import com.google.appengine.api.rdbms.AppEngineDriver;
 import com.ids.businessLogic.AddJsonPercentage;
 import com.ids.businessLogic.AddJsonRowTotal;
-import com.ids.businessLogic.AddJsonTotalCell;
 import com.ids.businessLogic.AddJsonTotalPercentCells;
 import com.ids.businessLogic.DownloadExcel;
 import com.ids.businessLogic.DropdownInterface;
@@ -442,7 +443,7 @@ public class MainController implements DropdownInterface {
 		    			//      }
 		    			//  }else {
 			        		  if (srp.getHeading1()==COMPANY) {
-			    				  colHeading="year";
+			    				  colHeading="Year";
 			    				  if (srp.getHeading2()==YEARS){
 			    					  colHeading="Product";
 			    				  }  
@@ -597,7 +598,7 @@ public class MainController implements DropdownInterface {
 		    		  
 		    		  if (srp.getSwap()==1){
 		    			  colHeading="Product";
-		    			  colHead2="year";
+		    			  colHead2="Year";
 		    			  cna = new ColumnNameArray(srp,statement,"years", PRODUCT,
 		    					  srp.getFromDate(), srp.getToDate(), access, total,percent); 
 		    			  model.addAttribute("myDimension","years");

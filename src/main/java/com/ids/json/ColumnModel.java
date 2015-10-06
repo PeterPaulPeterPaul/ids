@@ -23,7 +23,8 @@ public class ColumnModel {
 	    	  obj1a.put("classes","titleFont"); 
 	    	  obj1a.put("width",150);   
 	    	  obj1a.put("editable",false);
-	    	  //obj1a.put("fixed",true);	    	  
+	    	 // obj1a.put("frozen",true);
+	    	//  obj1a.put("fixed",true);	    	  
 	  	  //    obj1a.put("classes","colorGrey");
 	    	  array3.put(obj1a);
 		  }else {

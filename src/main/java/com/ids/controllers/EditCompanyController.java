@@ -2,6 +2,8 @@ package com.ids.controllers;
 
 
 
+import com.ids.businessLogic.AddJsonTotalCell;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -37,7 +39,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 //import com.google.appengine.api.rdbms.AppEngineDriver;
 //import com.google.cloud.sql.jdbc.PreparedStatement;
 import com.ids.businessLogic.AddJsonRowTotal;
-import com.ids.businessLogic.AddJsonTotalCell;
 import com.ids.businessLogic.DownloadExcel;
 import com.ids.businessLogic.DropdownInterface;
 import com.ids.businessLogic.FirstTimeEdQuery;

@@ -63,13 +63,14 @@ public void doGet(HttpServletRequest request,
 	}
 	  
 	  
-	  resp.setContentType("application/octet-stream");
-      resp.setHeader("Content-Disposition","attachment;filename=temp.xls");
+	    resp.setContentType("application/octet-stream");
+        resp.setHeader("Content-Disposition","attachment;filename=temp.xls");
 	  
 		ServletOutputStream out = resp.getOutputStream();
-	//	StringBuffer sb = generateCsvFileBuffer();
+	   
+		//StringBuffer sb = generateCsvFileBuffer();
 
-		HSSFWorkbook workbook = new HSSFWorkbook();
+		    HSSFWorkbook workbook = new HSSFWorkbook();
 			HSSFSheet worksheet = workbook.createSheet("Off-Highway Research");
 
 			worksheet.setColumnWidth(0, 7500);

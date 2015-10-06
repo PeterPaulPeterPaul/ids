@@ -36,7 +36,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.google.appengine.api.rdbms.AppEngineDriver;
+//import com.google.appengine.api.rdbms.AppEngineDriver;
 //import com.google.cloud.sql.jdbc.PreparedStatement;
 import com.ids.businessLogic.DownloadExcel;
 import com.ids.businessLogic.DropdownInterface;
@@ -338,7 +338,7 @@ public class DeleteController implements DropdownInterface {
                   
            	          logger.warning("updateSQL: "+newSQL);
            	          PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
-           	          int retval = statement2.executeUpdate();
+           	          statement2.executeUpdate();
               	  }
                      newSQL = "delete from  FactsEdit_"+request.getParameter("accessCurr")+" " +
                    		" where year = "+year+

@@ -55,12 +55,17 @@ body.wait, body.wait *{
 	</div>
 	<br><br><br><br>
 	<div style="width:700px">
-	<span style="margin-left:200px">
+	<span style="margin-left:125px">
 		<input type="button" id="createUser" value="Create User"/>
 	     <input type="button" id="changePass" value="change Password"/>
 	     <input type="button" id="lockUser" value="Lock or Unlock User"/>
 	     <input type="button" id="upgradeUser" value="Upgrade User"/> 
    </span>
+	</div>
+	<div>
+		<form style="margin-left:125px" action="setup3?access=w&doaction=showUsers" method="post" margin  > 
+     		<input  class="k-button" type="submit" name="submitBtn" value="Download Speadsheet showing user details" /> 
+		</form>
 	</div>
 
 
@@ -71,43 +76,38 @@ body.wait, body.wait *{
         <div id="success2Text" style="color:white;font-size: large;text-align: center; vertical-align: middle;height:20px;display:none;background:blue"></div>
 	
 		<div id="error2Text" style="color:white;font-size: large;text-align: center; vertical-align: middle;height:20px;display:none;background:#ff6666"></div>
-
-
 <div>
+<br>
+
+ <form style="margin-left:125px"  action="savetoprod" method="get"   > 
+     <input  class="k-button" type="submit" name="submitBtn" value="Move IDS updates to client view" /> ${done1}
+</form>
+
 <br>
 <span style="margin-left:125px">
 IDS:<input type="radio" class="radIT" value="w" name="radio1" id="rad111" ${w_Selected} />
 CDS: <input type="radio" class="radIT" value="c" name="radio1" id="rad112" ${c_Selected}  />
 INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_Selected} />
 </span>
-<br>
 
 </div>
-
-
-
 <%--
- </div>
- <form action="savetoprod" method="get"   > 
-     <input  class="k-button" type="submit" name="submitBtn" value="Save World" /> ${done1}
-</form>
  <form action="savetochina" method="get"   > 
-     <input  class="k-button" type="submit" name="submitBtn" value="Save China" /> ${done2}
+     <input  class="k-button" type="submit" name="submitBtn" value="Move CDS data to client view" /> ${done2}
 </form>
  <form action="savetoindia" method="get"   > 
-     <input  class="k-button" type="submit" name="submitBtn" value="Save India" /> ${done3}
+     <input  class="k-button" type="submit" name="submitBtn" value="Save INDS data to client View" /> ${done3}
 </form>
  
-<div>
 --%>
 
 <div>
 
-<table style="margin-left:120px;margin-top:10px;">
+<table style="margin-left:120px;margin-top:1px;">
 <tbody>
 
 <tr>
-	<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp11" action="setup2" method="post" name="factsForm1" enctype="multipart/form-data"   >
+	<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp11" class="Upload-forms" action="setup2" method="post" name="factsForm1" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="facts" /> 
    <td>Upload Main Table Data:</td>
    <td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my1file${rowCount}" id="myfile11"  type="file" /></td>
@@ -143,7 +143,7 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_S
 
     <tr>
 
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp41" action="setup2" method="post" name="companiesForm11" enctype="multipart/form-data"   >
+		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;" id="testUp41" action="setup2" class="Upload-forms" method="post" name="companiesForm11" enctype="multipart/form-data"   >
      <input type="hidden" name="table" value="companies" /> 
     <td>Upload Companies Table Data:</td><td> <input style="background-color:#E0E0E0;border:none" class="beenclicked" name="my11file${rowCount}" id="myfile41"  type="file" /></td>
       <td>    <input id="four1" class="k-button" type="submit" name="submitBtn" value="Upload" /></td>
@@ -156,7 +156,7 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_S
 
  
   <tr>
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;display:none;" id="testUp767" action="setup3" method="post" name="testForm1"   > 
+		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;display:none;" id="testUp767" class="Upload-forms" action="setup3" method="post" name="testForm1"   > 
     <input type="hidden" class="accessType" name="access" value="" /> 
     <td>Update the Excel Download file</td>
       <td colspan=2>    <input id="six" class="k-button" type="submit" name="submitBtn" value="Create" /></td>
@@ -165,7 +165,7 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_S
 </tr>
 
   <tr>
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;display:none;" id="testUp777" action="setup3" method="post" name="testForm1"   > 
+		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;display:none;" id="testUp777" class="Upload-forms" action="setup3" method="post" name="testForm1"   > 
     <input type="hidden" class="accessType" name="access" value="" /> 
     <td>Download the Main Table</td>
       <td colspan=2>    <input id="six" class="k-button" type="submit" name="submitBtn" value="Create" /></td>
@@ -178,7 +178,7 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_S
 <br/>
  
   <tr>
-		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;display:none;" id="testUp778" action="setup3" method="post" name="testForm1"   > 
+		<form style="height:25px;border:none;width:700px;background-color:#E0E0E0;display:none;" id="testUp778" class="Upload-forms" action="setup3" method="post" name="testForm1"   > 
     <input type="hidden" class="accessType" name="access" value="" /> 
     <td>Download the Company Table</td>
       <td colspan=2>    <input id="six" class="k-button" type="submit" name="submitBtn" value="Create" /></td>
@@ -248,105 +248,6 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_S
 
     <div style="width:100%">Select user and new access type</div>
                 <div style="width:100%"><div style="width:30%">User Id: </div><div style="width:60%"><select id="mySelUser" name="mySelUser">${options}</select></div></div>
-     		if (doAction.equals("unloadMain")) { 
-		
-			try{
-
-			response.setContentType("application/octet-stream");
-			response.setHeader("Content-Disposition","attachment;filename=main.csv");
-		  
-			ServletOutputStream out = response.getOutputStream();
-		
-			String sql = "SELECT companyID,countryID,productID,year,sales_production,quantity,'"+IDSversion + "','main'" + 
-			" FROM facts_"+access+" WHERE CompanyID >  0 and Quantity > 0 ";
-			
-			logger.warning(sql);
-			
-			statement = con.prepareStatement(sql);
-      	    resultSet = statement.executeQuery(sql);
-      	    
-      	    String companyID = "";
-      	    String countryID = ""; 
-      	    String productID = "";
-      	    String year  = ""; 
-      	    String sales_production  = ""; 
-      	    String quantity  = "";
-      	    
-			StringBuffer writer = new StringBuffer();
-      	    
-			int kk = 0;
-      	    while (resultSet.next()){
-      	    
-     	     sales_production = resultSet.getString("sales_production");
-   		     productID = resultSet.getString("productID");
-   		     countryID = resultSet.getString("countryID");
-   		     companyID = resultSet.getString("companyID");
-   		     year = resultSet.getString("year");
-   		     quantity = resultSet.getString("quantity");
-      	    	
-   		     
-   			writer.append(sales_production); 
-   			writer.append(',');
-   			writer.append(productID);
-   			writer.append(',');
-   			writer.append(countryID);
- 			writer.append(',');
-   			writer.append(companyID);
-   			writer.append(',');
-   			writer.append(year);
- 			writer.append(',');
-   			writer.append(quantity);
-   			writer.append(',');
-   			writer.append(IDSversion);
- 			writer.append(',');
-   			writer.append("main"); 			
-   			writer.append('\n');
-   		      	    
-   			kk+=1;
-   			
-      	    }
-      	    
-      	    
-      	    response.setContentLength(writer.length());
-      	    logger.warning("Writer Length" + writer.length());
-      	    
-            // forces download
-            String headerKey = "Content-Disposition";
-            //String headerValue = String.format("attachment; filename=\"%s\"", "main.csv");
-            String headerValue = String.format("attachment; filename=\"Main.unl\"");
-            response.setHeader(headerKey, headerValue);
-      	    	
-   			InputStream in = new ByteArrayInputStream(writer.toString().getBytes("UTF-8"));
-      		 
-   			byte[] outputByte = new byte[4096];
-   			//copy binary contect to output stream
-   			while(in.read(outputByte, 0, 4096) != -1)
-   			{
-   				out.write(outputByte, 0, 4096);
-   			}
-   			in.close();
-   			out.flush();
-   			out.close();
-
-	    	  map.addAttribute("displaytype2","block");
-  	          map.addAttribute("displaytype","none");
-			  map.addAttribute("done",kk);
-		//	  map.addAttribute("fileType","factsPARTDONE");
-			  map.addAttribute("successtext","CSV WITH "+ IDSversion+" ROWS CREATED!");
-			    
-			}
-	    	catch(Exception e ){
-	    		logger.severe("ERROR CREATING TEMP TABLE");
-				map.addAttribute("errortext","ERROR CREATING EXCEL "); 
-	    	    map.addAttribute("displaytype2","none");
-	    	    map.addAttribute("displaytype","block");
-	    	}
-	        return  "setup";			
-			
-		}
-		
-		return "setup";
-	 }
                 <div style="width:100%" id="setboxes" ><div style="width:99%">IDS: <input class="myrad2" type="checkbox" name="world" id="a11"  value="w"  />
                 CDS: <input class="myrad2" type="checkbox" name="china" id="a22"  value="c"  />
                 INDS: <input class="myrad2" type="checkbox" name="india" id="a33"  value="i"  /></div>
@@ -355,7 +256,6 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_S
     
 	<script type="text/javascript">
 	 $(document).ready(function(){
-						
 
 		 var accessIT =  $('input[name=radio1]:checked' ).val();
    	  $('#testUp11').get(0).setAttribute('action', 'setup2?access='+accessIT); 
@@ -363,11 +263,21 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_S
    	//  $('#testUp31').get(0).setAttribute('action', 'setup2?access='+accessIT); 
    	  $('#testUp41').get(0).setAttribute('action', 'setup2?access='+accessIT); 
    	  $('#testUp767').get(0).setAttribute('action', 'setup3?access='+accessIT+'&doaction=mkExl'); 
-   	  $('#testUp777').get(0).setAttribute('action', 'setup3?access='+accessIT+'&doaction=unloadMain'); 
-   	  $('#testUp778').get(0).setAttribute('action', 'setup3?access='+accessIT+'&doaction=unloadComp'); 
+   	  $('#testUp777').get(0).setAttribute('action', 'setup4?access='+accessIT+'&doaction=unloadMain'); 
+   	  $('#testUp778').get(0).setAttribute('action', 'setup4?access='+accessIT+'&doaction=unloadComp'); 
  //  	  $('#testUp66').get(0).setAttribute('action', 'setup3?access='+accessIT); 
    	 // $('#testUp666').get(0).setAttribute('action', 'setup2?access='+accessIT); 
-	 
+
+   	 $(".Upload-forms").submit(function() {
+		//alert('Handler for .submit() called.');
+   		$("#errorText").css("display","none");
+    	$("#successText").css("display","none");
+    	$("#error2Text").css("display","none");
+        $("#success2Text").css("display","none");
+		return true;
+	   });
+   	 
+
 	      $(".radIT").on("change", function() {
 	    	  
 	    	  var accessIT =  $('input[name=radio1]:checked' ).val();
@@ -378,12 +288,20 @@ INDS: <input type="radio" class="radIT" value="i" name="radio1" id="rad113"${i_S
 	    //	  $('#testUp').get(0).setAttribute('action', 'setup2?access='+accessIT); 
 	//    	  $('#testUp66').get(0).setAttribute('action', 'setup3?access='+accessIT); 
 	    	  $('#testUp767').get(0).setAttribute('action', 'setup3?access='+accessIT+'&doaction=mkExl'); 
-	    	  $('#testUp777').get(0).setAttribute('action', 'setup3?access='+accessIT+'&doaction=unloadMain'); 
-	    	  $('#testUp778').get(0).setAttribute('action', 'setup3?access='+accessIT+'&doaction=unloadComp'); 
+	    	  $('#testUp777').get(0).setAttribute('action', 'setup4?access='+accessIT+'&doaction=unloadMain'); 
+	    	  $('#testUp778').get(0).setAttribute('action', 'setup4?access='+accessIT+'&doaction=unloadComp'); 
 	    //	  $('#testUp666').get(0).setAttribute('action', 'setup2?access='+accessIT); 
 	    	//  $(".accessType").val( $('input[name=radio1]:checked' ).val() );
 	      });
-
+	      
+	      
+	      $(".k-button").on("change", function() {	      
+	   		 $("#errorText").css("display",${displaytype2});
+	   		 $("#error2Text").css("display","none");
+	   		 $("#successText").css("display",${displaytype2});
+	   		 $("#success2Text").css("display","none");
+	      });   		
+	   		
 	      
 						    $("#dialog").dialog("close");
 						    $("#dialog2").dialog("close");

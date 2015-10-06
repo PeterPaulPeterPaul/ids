@@ -320,7 +320,47 @@ public class AddController implements DropdownInterface {
             	   logger.warning("InsertSQL: "+newSQL);
             	   PreparedStatement statement2 = (PreparedStatement) con.prepareStatement(newSQL);
             	   int retval = statement2.executeUpdate();
+            	   
+            	// Chris - check to see if there is a total row for this grid yet. If not then add it.   
+            	   
+            	   newSQL = "Select 'found' as found FROM FactsEdit_"+request.getParameter("accessCurr")+
+            			   	" where productId = " + productId + 
+            			   	" and year = " + year +
+            			   	" and countryId = " + companyId +
+            			   	" and sales_production = " + PorS + 
+            			   	" and CompanyId = 11 ";
+            	   
+               	   logger.warning("Check for a total SQL: "+newSQL);
+        	     
+            	   resultSet = statement2.executeQuery(newSQL);
+            	   
+      	           found = false;
+      			   while (resultSet.next()) {
+      				   if (resultSet.getString("found").equals("found")) {
+      					   found = true;
+      					   break;
+      				   }
+      			   }
+            		
+      			   
+      			if (found == false){
+             	    newSQL = "Insert into FactsEdit_"+request.getParameter("accessCurr")+" (quantity, productId, year, companyId, countryId," +
+                  	   		" sales_production, access,flag) values ("+request.getParameter("quantAmt")+","+productId
+                  	   		+","+year+",11,"+countryId+","+PorS+",'"+access+"','I')";
+                  	   logger.warning("InsertSQL: "+newSQL);
+                  	   statement2 = (PreparedStatement) con.prepareStatement(newSQL);
+                  	   retval = statement2.executeUpdate();
+                  	   
+                	    newSQL = "Insert into FactsEdit_"+request.getParameter("accessCurr")+" (quantity, productId, year, companyId, countryId," +
+                      	   		" sales_production, access,flag) values (0," + productId
+                      	   		+","+year+",-1,"+countryId+","+PorS+",'"+access+"','I')";
+                      	   logger.warning("InsertSQL: "+newSQL);
+                      	   statement2 = (PreparedStatement) con.prepareStatement(newSQL);
+                      	   retval = statement2.executeUpdate();
+                  	   
+      			}
 
+               	             	   
                 con.commit();
                 
          	   newSQL = "update editing set flag = '1' ";

@@ -824,7 +824,7 @@ return "setup";
 			   
 			   if (request.getParameter("d")!=null) {
 				   if (request.getParameter("d").equals("w")){
-				      model.addAttribute("done1","<span style='font-weight:bold;color:red;background:#CCFFCC' > world saved! </span>");  
+				      model.addAttribute("done1","<span style='font-weight:bold;color:red;background:#CCFFCC' > IDS data updated in client view! </span>");  
 				   }
 				   if (request.getParameter("d").equals("c")){
 					      model.addAttribute("done2","<span style='font-weight:bold;color:red;background:#CCFFCC' > china saved! </span>");  
