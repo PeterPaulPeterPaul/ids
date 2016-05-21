@@ -40,7 +40,9 @@ public class ColumnSummaryNameArray implements DropdownInterface {
 	          
 	          if (topRow==PRODUCT) {
 	        	  
-	        	  query = "select distinct shortname from Product where access = '"+access+"'  order by shortname asc";
+	        	  // CXM  Dont show WHLO On the top line as it douple counts. 
+	        	  
+	        	  query = "select distinct shortname from Product where access = '"+access+"' and shortname <> 'WHLO' order by shortname asc";
 	        	  resultSet = statement.executeQuery(query);
 	        	  
 	        	  while (resultSet.next()) {
@@ -54,7 +56,9 @@ public class ColumnSummaryNameArray implements DropdownInterface {
 	          }
 	          if (topRow==COUNTRY) {
 	        	  
-	        	  query = "select distinct shortname from Country where shortname != 'ALLY' and access = '"+access+"' order by shortname asc";
+	        	  // CXM - Exclude Europe as a column#
+	        	  
+	        	  query = "select distinct shortname from Country where shortname != 'EUR' and access = '"+access+"' order by shortname asc";
 	        	  resultSet = statement.executeQuery(query);
 	        	  
 	        	  while (resultSet.next()) {
