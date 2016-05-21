@@ -1,12 +1,39 @@
 
+@font-face {
+    font-family: Palatino;
+    src: url(pala_4.ttf);
+}
+
+@font-face {
+    font-family: Palatino;
+    src: url(palab_4.ttf);
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Palatino;
+    src: url(palai_4.ttf);
+    font-style: italic;
+}
+
+@font-face {
+    font-family: Palatino;
+    src: url(palabi_4.ttf);
+    font-style: italic;
+    font-weight: bold;
+}
+
+
 .dbservicestyle {
     background-color: #FFFFFF;
-    font-family: times new roman;
+    font-family: Palatino,Verdana,Geneva;
     font-size: 32pt;
     height: 380px;
     margin-top: 10px;
     text-align: center;
     width: 100%;
+    margin-bottom: 4%;
+    font-weight: bold;
 }
 
 
@@ -15,6 +42,8 @@
     Width: 30%;
     Margin-left: 3%;
     font-size: Large;
+    font-family: Palatino,Verdana,Geneva;
+    font-weight: bold;
 }
 
 div.Loginbox {
@@ -27,7 +56,7 @@ div.Loginbox {
 .login {
     background-position: 80% 55px;
     background-repeat: no-repeat;
-    font-family: Verdana,Geneva,Arial,Helvetica,sans-serif;
+    font-family: Palatino,Verdana,Geneva,Arial,Helvetica,sans-serif;
     font-size: 8pt;
     margin: 0;
     overflow: auto;
@@ -63,7 +92,7 @@ div.Loginbox {
 
 .login #banner {
     text-align: center;
-    background-image:URL('/ids/images/trucks.bmp');
+    background-image:URL('/ids/images/OHR machines RGB 72dpi.jpg');
     background-repeat:repeat-x; 
     background-position:left;
     height:70px;

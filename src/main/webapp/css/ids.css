@@ -1,3 +1,4 @@
+
 .idsdefault .idsBoxDefault {
     font-family: Arial,Helvetica,sans-serif;
 }
@@ -23,7 +24,7 @@ opacity: 0.5;
  }
 
 .HeaderSelector{
-    background-color: #FFFF00;
+    background-color: #EAEAEA;
     border-color: #888888;
     border-style: solid;
     border-width: 1px;

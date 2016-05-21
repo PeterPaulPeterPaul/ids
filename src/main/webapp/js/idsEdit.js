@@ -436,9 +436,9 @@
 		  			    	});
 
 
-					    	   alert("done! (when this msg is closed the page will" +
-				    	   		"  reload allowing you to pick this company from the drop down list)");
-				    	   location.reload();
+					    	   //alert("done! (when this msg is closed the page will" +
+				    	   	//	"  reload allowing you to pick this company from the drop down list)");
+				    	   //location.reload();
 		  					 return true;
 		  			    	 
 		  			       },
