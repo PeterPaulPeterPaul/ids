@@ -13,16 +13,33 @@ public class SQL5 {
 			country="c.country";
 			orderby = " order by "+country+", a.year  asc";
 		}
-	      query = " select a.year, a.quantity,  substr(b.name,1,70)  as company, d.name as product, "+country+" as country " +
+	
+	    String queryPart1 = " select a.year, a.quantity,  substr(b.name,1,70)  as company, d.name as product, "+country+" as country ";
+        String ProductClause =  "";
+        
+		if ( productId == 15 ||   productId == 80  ) {
+			queryPart1 =  " select a.year, a.quantity,  substr(b.name,1,70)  as company, 'Wheeled Loaders' as product,  "+country+" as country ";
+			ProductClause=  " and d.shortname in ('WL<80','WL>80') "; 
+		}
+		else {
+			//queryPart1 =  " select a.year, a.quantity,  substr(b.name,1,70)  as company, d.name as product, c.country ";
+			
+			ProductClause=  " and a.productId = " +productId ;
+		}
+		
+	      query = queryPart1+
+	    		 // " select a.year, a.quantity,  substr(b.name,1,70)  as company, d.name as product, "+country+" as country "+
 	      		" from Facts_"+access+" a, Company b, Country c, Product d " +
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  " and a.productId = " + productId+
+	    		  " and a.companyid = " + companyId+
 	    		  " and a.access = '" + access + "' " +
 	    		  " and b.access = '" + access + "' " +
 	    		  " and c.access = '" + access + "' " +
 	    		  " and d.access = '" + access + "' " +
-	              " and a.companyId = " +companyId+
+	    		  ProductClause+
+	    		  //" and a.companyId = " +companyId+
 	          //     " and b.name != 'ALL COMPANIES' " +
 	               incExCountries+
 	               incExProducts+

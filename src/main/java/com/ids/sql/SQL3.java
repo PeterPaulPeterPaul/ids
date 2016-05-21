@@ -10,6 +10,10 @@ public class SQL3 {
         String countryClause="";
         String queryPart1 =  "";
         String groupBy="";
+        
+        
+        queryPart1 =  " select a.year, a.quantity,  substr(b.name,1,70)  as company, d.name as product, c.country ";
+        
 		if (countryId == -10) {
 			countryClause = " AND a.countryId NOT IN (20,21,-10,0,100) ";
 			queryPart1 =  " select a.year, SUM(a.quantity) as quantity,   substr(b.name,1,70)  as company, d.name as product, 'EUROPE' as country ";
@@ -25,7 +29,24 @@ public class SQL3 {
 						countryClause = " AND a.countryId = "+countryId;
 					}
 				}
-			queryPart1 =  " select a.year, a.quantity,  substr(b.name,1,70)  as company, d.name as product, c.country ";
+			//queryPart1 =  " select a.year, a.quantity,  substr(b.name,1,70)  as company, d.name as product, c.country ";
+				
+		}
+
+        String ProductClause =  "";
+		if ( productId == 15 ||   productId == 80  ) {
+			queryPart1 =  " select a.year, sum(a.quantity) as quantity,  substr(b.name,1,70)  as company, 'Wheeled Loaders' as product, c.country ";
+			ProductClause=  " and d.shortname in ('WL<80','WL>80')"; 
+			if (countryId == -10){
+				groupBy = " group by  a.year,  b.name,  'Wheeled Loaders',  'EUROPE'  ";
+			} else{
+				groupBy = " group by  a.year,  b.name,  'Wheeled Loaders',  c.country ";				
+			}
+
+		}
+		else {
+			//queryPart1 =  " select a.year, a.quantity,  substr(b.name,1,70)  as company, d.name as product, c.country ";
+			ProductClause=  " and a.productId = " +productId ;
 		}
 
 
@@ -34,7 +55,8 @@ public class SQL3 {
 	    		  " where a.companyid=b.id " +
 	    		  " and a.sales_production=" +salesOrProduction +
 	    		  countryClause+
-	    		  " and a.productId = " +productId+
+	    		 // " and a.productId = " +productId+
+	    		  ProductClause+
 	    		  incExCountries +
 	    		  incExProducts+
 	    		  incExCompanies+

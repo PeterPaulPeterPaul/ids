@@ -20,7 +20,19 @@ public class SQL1GrpSummary implements DropdownInterface {
 		String andClause = "";
 		String selectClause ="";
 		String groupAndOrderByClause = "";
+		String allCompClause = "";
+		boolean isAllComps = false;
 
+
+		//CXM - if Companies is not in the group by clause, then filter out ALL COMPANIES
+		//incExProducts.
+		 if (incExCompanies.isEmpty()) {
+			 	allCompClause = "and b.name = 'ALL COMPANIES' " ;	 
+			 }else{
+				 allCompClause = " and b.name != 'ALL COMPANIES' " ; 
+			 }
+		
+		 
 	/*	 if (summary == 3 || summary==5){
 			 int sumswap =0;
 			 sumswap = heading1;
@@ -28,9 +40,10 @@ public class SQL1GrpSummary implements DropdownInterface {
 			 heading2 = sumswap;
 			 
 		 } */
+		
 		 
 		logger.warning("summary is: "+summary+ " header1: "+heading1+" header2: "+heading2+" drop2: "+dropdown2);
-
+		
 		switch(heading2) {
 		case(COUNTRY):{
 				 if (summary != 5 && summary !=3){
@@ -63,7 +76,14 @@ public class SQL1GrpSummary implements DropdownInterface {
     			  "   ELSE substr(b.name,1,30) END, a.year ";
 
 	            	    if (summary ==3){
-							 andClause = " AND a.productId = " +dropdown2;
+	        				if ( dropdown2 == 15 ||   dropdown2 == 80  ) {
+	        					andClause=  " and d.shortname in ('WL<80','WL>80') "; 
+	        				}
+	        				else {
+	        					//queryPart1 =  " select a.year, a.quantity,  substr(b.name,1,70)  as company, d.name as product, c.country ";
+	        					andClause = " and a.productId = "+ dropdown2;
+	        				}
+							 //andClause = " AND a.productId = " +dropdown2;
 						} 
 	            	
 	            	break;
@@ -89,11 +109,14 @@ public class SQL1GrpSummary implements DropdownInterface {
 	            	  groupAndOrderByClause = "a.year, d.shortname ";
 	            	}else {
 		              selectClause = " d.name as product, a.year,  ";
-		              groupAndOrderByClause = "d.name, a.year";	            		
+	  				  groupAndOrderByClause = "d.name, a.year";	            		
 	            	}
+	            	//CXM
+				     isAllComps = true;
           	    if (summary ==3){
 						 andClause = " AND a.companyId = " +dropdown2;
 					} 
+          	    
 	            	break;
 			  }
 			}
@@ -101,7 +124,13 @@ public class SQL1GrpSummary implements DropdownInterface {
 		}
 		case(PRODUCT):{
 			if (summary != 5){
-				   andClause = " and a.productId = "+ dropdown2;
+				if ( dropdown2 == 15 ||   dropdown2 == 80  ) {
+					andClause=  " and d.shortname in ('WL<80','WL>80') "; 
+				}
+				else {
+					//queryPart1 =  " select a.year, a.quantity,  substr(b.name,1,70)  as company, d.name as product, c.country ";
+					andClause = " and a.productId = "+ dropdown2;
+				}
 				}
 				ONE="Company";
 				TWO="Year";
@@ -160,6 +189,8 @@ public class SQL1GrpSummary implements DropdownInterface {
 		               selectClause = " c.country, a.year,  ";
 		               groupAndOrderByClause = "c.country, a.year ";	            		
 	            	}
+	            	//CXM
+				     isAllComps = true;
         	    if (summary ==3){
 						 andClause = " AND a.companyId = " +dropdown2;
 					} 
@@ -212,7 +243,14 @@ public class SQL1GrpSummary implements DropdownInterface {
 	             	   groupAndOrderByClause = " CASE WHEN substr(b.name,1,70) = 'ALL COMPANIES' then  ' ALL COMPANIES' "+
 	             			  "   ELSE substr(b.name,1,30) END, c.shortname ";
             	    if (summary ==3){
-						 andClause = " AND a.productId = " +dropdown2;
+        				if ( dropdown2 == 15 ||   dropdown2 == 80  ) {
+        					andClause=  " and d.shortname in ('WL<80','WL>80') "; 
+        				}
+        				else {
+        					//queryPart1 =  " select a.year, a.quantity,  substr(b.name,1,70)  as company, d.name as product, c.country ";
+        					andClause = " and a.productId = "+ dropdown2;
+        				}
+						 //andClause = " AND a.productId = " +dropdown2;
 					} 
 	             	break;
 			  }
@@ -227,6 +265,8 @@ public class SQL1GrpSummary implements DropdownInterface {
 		              selectClause = " d.shortname as product , c.country,  ";
 		              groupAndOrderByClause = "c.country, d.shortname ";	            		
 	            	}
+	            	//CXM
+				     isAllComps = true;
       	    if (summary ==3){
 						 andClause = " AND a.companyId = " +dropdown2;
 					} 
@@ -247,8 +287,11 @@ public class SQL1GrpSummary implements DropdownInterface {
 		         groupAndOrderByClause = " a.year, d.shortname ";
 			  }else {
 			     selectClause = "a.year, d.name as product,  ";
-			     groupAndOrderByClause = " d.name, a.year";				  
+			     groupAndOrderByClause = " d.name, a.year";			
 			  }
+			  //CXM
+			  isAllComps = true;
+			  
 			switch(heading1){
 			  case(COUNTRY):{
 	                TWO="Product";
@@ -261,6 +304,8 @@ public class SQL1GrpSummary implements DropdownInterface {
 		              selectClause = " d.name as product, a.year,  ";
 		              groupAndOrderByClause = " d.name , a.year ";	            		
 	            	}
+	            	//CXM
+				     isAllComps = true;
             	    if (summary ==3){
 						if (dropdown2 == -10) {
 							 andClause = " AND a.countryId NOT IN (20,21,-10,0,100) ";
@@ -290,8 +335,16 @@ public class SQL1GrpSummary implements DropdownInterface {
 		               groupAndOrderByClause = "c.country, a.year  ";	            		
 	            	}
             	    if (summary ==3){
-						 andClause = " AND a.productId = " +dropdown2;
-					} 
+        				if ( dropdown2 == 15 ||   dropdown2 == 80  ) {
+        					andClause=  " and d.shortname in ('WL<80','WL>80') "; 
+        				}
+        				else {
+        					//queryPart1 =  " select a.year, a.quantity,  substr(b.name,1,70)  as company, d.name as product, c.country ";
+        					andClause = " and a.productId = "+ dropdown2;
+        				}
+						 //andClause = " AND a.productId = " +dropdown2;
+					}
+   			       isAllComps = true;
 	            	break;
 			  }
 			  case(YEARS):{
@@ -305,6 +358,9 @@ public class SQL1GrpSummary implements DropdownInterface {
 		              selectClause = " c.country,  d.shortname as product,   ";
 		              groupAndOrderByClause = " c.country, d.shortname ";
 	            	}
+	            	//CXM
+				     isAllComps = true;
+				     
             	    if (summary ==3){
 						 andClause = " AND a.year = " +dropdown2;
 					} 
@@ -334,6 +390,10 @@ public class SQL1GrpSummary implements DropdownInterface {
 			
 		}
 		
+		 //CXM --
+		  if(isAllComps == false){
+  		      allCompClause = ""; 	    			  ;
+		  }
 		
 	      query = " select "+selectClause+"  SUM(a.quantity) quantity " +
 	      		" from Facts_"+access+" a, Company b, Country c, Product d " +
@@ -349,6 +409,8 @@ public class SQL1GrpSummary implements DropdownInterface {
 	    		  incExCountries +
 	    		  incExProducts+
 	    		  incExCompanies+
+	    		  //CXM
+	  		      allCompClause+ 
 	    		  dateParm+
 	    	//	  " and b.name != 'ALL COMPANIES' " +
 	    		  " and a.countryId = c.id" +
