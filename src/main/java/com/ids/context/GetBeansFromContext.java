@@ -26,7 +26,8 @@ public class GetBeansFromContext {
 		   if (myDataSourceName().equals("GOOGLE") || myDataSourceName().equals("AMAZON") ) {
 			  return "/"; 
 		   }
-        return "/ids/";
+        //return "/idstest/";
+	   return "/ids/";
 	}
 	public String myURL()
 	{
@@ -34,6 +35,15 @@ public class GetBeansFromContext {
 		   ApplicationContextProvider acp = (ApplicationContextProvider) ctx.getBean("contextApplicationContextProvider");
            return acp.getUrl();
 	}
+	
+	public String excelDownloadPath()
+	{
+		   ctx = AppContext.getApplicationContext(); 
+		   ApplicationContextProvider acp = (ApplicationContextProvider) ctx.getBean("contextApplicationContextProvider");
+           return acp.getexcelDownloadPath()+ ajaxURLprefix() +"/images/";
+	}
+	
+	
 	
 	public String myPassword()
 	{
@@ -94,7 +104,7 @@ public class GetBeansFromContext {
 			 
 			 con = DriverManager.getConnection(gcfc.myURL(),gcfc.myUserId(),gcfc.myPassword());
 			 
-			// System.out.println("HAWTHORNE: "+gcfc.myURL() );
+			 System.out.println("HAWTHORNE: "+gcfc.myURL() );
 		//	 System.out.println("HAWTHORNE: "+gcfc.myUserId() );
 		//	 System.out.println("HAWTHORNE: "+gcfc.myPassword() );
 			 }

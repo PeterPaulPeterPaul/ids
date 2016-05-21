@@ -60,22 +60,25 @@ public class FirstTimeEdQuery {
 	      }
 		  
 		  
-		  query="SELECT YEAR(DATE_ADD( CURDATE(), INTERVAL -5 YEAR)) as year1 ";
+		  //query="SELECT YEAR(DATE_ADD( CURDATE(), INTERVAL -5 YEAR)) as year1 ";
 
 		    	 
 		  List<Year> years = new ArrayList<Year>();	
-	      resultSet = statement.executeQuery(query);
-		   while (resultSet.next()) {
-		    	  Year year = new Year(resultSet.getString("year1"),resultSet.getString("year1"));
-		    	  years.add(year);
+	      //resultSet = statement.executeQuery(query);
+		 // while (resultSet.next()) {
+		    	//  Year year = new Year(resultSet.getString("year1"),resultSet.getString("year1"));
+		    	 
+		    // years.add(year);
 		    	  for (int i=1;i<=10;i++) {
 			    	  Year nextYear = new Year(
-			    			  Integer.toString(Integer.parseInt(year.getId())+i),
-			    			  Integer.toString(Integer.parseInt(year.getId())+i));
+			    			  Integer.toString(curYear + i -5),
+			    			  Integer.toString(curYear + i -5));
+			    			 // Integer.toString(Integer.parseInt(year.getId())+i),
+			    			 // Integer.toString(Integer.parseInt(year.getId())+i));
 			    	  years.add(nextYear);  
 		    	  }
 		    	  
-		   }
+		  // }
 		  
 
     	  YearArray yearArray = new YearArray("company",years);

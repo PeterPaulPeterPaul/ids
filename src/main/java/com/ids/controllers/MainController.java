@@ -101,8 +101,10 @@ public class MainController implements DropdownInterface {
    //    HashMap<Integer,Integer> otherLine = null;
 
 	 private String access= "";
-	 private String total="";
+	 private String total= "";	 
 	 private String percent="";
+	 
+	 
 	 @RequestMapping( method = RequestMethod.GET)
 	public String getMethodOne(
             HttpServletResponse response,
@@ -124,6 +126,7 @@ public class MainController implements DropdownInterface {
 
 	      ResultSet resultSet = null;
 	      HttpSession session = request.getSession(true);
+	      
 	      User user = (User) session.getAttribute("myUser");
 	 		 if (user==null ) {
 	   		      model.addAttribute("errortext","You must logon before you can access IDS");
@@ -140,6 +143,7 @@ public class MainController implements DropdownInterface {
 	 			logger.warning("JOHN 2");
 	 			return "redirect:/login"; 
 	 		 }
+	 		 
 	 		String      query = " select 'found' as found from ids_users where userId = '"+user.getUserName()
 					  +"' and passwordId = '"+user.getPassword()+"'";
 
@@ -164,9 +168,19 @@ public class MainController implements DropdownInterface {
 	           // final Calendar c = Calendar.getInstance();
 	          //chris   int myYear =  c.get(Calendar.YEAR) ;
 			   
-
            	      access=user.getCurrentLocation();
-           	
+
+   			   // Set up the last updated date 
+     			 
+           	      String lastUpdated = "";
+           	      
+           	      query=" SELECT DATE_FORMAT( last_update_time, '%d-%b-%y') as lastUpdated from last_update where access = '" +access+ "'";
+	      	      resultSet = statement.executeQuery(query);
+	   		      resultSet.next();
+	   		      lastUpdated = resultSet.getString("lastUpdated");
+	   		      model.addAttribute("lastUpdated",lastUpdated);
+   			   //
+           	      
 	              query="SELECT MAX(year) as year1 from Facts_"+access+" where Sales_Production = 2 ";
 	      	      resultSet = statement.executeQuery(query);
 	   		      resultSet.next();

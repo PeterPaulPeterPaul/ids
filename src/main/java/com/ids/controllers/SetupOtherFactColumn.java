@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.servlet.ServletContext;
 //import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -200,9 +201,37 @@ public class SetupOtherFactColumn {
 	    		
 			    
 			    ///// CREATE THE EXCEL DOWNLOAD....
-			   FileOutputStream fileOut = new FileOutputStream("../webapps"+gcfc.ajaxURLprefix()+"/pages/"+IDSversion.toLowerCase()+".xlsx");
-			  // FileOutputStream fileOut = new FileOutputStream(IDSversion+".xlsx");			   
-			   
+			  
+				// HttpSession session = request.getSession(true);
+				// ServletContext context = session.getServletContext();
+			   //  String realContextPath = context.getRealPath(request.getContextPath());
+			   //  logger.warning(realContextPath);
+			   //  String contextPath = realContextPath.replaceFirst("ids","");
+			   //  logger.warning(contextPath);
+			    // logger.warning(contextPath + "/webapps"+gcfc.ajaxURLprefix()+"/pages/"+IDSversion.toLowerCase()+".xlsx");
+			     
+			    //opt/IDS/apache-tomcat-7.0.40/webapps/ids/images
+
+
+					 //  FileOutputStream fileOut = new FileOutputStream(realContextPath+"\\off-highway.xls");
+					//	HSSFWorkbook workbook = new HSSFWorkbook();
+					//	HSSFSheet worksheet = workbook.createSheet("Off-Highway Research");
+
+					//	workbook.write(fileOut);
+					//	fileOut.flush();
+					//	fileOut.close();
+			  
+			    // use this to test on windows. 
+			  // FileOutputStream fileOut = new FileOutputStream("../webapps"+gcfc.ajaxURLprefix()+"/pages/"+IDSversion.toLowerCase()+".xlsx");
+			  //logger.warning(fileOut.toString());
+			  //logger.warning(gcfc.myURL());
+			  logger.warning(gcfc.excelDownloadPath());
+			  // use this one in prod...   
+			   FileOutputStream fileOut = new FileOutputStream( gcfc.excelDownloadPath() + IDSversion.toLowerCase()+".xlsx") ;
+
+			   //FileOutputStream fileOut = new FileOutputStream(IDSversion+".xlsx");			   
+
+				  
 			   String sql = " select case Sales_Production WHEN 1 then 'Sales' WHEN 2 then 'Production' END sales_production, " +
 			            " product.NAME product, country.country country, Quantity quantity, year, company.NAME company " +
 					    " FROM Facts_"+access+" main,country,product,company " +

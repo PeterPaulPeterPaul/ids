@@ -24,6 +24,7 @@ public class ApplicationContextProvider implements ApplicationContextAware {
 	private String username ="";
 	private String password ="";
 	private String dataSourceName = "";
+	private String excelDownloadPath = "";
 	
 
     public void setApplicationContext(ApplicationContext ctx) throws BeansException {
@@ -40,6 +41,13 @@ public class ApplicationContextProvider implements ApplicationContextAware {
    }
     public void setUrl(String url) {
     	this.url = url;
+    }
+    
+    public String getexcelDownloadPath(){
+    	return excelDownloadPath;
+   }
+    public void setexcelDownloadPath(String excelDownloadPath) {
+    	this.excelDownloadPath = excelDownloadPath;
     }
     
     
