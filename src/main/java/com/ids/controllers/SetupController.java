@@ -345,6 +345,9 @@ public class SetupController {
 	    	    	statement = con.prepareStatement(sql);
 	    	    	statement.execute();
 	    	    	
+	    	    	sql = " UPDATE last_update set last_update_time = NOW() where access = '"+access+"'";
+	    		    statement.executeUpdate(sql);
+	    	    	
 	    	    	con.commit(); 	
     	 /*   	   	      
  			    
@@ -663,6 +666,7 @@ public class SetupController {
     	    	try 
     	    	{
     	    	while ((sCurrentLine = br.readLine()) != null) {
+    	    		
     	    		String[] parms = sCurrentLine.split("\t");
     	    		if (parms.length==0)
     	    			continue;
@@ -676,19 +680,19 @@ public class SetupController {
     	    		
       	    		if (count == 1) {
 
-    	    	    	logger.warning("first time parm 4 = "+parms[4]+" parms 6 =  " + parms[5]);
+    	    	    	logger.warning("first time parm 4 = "+parms[parms.length-1]+" parms 6 =  " + parms[parms.length-2]);
     	    	    	
-    	    			if (parms.length <6 ){
-    	    				logger.warning("Not enough values in the file - should be a Company.unl ");
+    	    			//if (parms.length <6 ){
+    	    			// logger.warning("Not enough values in the file - should be a Company.unl ");
 
-    	    				map.addAttribute("errortext"," Cannot read file - should be a Company.unl"); 
-   	    	    	     	map.addAttribute("displaytype2","none");
-    	   	    	        map.addAttribute("displaytype","block");
-  	    	 	    	    con.rollback();
-  	    	    	    	return  "setup";
-        	    		}
+    	    				//map.addAttribute("errortext"," Cannot read file - should be a Company.unl"); 
+   	    	    	     	//map.addAttribute("displaytype2","none");
+    	   	    	        //map.addAttribute("displaytype","block");
+  	    	 	    	    //con.rollback();
+  	    	    	    	//return  "setup";
+        	    		//}
     	    	    	    			
-    	    	    	if (!parms[5].equals("Company")){
+    	    	    	if (!parms[parms.length-1].equals("Company")){
     	    				logger.warning("must be a Company.unl ");
   		    	    				
     	    				 map.addAttribute("errortext"," Wrong data - must be a Company.unl!");
@@ -697,11 +701,11 @@ public class SetupController {
   	    	 	    	    con.rollback();
     	    	 	    	   return  "setup";
     	    			}
-        	    		if (!parms[4].equals(IDSversion)){
+        	    		if (!parms[parms.length-2].equals(IDSversion)){
     	        	    	map.addAttribute("displaytype2","block");
 
     	    				logger.warning("Wrong Version");
-   	    				    map.addAttribute("errortext"," Wrong Database : " + IDSversion.toString() + " selected - file is :" + parms[7].toString());  
+   	    				    map.addAttribute("errortext"," Wrong Database : " + IDSversion.toString() + " selected - file is :" + parms[parms.length-2].toString());  
    	    				    map.addAttribute("displaytype2","none");
    	   	    	    	    map.addAttribute("displaytype","block");
 
