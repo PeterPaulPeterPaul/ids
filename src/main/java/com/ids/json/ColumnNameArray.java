@@ -55,7 +55,9 @@ public class ColumnNameArray implements DropdownInterface {
 	          
 	          if (topRow.equals("product shortname")) {
 	        	  
-	        	  query = "select distinct d.shortname from Product d where d.access = '"+access+"'" +
+	        	  //CXM11 - Dont show WHLO in as a column header 
+	        	  
+	        	  query = "select distinct d.shortname from Product d where shortname <> 'WHLO' and d.access = '"+access+"'" +
 	        	  srp.getIncExProducts()+
 	        	  		" order by d.shortname asc";
 	        	  resultSet = statement.executeQuery(query);
@@ -71,7 +73,9 @@ public class ColumnNameArray implements DropdownInterface {
 	          }
 	          if (topRow.equals("country shortname")) {
 	        	  
-	        	  query = "select distinct c.shortname from Country c where c.shortname != 'ALLY' and c.ID > 0 and c.access = '"+access+"' " +
+	        	  //CXM - exclude Europe
+	        	  
+	        	  query = "select distinct c.shortname from Country c where c.shortname != 'EUR' and c.ID > 0 and c.access = '"+access+"' " +
 	        			  srp.getIncExCountries()+
 	        	  		" order by SortOrder asc";
 	        	  resultSet = statement.executeQuery(query);
