@@ -112,11 +112,12 @@ public class SaveToProductionController implements DropdownInterface {
 	      SQL_string = "delete from  Facts_w  ";
 	      statement.executeUpdate(SQL_string);
 	      
-          con.commit();
+          //con.commit();
   
-          
-	      
 	      SQL_string = "insert into Facts_w select * from FactsEdit_w ";
+	      statement.executeUpdate(SQL_string);
+	      
+	      SQL_string  = " UPDATE last_update set last_update_time = NOW() where access = 'w' ";
 	      statement.executeUpdate(SQL_string);
 	      
           con.commit();
